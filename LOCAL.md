@@ -139,6 +139,20 @@ perl-dancer, lustre, nanopb, duktape.
  * url: http://www.nongnu.org/quagga/
  * path: srcpkgs/quagga/template
 
+## Rebar3
+
+ * url: https://www.rebar3.org/
+ * src: https://github.com/erlang/rebar3
+ * path: srcpkgs/rebar3/template
+ * version: 3.5.5
+
+ * fetch: ok
+ * extract: ok
+ * build: ok
+ * package: ok
+ * package-test: wip
+ * tested: wip
+
 ## RethinkDB 
 
  * path: srcpkgs/rethinkdb/template
@@ -148,6 +162,10 @@ perl-dancer, lustre, nanopb, duktape.
  * url: http://basho.com/products/
  * src: https://github.com/basho/riak
  * path: srcpkgs/riak/template
+ * version: 2.1.1
+
+ * fetch: ok
+ * extract: ok
 
 ## RumpKernel
 

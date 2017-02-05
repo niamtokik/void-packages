@@ -3,42 +3,23 @@
 pkgname="rebar3"
 version="3.3.5"
 revision=1
-build_style=configure
-short_desc="Erlang build tool that makes it easy to compile and test Erlang applications and releases"
+# build_style="gnu-configure"
+short_desc="Erlang build tool"
 maintainer="Mathieu Kerjouan <void@steepath.eu>"
-license="GPL-3"
+license="Apache-2.0"
 homepage="https://github.com/erlang/rebar3"
 distfiles="https://github.com/erlang/${pkgname}/archive/${version}.tar.gz"
 checksum="b17661bedaf2060179e0b7b2c4a64350b7a303d809397325ee4be38cc1dc9058"
 hostmakedepends="erlang"
 depends="erlang"
 
-pre_configure() {
-	true
-}
-
-do_configure() {
-	true
-}
-
-post_configure() {
-	true
-}
-
-pre_build() {
-	true
-}
-
 do_build() {
 	./bootstrap
 }
 
-post_build() {
-	true
-}
-
 do_install() {
-	ls -lhart
-	exit
+	vmkdir usr/bin
+	vman manpages/rebar3.1
+	vcopy rebar3 usr/bin/rebar3
+	vlicense LICENSE
 }
-
