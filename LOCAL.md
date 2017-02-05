@@ -6,7 +6,13 @@
 
 ## srcpkgs/clojure/template
 
-## srcpkgs/corosync/template
+## srcpkgs/corosync/template (2.4.2)
+
+ * fetch: ok
+ * configure: ok
+ * build: ok
+ * package: ok
+ * package-devel: wip
 
 ## srcpkgs/elm/template
 
@@ -16,7 +22,21 @@
 
 ## srcpkgs/kafka/template
 
-## srcpkgs/libsasl/template
+## srcpkgs/libqb/template (1.0.1)
+
+ * fetch: ok
+ * configure: ok
+ * build: ok
+ * package: ok
+ * package-devel: wip
+
+## srcpkgs/libsasl/template (2.1.26)
+
+ * fetch: ok
+ * configure: ok
+ * build: ok
+ * package: ok
+ * package-devel: wip
 
 ## srcpkgs/libzookeeper/template
 
@@ -34,7 +54,13 @@
 
 ## srcpkgs/scala/template
 
-## srcpkgs/sheepdog/template
+## srcpkgs/sheepdog/template (1.0.1)
+
+ * fetch: ok
+ * configure: ok
+ * build: ok
+ * package: ok
+ * package-devel: wip
 
 ## srcpkgs/zebra/template
 
