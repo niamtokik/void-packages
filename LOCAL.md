@@ -1,67 +1,177 @@
 # Local support template
 
-## srcpkgs/barrel/template
+##  BarrelDB
 
-## srcpkgs/chef/template
+ * url: https://barrel-db.org/
+ * src: https://github.com/barrel-db/barrel-platform/
+ * path: srcpkgs/barrel/template
 
-## srcpkgs/clojure/template
+## Chef 
 
-## srcpkgs/corosync/template (2.4.2)
+ * url: http://chef.io/
+ * src: https://github.com/chef/chef
+ * path: srcpkgs/chef/template
 
- * fetch: ok
- * configure: ok
- * build: ok
- * package: ok
- * package-devel: wip
+## Clojure
 
-## srcpkgs/elm/template
+ * url: http://clojure.github.io/
+ * src: https://github.com/clojure/clojure
+ * path: srcpkgs/clojure/template
 
-## srcpkgs/fsharp/template
+## Corosync
 
-## srcpkgs/hadoop/template
-
-## srcpkgs/kafka/template
-
-## srcpkgs/libqb/template (1.0.1)
-
- * fetch: ok
- * configure: ok
- * build: ok
- * package: ok
- * package-devel: wip
-
-## srcpkgs/libsasl/template (2.1.26)
+ * url: https://corosync.github.io/corosync/
+ * src: https://github.com/corosync/corosync
+ * path: srcpkgs/corosync/template
+ * version: 2.4.2
 
  * fetch: ok
  * configure: ok
  * build: ok
  * package: ok
  * package-devel: wip
+ * tested: wip
 
-## srcpkgs/libzookeeper/template
+## Elastic Search
 
-## srcpkgs/neo4j/template
+ * url: http://www.elastic.co/
+ * src: https://github.com/elastic/elasticsearch
+ * path: srcpkgs/elastic-search/template
 
-## srcpkgs/openswan/template
+## Elm
 
-## srcpkgs/quagga/template
+ * url: http://elm-lang.org/
+ * src: https://github.com/elm-lang/core
+ * path: srcpkgs/elm/template
+  
+## F#
 
-## srcpkgs/rethinkdb/template
+ * url: 
+ * src: https://github.com/fsharp/fsharp
+ * path: srcpkgs/fsharp/template
 
-## srcpkgs/riak/template
+## Hadoop
 
-## srcpkgs/rumpkernel/template
+ * url: http://hadoop.apache.org/
+ * src: https://github.com/apache/hadoop
+ * path: srcpkgs/hadoop/template
 
-## srcpkgs/scala/template
+## Kafka
 
-## srcpkgs/sheepdog/template (1.0.1)
+ * url: https://kafka.apache.org/
+ * src: https://github.com/apache/kafka
+ * path: srcpkgs/kafka/template
+
+## Kibana
+
+ * url: http://www.elastic.co/products/kibanA
+ * src: https://github.com/elastic/kibana
+ * path: srcpkgs/kibana/template
+
+## libqb
+
+ * path: srcpkgs/libqb/template 
+ * version: 1.0.1
 
  * fetch: ok
  * configure: ok
  * build: ok
  * package: ok
  * package-devel: wip
+ * tested: wip
 
-## srcpkgs/zebra/template
+## libsasl
 
-## srcpkgs/zookeeper/template
+ * path: srcpkgs/libsasl/template 
+ * verison: 2.1.26
+
+ * fetch: ok
+ * configure: ok
+ * build: ok
+ * package: ok
+ * package-devel: wip
+ * tested: wip
+
+## libzoopeeper
+
+ * path: srcpkgs/libzookeeper/template
+
+## Logstash
+
+ * url: http://www.elastic.co/products/logstash
+ * src: https://github.com/elastic/logstash
+ * path: srcpkgs/logstash/template
+
+## Nagios
+
+ * url: https://www.nagios.org
+ * path: srcpkgs/nagios/template
+
+## Neo4j
+
+ * path: srcpkgs/neo4j/template
+
+## OpenSWAN
+
+ * path: srcpkgs/openswan/template
+
+## OpenStack Swift
+
+ * url: http://openstack.org/
+ * src: https://github.com/openstack/swift
+ * path: srcpkgs/openstack-swift/template
+
+## Quaggua 
+
+ * url: http://www.nongnu.org/quagga/
+ * path: srcpkgs/quagga/template
+
+## RethinkDB 
+
+ * path: srcpkgs/rethinkdb/template
+
+## Riak
+
+ * url: http://basho.com/products/
+ * src: https://github.com/basho/riak
+ * path: srcpkgs/riak/template
+
+## RumpKernel
+
+ * src: https://github.com/rumpkernel
+ * path: srcpkgs/rumpkernel/template
+
+## Scala
+
+ * url: http://www.scala-lang.org/
+ * scala: https://github.com/scala/scala
+ * path: srcpkgs/scala/template
+
+## Shinken
+
+ * url: http://www.shinken-monitoring.org/
+ * src: https://github.com/naparuba/shinken
+ * path: srcpkgs/shinken/template
+
+## Sheepdog
+
+ * path: srcpkgs/sheepdog/template 
+ * version: 1.0.1
+
+ * fetch: ok
+ * configure: ok
+ * build: ok
+ * package: ok
+ * package-devel: wip
+ * tested: wip
+
+## Zebra
+
+ * url: https://www.gnu.org/software/zebra/
+ * path: srcpkgs/zebra/template
+
+## Zookeeper:
+
+ * url: https://zookeeper.apache.org/
+ * src: https://github.com/apache/zookeeper
+ * path: srcpkgs/zookeeper/template
