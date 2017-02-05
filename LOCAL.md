@@ -1,5 +1,8 @@
 # Local support template
 
+Not listed: shelldap, metasploit, python-fabric, 
+perl-dancer, lustre, nanopb, duktape. 
+
 ##  BarrelDB
 
  * url: https://barrel-db.org/
