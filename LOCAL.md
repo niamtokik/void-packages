@@ -51,8 +51,28 @@ perl-dancer, lustre, nanopb, duktape.
  * url: http://elm-lang.org/
  * src: https://github.com/elm-lang/core
  * path: srcpkgs/elm/template
+
+## Erlang Modules
+
+ * erlang-cowboy (https://github.com/ninenines/cowboy) 
+ * erlang-bullet (https://github.com/ninenines/bullet)
+ * erlang-ranch (https://github.com/ninenines/ranch)
+ * erlang-cowlib (https://github.com/ninenines/cowlib)
+ * erlang-gun (https://github.com/ninenines/gun)
+ * erlang-goldrush (https://github.com/DeadZen/goldrush)
+ * erlang-lager (https://github.com/erlang-lager/lager)
+ * erlang-mimerl (https://github.com/benoitc/mimerl)
+ * erlang-metrics (https://github.com/benoitc/erlang-metrics)
+ * erlang-idna (https://github.com/tim/erlang-idna)
+ * erlang-hackney (https://github.com/benoitc/hackney)
+ * erlang-jsx (https://github.com/talentdeficit/jsx)
+ * erlang-worker_pool (://github.com/inaka/worker_pool)
+ * erlang-quickrand (https://github.com/okeuday/quickrand)
+ * erlang-uuid (https://github.com/avtobiff/erlang-uuid)
+ * erlang-gproc (https://github.com/uwiger/gproc)
+ * erlang-trails (https://github.com/inaka/cowboy-trails)
   
-## F#
+## F\#
 
  * url: 
  * src: https://github.com/fsharp/fsharp
