@@ -6,6 +6,11 @@
  * src: https://github.com/barrel-db/barrel-platform/
  * path: srcpkgs/barrel/template
 
+## Cassandra
+
+ * url: https://cassandra.apache.org/
+ * path: srcpkgs/cassandra/template
+
 ## Chef 
 
  * url: http://chef.io/
@@ -55,6 +60,11 @@
  * url: http://hadoop.apache.org/
  * src: https://github.com/apache/hadoop
  * path: srcpkgs/hadoop/template
+
+## Hive
+
+ * url: https://hive.apache.org/
+ * path: srcpkgs/hive/template
 
 ## Kafka
 
@@ -155,6 +165,8 @@
 
 ## Sheepdog
 
+ * url: http://sheepdog.github.io/
+ * src: https://github.com/sheepdog/sheepdog/
  * path: srcpkgs/sheepdog/template 
  * version: 1.0.1
 
@@ -164,6 +176,17 @@
  * package: ok
  * package-devel: wip
  * tested: wip
+
+## Spark
+
+ * url: https://spark.apache.org/
+ * path: srcpkgs/spark/template
+
+## Xorp
+
+ * url: http://www.xorp.org/
+ * src: https://github.com/greearb/xorp.ct
+ * path: srcpkgs/xorp/template
 
 ## Zebra
 
