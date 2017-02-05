@@ -1,1 +1,20 @@
 # Template build file for 'corosync'.
+pkgname="corosync"
+version="2.4.2"
+revision=1
+build_style="configure"
+short_desc="The Corosync Cluster Engine"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://www.foo.org"
+distfiles="https://github.com/corosync/corosync/archive/v${version}.tar.gz"
+checksum="0dd0ee718253c18c5090e0304eec72a7be8b18b6fe5e03de59ce095fa08c8b63"
+hostmakedepends="autoconf automake pkg-config libtool nss-devel libqb"
+configure_args="--prefix=/usr --sbindir=/usr/bin --with-check=yes"
+shlib_provides="libsam.so.4 libvotequorum.so.8 libquorum.so.5 libcpg.so.4
+		libcfg.so.6 libcorosync_common.so.4 libcmap.so.4 
+		libtotem_pg.so.5"
+
+pre_configure() {
+	sh autogen.sh
+}
