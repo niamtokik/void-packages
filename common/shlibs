@@ -2776,3 +2776,4 @@ libcfg.so.6 corosync-2.4.2_1
 libcorosync_common.so.4 corosync-2.4.2_1
 libcmap.so.4 corosync-2.4.2_1
 libtotem_pg.so.5 corosync-2.4.2_1
+libsheepdog.so sheepdog-1.0.1_1
