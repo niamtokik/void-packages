@@ -1,0 +1,12 @@
+# Template build file for 'hadoop'.
+pkgname=hadoop
+version=2.7.3
+revision=1
+build_style=gnu-configure
+configure_args=""
+short_desc="Hadoop"
+maintainer=""
+homepage=""
+license="GPL-3"
+distfiles="http://apache.trisect.eu/hadoop/common/hadoop-${version}/hadoop-${version}-src.tar.gz"
+checksum=227785dc6e3e6ef8cfd64393b305d09078a209703c9c01910a1bddcf86be3054
