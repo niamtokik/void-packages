@@ -1,1 +1,24 @@
 # Template build file for 'fsharp'.
+
+pkgname="fsharp"
+version="4.0.1.21"
+revision=1
+build_style=gnu-configure
+short_desc="The Open Edition of the F# compiler, core library and tools"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="http://fsharp.org/"
+distfiles="https://github.com/fsharp/${pkgname}/archive/${version}.tar.gz"
+checksum="f0a72520a239cdb50c0146be8791d27a465022f63728912263c86391d10e7570"
+hostmakedepends="mono"
+depends="mono"
+
+pre_configure() {
+	./autogen.sh --prefix=/usr
+}
+
+do_configure() {
+	./configure --prefix=/usr
+}
+
+

@@ -31,7 +31,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-uuid      |   |   |   |   |   |   |         |      |
 | erlang-webmachine|   |   |   |   |   |   |         |      |
 | erlang-worker_pool|  |   |   |   |   |   |         |      |
-| fsharp           |   |   |   |   |   |   |         |      |
+| fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
 | graylog          | X |   |   |   |   |   |   2.1.3 |      |
 | hadoop           |   |   |   |   |   |   |         |      |
 | hive             |   |   |   |   |   |   |         |      |
