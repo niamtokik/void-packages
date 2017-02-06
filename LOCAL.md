@@ -52,7 +52,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | riak             | X | X | E |   |   |   |         | !erlang<R18 |
 | rumpkernel       |   |   |   |   |   |   |         |      |
 | scala            |   |   |   |   |   |   |         |      |
-| shinken          |   |   |   |   |   |   |         |      |
+| shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
 | sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
 | shelldap         |   |   |   |   |   |   |         |      |
 | spark            |   |   |   |   |   |   |         |      |
