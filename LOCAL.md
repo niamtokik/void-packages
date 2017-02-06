@@ -69,28 +69,61 @@ wip
 
 ## Erlang Modules
 
- * erlang-bullet (https://github.com/ninenines/bullet)
- * erlang-cowboy (https://github.com/ninenines/cowboy) 
- * erlang-cowlib (https://github.com/ninenines/cowlib)
- * erlang-goldrush (https://github.com/DeadZen/goldrush)
- * erlang-gproc (https://github.com/uwiger/gproc)
- * erlang-gun (https://github.com/ninenines/gun)
- * erlang-hackney (https://github.com/benoitc/hackney)
- * erlang-idna (https://github.com/tim/erlang-idna)
- * erlang-jsx (https://github.com/talentdeficit/jsx)
- * erlang-lager (https://github.com/erlang-lager/lager)
- * erlang-metrics (https://github.com/benoitc/erlang-metrics)
- * erlang-mimerl (https://github.com/benoitc/mimerl)
- * erlang-procket (https://github.com/msantos/procket) 
- * erlang-quickrand (https://github.com/okeuday/quickrand)
- * erlang-ranch (https://github.com/ninenines/ranch)
- * erlang-safetyvalve (https://github.com/jlouis/safetyvalve)
- * erlang-sut (https://github.com/msantos/sut)
- * erlang-thrift (https://thrift.apache.org/lib/erl)
- * erlang-trails (https://github.com/inaka/cowboy-trails)
- * erlang-uuid (https://github.com/avtobiff/erlang-uuid)
- * erlang-webmachine (https://github.com/webmachine/webmachine)
- * erlang-worker_pool (://github.com/inaka/worker_pool)
+### erlang-asciideck (https://github.com/ninenines/asciideck)
+
+ * doesn't have stable release yet.
+
+### erlang-bullet (https://github.com/ninenines/bullet)
+
+### erlang-cowboy (https://github.com/ninenines/cowboy) 
+
+ * fetch: ok
+ * build: ok
+ * package: ok
+
+### erlang-cowlib (https://github.com/ninenines/cowlib)
+
+ * fetch: ok
+ * build: ok
+ * package: ok
+
+### erlang-goldrush (https://github.com/DeadZen/goldrush)
+
+### erlang-gproc (https://github.com/uwiger/gproc)
+
+### erlang-gun (https://github.com/ninenines/gun)
+
+### erlang-hackney (https://github.com/benoitc/hackney)
+
+### erlang-idna (https://github.com/tim/erlang-idna)
+
+### erlang-jsx (https://github.com/talentdeficit/jsx)
+
+### erlang-lager (https://github.com/erlang-lager/lager)
+
+### erlang-metrics (https://github.com/benoitc/erlang-metrics)
+
+### erlang-mimerl (https://github.com/benoitc/mimerl)
+
+### erlang-procket (https://github.com/msantos/procket) 
+
+### erlang-quickrand (https://github.com/okeuday/quickrand)
+
+### erlang-ranch (https://github.com/ninenines/ranch)
+
+### erlang-safetyvalve (https://github.com/jlouis/safetyvalve)
+
+### erlang-sut (https://github.com/msantos/sut)
+
+### erlang-thrift (https://thrift.apache.org/lib/erl)
+
+### erlang-trails (https://github.com/inaka/cowboy-trails)
+
+### erlang-uuid (https://github.com/avtobiff/erlang-uuid)
+
+### erlang-webmachine (https://github.com/webmachine/webmachine)
+
+### erlang-worker_pool (://github.com/inaka/worker_pool)
   
 ## F\#
 
@@ -317,3 +350,17 @@ wip
  * path: srcpkgs/zookeeper/template
 
 wip
+
+# Build Style
+
+## erlang-mk
+
+ * path: common/build-style/erlang-mk.sh
+
+## erlang-rebar2
+
+ * path: common/build-style/erlang-rebar2.sh 
+
+## erlang-rebar3
+
+ * path: common/build-style/erlang-rebar3.sh
