@@ -1,0 +1,20 @@
+# Template file for 'erlang-asciideck'
+
+pkgname="erlang-asciideck"
+version="0.1.0"
+revision=1
+build_style=erlang-mk
+short_desc="Asciidoc for Erlang."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ninenines/asciideck"
+distfiles="https://github.com/ninenines/${pkgname#erlang-}/archive/48cbfe8b60f3e555acd2d623db10e4eb56234179.tar.gz"
+checksum="0be7035a7ea245a2010ebe4a9a23a3fe79c63c6928b1dfd4640bef92c74bd99e"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_build() {
+	make
+	make app
+}

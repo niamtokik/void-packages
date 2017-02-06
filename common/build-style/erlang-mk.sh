@@ -6,14 +6,28 @@ do_configure() {
 	:
 }
 
+pre_build() {
+	:
+}
+
 do_build() {
-	make all
+	make app
+}
+
+post_build() {
+	:
 }
 
 do_install() {
-	ls -lhart
-	vmkdir usr/lib/erlang/lib/${pkgname}-${version}/ebin
-	vmkdir usr/lib/erlang/lib/${pkgname}-${version}/src
-	vcopy ebin/* usr/lib/erlang/lib/${pkgname}-${version}/ebin
-	vcopy src/* usr/lib/erlang/lib/${pkgname}-${version}/src
+	_erlib="usr/lib/erlang/lib"
+	_pkglib="${pkgname}-${version}"
+
+	for target in ebin src examples doc
+	do
+		if [ -d "${target}" ] 
+		then
+			vmkdir ${_erlib}/${_pkglib}/${target}
+			vcopy ${target}/* ${_erlib}/${_pkglib}/${target}
+		fi
+	done
 }
