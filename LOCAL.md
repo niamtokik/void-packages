@@ -11,7 +11,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | corosync         | X | X | X | X |   |   |       |
 | elastic-search   |   |   |   |   |   |   |       |
 | elm              |   |   |   |   |   |   |       |
-| erlang-asciideck | E |   |   |   |   |   |       |
+| erlang-asciideck | E |   |   |   |   |   | unstable |
 | erlang-bullet    |   |   |   |   |   |   |       |
 | erlang-cowlib    | X | X | X | X |   |   |       |
 | erlang-gproc     |   |   |   |   |   |   |       |
@@ -30,7 +30,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-trails    |   |   |   |   |   |   |       |
 | erlang-uuid      |   |   |   |   |   |   |       |
 | erlang-webmachine|   |   |   |   |   |   |       |
-| erlang-worker_pool |   |   |   |   |   |   |       |
+| erlang-worker_pool|  |   |   |   |   |   |       |
 | fsharp           |   |   |   |   |   |   |       |
 | hadoop           |   |   |   |   |   |   |       |
 | hive             |   |   |   |   |   |   |       |
@@ -420,12 +420,18 @@ wip
 
 ## erlang-mk
 
+ * url: https://erlang.mk/guide
  * path: common/build-style/erlang-mk.sh
+ * depends: erlang, gmake
 
 ## erlang-rebar2
 
+ * url: https://github.com/rebar/rebar
  * path: common/build-style/erlang-rebar2.sh 
+ * depends: erlang
 
 ## erlang-rebar3
 
+ * url: https://www.rebar3.org/
  * path: common/build-style/erlang-rebar3.sh
+ * depends: erlang
