@@ -1,7 +1,6 @@
 # Local support template
 
-Not listed: shelldap, metasploit, python-fabric, 
-perl-dancer, lustre, nanopb, duktape. 
+Not listed: python-fabric, perl-dancer, nanopb, duktape. 
 
 | Name             | F | C | B | P | I | T | Notes |
 |------------------|---|---|---|---|---|---|-------|
@@ -13,8 +12,25 @@ perl-dancer, lustre, nanopb, duktape.
 | elastic-search   |   |   |   |   |   |   |       |
 | elm              |   |   |   |   |   |   |       |
 | erlang-asciideck | E |   |   |   |   |   |       |
+| erlang-bullet    |   |   |   |   |   |   |       |
 | erlang-cowlib    | X | X | X | X |   |   |       |
+| erlang-gproc     |   |   |   |   |   |   |       |
+| erlang-gun       |   |   |   |   |   |   |       |
+| erlang-hackney   |   |   |   |   |   |   |       |
+| erlang-idna      |   |   |   |   |   |   |       |
+| erlang-jsx       |   |   |   |   |   |   |       |
+| erlang-lager     |   |   |   |   |   |   |       |
+| erlang-metrics   |   |   |   |   |   |   |       |
+| erlang-mimerl    |   |   |   |   |   |   |       |
+| erlang-procket   |   |   |   |   |   |   |       |
+| erlang-quickrand |   |   |   |   |   |   |       |
 | erlang-ranch     | X | X | X | X |   |   |       |
+| erlang-sut       |   |   |   |   |   |   |       |
+| erlang-thrift    |   |   |   |   |   |   |       |
+| erlang-trails    |   |   |   |   |   |   |       |
+| erlang-uuid      |   |   |   |   |   |   |       |
+| erlang-webmachine|   |   |   |   |   |   |       |
+| erlang-worker_pool |   |   |   |   |   |   |       |
 | fsharp           |   |   |   |   |   |   |       |
 | hadoop           |   |   |   |   |   |   |       |
 | hive             |   |   |   |   |   |   |       |
@@ -24,7 +40,9 @@ perl-dancer, lustre, nanopb, duktape.
 | libsasl          | X | X | X | X |   |   | +CRAM-MD5 |
 | libzookeeper     |   |   |   |   |   |   |       |
 | logstash         |   |   |   |   |   |   |       |
+| lustre           |   |   |   |   |   |   |       |
 | mesos            |   |   |   |   |   |   |       |
+| metasploit       |   |   |   |   |   |   |       |
 | nagios           |   |   |   |   |   |   |       |
 | neo4j            |   |   |   |   |   |   |       |
 | openswan         |   |   |   |   |   |   |       |
@@ -37,6 +55,7 @@ perl-dancer, lustre, nanopb, duktape.
 | scala            |   |   |   |   |   |   |       |
 | shinken          |   |   |   |   |   |   |       |
 | sheepdog         | X | X | X | X |   |   |       |
+| shelldap         |   |   |   |   |   |   |       |
 | spark            |   |   |   |   |   |   |       |
 | xorp             |   |   |   |   |   |   |       |
 | zebra            |   |   |   |   |   |   |       |
