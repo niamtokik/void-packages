@@ -1,0 +1,14 @@
+# Template file for 'graylog'
+
+pkgname="graylog"
+version="2.1.3"
+revision=1
+build_style=fetch
+short_desc="open-source log manager"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL"
+homepage="logstash.elastic.co"
+distfiles="https://packages.graylog2.org/releases/${pkgname}/${pkgname}-${version}.tgz"
+checksum="eb66106d609d00c55e6d914d14b7ea881f8db9317fb443a8bbc66c55f924f94c"
+# hostmakedepends=""
+# depends=""

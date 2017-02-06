@@ -32,13 +32,14 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-webmachine|   |   |   |   |   |   |         |      |
 | erlang-worker_pool|  |   |   |   |   |   |         |      |
 | fsharp           |   |   |   |   |   |   |         |      |
+| graylog          | X |   |   |   |   |   |   2.1.3 |      |
 | hadoop           |   |   |   |   |   |   |         |      |
 | hive             |   |   |   |   |   |   |         |      |
 | kafka            |   |   |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |
 | libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
 | libzookeeper     |   |   |   |   |   |   |         |      |
-| logstash         |   |   |   |   |   |   |         |      |
+| logstash         | X | X | E |   |   |   |         | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
 | metasploit       |   |   |   |   |   |   |         |      |

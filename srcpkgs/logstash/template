@@ -1,0 +1,14 @@
+# Template file for 'logstash'
+
+pkgname="logstash"
+version="5.2.0"
+revision=1
+build_style=ruby-module
+short_desc="Logstash - transport and process your logs, events, or other data"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://logstash.elastic.co"
+distfiles="https://artifacts.elastic.co/downloads/logstash/logstash-5.2.0.tar.gz"
+checksum="f371d20127fb9b34a6575ba0d69fa764df73718eda02adc177a85fd3117500f0"
+hostmakedepends="ruby ruby-devel"
+depends="ruby"
