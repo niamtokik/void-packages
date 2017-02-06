@@ -41,7 +41,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | libzookeeper     |   |   |   |   |   |   |       |
 | logstash         |   |   |   |   |   |   |       |
 | lustre           |   |   |   |   |   |   |       |
-| mesos            |   |   |   |   |   |   |       |
+| mesos            | X | X | E |   |   |   | libsasl CRAM-MD5 support |
 | metasploit       |   |   |   |   |   |   |       |
 | nagios           |   |   |   |   |   |   |       |
 | neo4j            |   |   |   |   |   |   |       |

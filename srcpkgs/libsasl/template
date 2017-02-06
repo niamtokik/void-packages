@@ -7,7 +7,7 @@ configure_args="--enable-cram --enable-digest --enable-auth-sasldb
  --enable-plain --enable-anon --enable-login --enable-gssapi --enable-ntlm
  --with-configdir=/etc/sasl2:/etc/sasl:/usr/lib/sasl2
  --disable-otp --disable-srp --disable-srp-setpass --disable-krb4
- --with-devrandom=/dev/random --enable-cram --enable-scram"
+ --with-devrandom=/dev/random"
 hostmakedepends="automake libtool pkg-config"
 makedepends="db-devel"
 wrksrc="cyrus-sasl-${version}"
