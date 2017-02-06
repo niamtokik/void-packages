@@ -16,7 +16,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-cowlib    | X | X | X | X |   |   |         | ok.   |
 | erlang-gproc     |   |   |   |   |   |   |         |       |
 | erlang-gun       |   |   |   |   |   |   |         |       |
-| erlang-hackney   |   |   |   |   |   |   |         |       |
+| erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
 | erlang-idna      |   |   |   |   |   |   |         |       |
 | erlang-jsx       |   |   |   |   |   |   |         |       |
 | erlang-lager     |   |   |   |   |   |   |         |       |
@@ -416,10 +416,10 @@ wip
 
  * url: https://github.com/rebar/rebar
  * path: common/build-style/erlang-rebar2.sh 
- * depends: erlang
+ * depends: erlang, rebar2
 
 ## erlang-rebar3
 
  * url: https://www.rebar3.org/
  * path: common/build-style/erlang-rebar3.sh
- * depends: erlang
+ * depends: erlang, rebar3

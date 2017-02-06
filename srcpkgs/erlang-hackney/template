@@ -1,0 +1,15 @@
+# Template file for 'erlang-hackney'
+
+pkgname="erlang-hackney"
+version="1.6.5"
+revision=1
+build_style=erlang-rebar3
+short_desc="simple HTTP client in Erlang "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/benoitc/hackney"
+distfiles="https://github.com/benoitc/hackney/archive/1.6.5.tar.gz"
+checksum="666a122ccfa658860ff162ea5f1244eb23408c6b260b2599cee8fe1ff910f94f"
+hostmakedepends="erlang rebar3"
+depends="erlang>=14"
+wrksrc=${pkgname#erlang-}-${version}
