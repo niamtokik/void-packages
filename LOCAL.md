@@ -3,43 +3,44 @@
 Not listed: shelldap, metasploit, python-fabric, 
 perl-dancer, lustre, nanopb, duktape. 
 
-| Name             | F | C | B | P | I | T | Notes
-| barrel           |   |   |   |   |   |   |
-| cassandra        |   |   |   |   |   |   |
-| chef             |   |   |   |   |   |   |
-| clojure          |   |   |   |   |   |   |
-| corosync         | X | X | X | X | - | - | 
-| elastic-search   |   |   |   |   |   |   |
-| elm              |   |   |   |   |   |   |
-| erlang-asciideck | E | - | - | - | - | - |
-| erlang-cowlib    | X | X | X | X | - | - |
-| erlang-ranch     | X | X | X | X | - | - |
-| fsharp           |   |   |   |   |   |   |
-| hadoop           |   |   |   |   |   |   |
-| hive             |   |   |   |   |   |   |
-| kafka            |   |   |   |   |   |   |
-| kibana           |   |   |   |   |   |   |
-| libqb            | X | X | X | X | - | - |
-| libsasl          | X | X | X | X | - | - | +CRAM-MD5
-| libzookeeper     |   |   |   |   |   |   |
-| logstash         |   |   |   |   |   |   |
-| mesos            |   |   |   |   |   |   |
-| nagios           |   |   |   |   |   |   |
-| neo4j            |   |   |   |   |   |   |
-| openswan         |   |   |   |   |   |   |
-| openstack-swift  |   |   |   |   |   |   |
-| quagga           |   |   |   |   |   |   |
-| rebar3           | X | X | X | X | - | - |
-| rethinkdb        |   |   |   |   |   |   |
-| riak             | X | X | E | - | - | - | erlang =< R18
-| rumpkernel       |   |   |   |   |   |   |
-| scala            |   |   |   |   |   |   |
-| shinken          |   |   |   |   |   |   |
-| sheepdog         | X | X | X | X | - | - |
-| spark            |   |   |   |   |   |   |
-| xorp             |   |   |   |   |   |   |
-| zebra            |   |   |   |   |   |   |
-| zookeeper        |   |   |   |   |   |   |
+| Name             | F | C | B | P | I | T | Notes |
+|------------------|---|---|---|---|---|---|-------|
+| barrel           |   |   |   |   |   |   |       |
+| cassandra        |   |   |   |   |   |   |       |
+| chef             |   |   |   |   |   |   |       |
+| clojure          |   |   |   |   |   |   |       |
+| corosync         | X | X | X | X |   |   |       |
+| elastic-search   |   |   |   |   |   |   |       |
+| elm              |   |   |   |   |   |   |       |
+| erlang-asciideck | E |   |   |   |   |   |       |
+| erlang-cowlib    | X | X | X | X |   |   |       |
+| erlang-ranch     | X | X | X | X |   |   |       |
+| fsharp           |   |   |   |   |   |   |       |
+| hadoop           |   |   |   |   |   |   |       |
+| hive             |   |   |   |   |   |   |       |
+| kafka            |   |   |   |   |   |   |       |
+| kibana           |   |   |   |   |   |   |       |
+| libqb            | X | X | X | X |   |   |       |
+| libsasl          | X | X | X | X |   |   | +CRAM-MD5 |
+| libzookeeper     |   |   |   |   |   |   |       |
+| logstash         |   |   |   |   |   |   |       |
+| mesos            |   |   |   |   |   |   |       |
+| nagios           |   |   |   |   |   |   |       |
+| neo4j            |   |   |   |   |   |   |       |
+| openswan         |   |   |   |   |   |   |       |
+| openstack-swift  |   |   |   |   |   |   |       |
+| quagga           |   |   |   |   |   |   |       |
+| rebar3           | X | X | X | X |   |   |       | 
+| rethinkdb        |   |   |   |   |   |   |       |
+| riak             | X | X | E |   |   |   | !erlang<R18 |
+| rumpkernel       |   |   |   |   |   |   |       |
+| scala            |   |   |   |   |   |   |       |
+| shinken          |   |   |   |   |   |   |       |
+| sheepdog         | X | X | X | X |   |   |       |
+| spark            |   |   |   |   |   |   |       |
+| xorp             |   |   |   |   |   |   |       |
+| zebra            |   |   |   |   |   |   |       |
+| zookeeper        |   |   |   |   |   |   |       |
 
  * F = fetch -> fetching source code
  * C = configure -> configure source code
