@@ -2,63 +2,63 @@
 
 Not listed: python-fabric, perl-dancer, nanopb, duktape. 
 
-| Name             | F | C | B | P | I | T | Notes |
-|------------------|---|---|---|---|---|---|-------|
-| barrel           |   |   |   |   |   |   |       |
-| cassandra        |   |   |   |   |   |   |       |
-| chef             |   |   |   |   |   |   |       |
-| clojure          |   |   |   |   |   |   |       |
-| corosync         | X | X | X | X |   |   |       |
-| elastic-search   |   |   |   |   |   |   |       |
-| elm              |   |   |   |   |   |   |       |
-| erlang-asciideck | E |   |   |   |   |   | unstable |
-| erlang-bullet    |   |   |   |   |   |   |       |
-| erlang-cowlib    | X | X | X | X |   |   |       |
-| erlang-gproc     |   |   |   |   |   |   |       |
-| erlang-gun       |   |   |   |   |   |   |       |
-| erlang-hackney   |   |   |   |   |   |   |       |
-| erlang-idna      |   |   |   |   |   |   |       |
-| erlang-jsx       |   |   |   |   |   |   |       |
-| erlang-lager     |   |   |   |   |   |   |       |
-| erlang-metrics   |   |   |   |   |   |   |       |
-| erlang-mimerl    |   |   |   |   |   |   |       |
-| erlang-procket   |   |   |   |   |   |   |       |
-| erlang-quickrand |   |   |   |   |   |   |       |
-| erlang-ranch     | X | X | X | X |   |   |       |
-| erlang-sut       |   |   |   |   |   |   |       |
-| erlang-thrift    |   |   |   |   |   |   |       |
-| erlang-trails    |   |   |   |   |   |   |       |
-| erlang-uuid      |   |   |   |   |   |   |       |
-| erlang-webmachine|   |   |   |   |   |   |       |
-| erlang-worker_pool|  |   |   |   |   |   |       |
-| fsharp           |   |   |   |   |   |   |       |
-| hadoop           |   |   |   |   |   |   |       |
-| hive             |   |   |   |   |   |   |       |
-| kafka            |   |   |   |   |   |   |       |
-| kibana           |   |   |   |   |   |   |       |
-| libqb            | X | X | X | X |   |   |       |
-| libzookeeper     |   |   |   |   |   |   |       |
-| logstash         |   |   |   |   |   |   |       |
-| lustre           |   |   |   |   |   |   |       |
-| mesos            | X | X | X |   |   |   |       |
-| metasploit       |   |   |   |   |   |   |       |
-| nagios           |   |   |   |   |   |   |       |
-| neo4j            |   |   |   |   |   |   |       |
-| openswan         |   |   |   |   |   |   |       |
-| openstack-swift  |   |   |   |   |   |   |       |
-| quagga           |   |   |   |   |   |   |       |
-| rebar3           | X | X | X | X |   |   |       | 
-| rethinkdb        |   |   |   |   |   |   |       |
-| riak             | X | X | E |   |   |   | !erlang<R18 |
-| rumpkernel       |   |   |   |   |   |   |       |
-| scala            |   |   |   |   |   |   |       |
-| shinken          |   |   |   |   |   |   |       |
-| sheepdog         | X | X | X | X |   |   |       |
-| shelldap         |   |   |   |   |   |   |       |
-| spark            |   |   |   |   |   |   |       |
-| xorp             |   |   |   |   |   |   |       |
-| zebra            |   |   |   |   |   |   |       |
-| zookeeper        |   |   |   |   |   |   |       |
+| Name             | F | C | B | P | I | T | version | Notes |
+|------------------|---|---|---|---|---|---|---------|-------|
+| barrel           |   |   |   |   |   |   |         |       |
+| cassandra        |   |   |   |   |   |   |         |       |
+| chef             |   |   |   |   |   |   |         |       |
+| clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
+| corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
+| elastic-search   |   |   |   |   |   |   |         |       |
+| elm              |   |   |   |   |   |   |         |       |
+| erlang-asciideck | E |   |   |   |   |   |         | unstable |
+| erlang-bullet    |   |   |   |   |   |   |         |       |
+| erlang-cowlib    | X | X | X | X |   |   |         | ok.   |
+| erlang-gproc     |   |   |   |   |   |   |         |       |
+| erlang-gun       |   |   |   |   |   |   |         |       |
+| erlang-hackney   |   |   |   |   |   |   |         |       |
+| erlang-idna      |   |   |   |   |   |   |         |       |
+| erlang-jsx       |   |   |   |   |   |   |         |       |
+| erlang-lager     |   |   |   |   |   |   |         |       |
+| erlang-metrics   |   |   |   |   |   |   |         |       |
+| erlang-mimerl    |   |   |   |   |   |   |         |       |
+| erlang-procket   |   |   |   |   |   |   |         |       |
+| erlang-quickrand |   |   |   |   |   |   |         |       |
+| erlang-ranch     | X | X | X | X |   |   |         | ok.   |
+| erlang-sut       |   |   |   |   |   |   |         |       |
+| erlang-thrift    |   |   |   |   |   |   |         |       |
+| erlang-trails    |   |   |   |   |   |   |         |      |
+| erlang-uuid      |   |   |   |   |   |   |         |      |
+| erlang-webmachine|   |   |   |   |   |   |         |      |
+| erlang-worker_pool|  |   |   |   |   |   |         |      |
+| fsharp           |   |   |   |   |   |   |         |      |
+| hadoop           |   |   |   |   |   |   |         |      |
+| hive             |   |   |   |   |   |   |         |      |
+| kafka            |   |   |   |   |   |   |         |      |
+| kibana           |   |   |   |   |   |   |         |      |
+| libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
+| libzookeeper     |   |   |   |   |   |   |         |      |
+| logstash         |   |   |   |   |   |   |         |      |
+| lustre           |   |   |   |   |   |   |         |      |
+| mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
+| metasploit       |   |   |   |   |   |   |         |      |
+| nagios           |   |   |   |   |   |   |         |      |
+| neo4j            |   |   |   |   |   |   |         |      |
+| openswan         |   |   |   |   |   |   |         |      |
+| openstack-swift  |   |   |   |   |   |   |         |      |
+| quagga           |   |   |   |   |   |   |         |      |
+| rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
+| rethinkdb        |   |   |   |   |   |   |         |      |
+| riak             | X | X | E |   |   |   |         | !erlang<R18 |
+| rumpkernel       |   |   |   |   |   |   |         |      |
+| scala            |   |   |   |   |   |   |         |      |
+| shinken          |   |   |   |   |   |   |         |      |
+| sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
+| shelldap         |   |   |   |   |   |   |         |      |
+| spark            |   |   |   |   |   |   |         |      |
+| xorp             |   |   |   |   |   |   |         |      |
+| zebra            |   |   |   |   |   |   |         |      |
+| zookeeper        |   |   |   |   |   |   |         |      |
 
  * F = fetch -> fetching source code
  * C = configure -> configure source code
