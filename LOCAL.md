@@ -37,11 +37,10 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | kafka            |   |   |   |   |   |   |       |
 | kibana           |   |   |   |   |   |   |       |
 | libqb            | X | X | X | X |   |   |       |
-| libsasl          | X | X | X | X |   |   | +CRAM-MD5 |
 | libzookeeper     |   |   |   |   |   |   |       |
 | logstash         |   |   |   |   |   |   |       |
 | lustre           |   |   |   |   |   |   |       |
-| mesos            | X | X | E |   |   |   | libsasl CRAM-MD5 support |
+| mesos            | X | X | X |   |   |   |       |
 | metasploit       |   |   |   |   |   |   |       |
 | nagios           |   |   |   |   |   |   |       |
 | neo4j            |   |   |   |   |   |   |       |
@@ -234,18 +233,6 @@ wip
 
  * path: srcpkgs/libqb/template 
  * version: 1.0.1
-
- * fetch: ok
- * configure: ok
- * build: ok
- * package: ok
- * package-devel: wip
- * tested: wip
-
-## libsasl
-
- * path: srcpkgs/libsasl/template 
- * verison: 2.1.26
 
  * fetch: ok
  * configure: ok
