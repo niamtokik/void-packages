@@ -1,1 +1,12 @@
 # Template build file for 'template'.
+
+pkgname="clojure"
+version="1.8.0"
+revision=1
+build_style=gnu-configure
+short_desc="The Clojure programming language"
+maintainer="name <email>"
+license="Eclipse-1.0"
+homepage="http://clojure.org"
+distfiles="http://github.com/clojure/${pkgname}/archive/${pkgname}-${version}.tar.gz"
+checksum="b0d92438a2ab6c396360d70569d07520c1edd6c6d895d6536c7d19ced72c9fe8"
