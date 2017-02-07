@@ -5,9 +5,9 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel           |   |   |   |   |   |   |         |       |
-| beef             | X |   |   |   |   |   |         |       |
-| cassandra        | X |   |   |   |   |   |         |       |
-| chef             |   |   |   |   |   |   |         |       |
+| beef             | X |   |   |   |   |   | 0.4.7.0 |       |
+| cassandra        | X |   |   |   |   |   |  3.0.10 |       |
+| chef             | X |   |   |   |   |   |12.19.10 |       |
 | clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
 | elastic-search   |   |   |   |   |   |   |         |       |
@@ -16,7 +16,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
 | erlang-bullet    |   |   |   |   |   |   |         |       |
-| erlang-cowlib    | X | X | X | X |   |   |         | ok.   |
+| erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-gproc     |   |   |   |   |   |   |         |       |
 | erlang-gun       |   |   |   |   |   |   |         |       |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
@@ -27,40 +27,40 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-mimerl    |   |   |   |   |   |   |         |       |
 | erlang-procket   |   |   |   |   |   |   |         |       |
 | erlang-quickrand |   |   |   |   |   |   |         |       |
-| erlang-ranch     | X | X | X | X |   |   |         | ok.   |
+| erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
 | erlang-sut       |   |   |   |   |   |   |         |       |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
 | erlang-trails    |   |   |   |   |   |   |         |      |
 | erlang-uuid      |   |   |   |   |   |   |         |      |
 | erlang-webmachine|   |   |   |   |   |   |         |      |
-| erlang-worker_pool|  |   |   |   |   |   |         |      |
+| erlang-worker_pool   |   |   |   |   |   |   |         |      |
 | fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
 | graylog          | X |   |   |   |   |   |   2.1.3 |      |
-| hadoop           | X |   |   |   |   |   |         |      |
-| hive             | X |   |   |   |   |   |         |      |
+| hadoop           | X |   |   |   |   |   |   2.7.3 |      |
+| hive             | X |   |   |   |   |   |   2.1.1 |      |
 | kafka            |   |   |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |
 | libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
 | libzookeeper     |   |   |   |   |   |   |         |      |
-| logstash         | X | X | E |   |   |   |         | ruby gems error |
+| logstash         | X | X | E |   |   |   |   5.2.0 | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
-| metasploit-framework | X |   |   |   |   |   |         |      |
+| metasploit-framework | X |   |   |   |   |   | 4.13.19 |      |
 | nagios           |   |   |   |   |   |   |         |      |
 | neo4j            |   |   |   |   |   |   |         |      |
-| openswan         | X |   |   |   |   |   |         |      |
+| openswan         | X |   |   |   |   |   |  3.0.14 |      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
-| quagga           | X |   |   |   |   |   |         |      |
+| quagga           | X |   |   |   |   |   |   1.1.1 |      |
 | rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
-| rethinkdb        |   |   |   |   |   |   |         |      |
-| riak             | X | X | E |   |   |   |         | !erlang<R18 |
+| rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
+| riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
 | rumpkernel       |   |   |   |   |   |   |         |      |
-| scala            | X |   |   |   |   |   |         |      |
+| scala            | X |   |   |   |   |   |  2.12.1 |      |
 | shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
 | sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
-| shelldap         | X |   |   |   |   |   |         |      |
-| spark            | X |   |   |   |   |   |         |      |
-| xorp             | X |   |   |   |   |   |         |      |
+| shelldap         | X |   |   |   |   |   |   1.3.2 |      |
+| spark            | X |   |   |   |   |   |   2.1.0 |      |
+| xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zebra            |   |   |   |   |   |   |         |      |
 | zookeeper        |   |   |   |   |   |   |         |      |
 
