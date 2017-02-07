@@ -5,6 +5,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel           |   |   |   |   |   |   |         |       |
+| beef             | X |   |   |   |   |   |         |       |
 | cassandra        | X |   |   |   |   |   |         |       |
 | chef             |   |   |   |   |   |   |         |       |
 | clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
@@ -44,7 +45,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | logstash         | X | X | E |   |   |   |         | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
-| metasploit       |   |   |   |   |   |   |         |      |
+| metasploit-framework | X |   |   |   |   |   |         |      |
 | nagios           |   |   |   |   |   |   |         |      |
 | neo4j            |   |   |   |   |   |   |         |      |
 | openswan         | X |   |   |   |   |   |         |      |
