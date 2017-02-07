@@ -1,0 +1,12 @@
+# Template build file for 'elm-platform'.
+
+pkgname="elm-platform"
+version="0.15"
+revision=1
+build_style=gnu-configure
+short_desc=""
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage=""
+distfiles="https://github.com/elm-lang/${pkgname}/archive/${version}.tar.gz"
+checksum=""

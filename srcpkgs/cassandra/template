@@ -1,0 +1,12 @@
+# Template file for 'cassandra'
+
+pkgname="cassandra"
+version="3.0.10"
+revision=1
+build_style=gnu-configure
+short_desc=" Manage massive amounts of data, fast, without losing sleep "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://cassandra.apache.org/"
+distfiles="http://apache.mirrors.ovh.net/ftp.apache.org/dist/${pkgname}/${version}/apache-${pkgname}-${version}-bin.tar.gz"
+checksum="bab04ef8ad997197a0e4f02250ed71240f339a44209b8d9f941ee6291130fa9a"

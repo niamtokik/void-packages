@@ -1,0 +1,12 @@
+# Template file for 'xorp'
+
+pkgname="xorp"
+version="1.8.5"
+revision=1
+build_style=gnu-configure
+short_desc="XORP is the industry's only extensible open source routing platform"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-2"
+homepage="http://www.xorp.org"
+distfiles="http://www.xorp.org/releases/${version}/${pkgname}-${version}-src.tar.bz2"
+checksum="4aa414e248f0ef3903a4ae8fd1862d8dd713a69f6bbc926d81dd693a88ef8e72"

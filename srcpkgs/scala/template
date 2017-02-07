@@ -1,1 +1,12 @@
 # Template build file for 'scala'.
+
+pkgname="scala"
+version="2.12.1"
+revision=1
+build_style=gnu-configure
+short_desc="Functional and objec-oriented language."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://www.scala-lang.org"
+distfiles="http://downloads.lightbend.com/${pkgname}/${version}/${pkgname}-${version}.tgz"
+checksum="4db068884532a3e27010df17befaca0f06ea50f69433d58e06a5e63c7a3cc359"

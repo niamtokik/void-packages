@@ -45,9 +45,9 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | metasploit       |   |   |   |   |   |   |         |      |
 | nagios           |   |   |   |   |   |   |         |      |
 | neo4j            |   |   |   |   |   |   |         |      |
-| openswan         |   |   |   |   |   |   |         |      |
+| openswan         | X |   |   |   |   |   |         |      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
-| quagga           |   |   |   |   |   |   |         |      |
+| quagga           | X |   |   |   |   |   |         |      |
 | rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
 | rethinkdb        |   |   |   |   |   |   |         |      |
 | riak             | X | X | E |   |   |   |         | !erlang<R18 |
