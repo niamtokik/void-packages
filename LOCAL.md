@@ -10,15 +10,17 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | chef             | X |   |   |   |   |   |12.19.10 |       |
 | clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
-| elastic-search   |   |   |   |   |   |   |         |       |
+| elasticsearch    |   |   |   |   |   |   |         | outdated | 
 | elm-compiler     |   |   |   |   |   |   |         |       |
 | elm-core         |   |   |   |   |   |   |         |       |
 | elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
-| erlang-bullet    |   |   |   |   |   |   |         |       |
+| erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
-| erlang-gproc     |   |   |   |   |   |   |         |       |
-| erlang-gun       |   |   |   |   |   |   |         |       |
+| erlang-edown     |   |   |   |   |   |   |         |       |
+| erlang-genleader |   |   |   |   |   |   |         |       |
+| erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
+| erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
 | erlang-idna      |   |   |   |   |   |   |         |       |
 | erlang-jsx       |   |   |   |   |   |   |         |       |

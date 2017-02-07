@@ -1,0 +1,16 @@
+# Template file for 'erlang-gproc'
+
+pkgname="erlang-gproc"
+version="0.2.10"
+revision=1
+build_style=erlang-rebar2
+short_desc=" Extended process registry for Erlang "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/uwiger/gproc"
+distfiles="https://github.com/uwiger/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="8da5ac645d42964e53ba30d634d257d0615c06e84e4ebeefe808265d47db2d16"
+hostmakedepends="erlang erlang-edown erlang-genleader"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+

@@ -1,0 +1,13 @@
+# Template file for 'erlang-gun'
+
+pkgname="erlang-gun"
+version="1.0.0"
+revision=1
+build_style=erlang-mk
+short_desc=" HTTP/1.1, HTTP/2 and Websocket client for Erlang/OTP.  "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ninenines/gun"
+distfiles="https://github.com/ninenines/gun/archive/1.0.0-pre1.tar.gz"
+checksum=""
+broken="unstable"

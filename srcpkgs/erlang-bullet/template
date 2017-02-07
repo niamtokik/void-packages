@@ -1,0 +1,15 @@
+# Template file for 'erlang-bullet'
+
+pkgname="erlang-bullet"
+version="0.4.1"
+revision=1
+build_style="erlang-mk"
+short_desc="Simple, reliable, efficient streaming for Cowboy"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ninenines/bullet/"
+distfiles="https://github.com/ninenines/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="0b047c43c9fa0fb947ca52c7383c32983ed20055899732a818c5b4d05479faa6"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
