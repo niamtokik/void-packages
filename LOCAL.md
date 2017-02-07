@@ -5,12 +5,14 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel           |   |   |   |   |   |   |         |       |
-| cassandra        |   |   |   |   |   |   |         |       |
+| cassandra        | X |   |   |   |   |   |         |       |
 | chef             |   |   |   |   |   |   |         |       |
 | clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
 | elastic-search   |   |   |   |   |   |   |         |       |
-| elm              |   |   |   |   |   |   |         |       |
+| elm-compiler     |   |   |   |   |   |   |         |       |
+| elm-core         |   |   |   |   |   |   |         |       |
+| elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
 | erlang-bullet    |   |   |   |   |   |   |         |       |
 | erlang-cowlib    | X | X | X | X |   |   |         | ok.   |
@@ -33,8 +35,8 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-worker_pool|  |   |   |   |   |   |         |      |
 | fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
 | graylog          | X |   |   |   |   |   |   2.1.3 |      |
-| hadoop           |   |   |   |   |   |   |         |      |
-| hive             |   |   |   |   |   |   |         |      |
+| hadoop           | X |   |   |   |   |   |         |      |
+| hive             | X |   |   |   |   |   |         |      |
 | kafka            |   |   |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |
 | libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
@@ -52,12 +54,12 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | rethinkdb        |   |   |   |   |   |   |         |      |
 | riak             | X | X | E |   |   |   |         | !erlang<R18 |
 | rumpkernel       |   |   |   |   |   |   |         |      |
-| scala            |   |   |   |   |   |   |         |      |
+| scala            | X |   |   |   |   |   |         |      |
 | shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
 | sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
-| shelldap         |   |   |   |   |   |   |         |      |
-| spark            |   |   |   |   |   |   |         |      |
-| xorp             |   |   |   |   |   |   |         |      |
+| shelldap         | X |   |   |   |   |   |         |      |
+| spark            | X |   |   |   |   |   |         |      |
+| xorp             | X |   |   |   |   |   |         |      |
 | zebra            |   |   |   |   |   |   |         |      |
 | zookeeper        |   |   |   |   |   |   |         |      |
 
