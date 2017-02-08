@@ -1,0 +1,14 @@
+# Template file for 'integrity'
+
+pkgname="integrity"
+version="26"
+revision=1
+build_style=gnu-configure
+short_desc="Continuous Integration server"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="http://integrity.github.io/"
+distfiles="https://github.com/integrity/${pkgname}/archive/v${version}.tar.gz"
+checksum="1fb92857830b8b6130b9636aeacf29f080af89d4934858f720e1a8cf9ab763f5"
+hostmakedepends="ruby ruby-devel"
+depends="ruby"

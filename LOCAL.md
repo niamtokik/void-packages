@@ -25,12 +25,12 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
-| erlang-metrics   |   |   |   |   |   |   |         |       |
-| erlang-mimerl    |   |   |   |   |   |   |         |       |
-| erlang-procket   |   |   |   |   |   |   |         |       |
-| erlang-quickrand |   |   |   |   |   |   |         |       |
+| erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
+| erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
+| erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
+| erlang-quickrand | X | X | X | X |   |   |   1.6.0 | ok.   |
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
-| erlang-sut       |   |   |   |   |   |   |         |       |
+| erlang-sut       | X | X | E |   |   |   |  master | deps error. |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
 | erlang-trails    |   |   |   |   |   |   |         |      |
 | erlang-uuid      |   |   |   |   |   |   |         |      |
@@ -41,7 +41,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | graylog          | X |   |   |   |   |   |   2.1.3 |      |
 | hadoop           | X |   |   |   |   |   |   2.7.3 |      |
 | hive             | X |   |   |   |   |   |   2.1.1 |      |
-| integrity        |   |   |   |   |   |   |         |      |
+| integrity        | X | X | E |   |   |   |      26 | rake error |
 | jenkins          |   |   |   |   |   |   |         |      |
 | kafka            |   |   |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |

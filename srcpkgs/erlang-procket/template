@@ -1,0 +1,16 @@
+# Template file for 'erlang-procket'
+
+pkgname="erlang-procket"
+version="0.8.0"
+revision=1
+build_style=erlang-rebar3
+short_desc="Erlang interface to low level socket operations"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/msantos/procket"
+distfiles="https://github.com/msantos/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="99e8249bcc3affb3bf04ad275991906c981a41e6f17cb00260bb597172976ff1"
+hostmakedepends="erlang rebar3"
+depends="erlang"
+wrksrc=${pkgname#erlang-}-${version}
+nostrip="yes"

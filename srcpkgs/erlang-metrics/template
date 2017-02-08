@@ -1,0 +1,14 @@
+# Template file for 'erlang-metrics'
+
+pkgname="erlang-metrics"
+version="2.2.0"
+revision=1
+build_style=erlang-rebar3
+short_desc="A generic interface to different metrics systems in Erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/benoitc/erlang-metrics"
+distfiles="https://github.com/benoitc/${pkgname}/archive/${version}.tar.gz"
+checksum="71d6fe08cc995964338a4f78cb29a8fb3b2ce77d232b76f5bc3549339bef6290"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"

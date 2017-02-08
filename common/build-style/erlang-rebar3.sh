@@ -26,7 +26,7 @@ do_install() {
 	_build="_build/default/lib/${pkgname#erlang-}"
 	_pkgdst="usr/lib/erlang/lib/${pkgname#erlang-}-${version}"
 
-	for _t in ebin src doc examples include
+	for _t in ebin src c_src doc examples include priv
 	do
 		_target="${_build}/${_t}"
 		if [ -d "${_target}" ]
@@ -35,6 +35,10 @@ do_install() {
 			vcopy "${_target}/*" "${_pkgdst}/${_t}"
 		fi
 	done
+}
+
+post_install() {
+	:
 }
 
 _rebar3_unit_test() {
