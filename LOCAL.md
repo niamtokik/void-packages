@@ -22,8 +22,8 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
 | erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
-| erlang-idna      |   |   |   |   |   |   |         |       |
-| erlang-jsx       |   |   |   |   |   |   |         |       |
+| erlang-idna      | X | X | X | X |   |   |  master | ok.   |
+| erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     |   |   |   |   |   |   |         |       |
 | erlang-metrics   |   |   |   |   |   |   |         |       |
 | erlang-mimerl    |   |   |   |   |   |   |         |       |
