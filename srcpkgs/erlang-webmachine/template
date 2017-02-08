@@ -1,0 +1,17 @@
+# Template file for 'erlang-webmachine'
+
+pkgname="erlang-webmachine"
+version="1.10.8"
+revision=1
+build_style=erlang-rebar2
+short_desc="A REST-based system for building web applications."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/webmachine/webmachine"
+distfiles="https://github.com/webmachine/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="d93c2dacc1786db5c56a2b6536f6254038452d9096483becbaceb6643ecc8dcc"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+broken="deps-error"
+

@@ -33,7 +33,7 @@
 | erlang-thrift    |   |   |   |   |   |   |         |       |
 | erlang-trails    |   |   |   |   |   |   |         |       |
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
-| erlang-webmachine|   |   |   |   |   |   |         |       |
+| erlang-webmachine| X | E |   |   |   |   |  1.10.8 | ok.   |
 | erlang-worker_pool   |   |   |   |   |   |   |         |      |
 | fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
 | gocd             |   |   |   |   |   |   |         |      |
