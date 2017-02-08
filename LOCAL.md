@@ -24,7 +24,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
-| erlang-lager     |   |   |   |   |   |   |         |       |
+| erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-metrics   |   |   |   |   |   |   |         |       |
 | erlang-mimerl    |   |   |   |   |   |   |         |       |
 | erlang-procket   |   |   |   |   |   |   |         |       |
@@ -37,9 +37,12 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-webmachine|   |   |   |   |   |   |         |      |
 | erlang-worker_pool   |   |   |   |   |   |   |         |      |
 | fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
+| gocd             |   |   |   |   |   |   |         |      |
 | graylog          | X |   |   |   |   |   |   2.1.3 |      |
 | hadoop           | X |   |   |   |   |   |   2.7.3 |      |
 | hive             | X |   |   |   |   |   |   2.1.1 |      |
+| integrity        |   |   |   |   |   |   |         |      |
+| jenkins          |   |   |   |   |   |   |         |      |
 | kafka            |   |   |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |
 | libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |

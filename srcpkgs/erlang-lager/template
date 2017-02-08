@@ -1,0 +1,15 @@
+# Template file for 'erlang-lager'
+
+pkgname="erlang-lager"
+version="3.2.4"
+revision=1
+build_style=erlang-rebar2
+short_desc=" A logging framework for Erlang/OTP"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://www.basho.com/"
+distfiles="https://github.com/erlang-lager/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="b2212ca817ee551540d4eb815691355e9e0ad4e76d93bc4426d95b6f00fc8d59"
+hostmakedepends="erlang make git"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
