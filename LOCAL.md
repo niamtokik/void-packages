@@ -1,7 +1,5 @@
 # Local support template
 
-Not listed: python-fabric, perl-dancer, nanopb, duktape. 
-
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel           |   |   |   |   |   |   |         |       |
@@ -10,6 +8,7 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | chef             | X |   |   |   |   |   |12.19.10 |       |
 | clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
+| duktape          |   |   |   |   |   |   |         |       |
 | elasticsearch    |   |   |   |   |   |   |         | outdated | 
 | elm-compiler     |   |   |   |   |   |   |         |       |
 | elm-core         |   |   |   |   |   |   |         |       |
@@ -52,13 +51,17 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
 | metasploit-framework | X |   |   |   |   |   | 4.13.19 |      |
 | nagioscore       | X |   |   |   |   |   |   4.2.4 |      |
+| nanopb           |   |   |   |   |   |   |         |      |
 | ncpa             | X |   |   |   |   |   |   2.0.2 |      |
 | ndoutils         | - |   |   |   |   |   |   2.1b1 | old. |
 | nsca             | x |   |   |   |   |   |   2.9.2 |      |
 | neo4j            |   |   |   |   |   |   |         |      |
 | openswan         | X |   |   |   |   |   |  3.0.14 |      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
+| perl-dancer      |   |   |   |   |   |   |         |      |
+| python-fabric    |   |   |   |   |   |   |         |      |
 | quagga           | X |   |   |   |   |   |   1.1.1 |      |
+| rebar2           |   |   |   |   |   |   |         |      |
 | rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
 | rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
@@ -416,6 +419,10 @@ wip
 
 # Build Style
 
+## erlang-emake
+
+ * erlang makefile method.
+
 ## erlang-mk
 
  * url: https://erlang.mk/guide
@@ -433,3 +440,10 @@ wip
  * url: https://www.rebar3.org/
  * path: common/build-style/erlang-rebar3.sh
  * depends: erlang, rebar3
+
+## haskell-cabal
+
+## ocaml-opam
+
+## ruby-rake
+
