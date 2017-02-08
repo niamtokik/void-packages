@@ -14,22 +14,38 @@
 | elm-core         |   |   |   |   |   |   |         |       |
 | elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
+| erlang-bear      |   |   |   |   |   |   |         |       |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
+| erlang-certifi   |   |   |   |   |   |   |         |       |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
+| erlang-eini      |   |   |   |   |   |   |         |       |
+| erlang-eper      |   |   |   |   |   |   |         |       |
 | erlang-genleader | X | X | X | X |   |   |     1.0 | ok. |
+| erlang-getopt    |   |   |   |   |   |   |         |       |
+| erlang-gpb       |   |   |   |   |   |   |         |       |
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
 | erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
+| erlang-goldrush  |   |   |   |   |   |   |         |       |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
+| erlang-ibrowse   |   |   |   |   |   |   |         |       |
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
+| erlang-jose      |   |   |   |   |   |   |         |       |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
+| erlang-meck      |   |   |   |   |   |   |         |       |
+| erlang-mock      |   |   |   |   |   |   |         |       |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
+| erlang-mochiweb  |   |   |   |   |   |   |         |       |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
+| erlang-poolboy   |   |   |   |   |   |   |         |       |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
 | erlang-quickrand | X | X | X | X |   |   |   1.6.0 | ok.   |
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
+| erlang-rlex      |   |   |   |   |   |   |         |       |
+| erlang-ssl_verify_fun |   |   |   |   |   |   |         |       |
 | erlang-sut       | X | X | E |   |   |   |  master | deps error. |
+| erlang-syslog    |   |   |   |   |   |   |         |       |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
 | erlang-trails    |   |   |   |   |   |   |         |       |
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
