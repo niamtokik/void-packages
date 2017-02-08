@@ -31,9 +31,9 @@
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
 | erlang-sut       | X | X | E |   |   |   |  master | deps error. |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
-| erlang-trails    |   |   |   |   |   |   |         |      |
-| erlang-uuid      |   |   |   |   |   |   |         |      |
-| erlang-webmachine|   |   |   |   |   |   |         |      |
+| erlang-trails    |   |   |   |   |   |   |         |       |
+| erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
+| erlang-webmachine|   |   |   |   |   |   |         |       |
 | erlang-worker_pool   |   |   |   |   |   |   |         |      |
 | fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
 | gocd             |   |   |   |   |   |   |         |      |
