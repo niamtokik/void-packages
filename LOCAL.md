@@ -71,6 +71,8 @@
 | sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
 | shelldap         | X |   |   |   |   |   |   1.3.2 |      |
 | spark            | X |   |   |   |   |   |   2.1.0 |      |
+| splunk           |   |   |   |   |   |   |         |      |
+| vault            |   |   |   |   |   |   |         |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zookeeper        |   |   |   |   |   |   |         |      |
 
