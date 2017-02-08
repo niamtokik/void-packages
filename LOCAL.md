@@ -17,8 +17,8 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
-| erlang-edown     |   |   |   |   |   |   |         |       |
-| erlang-genleader |   |   |   |   |   |   |         |       |
+| erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
+| erlang-genleader | X | X | X | X |   |   |     1.0 | ok. |
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
 | erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
@@ -48,7 +48,10 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | lustre           |   |   |   |   |   |   |         |      |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
 | metasploit-framework | X |   |   |   |   |   | 4.13.19 |      |
-| nagios           |   |   |   |   |   |   |         |      |
+| nagioscore       | X |   |   |   |   |   |   4.2.4 |      |
+| ncpa             | X |   |   |   |   |   |   2.0.2 |      |
+| ndoutils         | - |   |   |   |   |   |   2.1b1 | old. |
+| nsca             | x |   |   |   |   |   |   2.9.2 |      |
 | neo4j            |   |   |   |   |   |   |         |      |
 | openswan         | X |   |   |   |   |   |  3.0.14 |      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
@@ -63,7 +66,6 @@ Not listed: python-fabric, perl-dancer, nanopb, duktape.
 | shelldap         | X |   |   |   |   |   |   1.3.2 |      |
 | spark            | X |   |   |   |   |   |   2.1.0 |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
-| zebra            |   |   |   |   |   |   |         |      |
 | zookeeper        |   |   |   |   |   |   |         |      |
 
  * F = fetch -> fetching source code

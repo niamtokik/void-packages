@@ -1,0 +1,13 @@
+# Template file for 'ndoutils'
+
+pkgname="ndoutils"
+version="2.1"
+revision=1
+build_style=gnu-configure
+short_desc="NDOUtils - Database Output for Nagios Core"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://www.nagios.org"
+distfiles=""
+checksum=""
+broken="old"

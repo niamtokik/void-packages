@@ -1,0 +1,12 @@
+# Template file for 'nsca'
+
+pkgname="nsca"
+version="2.9.2"
+revision=1
+build_style=gnu-configure
+short_desc=" Nagios Cross-Platform Agent "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://www.nagios.org"
+distfiles="https://github.com/NagiosEnterprises/${pkgname}/archive/release-${version}.tar.gz"
+checksum="a3a97dc66a66bbc06ea6b5356fc9adbe06bcb705df7cb0d8b88e711006bb1dab"

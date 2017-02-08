@@ -1,0 +1,17 @@
+# Template file for 'erlang-gen_leader'
+
+pkgname="erlang-gen_leader"
+version="1.0"
+revision=1
+build_style=erlang-rebar2
+short_desc="unify various implementations of the Erlang library gen_leader"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/lehoff/gen_leader"
+distfiles="https://github.com/lehoff/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="728442e98496da8ad1546186c2f18d377f8cc6b7d48c21b157192b4ba3968a47"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+# broken="old"
+

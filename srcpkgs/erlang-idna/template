@@ -1,0 +1,16 @@
+# Template file for 'erlang-idna'
+
+pkgname="erlang-idna"
+version="0.1"
+revision=1
+build_style=erlang-emake
+short_desc=" A pure Erlang IDNA implementation "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="https://github.com/tim/erlang-idna"
+distfiles="https://github.com/tim/${pkgname}/archive/master.tar.gz"
+checksum="7ee44aeeef3f15beaf2c35c83799216d7945c4826ba97609d964f18e913a9936"
+wrksrc="erlang-idna-master"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+
