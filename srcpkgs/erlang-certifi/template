@@ -1,0 +1,14 @@
+# Template file for 'erlang-certifi'
+
+pkgname="erlang-certifi"
+version="1.0.0"
+revision=1
+build_style=erlang-rebar3
+short_desc="SSL Certificates for Erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/certifi/erlang-certifi/"
+distfiles="https://github.com/certifi/${pkgname}/archive/${version}.tar.gz"
+checksum="19d83ad74cd334304d45c701129a19824d2b9289a3500edb91812c79f1c11609"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"

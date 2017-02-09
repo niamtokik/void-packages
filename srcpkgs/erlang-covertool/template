@@ -1,0 +1,15 @@
+# Template file for 'erlang-covertool'
+
+pkgname="erlang-covertool"
+version="0.1"
+revision=1
+build_style=erlang-rebar3
+short_desc="Tool to convert Erlang cover data files into Cobertura XML reports"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/idubrov/covertool"
+distfiles="https://github.com/idubrov/${pkgname#erlang-}/archive/master.tar.gz"
+checksum="72f89b4a77e186060200cf5e475d0cee7eb76abf7a8d48dfc53227864d84027a"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-master

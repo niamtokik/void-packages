@@ -16,10 +16,11 @@
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
 | erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
-| erlang-certifi   |   |   |   |   |   |   |         |       |
+| erlang-certifi   | X | X | X | X |   |   |   1.0.0 | ok.   |
+| erlang-covertool | X | X | X | X |   |   |     0.1 | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
-| erlang-eini      |   |   |   |   |   |   |         |       |
+| erlang-eini      | X | X | X | X |   |   |   1.2.1 | ok (check deps) |
 | erlang-eper      |   |   |   |   |   |   |         |       |
 | erlang-genleader | X | X | X | X |   |   |     1.0 | ok. |
 | erlang-getopt    |   |   |   |   |   |   |         |       |
@@ -40,6 +41,7 @@
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
 | erlang-poolboy   |   |   |   |   |   |   |         |       |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
+| erlang-proper    | X | X | X | X |   |   |     1.2 | ok.   |
 | erlang-quickrand | X | X | X | X |   |   |   1.6.0 | ok.   |
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
 | erlang-rlex      |   |   |   |   |   |   |         |       |
