@@ -1,0 +1,16 @@
+# Template file for 'erlang-bear'
+
+pkgname="erlang-bear"
+version="0.8.2"
+revision=1
+build_style=erlang-rebar3
+short_desc="A set of statistics functions for erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/boundary/bear/"
+distfiles="https://github.com/boundary/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="39caaf7f25883afdc9bf943ae262cde024b0472cdef004accb7ea0075f8c88c3"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+

@@ -14,7 +14,7 @@
 | elm-core         |   |   |   |   |   |   |         |       |
 | elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
-| erlang-bear      |   |   |   |   |   |   |         |       |
+| erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-certifi   |   |   |   |   |   |   |         |       |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
@@ -82,14 +82,16 @@
 | rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
 | rumpkernel       |   |   |   |   |   |   |         |      |
-| scala            | X |   |   |   |   |   |  2.12.1 |      |
+| sbt              |   |   |   |   |   |   |         | builder |
+| scala            | X | X | X | W |   |   |  2.12.1 | compare to off. pkg. |
 | shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
 | sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
-| shelldap         | X |   |   |   |   |   |   1.3.2 |      |
-| spark            | X |   |   |   |   |   |   2.1.0 |      |
+| shelldap         | X | X | X | X |   |   |   1.3.2 | need to add 
+| spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
 | vault            |   |   |   |   |   |   |         |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
+| zinc             |   |   |   |   |   |   |         | spark deps |
 | zookeeper        |   |   |   |   |   |   |         |      |
 
  * F = fetch -> fetching source code
@@ -380,7 +382,13 @@ wip
  * scala: https://github.com/scala/scala
  * path: srcpkgs/scala/template
 
-wip
+ * build: ok
+
+Note:
+
+ * this package sbt, and sbt is download via curl 
+   (https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt
+ * I need to check with binary scala if package is okay.
 
 ## Shinken
 
