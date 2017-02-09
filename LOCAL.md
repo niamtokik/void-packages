@@ -17,10 +17,10 @@
 | erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-certifi   | X | X | X | X |   |   |   1.0.0 | ok.   |
-| erlang-covertool | X | X | X | X |   |   |     0.1 | ok.   |
+| erlang-covertool | X | X | X | X | X | ~ |     0.1 | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
-| erlang-eini      | X | X | X | X |   |   |   1.2.1 | ok (check deps) |
+| erlang-eini      | X | X | X | X | X | ~ |   1.2.1 | ok (check deps) |
 | erlang-eper      |   |   |   |   |   |   |         |       |
 | erlang-genleader | X | X | X | X |   |   |     1.0 | ok. |
 | erlang-getopt    |   |   |   |   |   |   |         |       |
@@ -41,7 +41,7 @@
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
 | erlang-poolboy   |   |   |   |   |   |   |         |       |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
-| erlang-proper    | X | X | X | X |   |   |     1.2 | ok.   |
+| erlang-proper    | X | X | X | X | X | ~ |     1.2 | ok.   |
 | erlang-quickrand | X | X | X | X |   |   |   1.6.0 | ok.   |
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
 | erlang-rlex      |   |   |   |   |   |   |         |       |
@@ -87,7 +87,7 @@
 | sbt              |   |   |   |   |   |   |         | builder |
 | scala            | X | X | X | W |   |   |  2.12.1 | compare to off. pkg. |
 | shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
-| sheepdog         | X | X | X | X |   |   |   1.0.1 | ok.  |
+| sheepdog         | X | X | X | X | X | W |   1.0.1 | ok.  |
 | shelldap         | X | X | X | X |   |   |   1.3.2 | need to add 
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
