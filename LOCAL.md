@@ -11,7 +11,7 @@
 | cds-ui           |   |   |   |   |   |   |         | see cds |
 | cds-engine       |   |   |   |   |   |   |         | see cds |
 | chef             | X |   |   |   |   |   |12.19.10 |       |
-| clojure          | X | X | X | X | X | ~ |   1.8.0 | test fail after build |
+| clojure          | X | X | X | X | X | ~ |   1.8.0 | ok.   |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
 | duktape          |   |   |   |   |   |   |         |       |
 | elasticsearch    |   |   |   |   |   |   |         | outdated | 
