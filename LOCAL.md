@@ -5,6 +5,11 @@
 | barrel           |   |   |   |   |   |   |         |       |
 | beef             | X |   |   |   |   |   | 0.4.7.0 |       |
 | cassandra        | X |   |   |   |   |   |  3.0.10 |       |
+| cds              | X |   |   |   |   |   |   0.4.0 | go multi-project |
+| cds-cli          |   |   |   |   |   |   |         | see cds |
+| cds-sdk          |   |   |   |   |   |   |         | see cds |
+| cds-ui           |   |   |   |   |   |   |         | see cds |
+| cds-engine       |   |   |   |   |   |   |         | see cds |
 | chef             | X |   |   |   |   |   |12.19.10 |       |
 | clojure          | X | X | E |   |   |   |   1.8.0 | test fail after build |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
@@ -53,14 +58,14 @@
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
 | erlang-webmachine| X | E |   |   |   |   |  1.10.8 | ok.   |
 | erlang-worker_pool   |   |   |   |   |   |   |         |      |
-| fsharp           | X | X |   |   |   |   | 4.0.1.21 | issue with files |
-| gocd             |   |   |   |   |   |   |         |      |
+| fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
+| gocd             | X |   |   |   |   |   |         |      |
 | graylog          | X |   |   |   |   |   |   2.1.3 |      |
 | hadoop           | X |   |   |   |   |   |   2.7.3 |      |
 | hive             | X |   |   |   |   |   |   2.1.1 |      |
 | integrity        | X | X | E |   |   |   |      26 | rake error |
 | jenkins          |   |   |   |   |   |   |         |      |
-| kafka            |   |   |   |   |   |   |         |      |
+| kafka            | X | X |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |
 | libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
 | libzookeeper     |   |   |   |   |   |   |         |      |
@@ -94,6 +99,7 @@
 | splunk           |   |   |   |   |   |   |         |      |
 | vault            |   |   |   |   |   |   |         |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
+| zabbix           |   |   |   |   |   |   |         |      |
 | zinc             |   |   |   |   |   |   |         | spark deps |
 | zookeeper        |   |   |   |   |   |   |         |      |
 

@@ -1,0 +1,12 @@
+# Template file for 'cds'
+
+pkgname="cds"
+version="0.4.0"
+revision=1
+build_style=go
+short_desc="Continuous Delivery Service (Engine / SDK / CLI)"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ovh/cds"
+distfiles="https://github.com/ovh/${pkgname}/archive/v${version}.tar.gz"
+checksum="fab48bef086fc4d46437fc09762fdea5f5c9934d5a4563673ca526244941900b"

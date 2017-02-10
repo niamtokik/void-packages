@@ -10,15 +10,18 @@ license="Apache-2.0"
 homepage="http://fsharp.org/"
 distfiles="https://github.com/fsharp/${pkgname}/archive/${version}.tar.gz"
 checksum="f0a72520a239cdb50c0146be8791d27a465022f63728912263c86391d10e7570"
-hostmakedepends="mono"
+hostmakedepends="automake pkg-config mono"
 depends="mono"
 
-pre_configure() {
+do_configure() {
 	./autogen.sh --prefix=/usr
 }
 
-do_configure() {
-	./configure --prefix=/usr
+do_build() {
+	make
 }
 
+do_test() {
+	cd tests/fsharp/core && ./run-all.sh	
+}
 
