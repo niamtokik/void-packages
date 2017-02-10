@@ -5,8 +5,26 @@ version="1.8.0"
 revision=1
 build_style=gnu-configure
 short_desc="The Clojure programming language"
-maintainer="name <email>"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
 license="Eclipse-1.0"
 homepage="http://clojure.org"
 distfiles="http://github.com/clojure/${pkgname}/archive/${pkgname}-${version}.tar.gz"
 checksum="b0d92438a2ab6c396360d70569d07520c1edd6c6d895d6536c7d19ced72c9fe8"
+wrksrc="${pkgname}-${pkgname}-${version}"
+hostmakedepends="openjdk openjdk-jre apache-maven-bin apache-ant"
+depends="openjdk openjdk-jre"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	mvn package
+}
+
+do_install() {
+	vmkdir usr/share/java/classes
+	vcopy target/*.jar usr/share/java/classes
+	vinstall ${FILESDIR}/clojure 555 usr/bin
+	# vlicense
+}

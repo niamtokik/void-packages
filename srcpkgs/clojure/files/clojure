@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+JAVA_CLASSES="/usr/share/java/classes"
+JAVA_OPTS=""
+JAVA="/usr/bin/java ${JAVA_OPTS}"
+
+CLOJURE_VERSION="1.8.0"
+CLOJURE="${JAVA_CLASSES}/clojure-${CLOJURE_VERSION}.jar"
+
+${JAVA} -jar ${CLOJURE} "$@"
