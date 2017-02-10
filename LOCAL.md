@@ -27,17 +27,17 @@
 | erlang-gpb       | X | X | E |   |   |   |  3.26.6 | strange builder. |
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
 | erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
-| erlang-goldrush  |   |   |   |   |   |   |         |       |
+| erlang-goldrush  | X | X | E |   |   |   |   0.1.9 | need rebar2 bootstrap |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
 | erlang-ibrowse   |   |   |   |   |   |   |         |       |
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
 | erlang-jose      |   |   |   |   |   |   |         |       |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
-| erlang-meck      |   |   |   |   |   |   |         |       |
+| erlang-meck      | X | x | X | x |   |   |   0.8.4 | ok.   |
 | erlang-mock      |   |   |   |   |   |   |         |       |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
-| erlang-mochiweb  |   |   |   |   |   |   |         |       |
+| erlang-mochiweb  | X | x | X | X |   |   |  2.16.0 | ok.   |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
 | erlang-poolboy   |   |   |   |   |   |   |         |       |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |

@@ -1,0 +1,20 @@
+# Template file for 'erlang-goldrush'
+
+pkgname="erlang-goldrush"
+version="0.1.9"
+revision=1
+build_style=erlang-rebar2
+short_desc="Small, Fast event processing and monitoring for Erlang/OTP applications."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/DeadZen/goldrush"
+distfiles="https://github.com/DeadZen/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="6fb8ac6345d940396ecf89d4ce6b9b809039f336d85d7a54239e85106a807612"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_build() {
+	:
+}
+
