@@ -5,7 +5,7 @@
 _sbt="https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt"
 
 do_configure() {
-	curl ${sbt} > sbt && chmod +x sbt
+	curl ${_sbt} > sbt && chmod +x sbt
 }
 
 pre_build() {

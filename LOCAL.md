@@ -21,10 +21,10 @@
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
 | erlang-eini      | X | X | X | X | X | ~ |   1.2.1 | ok (check deps) |
-| erlang-eper      |   |   |   |   |   |   |         |       |
+| erlang-eper      | X | X | X | X |   |   |  0.97.6 |       |
 | erlang-genleader | X | X | X | X |   |   |     1.0 | ok. |
-| erlang-getopt    |   |   |   |   |   |   |         |       |
-| erlang-gpb       |   |   |   |   |   |   |         |       |
+| erlang-getopt    | X | X | X | X |   |   |   0.8.2 |       |
+| erlang-gpb       | X | X | E |   |   |   |  3.26.6 | strange builder. |
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
 | erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
 | erlang-goldrush  |   |   |   |   |   |   |         |       |
@@ -66,6 +66,7 @@
 | libzookeeper     |   |   |   |   |   |   |         |      |
 | logstash         | X | X | E |   |   |   |   5.2.0 | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
+| marathon         | X | X | ~ |   |   |   |  1.3.10 | sbt build-style |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
 | metasploit-framework | X |   |   |   |   |   | 4.13.19 |      |
 | nagioscore       | X |   |   |   |   |   |   4.2.4 |      |

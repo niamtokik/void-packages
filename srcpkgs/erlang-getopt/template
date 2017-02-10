@@ -1,0 +1,15 @@
+# Template file for 'erlang-getopt'
+
+pkgname="erlang-getopt"
+version="0.8.2"
+revision=1
+build_style=erlang-rebar2
+short_desc="Erlang module to parse command line arguments using the GNU getopt syntax"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/jcomellas/getopt/"
+distfiles="https://github.com/jcomellas/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="bfeab0aeb3e515b1c2912874d6e644849561971d8d947ec4adc7c9ff4c394ea8"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

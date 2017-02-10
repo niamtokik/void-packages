@@ -11,7 +11,7 @@ do_install() {
 
 	for _t in ebin src doc examples include
 	do
-		if [ -d "${_t}" ]
+		if [ -d "${_t}" ] && ! _is_empty ${_t}/*
 		then
 			vmkdir "${_pkgdst}/${_t}"
 			vcopy "${_t}/*" "${_pkgdst}/${_t}"
@@ -19,3 +19,10 @@ do_install() {
 	done
 }
 
+_is_empty() {
+	if [ "${#*}" -gt 1 ]
+	then
+		return 1
+	fi
+	return 0
+}

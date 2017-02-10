@@ -1,0 +1,15 @@
+# Template file for 'erlang-gpb'
+
+pkgname="erlang-gpb"
+version="3.26.6"
+revision=1
+build_style=erlang-rebar2
+short_desc=" A Google Protobuf implementation for Erlang "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-2.1"
+homepage="https://github.com/tomas-abrahamsson/gpb/tree/3.26.6"
+distfiles="https://github.com/tomas-abrahamsson/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="f9d8480bf0fcad9fb8fbe178ef14b14b9456aca0dc3ab718439678a40f3dacca"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

@@ -1,0 +1,18 @@
+# Template file for 'marathon'
+
+pkgname="marathon"
+version="1.3.10"
+revision=1
+build_style=java-sbt
+short_desc="Deploy and manage containers on top of Apache Mesos at scale"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/mesosphere/marathon"
+distfiles="https://github.com/mesosphere/${pkgname}/archive/v${version}.tar.gz"
+checksum="4bf19cc2ef9dc55daaeeeeabf2df022d198dd1c338f8ab6805bf988b193cc2f2"
+hostmakedepends="openjdk openjdk-jre mesos curl"
+depends="mesos docker"
+
+do_build() {
+	./sbt
+}
