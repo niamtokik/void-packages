@@ -1,0 +1,16 @@
+# Template file for 'erlang-cowboy'
+
+pkgname="erlang-cowboy"
+version="1.1.2"
+revision=1
+build_style=erlang-mk
+short_desc="Small, fast, modern HTTP server for Erlang/OTP."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ninenines/cowboy/"
+distfiles="https://github.com/ninenines/${pkgname#erlang-}/archive/1.1.2.tar.gz"
+checksum="d607498fc9e00d8026cc1a410f7f148c3fbef56601bf7213a2fc29ac66eea5a9"
+hostmakedepends="erlang make git perl"
+depends="erlang>=16 erlang-cowlib erlang-ranch"
+wrksrc=${pkgname#erlang-}-${version}
+

@@ -1,0 +1,19 @@
+# Template file for 'erlang-ubf'
+
+pkgname="erlang-ubf"
+version="2.2.4"
+revision=1
+build_style=erlang-rebar2
+short_desc="Universal Binary Format"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="MIT"
+homepage="https://github.com/ubf/ubf"
+distfiles="https://github.com/ubf/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="30e11413c6a1cf402f4fea1ea812ed4cff8f4ec6f50a40b622c23059e3a0d223"
+hostmakedepends="erlang make git"
+wrksrc="${pkgname#erlang-}-${version}"
+
+do_build() {
+	make deps clean compile
+}
+
