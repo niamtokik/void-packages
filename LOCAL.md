@@ -3,6 +3,7 @@
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel           |   |   |   |   |   |   |         |       |
+| barrel-erlang    | X | X | X | X |   |   |   0.2.0 |       |
 | beef             | X |   |   |   |   |   | 0.4.7.0 |       |
 | cassandra        | X |   |   |   |   |   |  3.0.10 |       |
 | cds              | X |   |   |   |   |   |   0.4.0 | go multi-project |

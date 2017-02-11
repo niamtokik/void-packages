@@ -1,0 +1,28 @@
+# Template file for 'barrel-erlang'
+
+pkgname="barrel-erlang"
+version="0.2.0"
+revision=1
+build_style=erlang-rebar3
+short_desc="Erlang Client to Barrel Platform"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="http://barrel-db.org/"
+distfiles="https://github.com/barrel-db/${pkgname}/archive/${version}.tar.gz"
+checksum="9a210454885abd373715e0e095780212b7a73002b980f24d5d2cf1320d9604d5"
+hostmakedepends="erlang rebar3"
+depends="erlang-hackney erlang-jsx erlang-uuid"
+
+do_install() {
+	_build="_build/default/lib/${pkgname%-erlang}"
+	_pkgdst="usr/lib/erlang/lib/${pkgname%-erlang}-${version}"
+	for _t in ebin src c_src doc examples include priv
+	do
+		_target="${_build}/${_t}"
+		if [ -d "${_target}" ]
+		then
+			vmkdir "${_pkgdst}/${_t}"
+			vcopy "${_target}/*" "${_pkgdst}/${_t}"
+		fi
+	done
+}
