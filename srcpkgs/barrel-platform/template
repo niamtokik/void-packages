@@ -1,0 +1,32 @@
+# Template file for 'barrel-platform'
+
+pkgname="barrel-platform"
+version="0.6.0"
+revision=1
+build_style=erlang-rebar3
+short_desc="Distributed database for the modern world"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="http://barrel-db.org/"
+distfiles="https://github.com/barrel-db/${pkgname}/archive/${version}.tar.gz"
+checksum=""
+hostmakedepends="erlang rebar3 make"
+depends="erlang-hackney erlang-jsx erlang-uuid"
+
+do_build() {
+	make rel
+}
+
+do_install() {
+	_rel="_build/prod/rel/${pkgname%-platform}"
+	
+	vminstall ${_rel}/bin/barrel 555 bin
+	vminstall ${_rel}/bin/barrel-${version} 555 bin
+	vminstall ${_rel}/bin/barrel_http 555 bin
+	# vminstall ${_rel}/bin/install_upgrade.escript
+	# vminstall ${_rel}/bin/nodetool
+	# vminstall ${_rel}/bin/start_clean
+	vmove ${_rel}/lib
+	vmove ${_rel}/erts-8.2
+	vmove ${_rel}/releases
+}
