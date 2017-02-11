@@ -45,7 +45,6 @@
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-lru       |   |   |   |   |   |   |         |       |
 | erlang-meck      | X | X | X | X |   |   |   0.8.4 | ok.   |
-| erlang-mock      |   |   |   |   |   |   |         |       |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
 | erlang-mochiweb  | X | X | X | X |   |   |  2.16.0 | ok.   |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
@@ -68,7 +67,7 @@
 | erlang-worker_pool   |   |   |   |   |   |   |         |      |
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
 | gocd             | X |   |   |   |   |   |         |      |
-| graylog          | X |   |   |   |   |   |   2.1.3 |      |
+| graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
 | hadoop           | X |   |   |   |   |   |   2.7.3 |      |
 | hive             | X |   |   |   |   |   |   2.1.1 |      |
 | integrity        | X | X | E |   |   |   |      26 | rake error |
@@ -105,11 +104,11 @@
 | shelldap         | X | X | X | X |   |   |   1.3.2 | need to add 
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
-| vault            |   |   |   |   |   |   |         |      |
+| vault            | X |   |   |   |   |   |   0.6.5 |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zabbix           |   |   |   |   |   |   |         |      |
 | zinc             |   |   |   |   |   |   |         | spark deps |
-| zookeeper        |   |   |   |   |   |   |         |      |
+| zookeeper        | X |   |   |   |   |   |   3.5.2 |      |
 
  * F = fetch -> fetching source code
  * C = configure -> configure source code
