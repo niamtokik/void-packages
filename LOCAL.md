@@ -2,7 +2,7 @@
 
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
-| barrel           |   |   |   |   |   |   |         |       |
+| barrel-platform  |   |   |   |   |   |   |         |       |
 | barrel-erlang    | X | X | X | X |   |   |   0.2.0 |       |
 | beef             | X |   |   |   |   |   | 0.4.7.0 |       |
 | cassandra        | X |   |   |   |   |   |  3.0.10 |       |
@@ -25,6 +25,8 @@
 | erlang-certifi   | X | X | X | X |   |   |   1.0.0 | ok.   |
 | erlang-covertool | X | X | X | X | X | ~ |     0.1 | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
+| erlang-cowboy_swagger|   |   |   |   |   |   |         |       |
+| erlang-cowboy    |   |   |   |   |   |   |         |       |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
 | erlang-eini      | X | X | X | X | X | ~ |   1.2.1 | ok (check deps) |
 | erlang-eper      | X | X | X | X |   |   |  0.97.6 |       |
@@ -40,6 +42,7 @@
 | erlang-jose      |   |   |   |   |   |   |         |       |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
+| erlang-lru       |   |   |   |   |   |   |         |       |
 | erlang-meck      | X | x | X | x |   |   |   0.8.4 | ok.   |
 | erlang-mock      |   |   |   |   |   |   |         |       |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
@@ -51,6 +54,8 @@
 | erlang-quickrand | X | X | X | X |   |   |   1.6.0 | ok.   |
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
 | erlang-rlex      |   |   |   |   |   |   |         |       |
+| erlang-rocksdb   |   |   |   |   |   |   |         |       |
+| erlang-sext      |   |   |   |   |   |   |         |       |
 | erlang-ssl_verify_fun |   |   |   |   |   |   |         |       |
 | erlang-sut       | X | X | E |   |   |   |  master | deps error. |
 | erlang-syslog    |   |   |   |   |   |   |         |       |
