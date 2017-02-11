@@ -2,8 +2,8 @@
 
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
-| barrel-platform  |   |   |   |   |   |   |         |       |
-| barrel-erlang    | X | X | X | X |   |   |   0.2.0 |       |
+| barrel-platform  | X | X | X | E |   |   |   0.6.0 | rebar3 release |
+| barrel-erlang    | X | X | X | X |   |   |   0.2.0 | ok.   |
 | beef             | X |   |   |   |   |   | 0.4.7.0 |       |
 | cassandra        | X |   |   |   |   |   |  3.0.10 |       |
 | cds              | X |   |   |   |   |   |   0.4.0 | go multi-project |
@@ -43,10 +43,10 @@
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-lru       |   |   |   |   |   |   |         |       |
-| erlang-meck      | X | x | X | x |   |   |   0.8.4 | ok.   |
+| erlang-meck      | X | X | X | X |   |   |   0.8.4 | ok.   |
 | erlang-mock      |   |   |   |   |   |   |         |       |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
-| erlang-mochiweb  | X | x | X | X |   |   |  2.16.0 | ok.   |
+| erlang-mochiweb  | X | X | X | X |   |   |  2.16.0 | ok.   |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
 | erlang-poolboy   |   |   |   |   |   |   |         |       |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
@@ -84,7 +84,7 @@
 | nanopb           |   |   |   |   |   |   |         |      |
 | ncpa             | X |   |   |   |   |   |   2.0.2 |      |
 | ndoutils         | - |   |   |   |   |   |   2.1b1 | old. |
-| nsca             | x |   |   |   |   |   |   2.9.2 |      |
+| nsca             | X |   |   |   |   |   |   2.9.2 |      |
 | neo4j            |   |   |   |   |   |   |         |      |
 | openswan         | X |   |   |   |   |   |  3.0.14 |      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
