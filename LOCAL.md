@@ -20,26 +20,27 @@
 | elm-core         |   |   |   |   |   |   |         |       |
 | elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
+| erlang-base64url | X | X | X | X |   |   |     1.0 | ok.   |
 | erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-certifi   | X | X | X | X |   |   |   1.0.0 | ok.   |
 | erlang-covertool | X | X | X | X | X | ~ |     0.1 | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
-| erlang-cowboy_swagger|   |   |   |   |   |   |         |       |
-| erlang-cowboy    |   |   |   |   |   |   |         |       |
+| erlang-cowboy_swagger| X | X | X | X | | |   1.2.2 | ok.   |
+| erlang-cowboy    | X | X | X | X |   |   |   1.1.2 | ok.   |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
 | erlang-eini      | X | X | X | X | X | ~ |   1.2.1 | ok (check deps) |
-| erlang-eper      | X | X | X | X |   |   |  0.97.6 |       |
-| erlang-genleader | X | X | X | X |   |   |     1.0 | ok. |
+| erlang-eper      | X | X | X | X |   |   |  0.97.6 | ok.   |
+| erlang-genleader | X | X | X | X |   |   |     1.0 | ok.   |
 | erlang-getopt    | X | X | X | X |   |   |   0.8.2 |       |
 | erlang-gpb       | X | X | E |   |   |   |  3.26.6 | strange builder. |
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
 | erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
 | erlang-goldrush  | X | X | E |   |   |   |   0.1.9 | need rebar2 bootstrap |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
-| erlang-ibrowse   |   |   |   |   |   |   |         |       |
+| erlang-ibrowse   | X | X | X | X |   |   |   4.4.0 | ok.   |
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
-| erlang-jose      |   |   |   |   |   |   |         |       |
+| erlang-jose      | X | X | X | X |   |   |   1.8.1 | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-lru       |   |   |   |   |   |   |         |       |
@@ -61,6 +62,7 @@
 | erlang-syslog    |   |   |   |   |   |   |         |       |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
 | erlang-trails    |   |   |   |   |   |   |         |       |
+| erlang-ubf       | X | X | E |   |   |   |   2.2.4 | fail with git repo |
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
 | erlang-webmachine| X | E |   |   |   |   |  1.10.8 | ok.   |
 | erlang-worker_pool   |   |   |   |   |   |   |         |      |

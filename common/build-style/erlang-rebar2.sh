@@ -2,8 +2,19 @@
 #
 #
 
+do_configure() {
+	# rebar2 bootstrap
+	if ! [ -f rebar ]
+	then
+		_rebar2="https://github.com/rebar/rebar/wiki/rebar"
+		curl ${_rebar2} -Lo rebar && chmod +x rebar
+	fi
+	./rebar get-deps
+}
+
 do_build() {
-	make compile
+	# make
+	./rebar compile
 }
 
 do_install() {
