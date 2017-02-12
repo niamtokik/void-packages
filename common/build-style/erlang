@@ -1,0 +1,35 @@
+#
+# automatic compiler method for erlang.
+#
+
+_METHOD=""
+
+do_configure() {
+	if [ -f "rebar.conf" ]
+	then
+		_check_rebar
+	elif [ -f "erlang.mk" ]
+	then
+		_check_erlang_mk
+	elif [ -f "Makefile" ]
+	then
+		check_makefile
+	else
+		echo "no methods found."
+	fi
+}
+
+_check_rebar() {
+	if [ -f "" ]
+	then
+		:
+	fi
+}
+
+_check_makefile() {
+	:
+}
+
+_check_erlang_mk() {
+	:
+}
