@@ -37,7 +37,7 @@
 | erlang-getopt    | X | X | X | X |   |   |   0.8.2 |       |
 | erlang-gpb       | X | X | E |   |   |   |  3.26.6 | strange builder. |
 | erlang-gproc     | X |   |   |   |   |   |  0.2.10 | !deps |
-| erlang-gun       |   |   |   |   |   |   | 1.0.0-p1| unstable |
+| erlang-gun       | X | X | X | X |   |   | 1.0.0-p1| ok. |
 | erlang-goldrush  | X | X | E |   |   |   |   0.1.9 | need rebar2 bootstrap |
 | erlang-hackney   | X | X | X | X |   |   |   1.6.5 | ok.   |
 | erlang-ibrowse   | X | X | X | X |   |   |   4.4.0 | ok.   |
