@@ -44,14 +44,14 @@
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
 | erlang-jose      | X | X | X | X |   |   |   1.8.1 | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
-| erlang-katana-test|  |   |   |   |   |   |         |       |
+| erlang-katana    |   |   |   |   |   |   |         |       |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-lru       | X | X | X | X |   |   |   1.3.1 | ok.   |
 | erlang-meck      | X | X | X | X |   |   |   0.8.4 | ok.   |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
 | erlang-mochiweb  | X | X | X | X |   |   |  2.16.0 | ok.   |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
-| erlang-mixer     |   |   |   |   |   |   |         |       |
+| erlang-mixer     | X | X | X | X |   |   |   0.1.1 | ok.   |
 | erlang-poolboy   | X | X | X | X |   |   |   1.5.1 | ok.   |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
 | erlang-proper    | X | X | X | X | X | ~ |     1.2 | ok.   |

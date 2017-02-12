@@ -1,0 +1,15 @@
+# Template file for 'erlang-mixer'
+
+pkgname="erlang-mixer"
+version="0.1.1"
+revision=1
+build_style=erlang-rebar2
+short_desc=" Mix in functions from other modules"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/chef/mixer"
+distfiles="https://github.com/chef/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="a84b8ca26807a3f841d76d6386acf92dab105ae2473791d1222989688c46f306"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc="${pkgname#erlang-}-${version}"
