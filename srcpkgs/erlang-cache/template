@@ -1,0 +1,15 @@
+# Template file for 'erlang-cache'
+
+pkgname="erlang-cache"
+version="2.1.1"
+revision=1
+build_style=erlang-rebar2
+short_desc="Erlang in-memory cache"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/fogfish/cache"
+distfiles="https://github.com/fogfish/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="c2cab101acb3f6af89350c89f4bfdd77281ad84f6578fcf9d4b203cd78575a5a"
+hostmakedepends="erlang make curl"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

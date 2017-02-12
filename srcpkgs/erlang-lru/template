@@ -1,0 +1,14 @@
+# Template file for 'erlang-lru'
+
+pkgname="erlang-lru"
+version="1.3.1"
+revision=1
+build_style=erlang-rebar3
+short_desc="a fixed size LRU cache."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/barrel-db/erlang-lru"
+distfiles="https://github.com/barrel-db/${pkgname}/archive/${version}.tar.gz"
+checksum="85020077696b9a522d716d228bd98e1a2ea3bae129c45e3c919089c442124f87"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"

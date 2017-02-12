@@ -24,6 +24,7 @@
 | erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-certifi   | X | X | X | X |   |   |   1.0.0 | ok.   |
+| erlang-cache     | X | X | X | X |   |   |   2.1.1 | ok.   |
 | erlang-covertool | X | X | X | X | X | ~ |     0.1 | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-cowboy_swagger| X | X | X | X | | |   1.2.2 | ok.   |
@@ -43,20 +44,20 @@
 | erlang-jose      | X | X | X | X |   |   |   1.8.1 | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
-| erlang-lru       |   |   |   |   |   |   |         |       |
+| erlang-lru       | X | X | X | X |   |   |   1.3.1 | ok.   |
 | erlang-meck      | X | X | X | X |   |   |   0.8.4 | ok.   |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
 | erlang-mochiweb  | X | X | X | X |   |   |  2.16.0 | ok.   |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
-| erlang-poolboy   |   |   |   |   |   |   |         |       |
+| erlang-poolboy   | X | X | X | X |   |   |   1.5.1 | ok.   |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
 | erlang-proper    | X | X | X | X | X | ~ |     1.2 | ok.   |
 | erlang-quickrand | X | X | X | X |   |   |   1.6.0 | ok.   |
 | erlang-ranch     | X | X | X | X |   |   |   1.3.2 | ok.   |
-| erlang-rlex      |   |   |   |   |   |   |         |       |
+| erlang-relx      | X | X | X | X |   |   |  3.22.2 | ok.   |
 | erlang-rocksdb   |   |   |   |   |   |   |         |       |
-| erlang-sext      |   |   |   |   |   |   |         |       |
-| erlang-ssl_verify_fun |   |   |   |   |   |   |         |       |
+| erlang-sext      | X |   |   |   |   |   |   1.4.0 | git error.  |
+| erlang-ssl_verify_fun | X | X | X | X | | | 1.1.1  | ok.   |
 | erlang-sut       | X | X | E |   |   |   |  master | deps error. |
 | erlang-syslog    |   |   |   |   |   |   |         |       |
 | erlang-thrift    |   |   |   |   |   |   |         |       |

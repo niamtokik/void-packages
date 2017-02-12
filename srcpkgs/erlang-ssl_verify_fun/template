@@ -1,0 +1,15 @@
+# Template file for 'erlang-ssl_verify_fun'
+
+pkgname="erlang-ssl_verify_fun"
+version="1.1.1"
+revision=1
+build_style=erlang-rebar2
+short_desc="Collection of ssl verification functions for Erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="MIT"
+homepage="https://github.com/deadtrickster/ssl_verify_fun.erl"
+distfiles="https://github.com/deadtrickster/${pkgname#erlang-}.erl/archive/${version}.tar.gz"
+checksum="96c9354b18a9bf040fd131041d68c3960ceb5dc050b29828503109486a55c90e"
+hostmakedepends="erlang make curl"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}.erl-${version}
