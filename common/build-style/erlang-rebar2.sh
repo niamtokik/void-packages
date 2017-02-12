@@ -20,7 +20,7 @@ do_build() {
 do_install() {
 	_pkgdst="usr/lib/erlang/lib/${pkgname#erlang-}-${version}"
 
-	for _t in ebin src doc examples include
+	for _t in ebin src doc examples include c_src priv
 	do
 		if [ -d "${_t}" ] && ! _is_empty ${_t}/*
 		then
@@ -31,7 +31,7 @@ do_install() {
 }
 
 _is_empty() {
-	if [ "${#*}" -gt 1 ]
+	if [ "${#*}" -ge 1 ]
 	then
 		return 1
 	fi

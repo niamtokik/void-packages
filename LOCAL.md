@@ -63,7 +63,7 @@
 | erlang-ssl_verify_fun| X | X | X | X | | |  1.1.1  | ok.   |
 | erlang-sut       | X | X | E |   |   |   |  master | deps error. |
 | erlang-sync      | X | X | X | X |   |   |  master | ok.   |
-| erlang-syslog    |   |   |   |   |   |   |         |       |
+| erlang-syslog    | X | X | X | x |   |   |   1.0.3 | ok.   |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
 | erlang-ubf       | X | X | E |   |   |   |   2.2.4 | fail with git repo |
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
