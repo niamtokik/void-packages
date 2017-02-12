@@ -33,7 +33,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
 | erlang-certifi   | X | X | X | X |   |   |   1.0.0 | ok.   |
 | erlang-cache     | X | X | X | X |   |   |   2.1.1 | ok.   |
-| erlang-covertool | X | X | X | X | X | ~ |     0.1 | ok.   |
+| erlang-covertool | X | X | X | X | X | ~ |  master | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
 | erlang-cowboy    | X | X | X | X |   |   |   1.1.2 | ok.   |
 | erlang-cowboy_swagger| X | X | X | X | | |   1.2.2 | ok.   |

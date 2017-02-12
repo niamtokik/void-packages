@@ -2,15 +2,16 @@
 
 pkgname="erlang-idna"
 version="0.1"
+_commit="2ddc8f22ae2e0a7bb1ebd8ed241a99c466deb231"
 revision=1
 build_style=erlang-emake
 short_desc=" A pure Erlang IDNA implementation "
 maintainer="Mathieu Kerjouan <void@steepath.eu>"
 license="GPL-3"
 homepage="https://github.com/tim/erlang-idna"
-distfiles="https://github.com/tim/${pkgname}/archive/master.tar.gz"
-checksum="7ee44aeeef3f15beaf2c35c83799216d7945c4826ba97609d964f18e913a9936"
-wrksrc="erlang-idna-master"
+distfiles="https://github.com/tim/${pkgname}/archive/${_commit}.tar.gz"
+checksum="b88436e1b66f7c888e963ae2f94afdaf26c217f1e375335d3bbd3eec5271aae9"
+wrksrc="${pkgname}-${_commit}"
 hostmakedepends="erlang make"
 depends="erlang>=16"
 
