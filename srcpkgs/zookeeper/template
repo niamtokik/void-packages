@@ -11,6 +11,11 @@ homepage="https://github.com/apache/zookeeper"
 distfiles="https://github.com/apache/${pkgname}/archive/release-${version}.tar.gz"
 checksum="c3bd54382adaad9c0bf5d366949eb1d21762d5fd1ac643399adcb0f5349ced65"
 hostmakedepends="openjdk openjdk-jre apache-ant"
+wrksrc=${pkgname}-release-${version}
+
+do_configure() {
+	:
+}
 
 do_build() {
 	ant

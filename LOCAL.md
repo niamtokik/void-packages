@@ -101,7 +101,7 @@
 | rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
 | rumpkernel       |   |   |   |   |   |   |         |      |
-| sbt              |   |   |   |   |   |   |         | builder |
+| sbt              | X |   |   |   |   |   | 0.13.13 | builder |
 | sbt-extras       |   |   |   |   |   |   |         | builder |
 | scala            | X | X | X | W |   |   |  2.12.1 | compare to off. pkg. |
 | shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
@@ -112,8 +112,8 @@
 | vault            | X |   |   |   |   |   |   0.6.5 |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zabbix           |   |   |   |   |   |   |         |      |
-| zinc             |   |   |   |   |   |   |         | spark deps |
-| zookeeper        | X |   |   |   |   |   |   3.5.2 |      |
+| zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
+| zookeeper        | X | X | X | W |   |   |   3.5.2 | how to store files? |
 
  * F = fetch -> fetching source code
  * C = configure -> configure source code
