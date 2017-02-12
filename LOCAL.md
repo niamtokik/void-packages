@@ -44,7 +44,7 @@
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
 | erlang-jose      | X | X | X | X |   |   |   1.8.1 | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
-| erlang-katana    |   |   |   |   |   |   |         |       |
+| erlang-katana    | X | X | X | X |   |   |  master | ok.   |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-lru       | X | X | X | X |   |   |   1.3.1 | ok.   |
 | erlang-meck      | X | X | X | X |   |   |   0.8.4 | ok.   |
