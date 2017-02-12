@@ -1,0 +1,15 @@
+# Template file for 'erlang-syslog'
+
+pkgname="erlang-syslog"
+version="1.0.3"
+revision=1
+build_style=erlang-rebar2
+short_desc="Erlang port driver for interacting with syslog via syslog(3)"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/Vagabond/erlang-syslog/"
+distfiles="https://github.com/Vagabond/${pkgname}/archive/${version}.tar.gz"
+checksum="7eff5b8e823c1db209a52847e7f4b81b56cc653011b892428200b388e93a66b1"
+hostmakedepends="erlang"
+depends="erlang>=16"
+
