@@ -27,8 +27,9 @@
 | erlang-cache     | X | X | X | X |   |   |   2.1.1 | ok.   |
 | erlang-covertool | X | X | X | X | X | ~ |     0.1 | ok.   |
 | erlang-cowlib    | X | X | X | X |   |   |   1.0.2 | ok.   |
-| erlang-cowboy_swagger| X | X | X | X | | |   1.2.2 | ok.   |
 | erlang-cowboy    | X | X | X | X |   |   |   1.1.2 | ok.   |
+| erlang-cowboy_swagger| X | X | X | X | | |   1.2.2 | ok.   |
+| erlang-cowboy-trails | X | X | X | E |   |   |  0.2.1 | error with rebar release |
 | erlang-edown     | X | X | E |   |   |   |   0.2.4 | fail to build: doclet record |
 | erlang-eini      | X | X | X | X | X | ~ |   1.2.1 | ok (check deps) |
 | erlang-eper      | X | X | X | X |   |   |  0.97.6 | ok.   |
@@ -43,12 +44,14 @@
 | erlang-idna      | X | X | X | X |   |   |  master | ok.   |
 | erlang-jose      | X | X | X | X |   |   |   1.8.1 | ok.   |
 | erlang-jsx       | X | X | X | X |   |   |   2.8.2 | ok.   |
+| erlang-katana-test|  |   |   |   |   |   |         |       |
 | erlang-lager     | X | X | X | X |   |   |   3.2.4 | ok.   |
 | erlang-lru       | X | X | X | X |   |   |   1.3.1 | ok.   |
 | erlang-meck      | X | X | X | X |   |   |   0.8.4 | ok.   |
 | erlang-metrics   | X | X | X | X |   |   |   2.2.0 | ok.   |
 | erlang-mochiweb  | X | X | X | X |   |   |  2.16.0 | ok.   |
 | erlang-mimerl    | X | X | X | X |   |   |   1.1.1 | ok.   |
+| erlang-mixer     |   |   |   |   |   |   |         |       |
 | erlang-poolboy   | X | X | X | X |   |   |   1.5.1 | ok.   |
 | erlang-procket   | X | X | X | X |   |   |   0.8.0 | nonstrip executable. |
 | erlang-proper    | X | X | X | X | X | ~ |     1.2 | ok.   |
@@ -57,15 +60,15 @@
 | erlang-relx      | X | X | X | X |   |   |  3.22.2 | ok.   |
 | erlang-rocksdb   |   |   |   |   |   |   |         |       |
 | erlang-sext      | X |   |   |   |   |   |   1.4.0 | git error.  |
-| erlang-ssl_verify_fun | X | X | X | X | | | 1.1.1  | ok.   |
+| erlang-ssl_verify_fun| X | X | X | X | | |  1.1.1  | ok.   |
 | erlang-sut       | X | X | E |   |   |   |  master | deps error. |
+| erlang-sync      | X | X | X | X |   |   |  master | ok.   |
 | erlang-syslog    |   |   |   |   |   |   |         |       |
 | erlang-thrift    |   |   |   |   |   |   |         |       |
-| erlang-trails    |   |   |   |   |   |   |         |       |
 | erlang-ubf       | X | X | E |   |   |   |   2.2.4 | fail with git repo |
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
 | erlang-webmachine| X | E |   |   |   |   |  1.10.8 | ok.   |
-| erlang-worker_pool   |   |   |   |   |   |   |         |      |
+| erlang-worker_pool| X| X | X | X |   |   |   2.2.2 | ok.   |
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
 | gocd             | X |   |   |   |   |   |         |      |
 | graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |

@@ -1,0 +1,16 @@
+# Template file for 'erlang-cowboy-trails'
+
+pkgname="erlang-cowboy-trails"
+version="0.2.1"
+revision=1
+build_style=erlang-rebar3
+short_desc="A couple of improvements over Cowboy Routes"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/inaka/erlang-cowboy-trails"
+distfiles="https://github.com/inaka/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="75787bc1c0e3fc9a21689e26ba6c50ae9a4bf8d93c2744945a720c75bbb23ae8"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16 erlang-cowboy erlang-ranch"
+wrksrc=${pkgname#erlang-}-${version}
+broken="rebar3 issue."

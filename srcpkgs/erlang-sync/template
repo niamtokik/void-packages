@@ -1,0 +1,15 @@
+# Template file for 'erlang-sync'
+
+pkgname="erlang-sync"
+version="0.1"
+revision=1
+build_style=erlang-rebar2
+short_desc=" On-the-fly recompiling and reloading in Erlang. Code without friction."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/rustyio/cowlib"
+distfiles="https://github.com/rustyio/${pkgname#erlang-}/archive/master.tar.gz"
+checksum="da139d38a5c4ce406edbd74852d3f502a3dc34f1833f00a5940428c421555776"
+hostmakedepends="erlang make curl"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-master

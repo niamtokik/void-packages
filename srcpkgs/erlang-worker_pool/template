@@ -1,0 +1,15 @@
+# Template file for 'erlang-worker_pool'
+
+pkgname="erlang-worker_pool"
+version="2.2.2"
+revision=1
+build_style=erlang-rebar3
+short_desc="Erlang worker pool"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/inaka/worker_pool"
+distfiles="https://github.com/inaka/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="8b5fa47e656c480a01adff1675dae133633ff7f079dda8b22e10f10454da27b6"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16 erlang-katana-test erkang-mixer erlang-sync"
+wrksrc=${pkgname#erlang-}-${version}
