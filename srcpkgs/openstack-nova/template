@@ -1,0 +1,16 @@
+# Template file for 'openstack-nova'
+
+pkgname="openstack-nova"
+version="15.0.0.0"
+revision=1
+build_style=python2-module
+short_desc="OpenStack Compute (Nova)"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://www.openstack.org"
+distfiles="https://github.com/openstack/${pkgname#openstack-}/archive/${version}rc1.tar.gz"
+checksum="19585864bf391075480aafc6dde0e975302b7b40758a2f02a7bbef1e8880e21b"
+wrksrc=${pkgname#openstack-}-${version}rc1
+hostmakedepends="python python-setuptools git"
+depends="python<=3 python-setuptools"
+broken="error during build"

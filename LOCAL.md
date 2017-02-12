@@ -92,7 +92,26 @@
 | nsca             | X |   |   |   |   |   |   2.9.2 |      |
 | neo4j            |   |   |   |   |   |   |         |      |
 | openswan         | X |   |   |   |   |   |  3.0.14 |      |
+| openstack-barbican|  |   |   |   |   |   |         |      |
+| openstack-cinder |   |   |   |   |   |   |         |      |
+| openstack-congress|  |   |   |   |   |   |         |      |
+| openstack-designate| |   |   |   |   |   |         |      |
+| openstack-glance |   |   |   |   |   |   |         |      |
+| openstack-heat   |   |   |   |   |   |   |         |      |
+| openstack-horizon|   |   |   |   |   |   |         |      |
+| openstack-ironic |   |   |   |   |   |   |         |      |
+| openstack-keystone|  |   |   |   |   |   |         |      |
+| openstack-kolla  |   |   |   |   |   |   |         |      |
+| openstack-magnum |   |   |   |   |   |   |         |      |
+| openstack-manila |   |   |   |   |   |   |         |      |
+| openstack-murano |   |   |   |   |   |   |         |      |
+| openstack-neutron|   |   |   |   |   |   |         |      |
+| openstack-nova   | X | X |   |   |   |   |15.0.0.0rc1|      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
+| openstack-tacker |   |   |   |   |   |   |         |      |
+| openstack-trove  |   |   |   |   |   |   |         |      |
+| openstack-sahara |   |   |   |   |   |   |         |      |
+| openstack-zaqar  |   |   |   |   |   |   |         |      |
 | perl-dancer      |   |   |   |   |   |   |         |      |
 | python-fabric    |   |   |   |   |   |   |         |      |
 | quagga           | X |   |   |   |   |   |   1.1.1 |      |
