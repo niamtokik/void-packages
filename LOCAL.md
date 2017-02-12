@@ -1,5 +1,13 @@
 # Local support template
 
+This branch was made to port some packages to void-linux
+xbps package repository. This is currently a work in 
+progress.
+
+__Please don't use it! Its not production ready (yet)!!!__
+
+## Ports lists
+
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel-platform  | X | X | X | E |   |   |   0.6.0 | rebar3 release |
@@ -106,7 +114,7 @@
 | openstack-manila |   |   |   |   |   |   |         |      |
 | openstack-murano |   |   |   |   |   |   |         |      |
 | openstack-neutron|   |   |   |   |   |   |         |      |
-| openstack-nova   | X | X |   |   |   |   |15.0.0.0rc1|      |
+| openstack-nova   | X | X | E |   |   |   |15.0.0.0rc1|      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
 | openstack-tacker |   |   |   |   |   |   |         |      |
 | openstack-trove  |   |   |   |   |   |   |         |      |
@@ -134,22 +142,68 @@
 | zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
 | zookeeper        | X | X | X | W |   |   |   3.5.2 | how to store files? |
 
- * F = fetch -> fetching source code
- * C = configure -> configure source code
- * B = build -> build all sources
- * P = package -> make package
- * I = install -> install package 
- * T = test -> functional test on installed package
+ * F = fetch     --> fetching source code
+ * C = configure --> configure source code
+ * B = build     --> build all sources
+ * P = package   --> make package
+ * I = install   --> install package 
+ * T = test      --> functional test on installed package
 
-##  BarrelDB
+----
 
- * url: https://barrel-db.org/
- * src: https://github.com/barrel-db/barrel-platform/
- * path: srcpkgs/barrel/template
+## todo
 
- * fetch: ok
- 
-wip
+ * all master branch on github will require commit tag
+   instead of master.tar.gz.
+ * add branch testing
+ * use CI with buildbot or jenkins (valid deps)
+ * read doc about packaging java and scala tools
+
+### build-style
+
+ * ant build-style (java)
+ * sbt build-style (java/scala)
+ * erlang build-style (all-in-one)
+ * elixir build-style (mix)
+ * leiningen build-style (clojure)
+ * nuget build-style (fsharp)
+ * opam build-style (ocaml)
+ * cabal build-style (haskell)
+ * rake build-style (ruby)
+
+### hooks
+
+ * need to add hooks for all new build-style
+
+### helpers
+
+ * create script to compare void packages with others
+   distribs (debian, gentoo...)
+ * create script to manage new version
+ * create alerts when new versions are released
+ * extract data from erlang.mk and add bootstrap
+ * create bootstrap for hex
+
+----
+
+## Template
+
+```sh
+# Template file for '<%PKGNAME%>'
+
+pkgname="<%PKGNAME%>"
+version="<%VERSION%>"
+revision=<%REVISION%>
+build_style=<%BUILDSTYLE%>
+short_desc="<%DESCRIPTION%>"
+maintainer="<%MAINTAINER%> <%EMAIL%>"
+license="<%LICENSE%>"
+homepage="<%HOMEPAGE%>"
+distfiles="<%DISTFILES%>"
+checksum="<%CHECKSUM%>"
+```
+
+----
 
 ## Cassandra
 
@@ -157,37 +211,11 @@ wip
  * src: https://github.com/apache/cassandra
  * path: srcpkgs/cassandra/template
 
-wip
-
 ## Chef 
 
  * url: http://chef.io/
  * src: https://github.com/chef/chef
  * path: srcpkgs/chef/template
-
-wip
-
-## Clojure
-
- * url: http://clojure.github.io/
- * src: https://github.com/clojure/clojure
- * path: srcpkgs/clojure/template
-
-wip
-
-## Corosync
-
- * url: https://corosync.github.io/corosync/
- * src: https://github.com/corosync/corosync
- * path: srcpkgs/corosync/template
- * version: 2.4.2
-
- * fetch: ok
- * configure: ok
- * build: ok
- * package: ok
- * package-devel: wip
- * tested: wip
 
 ## Elastic Search
 
@@ -195,81 +223,11 @@ wip
  * src: https://github.com/elastic/elasticsearch
  * path: srcpkgs/elastic-search/template
 
-wip
-
 ## Elm
 
  * url: http://elm-lang.org/
  * src: https://github.com/elm-lang/core
  * path: srcpkgs/elm/template
-
-wip
-
-## Erlang Modules
-
-### erlang-asciideck (https://github.com/ninenines/asciideck)
-
- * doesn't have stable release yet.
-
-### erlang-bullet (https://github.com/ninenines/bullet)
-
-### erlang-cowboy (https://github.com/ninenines/cowboy) 
-
- * fetch: ok
- * build: ok
- * package: ok
-
-### erlang-cowlib (https://github.com/ninenines/cowlib)
-
- * fetch: ok
- * build: ok
- * package: ok
-
-### erlang-goldrush (https://github.com/DeadZen/goldrush)
-
-### erlang-gproc (https://github.com/uwiger/gproc)
-
-### erlang-gun (https://github.com/ninenines/gun)
-
-### erlang-hackney (https://github.com/benoitc/hackney)
-
-### erlang-idna (https://github.com/tim/erlang-idna)
-
-### erlang-jsx (https://github.com/talentdeficit/jsx)
-
-### erlang-lager (https://github.com/erlang-lager/lager)
-
-### erlang-metrics (https://github.com/benoitc/erlang-metrics)
-
-### erlang-mimerl (https://github.com/benoitc/mimerl)
-
-### erlang-procket (https://github.com/msantos/procket) 
-
-### erlang-quickrand (https://github.com/okeuday/quickrand)
-
-### erlang-ranch (https://github.com/ninenines/ranch)
-
-### erlang-safetyvalve (https://github.com/jlouis/safetyvalve)
-
-### erlang-sut (https://github.com/msantos/sut)
-
-### erlang-thrift (https://thrift.apache.org/lib/erl)
-
-### erlang-trails (https://github.com/inaka/cowboy-trails)
-
-### erlang-uuid (https://github.com/avtobiff/erlang-uuid)
-
-### erlang-webmachine (https://github.com/webmachine/webmachine)
-
-### erlang-worker_pool (://github.com/inaka/worker_pool)
-  
-## F\#
-
- * url: 
- * src: https://github.com/fsharp/fsharp
- * path: srcpkgs/fsharp/template
-
-wip
 
 ## Hadoop
 
@@ -277,15 +235,11 @@ wip
  * src: https://github.com/apache/hadoop
  * path: srcpkgs/hadoop/template
 
-wip
-
 ## Hive
 
  * url: https://hive.apache.org/
  * src: https://github.com/apache/hive
  * path: srcpkgs/hive/template
-
-wip
 
 ## Kafka
 
@@ -293,31 +247,11 @@ wip
  * src: https://github.com/apache/kafka
  * path: srcpkgs/kafka/template
 
-wip
-
 ## Kibana
 
  * url: http://www.elastic.co/products/kibanA
  * src: https://github.com/elastic/kibana
  * path: srcpkgs/kibana/template
-
-wip
-
-## libqb
-
- * path: srcpkgs/libqb/template 
- * version: 1.0.1
-
- * fetch: ok
- * configure: ok
- * build: ok
- * package: ok
- * package-devel: wip
- * tested: wip
-
-## libzoopeeper
-
- * path: srcpkgs/libzookeeper/template
 
 ## Logstash
 
@@ -325,23 +259,11 @@ wip
  * src: https://github.com/elastic/logstash
  * path: srcpkgs/logstash/template
 
-wip
-
-## Mesos
-
- * url: https://mesos.apache.org/
- * src: https://github.com/apache/mesos
- * path: srcpkgs/mesos/template
-
-wip
-
 ## Nagios
 
  * url: https://www.nagios.org
  * src: https://github.com/NagiosEnterprises/nagioscore
  * path: srcpkgs/nagios/template
-
-wip
 
 ## Neo4j
 
@@ -349,15 +271,11 @@ wip
  * src: https://github.com/neo4j/neo4j
  * path: srcpkgs/neo4j/template
 
-wip
-
 ## OpenSWAN
 
  * url: https://www.openswan.org/
  * src: https://github.com/xelerance/Openswan
  * path: srcpkgs/openswan/template
-
-wip
 
 ## OpenStack Swift
 
@@ -365,37 +283,11 @@ wip
  * src: https://github.com/openstack/swift
  * path: srcpkgs/openstack-swift/template
 
-wip
-
-## Quaggua 
-
- * url: http://www.nongnu.org/quagga/
- * src: https://github.com/Quagga/quagga
- * path: srcpkgs/quagga/template
-
-wip
-
-## Rebar3
-
- * url: https://www.rebar3.org/
- * src: https://github.com/erlang/rebar3
- * path: srcpkgs/rebar3/template
- * version: 3.5.5
-
- * fetch: ok
- * extract: ok
- * build: ok
- * package: ok
- * package-test: wip
- * tested: wip
-
 ## RethinkDB 
 
  * url: https://www.rethinkdb.com/
  * src: https://github.com/rethinkdb/rethinkdb
  * path: srcpkgs/rethinkdb/template
-
-wip
 
 ## Riak
 
@@ -414,43 +306,11 @@ wip
  * src: https://github.com/rumpkernel
  * path: srcpkgs/rumpkernel/template
 
-wip
-
-## Scala
-
- * url: http://www.scala-lang.org/
- * scala: https://github.com/scala/scala
- * path: srcpkgs/scala/template
-
- * build: ok
-
-Note:
-
- * this package sbt, and sbt is download via curl 
-   (https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt
- * I need to check with binary scala if package is okay.
-
 ## Shinken
 
  * url: http://www.shinken-monitoring.org/
  * src: https://github.com/naparuba/shinken
  * path: srcpkgs/shinken/template
-
-wip
-
-## Sheepdog
-
- * url: http://sheepdog.github.io/
- * src: https://github.com/sheepdog/sheepdog/
- * path: srcpkgs/sheepdog/template 
- * version: 1.0.1
-
- * fetch: ok
- * configure: ok
- * build: ok
- * package: ok
- * package-devel: wip
- * tested: wip
 
 ## Spark
 
@@ -458,58 +318,8 @@ wip
  * src: https://github.com/apache/spark
  * path: srcpkgs/spark/template
 
-wip
-
 ## Xorp
 
  * url: http://www.xorp.org/
  * src: https://github.com/greearb/xorp.ct
  * path: srcpkgs/xorp/template
-
-wip
-
-## Zebra
-
- * url: https://www.gnu.org/software/zebra/
- * path: srcpkgs/zebra/template
-
-wip
-
-## Zookeeper:
-
- * url: https://zookeeper.apache.org/
- * src: https://github.com/apache/zookeeper
- * path: srcpkgs/zookeeper/template
-
-wip
-
-# Build Style
-
-## erlang-emake
-
- * erlang makefile method.
-
-## erlang-mk
-
- * url: https://erlang.mk/guide
- * path: common/build-style/erlang-mk.sh
- * depends: erlang, gmake
-
-## erlang-rebar2
-
- * url: https://github.com/rebar/rebar
- * path: common/build-style/erlang-rebar2.sh 
- * depends: erlang, rebar2
-
-## erlang-rebar3
-
- * url: https://www.rebar3.org/
- * path: common/build-style/erlang-rebar3.sh
- * depends: erlang, rebar3
-
-## haskell-cabal
-
-## ocaml-opam
-
-## ruby-rake
-
