@@ -102,6 +102,7 @@
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
 | rumpkernel       |   |   |   |   |   |   |         |      |
 | sbt              |   |   |   |   |   |   |         | builder |
+| sbt-extras       |   |   |   |   |   |   |         | builder |
 | scala            | X | X | X | W |   |   |  2.12.1 | compare to off. pkg. |
 | shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
 | sheepdog         | X | X | X | X | X | W |   1.0.1 | ok.  |
