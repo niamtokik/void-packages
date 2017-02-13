@@ -10,3 +10,13 @@ license="GPL-3"
 homepage="https://hive.apache.org/"
 distfiles="http://apache.mirrors.ovh.net/ftp.apache.org/dist/${pkgname}/${pkgname}-${version}/apache-${pkgname}-${version}-src.tar.gz"
 checksum="7a6e6ef2674499548d08bb8d35d3d4f24d6422dba10a220a8cbf661f5389ee99"
+wrksrc="apache-${pkgname}-${version}-src"
+hostmakedepends="openjdk openjdk-jre apache-maven-bin"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	mvn compile
+}

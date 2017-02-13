@@ -80,8 +80,8 @@ __Please don't use it! Its not production ready (yet)!!!__
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
 | gocd             | X |   |   |   |   |   |         |      |
 | graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
-| hadoop           | X |   |   |   |   |   |   2.7.3 |      |
-| hive             | X |   |   |   |   |   |   2.1.1 |      |
+| hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
+| hive             | X | X | X | ~ |   |   |   2.1.1 |      |
 | integrity        | X | X | E |   |   |   |      26 | rake error |
 | jenkins          |   |   |   |   |   |   |         |      |
 | kafka            | X | X |   |   |   |   |         |      |
@@ -123,7 +123,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | perl-dancer      |   |   |   |   |   |   |         |      |
 | python-fabric    |   |   |   |   |   |   |         |      |
 | quagga           | X |   |   |   |   |   |   1.1.1 |      |
-| rebar2           |   |   |   |   |   |   |         |      |
+| rebar2           | ~ |   |   |   |   |   |   2.6.4 |      |
 | rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
 | rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |

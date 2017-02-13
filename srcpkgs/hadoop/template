@@ -11,3 +11,14 @@ homepage="https://hadoop.apache.org/"
 license="GPL-3"
 distfiles="http://apache.trisect.eu/hadoop/common/hadoop-${version}/hadoop-${version}-src.tar.gz"
 checksum=227785dc6e3e6ef8cfd64393b305d09078a209703c9c01910a1bddcf86be3054
+wrksrc=${pkgname}-${version}-src
+hostmakedepends="openjdk openjdk-jre apache-maven-bin 
+                 protobuf-devel cmake zlib-devel fuse-devel"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	mvn compile
+}
