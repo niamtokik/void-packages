@@ -20,3 +20,29 @@ do_configure() {
 do_build() {
 	ant
 }
+
+do_install() {
+	# libraries
+	vmkdir usr/share/java/
+	vcopy build/zookeeper-${version}-alpha.jar usr/share/java
+
+	# executable
+	vinstall src/contrib/zooinspector/zooInspector.sh 555 usr/bin
+
+	# configuration
+	vmkdir etc/zookeeper
+	vcopy conf/* etc/zookeeper
+	vmkdir etc/zookeeper/zooinspector
+	vcopy src/contrib/zooinspector/config/* etc/zookeeper/zooinspector
+
+	# license
+	vlicense LICENSE.txt
+
+	# extra
+	vmkdir usr/share/zookeeper/bin
+	vcopy bin/*.sh usr/share/zookeeper/bin
+	vcopy bin/*.txt usr/share/zookeeper/bin
+
+	vmkdir usr/share/doc/zookeeper
+	vcopy docs/* usr/share/doc/zookeeper
+}
