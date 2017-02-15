@@ -1,0 +1,20 @@
+# Template file for 'earlyoom'
+pkgname=earlyoom
+version=0.11
+revision=1
+short_desc="Early OOM Daemon for Linux"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="MIT"
+homepage="https://github.com/rfjakob/earlyoom"
+distfiles="https://github.com/rfjakob/${pkgname}/archive/v${version}.tar.gz"
+checksum=167a8cd194df5d1c5bd5327efd7bcad824a99381c02a2969f9e2684b7c5317d7
+
+do_build() {
+	${CC} ${CFLAGS} -DVERSION='"'$version'"' -o earlyoom *.c ${LDFLAGS}
+}
+
+do_install() {
+	vbin earlyoom
+	vsv earlyoom
+	vlicense LICENSE
+}

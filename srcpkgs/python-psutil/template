@@ -1,6 +1,6 @@
 # Template file for 'python-psutil'
 pkgname=python-psutil
-version=5.1.0
+version=5.1.2
 revision=1
 wrksrc="psutil-${version}"
 build_style=python-module
@@ -12,7 +12,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/giampaolo/psutil"
 license="3-clause-BSD"
 distfiles="${PYPI_SITE}/p/psutil/psutil-${version}.tar.gz"
-checksum=7570e1d82345fab3a0adce24baf993adbca4c87a1be2fa6ee79babdaafa817fb
+checksum=43f32b0a392c80cff0f480bd0792763333e46d7062285dd1226b70473c55e8ac
 
 post_install() {
 	vlicense LICENSE
