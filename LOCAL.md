@@ -79,6 +79,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | erlang-worker_pool| X| X | X | X |   |   |   2.2.2 | ok.   |
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
 | gocd             | X |   |   |   |   |   |         |      |
+| gox              | X | X | X | X | ~ | ~ |   0.3.0 | need more stuff (doc)|
 | graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
 | hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
 | hive             | X | X | X | ~ |   |   |   2.1.1 |      |
@@ -136,7 +137,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | shelldap         | X | X | X | X |   |   |   1.3.2 | need to add 
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
-| vault            | X |   |   |   |   |   |   0.6.5 |      |
+| vault            | X | X | X | X | ~ | ~ |   0.6.5 | build work but need more stuff |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zabbix           |   |   |   |   |   |   |         |      |
 | zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
@@ -318,8 +319,22 @@ checksum="<%CHECKSUM%>"
  * src: https://github.com/apache/spark
  * path: srcpkgs/spark/template
 
+## Vault
+
+ * require: go, make, git
+ * build phase: make bootstrap; make compile
+ * build script is in scripts/build.sh
+ * build script require .git directory for dev build
+   -> make patch to comment this line?
+ * vault need gox compiler
+
 ## Xorp
 
  * url: http://www.xorp.org/
  * src: https://github.com/greearb/xorp.ct
  * path: srcpkgs/xorp/template
+
+## zookeeper
+
+ * https://packages.debian.org/stretch/all/libzookeeper-java/filelist
+ * https://packages.debian.org/stretch/all/zookeeper/filelist

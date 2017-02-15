@@ -10,4 +10,13 @@ license="MPL-2.0"
 homepage="https://github.com/hashicorp/vault"
 distfiles="https://github.com/hashicorp/${pkgname}/archive/v${version}.tar.gz"
 checksum="ef4c2fffbc80e126e027e76b30e37351fcaf0baf1178e1fba0e8912276441c00"
-hostmakedepends="go"
+hostmakedepends="go make git gox"
+
+do_build() {
+	go get github.com/hashicorp/${pkgname}
+	make
+}
+
+do_install() {
+	vinstall bin/vault 555 usr/bin
+}
