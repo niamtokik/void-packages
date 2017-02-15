@@ -206,6 +206,22 @@ checksum="<%CHECKSUM%>"
 
 ----
 
+| os           | search engine |
+|--------------|---------------|
+| freebsd      | https://www.freshports.org/search.php?query=%s |
+| openbsd      | http://openports.se/search.php?so=%s |
+| netbsd       | http://pkgsrc.se/search.php?so=%s |
+| debian       | https://packages.debian.org/search?keywords=%s |
+| ubuntu       | https://packages.ubuntu.com/search?keywords=%s |
+| gentoo       | https://packages.gentoo.org/packages/search?q=%s |
+| archlinux    | https://www.archlinux.org/packages/?q=%s |
+| centos       | https://centos-packages.com/6/results/%s/ |
+| fedora       | https://apps.fedoraproject.org/packages/s?search=%s |
+| alpinelinux  | https://pkgs.alpinelinux.org/packages?name=%s | 
+| openindiana  | http://pkg.openindiana.org/sfe/en/search.shtml?token=%s |
+
+----
+
 ## Cassandra
 
  * url: https://cassandra.apache.org/
@@ -260,11 +276,31 @@ checksum="<%CHECKSUM%>"
  * src: https://github.com/elastic/logstash
  * path: srcpkgs/logstash/template
 
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
+
 ## Nagios
 
  * url: https://www.nagios.org
  * src: https://github.com/NagiosEnterprises/nagioscore
  * path: srcpkgs/nagios/template
+
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
 
 ## Neo4j
 
@@ -272,11 +308,31 @@ checksum="<%CHECKSUM%>"
  * src: https://github.com/neo4j/neo4j
  * path: srcpkgs/neo4j/template
 
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
+
 ## OpenSWAN
 
  * url: https://www.openswan.org/
  * src: https://github.com/xelerance/Openswan
  * path: srcpkgs/openswan/template
+
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
 
 ## OpenStack Swift
 
@@ -284,11 +340,31 @@ checksum="<%CHECKSUM%>"
  * src: https://github.com/openstack/swift
  * path: srcpkgs/openstack-swift/template
 
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
+
 ## RethinkDB 
 
  * url: https://www.rethinkdb.com/
  * src: https://github.com/rethinkdb/rethinkdb
  * path: srcpkgs/rethinkdb/template
+
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
 
 ## Riak
 
@@ -301,11 +377,31 @@ checksum="<%CHECKSUM%>"
  * extract: ok
  * build: nok -> require erlang R16/R17
 
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
+
 ## RumpKernel
 
  * url: http://rumpkernel.org/
  * src: https://github.com/rumpkernel
  * path: srcpkgs/rumpkernel/template
+
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
 
 ## Shinken
 
@@ -313,11 +409,31 @@ checksum="<%CHECKSUM%>"
  * src: https://github.com/naparuba/shinken
  * path: srcpkgs/shinken/template
 
+| os      | link  |
+|---------|-------|
+| freebsd | - |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
+
 ## Spark
 
  * url: https://spark.apache.org/
  * src: https://github.com/apache/spark
  * path: srcpkgs/spark/template
+
+| os      | link  |
+|---------|-------|
+| freebsd | https://www.freshports.org/devel/spark/ |
+| openbsd | - |
+| netbsd  | - |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
 
 ## Vault
 
@@ -328,13 +444,40 @@ checksum="<%CHECKSUM%>"
    -> make patch to comment this line?
  * vault need gox compiler
 
+| os      | link  |
+|---------|-------|
+| freebsd | https://www.freshports.org/security/vault/ |
+| openbsd | http://openports.se/security/vault |
+| netbsd  | http://pkgsrc.se/security/vault |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | https://packages.gentoo.org/packages/app-admin/vault |
+| arch    | - |
+
 ## Xorp
 
  * url: http://www.xorp.org/
  * src: https://github.com/greearb/xorp.ct
  * path: srcpkgs/xorp/template
 
+| os      | link  |
+|---------|-------|
+| freebsd | https://www.freshports.org/net/xorp/ |
+| openbsd | - |
+| netbsd  | http://pkgsrc.se/net/xorp |
+| debian  | - |
+| ubuntu  | - |
+| gentoo  | - |
+| arch    | - |
+
 ## zookeeper
 
- * https://packages.debian.org/stretch/all/libzookeeper-java/filelist
- * https://packages.debian.org/stretch/all/zookeeper/filelist
+| os      | link  |
+|---------|-------|
+| freebsd | https://www.freshports.org/devel/zookeeper/ |
+| openbsd | - |
+| netbsd  | http://pkgsrc.se/devel/zookeeper |
+| debian  | https://packages.debian.org/stretch/all/zookeeper/filelist |
+| ubuntu  | - |
+| gentoo  | https://packages.gentoo.org/packages/sys-cluster/zookeeper-bin |
+| arch    | - |
