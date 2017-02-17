@@ -124,7 +124,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
 | rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
-| rumpkernel       |   |   |   |   |   |   |         |      |
+| rumpkernel       | T | T | E |   |   |   |         | error during netbsd build |
 | sbt              | X |   |   |   |   |   | 0.13.13 | builder |
 | sbt-extras       |   |   |   |   |   |   |         | builder |
 | scala            | X | X | X | W |   |   |  2.12.1 | compare to off. pkg. |
@@ -426,15 +426,8 @@ ${GOPATH}/bin/govendor install +external +local
  * src: https://github.com/rumpkernel
  * path: srcpkgs/rumpkernel/template
 
-| os      | link  |
-|---------|-------|
-| freebsd | - |
-| openbsd | - |
-| netbsd  | - |
-| debian  | - |
-| ubuntu  | - |
-| gentoo  | - |
-| arch    | - |
+ * error during build test. stack protecter issue with
+   shared libraries (I guess). Need to work on that.
 
 ## Shinken
 
