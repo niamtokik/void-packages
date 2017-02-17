@@ -75,7 +75,10 @@ __Please don't use it! Its not production ready (yet)!!!__
 | erlang-worker_pool| X| X | X | X |   |   |   2.2.2 | ok.   |
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
 | gocd             | X |   |   |   |   |   |         |      |
+| govend           |   |   |   |   |   |   |         |      |
+| govendor         |   |   |   |   |   |   |         |      |
 | gox              | X | X | X | X | ~ | ~ |   0.3.0 | need more stuff (doc)|
+| gvt              |   |   |   |   |   |   |         |      |
 | graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
 | hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
 | hive             | X | X | X | ~ |   |   |   2.1.1 |      |
@@ -87,9 +90,10 @@ __Please don't use it! Its not production ready (yet)!!!__
 | libzookeeper     |   |   |   |   |   |   |         |      |
 | logstash         | X | X | E |   |   |   |   5.2.0 | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
+| manul            |   |   |   |   |   |   |         |      |
 | marathon         | X | X | ~ |   |   |   |  1.3.10 | sbt build-style |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
-| metasploit-framework | X |   |   |   |   |   | 4.13.19 |      |
+| metasploit-framework | X | | |   |   |   | 4.13.19 |      |
 | nagioscore       | X |   |   |   |   |   |   4.2.4 |      |
 | nanopb           |   |   |   |   |   |   |         |      |
 | ncpa             | X |   |   |   |   |   |   2.0.2 |      |
