@@ -229,7 +229,7 @@ checksum="<%CHECKSUM%>"
  * xbps-src need a better way to build go package
  * made a symlink to ${wrksrc} in ${GOPATH}/src/${site}/${user}/${repo}
 
-`sh
+```sh
 go_store=$(echo ${homepage} |sed -Ee "s;^(http|https)://;;")
 do_configure() {
 	mkdir -p ${GOPATH}/src/${go_store%/*}
@@ -240,13 +240,13 @@ do_configure() {
 do_build() {
 	sh -i
 }
-`
+```
 
  * cds need vendor manager, I tried govend, godep, glide,
    gvt, and govendor. finaly the last (govendor) win, here 
    the code:
 
-`sh
+```sh
 # in do_build function
 go get github.com/kardianos/govendor
 go install github.com/kardianos/govendor
@@ -255,7 +255,7 @@ ${GOPATH}/bin/govendor install +external +local
 [ -f ${GOPATH}/bin/cds ] && echo "cds was build"
 [ -f ${GOPATH}/bin/worker ] && echo "cds-worker was build"
 [ -f ${GOPATH}/bin/api ] && echo "cds-api was build"
-`
+```
 
  * I think some environnement variables will be created
    (go_store, go_vendor)
