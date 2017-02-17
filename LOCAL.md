@@ -138,6 +138,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
 | vault            | X | X | X | W | ~ | ~ |   0.6.5 | build work but need more stuff |
+| venom            |   |   |   |   |   |   |         |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zabbix           |   |   |   |   |   |   |         |      |
 | zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
@@ -483,6 +484,10 @@ ${GOPATH}/bin/govendor install +external +local
 | ubuntu  | - |
 | gentoo  | https://packages.gentoo.org/packages/app-admin/vault |
 | arch    | - |
+
+## Venom
+
+ * https://github.com/runabove/venom
 
 ## Xorp
 
