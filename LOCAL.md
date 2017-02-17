@@ -14,11 +14,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | barrel-erlang    | X | X | X | X |   |   |   0.2.0 | ok.   |
 | beef             | X |   |   |   |   |   | 0.4.7.0 |       |
 | cassandra        | X |   |   |   |   |   |  3.0.10 |       |
-| cds              | X |   |   |   |   |   |   0.4.0 | go multi-project |
-| cds-cli          |   |   |   |   |   |   |         | see cds |
-| cds-sdk          |   |   |   |   |   |   |         | see cds |
-| cds-ui           |   |   |   |   |   |   |         | see cds |
-| cds-engine       |   |   |   |   |   |   |         | see cds |
+| cds              | X | X | X | W | ~ | ~ |   0.4.0 | go multi-project |
 | chef             | X |   |   |   |   |   |12.19.10 |       |
 | clojure          | X | X | X | X | X | ~ |   1.8.0 | ok.   |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
@@ -137,7 +133,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | shelldap         | X | X | X | X |   |   |   1.3.2 | need to add 
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
-| vault            | X | X | X | X | ~ | ~ |   0.6.5 | build work but need more stuff |
+| vault            | X | X | X | W | ~ | ~ |   0.6.5 | build work but need more stuff |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zabbix           |   |   |   |   |   |   |         |      |
 | zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
@@ -227,6 +223,43 @@ checksum="<%CHECKSUM%>"
  * url: https://cassandra.apache.org/
  * src: https://github.com/apache/cassandra
  * path: srcpkgs/cassandra/template
+
+## cds
+
+ * xbps-src need a better way to build go package
+ * made a symlink to ${wrksrc} in ${GOPATH}/src/${site}/${user}/${repo}
+
+`sh
+go_store=$(echo ${homepage} |sed -Ee "s;^(http|https)://;;")
+do_configure() {
+	mkdir -p ${GOPATH}/src/${go_store%/*}
+	ln -s ${wrksrc} ${GOPATH}/src/${go_store}
+}
+
+# simple way to have a shell and manage build manually
+do_build() {
+	sh -i
+}
+`
+
+ * cds need vendor manager, I tried govend, godep, glide,
+   gvt, and govendor. finaly the last (govendor) win, here 
+   the code:
+
+`sh
+# in do_build function
+go get github.com/kardianos/govendor
+go install github.com/kardianos/govendor
+cd ${GOPATH}/src
+${GOPATH}/bin/govendor install +external +local
+[ -f ${GOPATH}/bin/cds ] && echo "cds was build"
+[ -f ${GOPATH}/bin/worker ] && echo "cds-worker was build"
+[ -f ${GOPATH}/bin/api ] && echo "cds-api was build"
+`
+
+ * I think some environnement variables will be created
+   (go_store, go_vendor)
+ * require hatchery and probably many other package.
 
 ## Chef 
 

@@ -10,3 +10,27 @@ license="BSD"
 homepage="https://github.com/ovh/cds"
 distfiles="https://github.com/ovh/${pkgname}/archive/v${version}.tar.gz"
 checksum="fab48bef086fc4d46437fc09762fdea5f5c9934d5a4563673ca526244941900b"
+hostmakedepends="git glide govendor"
+go_store=$(echo ${homepage} |sed -Ee "s;^(http|https)://;;")
+
+do_configure() {
+	mkdir -p ${GOPATH}/src/${go_store%/*}
+	ln -s ${wrksrc} ${GOPATH}/src/${go_store}
+}
+
+do_build() {
+	sh -i
+	go install ${go_store}
+	go get github.com/kardianos/govendor
+	go install github.com/kardianos/govendor
+	cd ${GOPATH}/src
+	${GOPATH}/bin/govendor install +external +local
+}
+
+do_install() {
+	vinstall ${GOPATH}/bin/cds 555 usr/bin
+	vinstall ${GOPATH}/bin/worker 555 usr/bin cds-worker
+	vinstall ${GOPATH}/bin/api 555 usr/bin cds-api
+	vinstall ${GOPATH}/bin/caller 555 usr/bin/cds-caller
+	# vdoc "doc/*"
+}
