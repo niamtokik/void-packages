@@ -3,7 +3,7 @@
 pkgname="sbt"
 version="0.13.13"
 revision=1
-build_style=gnu-configure
+build_style=java-sbt
 short_desc="Use Scala to define your tasks. Then run them in parallel from the shell."
 maintainer="Mathieu Kerjouan <void@steepath.eu>"
 license="BSD"
@@ -11,3 +11,4 @@ homepage="http://www.scala-sbt.org/"
 distfiles="https://github.com/sbt/${pkgname}/archive/v${version}.tar.gz"
 checksum="39ac67e12096217ddbfe06708f0d36fe03b654af306f231b6f713739aceb66b4"
 hostmakedepends="openjdk openjdk-jre"
+

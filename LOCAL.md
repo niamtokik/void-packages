@@ -434,6 +434,16 @@ ${GOPATH}/bin/govendor install +external +local
  * error during build test. stack protecter issue with
    shared libraries (I guess). Need to work on that.
 
+## sbt
+
+ * require sbt to build sbt. nice. <3
+ * we can use sbt-native-packager to make dedicated package
+   for any linux distribution http://www.scala-sbt.org/sbt-native-packager/
+
+## sbt-bin
+
+ * forbidden from akamai... 
+
 ## Shinken
 
  * url: http://www.shinken-monitoring.org/

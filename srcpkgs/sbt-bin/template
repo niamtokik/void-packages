@@ -1,0 +1,25 @@
+pkgname="sbt-bin"
+version="0.13.9"
+revision=1
+build_style=fetch
+short_desc="Scala Intactive Build Tool."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="http://www.scala-sbt.org"
+distfiles="http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/${version}/sbt-launch.jar"
+checksum=""
+conflict="sbt"
+hostmakedepends="curl"
+depends="openjdk-jre "
+
+do_extract() {
+	:
+}
+
+do_configure() {
+	sh -i
+}
+
+do_install() {
+	vbin sbt-launch.jar sbt	
+}
