@@ -1,0 +1,7 @@
+cds:
+  website: https://github.com/ovh/cds
+  manual: https://github.com/ovh/cds/blob/master/doc/overview/introduction.md
+  language: go
+  repository:
+    git:
+      official: https://github.com/ovh/cds
