@@ -1,0 +1,5 @@
+hive:
+  website:  https://hive.apache.org/
+  repository:
+    git:
+      official: https://github.com/apache/hive

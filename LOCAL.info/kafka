@@ -1,0 +1,5 @@
+kafka:
+  website: https://kafka.apache.org/
+  repository:
+    git:
+      official: https://github.com/apache/kafka

@@ -1,0 +1,6 @@
+elm:
+  website:  http://elm-lang.org/
+  manual:
+  repository:
+    git:
+      official: https://github.com/elm-lang/core

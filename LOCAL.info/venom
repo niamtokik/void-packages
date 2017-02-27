@@ -1,0 +1,5 @@
+venom:
+  website: https://github.com/runabove/venom
+  repository:
+    git:
+      official: https://github.com/runabove/venom

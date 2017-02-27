@@ -19,6 +19,10 @@ do_build() {
 }
 
 do_install() {
-	#
+	# sbt build files in 'target' directory
+	# vmkdir usr/lib/scala
+	# vcopy target/scala-*/classes usr/lib/scala
+	# vbin bin/marathon
+	# vbin bin/start marathin-start
 	:
 }

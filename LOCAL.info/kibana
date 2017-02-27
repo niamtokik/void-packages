@@ -1,0 +1,5 @@
+kibana:
+  website: http://www.elastic.co/products/kibanA
+  repository:
+    git:
+      official: https://github.com/elastic/kibana

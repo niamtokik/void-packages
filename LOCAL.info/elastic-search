@@ -1,0 +1,5 @@
+elastic-search:
+  website: http://www.elastic.co/
+  repository:
+    git:
+      official:  https://github.com/elastic/elasticsearch

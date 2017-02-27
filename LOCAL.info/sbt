@@ -1,0 +1,6 @@
+sbt:
+  website: http://www.scala-sbt.org/
+  manual: http://www.scala-sbt.org/documentation.html
+  repository:
+    git:
+      official: https://github.com/sbt/sbt

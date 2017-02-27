@@ -1,0 +1,5 @@
+rethinkdb:
+  website: https://www.rethinkdb.com/ 
+  repository:
+    git: 
+      official: https://github.com/rethinkdb/rethinkdb
