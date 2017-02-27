@@ -1,0 +1,10 @@
+vault:
+  website: http://www.vaultproject.io/
+  manual:
+  package:
+    openbsd: http://openports.se/security/vault
+    freebsd: https://www.freshports.org/security/vault/
+    netbsd: http://pkgsrc.se/security/vault
+    gentoo: https://packages.gentoo.org/packages/app-admin/vault
+    alpine: https://pkgs.alpinelinux.org/package/edge/testing/x86_64/vault
+    

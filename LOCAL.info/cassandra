@@ -1,0 +1,6 @@
+cassandra:
+  website: https://cassandra.apache.org/ 
+  manual: https://cassandra.apache.org/doc/latest/
+  package:
+    freebsd: https://www.freshports.org/databases/cassandra2
+    netbsd: http://pkgsrc.se/databases/apache-cassandra2

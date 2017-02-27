@@ -8,12 +8,12 @@ __Please don't use it! Its not production ready (yet)!!!__
 
 ## Ports lists
 
- * F = fetch     --> fetching source code
- * C = configure --> configure source code
- * B = build     --> build all sources
- * P = package   --> make package
- * I = install   --> install package 
- * T = test      --> functional test on installed package
+ * F ⇒ fetch     → fetching source code
+ * C ⇒ configure → configure source code
+ * B ⇒ build     → build all sources
+ * P ⇒ package   → make package
+ * I ⇒ install   → install package 
+ * T ⇒ test      → functional test on installed package
 
 ### P0 
 
