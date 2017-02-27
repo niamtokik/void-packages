@@ -15,6 +15,7 @@ depends="mesos docker"
 
 do_build() {
 	./sbt
+	./sbt compile
 }
 
 do_install() {

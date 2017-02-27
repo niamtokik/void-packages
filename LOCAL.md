@@ -19,14 +19,16 @@ __Please don't use it! Its not production ready (yet)!!!__
 
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
-| cassandra        | X |   |   |   |   |   |  3.0.10 |       |
+| cassandra        | X | X | X | ~ |   |   |  3.0.11 |       |
 | cds              | X | X | X | W | ~ | ~ |   0.4.0 | go multi-project |
 | graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
 | hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
 | integrity        | X | X | E |   |   |   |      26 | rake error |
 | kafka            | X | X |   |   |   |   |         |      |
 | kibana           |   |   |   |   |   |   |         |      |
-| marathon         | X | X | ~ |   |   |   |  1.3.10 | sbt build-style |
+| libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
+| libzookeeper     |   |   |   |   |   |   |         |      |
+| marathon         | X | X | X | ~ |   |   |  1.3.10 | sbt build-style |
 | mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
 | openstack-nova   | X | X | E |   |   |   |15.0.0.0rc1|      |
 | openstack-swift  |   |   |   |   |   |   |         |      |
@@ -45,7 +47,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | clojure          | X | X | X | X | X | ~ |   1.8.0 | ok.   |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
 | elasticsearch    |   |   |   |   |   |   |         | outdated | 
-| erlang-asciideck | E |   |   |   |   |   |         | unstable |
+| erlang-asciideck | E |   |   |   |   |   |         | unstable |
 | erlang-base64url | X | X | X | X |   |   |     1.0 | ok.   |
 | erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
 | erlang-bullet    | X | X | E |   |   |   |   0.4.1 | need rebar2 |
@@ -95,6 +97,8 @@ __Please don't use it! Its not production ready (yet)!!!__
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
 | erlang-webmachine| X | E |   |   |   |   |  1.10.8 | ok.   |
 | erlang-worker_pool| X| X | X | X |   |   |   2.2.2 | ok.   |
+| rebar2           | ~ |   |   |   |   |   |   2.6.4 |      |
+| rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
 
 ### P2
 
@@ -114,8 +118,6 @@ __Please don't use it! Its not production ready (yet)!!!__
 | gvt              |   |   |   |   |   |   |         |      |
 | hive             | X | X | X | ~ |   |   |   2.1.1 |      |
 | jenkins          |   |   |   |   |   |   |         |      |
-| libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
-| libzookeeper     |   |   |   |   |   |   |         |      |
 | logstash         | X | X | E |   |   |   |   5.2.0 | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
 | manul            |   |   |   |   |   |   |         |      |
@@ -148,8 +150,6 @@ __Please don't use it! Its not production ready (yet)!!!__
 | perl-dancer      |   |   |   |   |   |   |         |      |
 | python-fabric    |   |   |   |   |   |   |         |      |
 | quagga           | X |   |   |   |   |   |   1.1.1 |      |
-| rebar2           | ~ |   |   |   |   |   |   2.6.4 |      |
-| rebar3           | X | X | X | X |   |   |   3.3.5 | ok.  | 
 | rethinkdb        | X |   |   |   |   |   |   2.3.5 |      |
 | riak             | X | X | E |   |   |   |   2.1.1 | !erlang<R18 |
 | rumpkernel       | T | T | E |   |   |   |         | error during netbsd build |
@@ -235,12 +235,6 @@ checksum="<%CHECKSUM%>"
 | openindiana  | http://pkg.openindiana.org/sfe/en/search.shtml?token=%s |
 
 ----
-
-## Cassandra
-
- * url: https://cassandra.apache.org/
- * src: https://github.com/apache/cassandra
- * path: srcpkgs/cassandra/template
 
 ## cds
 
