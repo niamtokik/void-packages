@@ -8,21 +8,43 @@ __Please don't use it! Its not production ready (yet)!!!__
 
 ## Ports lists
 
+ * F = fetch     --> fetching source code
+ * C = configure --> configure source code
+ * B = build     --> build all sources
+ * P = package   --> make package
+ * I = install   --> install package 
+ * T = test      --> functional test on installed package
+
+### P0 
+
+| Name             | F | C | B | P | I | T | version | Notes |
+|------------------|---|---|---|---|---|---|---------|-------|
+| cassandra        | X |   |   |   |   |   |  3.0.10 |       |
+| cds              | X | X | X | W | ~ | ~ |   0.4.0 | go multi-project |
+| graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
+| hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
+| integrity        | X | X | E |   |   |   |      26 | rake error |
+| kafka            | X | X |   |   |   |   |         |      |
+| kibana           |   |   |   |   |   |   |         |      |
+| marathon         | X | X | ~ |   |   |   |  1.3.10 | sbt build-style |
+| mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
+| openstack-nova   | X | X | E |   |   |   |15.0.0.0rc1|      |
+| openstack-swift  |   |   |   |   |   |   |         |      |
+| shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
+| sheepdog         | X | X | X | X | X | W |   1.0.1 | ok.  |
+| vault            | X | X | X | W | ~ | ~ |   0.6.5 | build work but need more stuff |
+| venom            |   |   |   |   |   |   |         |      |
+| zookeeper        | X | X | X | W |   |   |   3.5.2 | how to store files? |
+
+### P1 
+
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel-platform  | X | X | X | E |   |   |   0.6.0 | rebar3 release |
 | barrel-erlang    | X | X | X | X |   |   |   0.2.0 | ok.   |
-| beef             | X |   |   |   |   |   | 0.4.7.0 |       |
-| cassandra        | X |   |   |   |   |   |  3.0.10 |       |
-| cds              | X | X | X | W | ~ | ~ |   0.4.0 | go multi-project |
-| chef             | X |   |   |   |   |   |12.19.10 |       |
 | clojure          | X | X | X | X | X | ~ |   1.8.0 | ok.   |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
-| duktape          |   |   |   |   |   |   |         |       |
 | elasticsearch    |   |   |   |   |   |   |         | outdated | 
-| elm-compiler     |   |   |   |   |   |   |         |       |
-| elm-core         |   |   |   |   |   |   |         |       |
-| elm-platform     |   |   |   |   |   |   |         |       |
 | erlang-asciideck | E |   |   |   |   |   |         | unstable |
 | erlang-base64url | X | X | X | X |   |   |     1.0 | ok.   |
 | erlang-bear      | X | X | X | X |   |   |   0.8.2 | ok.   |
@@ -73,26 +95,30 @@ __Please don't use it! Its not production ready (yet)!!!__
 | erlang-uuid      | X | X | X | X |   |   |   0.5.0 | ok.   |
 | erlang-webmachine| X | E |   |   |   |   |  1.10.8 | ok.   |
 | erlang-worker_pool| X| X | X | X |   |   |   2.2.2 | ok.   |
+
+### P2
+
+| Name             | F | C | B | P | I | T | version | Notes |
+|------------------|---|---|---|---|---|---|---------|-------|
+| beef             | X |   |   |   |   |   | 0.4.7.0 |       |
+| chef             | X |   |   |   |   |   |12.19.10 |       |
+| duktape          |   |   |   |   |   |   |         |       |
+| elm-compiler     |   |   |   |   |   |   |         |       |
+| elm-core         |   |   |   |   |   |   |         |       |
+| elm-platform     |   |   |   |   |   |   |         |       |
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
 | gocd             | X |   |   |   |   |   |         |      |
 | govend           |   |   |   |   |   |   |         |      |
 | govendor         |   |   |   |   |   |   |         |      |
 | gox              | X | X | X | X | ~ | ~ |   0.3.0 | need more stuff (doc)|
 | gvt              |   |   |   |   |   |   |         |      |
-| graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
-| hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
 | hive             | X | X | X | ~ |   |   |   2.1.1 |      |
-| integrity        | X | X | E |   |   |   |      26 | rake error |
 | jenkins          |   |   |   |   |   |   |         |      |
-| kafka            | X | X |   |   |   |   |         |      |
-| kibana           |   |   |   |   |   |   |         |      |
 | libqb            | X | X | X | X |   |   |   1.0.1 | ok.  |
 | libzookeeper     |   |   |   |   |   |   |         |      |
 | logstash         | X | X | E |   |   |   |   5.2.0 | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
 | manul            |   |   |   |   |   |   |         |      |
-| marathon         | X | X | ~ |   |   |   |  1.3.10 | sbt build-style |
-| mesos            | X | X | X | X |   |   |   1.1.0 | ok.  |
 | metasploit-framework | X | | |   |   |   | 4.13.19 |      |
 | nagioscore       | X |   |   |   |   |   |   4.2.4 |      |
 | nanopb           |   |   |   |   |   |   |         |      |
@@ -115,8 +141,6 @@ __Please don't use it! Its not production ready (yet)!!!__
 | openstack-manila |   |   |   |   |   |   |         |      |
 | openstack-murano |   |   |   |   |   |   |         |      |
 | openstack-neutron|   |   |   |   |   |   |         |      |
-| openstack-nova   | X | X | E |   |   |   |15.0.0.0rc1|      |
-| openstack-swift  |   |   |   |   |   |   |         |      |
 | openstack-tacker |   |   |   |   |   |   |         |      |
 | openstack-trove  |   |   |   |   |   |   |         |      |
 | openstack-sahara |   |   |   |   |   |   |         |      |
@@ -132,24 +156,13 @@ __Please don't use it! Its not production ready (yet)!!!__
 | sbt              | X |   |   |   |   |   | 0.13.13 | builder |
 | sbt-extras       |   |   |   |   |   |   |         | builder |
 | scala            | X | X | X | W |   |   |  2.12.1 | compare to off. pkg. |
-| shinken          | X | X | X | E |   |   |   2.4.3 | !adduser during install |
-| sheepdog         | X | X | X | X | X | W |   1.0.1 | ok.  |
 | shelldap         | X | X | X | X |   |   |   1.3.2 | need to add 
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
-| vault            | X | X | X | W | ~ | ~ |   0.6.5 | build work but need more stuff |
-| venom            |   |   |   |   |   |   |         |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
 | zabbix           |   |   |   |   |   |   |         |      |
 | zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
-| zookeeper        | X | X | X | W |   |   |   3.5.2 | how to store files? |
 
- * F = fetch     --> fetching source code
- * C = configure --> configure source code
- * B = build     --> build all sources
- * P = package   --> make package
- * I = install   --> install package 
- * T = test      --> functional test on installed package
 
 ----
 
