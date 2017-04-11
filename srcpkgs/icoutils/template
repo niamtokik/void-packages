@@ -1,6 +1,6 @@
 # Template file for 'icoutils'
 pkgname=icoutils
-version=0.31.1
+version=0.31.3
 revision=1
 build_style=gnu-configure
 makedepends="libpng-devel"
@@ -9,4 +9,4 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3"
 homepage="http://www.nongnu.org/icoutils/"
 distfiles="${NONGNU_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
-checksum=26e29d3c78f25d4cdf402501ac0414c51a9a092daebf6c9dee3b837dee693093
+checksum=d4651de8e3f9e28d24b5343a2b7564f49754e5fe7d211c5d4dd60dcd65c8a152

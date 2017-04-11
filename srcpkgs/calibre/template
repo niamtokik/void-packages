@@ -1,6 +1,6 @@
 # Template file for 'calibre'
 pkgname=calibre
-version=2.78.0
+version=2.82.0
 revision=2
 hostmakedepends="qt5-qmake python-devel pkg-config
  python-dateutil python-lxml python-Pillow
@@ -17,11 +17,11 @@ depends="python-six python-dateutil python-cssutils python-CherryPy
  python-Pygments python-mechanize python-lxml
  shared-mime-info desktop-file-utils gtk-update-icon-cache optipng"
 short_desc="Ebook management application"
-maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-3"
 homepage="https://calibre-ebook.com"
 distfiles="https://download.calibre-ebook.com/${version}/calibre-${version}.tar.xz"
-checksum=d2b0b0c5451d3ac05ce9de0b801ddf8de7664fee45f273d7ee8445a1ec2f898b
+checksum=137995abe467fcb951c1d42583305ebec7b8ca403c44895e70f82a2d6156711c
 
 nocross=yes
 pycompile_dirs="/usr/lib/calibre/"

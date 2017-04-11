@@ -1,6 +1,6 @@
 # Template file for 'python-serpent'
 pkgname=python-serpent
-version=1.16
+version=1.19
 revision=1
 wrksrc="${pkgname#*-}-${version}"
 noarch=yes
@@ -13,7 +13,7 @@ maintainer="pulux <pulux@pf4sh.de>"
 license="MIT"
 homepage="https://pypi.python.org/pypi/serpent"
 distfiles="${PYPI_SITE}/s/serpent/serpent-${version}.tar.gz"
-checksum=c26e98c2155228a69eb0dc14ba7b888cb70099b6c4ca47fd9d1f099f7d561c3e
+checksum=946b2c837f889971df3575af9dadd8f09bfe48549ebc1b9f6434263b653707ce
 
 post_install() {
 	head -n 4 setup.py | tail -n 3 > LICENSE

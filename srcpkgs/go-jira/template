@@ -1,17 +1,21 @@
 # Template file for 'go-jira'
 pkgname=go-jira
-version=0.1.9
+version=0.1.12
 revision=2
 build_style=go
 hostmakedepends="git-perl"
 short_desc="Simple jira command line client in Go"
-maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache"
 go_import_path="github.com/Netflix-Skunkworks/go-jira"
 go_package="$go_import_path/main"
 homepage="https://$go_import_path"
 distfiles="$homepage/archive/v$version.tar.gz"
-checksum=aba1195e25c1402cb682a3476df15d56a4924a1d7318719f05397d23044c88f4
+checksum=b3bf289001f908ec77e616cdfc7158e0ae69c791ba37a75e8ac7f0b0e28605b5
+
+pre_build() {
+	git config --global http.https://gopkg.in.followRedirects true
+}
 
 post_install() {
 	mv $DESTDIR/usr/bin/{main,jira}

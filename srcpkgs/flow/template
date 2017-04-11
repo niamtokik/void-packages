@@ -1,16 +1,17 @@
 # Template file for 'flow'
 pkgname=flow
-version=0.38.0
+version=0.42.0
 revision=1
 only_for_archs="x86_64"
 build_style=gnu-makefile
 makedepends="ocaml ocamlbuild elfutils-devel"
 short_desc="Static type checker for JavaScript"
 maintainer="Eivind Uggedal <eivind@uggedal.com>"
-license="BSD"
+license="3-clause-BSD"
 homepage="http://flowtype.org/"
+_changelog="https://github.com/facebook/flow/releases"
 distfiles="https://github.com/facebook/${pkgname}/archive/v${version}.tar.gz"
-checksum=f21b56e10c1bddfe3d59da872e50d4013672a41f11a5d25d9dd67e494e8f1ae7
+checksum=5668a4a83242ac397239d001fbf071955a9e0a17ad255cb17b74345a434f7a93
 nopie=yes
 
 do_install() {

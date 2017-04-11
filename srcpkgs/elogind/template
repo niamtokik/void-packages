@@ -1,0 +1,46 @@
+# Template file for 'elogind'
+pkgname=elogind
+version=226.4
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake libxslt intltool libtool pkg-config gperf docbook-xsl gettext-devel"
+makedepends="libcap-devel libmount-devel libseccomp-devel libblkid-devel pam-devel gettext-devel eudev-libudev-devel glib-devel"
+depends="dbus"
+short_desc="Standalone logind fork"
+maintainer="Enno Boland <gottox@voidlinux.eu>"
+license="GPL-2, LGPL-2, MIT"
+homepage="https://github.com/elogind/elogind"
+distfiles="https://github.com/$pkgname/$pkgname/archive/v$version.tar.gz"
+checksum=585ac8746cd81a74f47b4e93cb5f000494da4104ad53da0bae023e1758d0456d
+LDFLAGS="-lrt"
+conf_files="/etc/elogind/logind.conf"
+
+pre_configure() {
+	autoreconf -fi
+	intltoolize
+
+	sed -i -e "s#^Exec=/bin/false#Exec=/usr/libexec/elogind/elogind.wrapper#" \
+		src/login/org.freedesktop.login1.service
+}
+
+post_install() {
+	ln -s libelogind.pc $DESTDIR/usr/lib/pkgconfig/libsystemd.pc
+	ln -s libelogind.pc $DESTDIR/usr/lib/pkgconfig/libsystemd-logind.pc
+	ln -sr $DESTDIR/usr/include/elogind $DESTDIR/usr/include/systemd
+	vinstall ./src/systemd/sd-id128.h 644 usr/include
+	vinstall ./src/systemd/_sd-common.h 644 usr/include
+	vinstall $FILESDIR/elogind.wrapper 755 usr/libexec/elogind
+	vlicense LICENSE.MIT
+}
+
+elogind-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.la
+		vmove usr/lib/*.so
+		vmove usr/share/man/man3
+		vmove usr/lib/pkgconfig
+	}
+}

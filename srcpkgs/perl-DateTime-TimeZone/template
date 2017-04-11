@@ -1,6 +1,6 @@
 # Template file for 'perl-DateTime-TimeZone'
 pkgname=perl-DateTime-TimeZone
-version=2.09
+version=2.11
 revision=1
 noarch=yes
 wrksrc="${pkgname/perl-/}-${version}"
@@ -13,4 +13,4 @@ maintainer="John Regan <john@jrjrtech.com>"
 homepage="http://search.cpan.org/dist/DateTime-TimeZone"
 license="Artistic, GPL-1"
 distfiles="${CPAN_SITE}/DateTime/${pkgname/perl-/}-$version.tar.gz"
-checksum=b694761873ce904f17d6edf957c74bd25d0b7b3cf6745f95bcabf85279c1f0b2
+checksum=a7c0b2581d2bf6d5cc535364099a67678a9f6ee608e5042dff9ef9c4c577ea6b

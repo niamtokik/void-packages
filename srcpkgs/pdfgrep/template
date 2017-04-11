@@ -1,13 +1,13 @@
 # Template file for 'pdfgrep'
 pkgname=pdfgrep
-version=1.4.1
-revision=2
+version=2.0.1
+revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="poppler-cpp-devel pcre-devel"
+makedepends="libgcrypt-devel pcre-devel poppler-cpp-devel"
 short_desc="A commandline utility to search text in PDF files"
-maintainer="Lukas Braun <void-packages@moshbit.net>"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2"
 homepage="https://pdfgrep.org"
 distfiles="http://pdfgrep.org/download/pdfgrep-${version}.tar.gz"
-checksum=db04a210e6bb7b77cd6c54b17f0f6fed0d123a85f97a541b270736a5d3840f2c
+checksum=0370d744b3072d47383dbed2cb9c8b0b64b83c084da5a8961f8d4bc7669e941e

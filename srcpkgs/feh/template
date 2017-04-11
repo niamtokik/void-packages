@@ -1,6 +1,6 @@
 # Template file for 'feh'
 pkgname=feh
-version=2.18.1
+version=2.18.3
 revision=1
 hostmakedepends="pkg-config"
 makedepends="giblib-devel libcurl-devel libexif-devel
@@ -11,7 +11,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
 homepage="http://feh.finalrewind.org/"
 distfiles="${homepage}/feh-${version}.tar.bz2"
-checksum=4c3840285eaf7ad474547d12870430d0392efdce4cf897666aa1ab02612e65b2
+checksum=d82f68c7a96e1860dab3584ed58bda69446b692ae79a4ca999018507da310563
 
 do_build() {
 	make ${makejobs} CC=$CC PREFIX=/usr exif=1 help=1

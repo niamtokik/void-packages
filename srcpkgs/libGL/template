@@ -1,34 +1,37 @@
 # Template build file for 'libGL'.
 pkgname=libGL
-version=13.0.4
+version=17.0.3
 revision=1
 wrksrc="mesa-${version}"
 build_style=gnu-configure
 configure_args="--enable-shared-glapi --enable-gbm
  --enable-gles1 --enable-gles2 --enable-egl --enable-vdpau
  --enable-xvmc --enable-osmesa --enable-texture-float
- --with-egl-platforms=x11,drm,wayland --with-sha1=libnettle"
+ --with-egl-platforms=x11,drm,$(vopt_if wayland wayland)"
 short_desc="Graphics library similar to SGI's OpenGL"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.mesa3d.org/"
 license="MIT, LGPL-2.1"
-distfiles="https://mesa.freedesktop.org/archive/${version}/mesa-${version}.tar.xz"
-checksum=a95d7ce8f7bd5f88585e4be3144a341236d8c0fc91f6feaec59bb8ba3120e726
-
-# static_assert()
-CFLAGS="-std=c11"
+distfiles="https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
+checksum=ca646f5075a002d60ef9123c8a4331cede155c01712ef945a65c59a5e69fe7ed
 
 hostmakedepends="
- automake libtool flex pkg-config llvm python-Mako libxml2-python wayland-devel"
+ automake libtool flex pkg-config llvm python-Mako libxml2-python $(vopt_if wayland wayland-devel)"
 makedepends="
  glproto dri2proto dri3proto presentproto libXext-devel libXxf86vm-devel
  eudev-libudev-devel libdrm-devel expat-devel talloc-devel libvdpau-devel libva-devel
- libXdamage-devel libXvMC-devel libxshmfence-devel wayland-devel
- elfutils-devel ncurses-devel zlib-devel libffi-devel nettle-devel"
+ libXdamage-devel libXvMC-devel libxshmfence-devel $(vopt_if wayland wayland-devel)
+ elfutils-devel ncurses-devel zlib-devel libffi-devel"
 conf_files="/etc/drirc"
 
+# Package build options
+build_options="wayland"
+
+# Enable all options by default.
+build_options_default="wayland"
+
 # Set subpackages manually to set proper rdeps in 32bit pkgs.
-subpackages="libglapi libgbm libEGL libGLES libOSMesa libwayland-egl"
+subpackages="libglapi libgbm libEGL libGLES libOSMesa $(vopt_if wayland libwayland-egl)"
 
 case "$XBPS_TARGET_MACHINE" in
 i686*|x86_64*)
@@ -37,7 +40,7 @@ i686*|x86_64*)
 	configure_args+=" --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast"
 	configure_args+=" --enable-xa --enable-dri3 --enable-nine"
 	configure_args+=" --with-vulkan-drivers=intel,radeon"
-	configure_args+=" --enable-opencl --enable-opencl-icd --enable-r600-llvm-compiler"
+	configure_args+=" --enable-opencl --enable-opencl-icd"
 	hostmakedepends+=" clang libclc-git"
 	subpackages+=" libxatracker mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
 	subpackages+=" mesa-vmwgfx-dri mesa-opencl"
@@ -126,7 +129,7 @@ MesaLib-devel_package() {
 		libGL>=${version}_${revision}
 		libGLES>=${version}_${revision} libEGL>=${version}_${revision}
 		libOSMesa>=${version}_${revision} libgbm>=${version}_${revision}
-		libwayland-egl>=${version}_${revision}"
+		$(vopt_if wayland libwayland-egl>=${version}_${revision})"
 	case "$XBPS_TARGET_MACHINE" in
 		i686*|x86_64*)  depends+=" libxatracker>=${version}_${revision}";;
 	esac

@@ -1,6 +1,6 @@
 # Template file for 'gnome-backgrounds'
 pkgname=gnome-backgrounds
-version=3.18.0
+version=3.24.0
 revision=1
 noarch="yes"
 build_style=gnu-configure
@@ -10,4 +10,4 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.gnome.org"
 license="GPL-2"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=aa560f0e5f12a308dd36aaac2fff32916abd61d42f47b4bc42c8c7011bf2a7b9
+checksum=cbda4c2159292940fa4b972df77379be716590c7b62bb4b2b9fa8e99749c71ca

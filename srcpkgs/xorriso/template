@@ -1,7 +1,7 @@
 # Template file for 'xorriso'
 pkgname=xorriso
 version=1.4.7
-revision=2
+revision=4
 build_style=gnu-configure
 makedepends="zlib-devel bzip2-devel readline-devel acl-devel"
 short_desc="ISO 9660 Rock Ridge Filesystem Manipulator"
@@ -9,4 +9,8 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="https://www.gnu.org/software/xorriso"
 distfiles="https://www.gnu.org/software/xorriso/xorriso-$version.tar.gz"
-checksum=127ccb3488a5181af59d4937f5d50d2bc951e5ab90939569b5f850f380b35f63
+checksum=042ea165d6c0e2d7fb1db979895c61659d22bbdb78cac912fa5bc0f7495fc861
+
+do_build() {
+	make CC="$CC" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" ${makejobs}
+}

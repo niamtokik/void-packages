@@ -1,6 +1,6 @@
 # Template file for 'gnome-boxes'
 pkgname=gnome-boxes
-version=3.22.1
+version=3.24.0
 revision=1
 # XXX ovirt support.
 build_style=gnu-configure
@@ -9,7 +9,7 @@ hostmakedepends="pkg-config intltool itstool $(vopt_if gir gobject-introspection
 makedepends="clutter-gtk-devel gtk+3-devel gtk-vnc-devel libuuid-devel
  libvirt-glib-devel libxml2-devel libgudev-devel libosinfo-devel
  tracker-devel spice-gtk-devel spice-protocol vala-devel
- libsoup-devel libarchive-devel libusb-devel"
+ libsoup-devel libarchive-devel libusb-devel libsecret-devel"
 depends="qemu libvirt-glib>=0.1.6 libosinfo>=0.2.10 desktop-file-utils
  hicolor-icon-theme shared-mime-info"
 short_desc="GNOME 3 application to access remote or virtual systems"
@@ -17,7 +17,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://live.gnome.org/Boxes"
 license="LGPL-2"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=be807d9336e96af6dea8f269a4b6dbbd3e9bb5fd135efc952aa2d62dde87b8ea
+checksum=7495ea7184b6ef650033daf6941328b785b22e522e8142b9d190575d215dec49
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then

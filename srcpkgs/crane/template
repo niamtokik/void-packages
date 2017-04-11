@@ -1,11 +1,11 @@
 # Template file for 'crane'
 pkgname=crane
 version=2.11.0
-revision=2
+revision=4
 build_style=go
 hostmakedepends="git-perl"
 short_desc="Lift containers with ease "
-maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="MIT"
 go_import_path="github.com/michaelsauter/crane"
 homepage="https://${go_import_path}"

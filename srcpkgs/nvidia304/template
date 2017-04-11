@@ -2,8 +2,8 @@
 _desc="NVIDIA drivers (For GeForce 5 FX, 6, 7, 8 series)"
 
 pkgname=nvidia304
-version=304.134
-revision=1
+version=304.135
+revision=4
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="Proprietary NVIDIA license"
 homepage="http://www.nvidia.com"
@@ -16,17 +16,17 @@ short_desc="${_desc} - Libraries and Utilities"
 depends="${pkgname}-dkms-${version}_${revision} pkg-config"
 provides="nvidia-${version}_${revision}"
 replaces="nvidia>=0"
-conflicts="catalyst>=0 xserver-abi-video>21_1"
+conflicts="catalyst>=0 xserver-abi-video>23_1"
 subpackages="${pkgname}-dkms ${pkgname}-opencl ${pkgname}-libs"
 
 if [ "${XBPS_TARGET_MACHINE}" = "i686" ]; then
 	_pkg="NVIDIA-Linux-x86-${version}"
 	distfiles="http://us.download.nvidia.com/XFree86/Linux-x86/${version}/${_pkg}.run"
-	checksum=84f7891af131bb9f9a8a34401dfef4288218019406dfa4ae57b6d52b14e81c9d
+	checksum=5cb0a191ddca7b4c72b3c26cd57b7d719878ce628d24b5b026a0e5c8d3a00d93
 else
 	_pkg="NVIDIA-Linux-x86_64-${version}-no-compat32"
 	distfiles="http://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/${_pkg}.run"
-	checksum=42213765cd28078314657d3c1ba382584f09e5e57598240596021f4f76c0c443
+	checksum=352f4a4d5ef692b26383e2cf9ec866f6973f905d53eb6bc9f2161b6ba2afae5a
 fi
 
 do_extract() {
@@ -37,7 +37,8 @@ do_extract() {
 }
 do_configure() {
 	cd ${_pkg}
-	patch -sNp0 -i ${FILESDIR}/disable-mtrr.patch
+	patch -sNp0 -i ${FILESDIR}/drm-driver-legacy.patch
+	patch -sNp0 -i ${FILESDIR}/kernel_4.10.patch
 }
 do_install() {
 	cd ${_pkg}

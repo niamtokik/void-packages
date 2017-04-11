@@ -1,6 +1,6 @@
 # Template file for 'khal'
 pkgname=khal
-version=0.9.1
+version=0.9.5
 revision=1
 noarch=yes
 build_style=python3-module
@@ -14,7 +14,7 @@ maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
 license="MIT"
 homepage="http://lostpackets.de/khal/"
 distfiles="${PYPI_SITE}/k/khal/khal-${version}.tar.gz"
-checksum=99ab487a2fd18f7ee54a50b288618596bad4a40a2d0dbddef9d4902be1953d97
+checksum=b945894cb4ededa6711989814bd4866815f322aa25dff581d808a7eae5047b3b
 
 pre_build() {
 	sed -i setup.py \

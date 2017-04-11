@@ -1,6 +1,6 @@
 # Template file for 'haproxy'
 pkgname=haproxy
-version=1.7.2
+version=1.7.5
 revision=1
 build_style=gnu-makefile
 make_build_args="TARGET=linux2628 USE_PCRE=1 USE_PCRE_JIT=1 USE_ZLIB=1
@@ -16,7 +16,11 @@ maintainer="Eivind Uggedal <eivind@uggedal.com>"
 license="GPL-2, LGPL-2.1"
 homepage="http://www.haproxy.org"
 distfiles="${homepage}/download/${version%.*}/src/${pkgname}-${version}.tar.gz"
-checksum=f95b40f52a4d61feaae363c9b15bf411c16fe8f61fddb297c7afcca0072e4b2f
+checksum=b04d7db6383c662eb0a421a95af7becac6d9744a1abf0df6b0280c1e61416121
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) CFLAGS="-D__LINUX_NETFILTER_H";;
+esac
+
 
 do_build() {
 	make ${makejobs} CC="$CC" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" EXTRA= \

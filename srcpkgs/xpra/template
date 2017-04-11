@@ -1,35 +1,29 @@
 # Template file for 'xpra'
 pkgname=xpra
-version=1.0.2
+version=2.0.1
 revision=1
 build_style=python2-module
 conf_files="
  /etc/xpra/xpra.conf
  /etc/xpra/xorg.conf
- /etc/xpra/conf.d/*
- /etc/xpra/cuda.conf
- /etc/xpra/nvenc.keys"
+ /etc/xpra/conf.d/*"
 pycompile_module="xpra"
 hostmakedepends="python pkg-config python-Cython"
 makedepends="ffmpeg-devel libXcomposite-devel libXdamage-devel libXrandr-devel
  libXtst-devel libwebp-devel libxkbfile-devel pygtk-devel x264-devel
- $(vopt_if vpx libvpx-devel)"
+ libvpx-devel"
 depends="pygtk python-Pillow xorg-server-xvfb python-rencode python-lz4
- python-cups xf86-video-dummy python-PyOpenGL-accelerate pulseaudio cups
- python-dbus xauth python-numpy"
+ python-cups xf86-video-dummy cups python-dbus xauth"
 short_desc="Like screen(1) for X"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2"
 homepage="http://xpra.org/"
 distfiles="https://xpra.org/src/${pkgname}-${version}.tar.xz"
-checksum=e32d2550c13d175681643696664790c9c59eda1e0ce1cea779ef7b0785f8bd2c
+checksum=685553c0f7cdeadde3d5a7ba48f3cd9d0feaa755e0debbdf198355223c8bc287
 
-build_options="vpx"
-
-case "$XBPS_TARGET_MACHINE" in
-	armv6*) ;;
-	*) build_options_default+=" vpx" ;;
-esac
+if [ -z "$CROSS_BUILD" ]; then
+	depends+=" python-PyOpenGL-accelerate"
+fi
 
 post_extract() {
 	sed -i 's/-Werror/-Wno-error/g' setup.py  # ugh

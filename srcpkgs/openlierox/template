@@ -1,7 +1,7 @@
 # Template file for 'openlierox'
 pkgname=openlierox
 version=0.58.rc3
-revision=2
+revision=3
 wrksrc=OpenLieroX
 build_style=cmake
 configure_args="-DSYSTEM_DATA_DIR=/usr/share -DDEBUG=OFF
@@ -24,6 +24,8 @@ CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/lua5.1"
 CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/libxml2"
 
 pre_configure() {
+	# Rename C++11 reserved word static_assert
+	find src include -type f -exec sed -i "{}" -e "s;static_assert;olx_&;g" \;
 	# For newer boost link to boost_signals and boost_system libs
 	sed -i CMakeOlxCommon.cmake \
 		-e '/SET(LIBS ${LIBS} boost_signals/s;-mt; boost_system;'

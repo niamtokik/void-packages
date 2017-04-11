@@ -1,7 +1,7 @@
 # Template file for 'neomutt'
 pkgname=neomutt
-version=20170128
-revision=2
+version=20170306
+revision=1
 wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=gnu-configure
 configure_args="--enable-pop --enable-imap --enable-smtp --enable-hcache --with-gdbm
@@ -17,7 +17,7 @@ maintainer="Toyam Cox <Vaelatern@gmail.com>"
 license="GPL-2"
 homepage="http://www.neomutt.org"
 distfiles="https://github.com/neomutt/neomutt/archive/neomutt-${version}.tar.gz"
-checksum=05953c54f9d11f5b973f620b0e54c08ef80e150d10700995241aba6f7aba3eb8
+checksum=4fc1d02792ca8b6c74105c9376886b0c2fb7ef28bc04be7cfd0f0699aa5c8c63
 
 case "${XBPS_TARGET_MACHINE}" in
 	x86_64-musl) CFLAGS="-D_FILE_OFFSET_BITS=64 -DLARGEFILE_SOURCE=1";;

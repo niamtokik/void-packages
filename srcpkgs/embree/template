@@ -1,17 +1,17 @@
 # Template file for 'embree'
 pkgname=embree
-version=2.13.0
+version=2.15.0
 revision=1
 only_for_archs="x86_64"
 build_style=cmake
 hostmakedepends="ispc"
 makedepends="libfreeglut-devel libXmu-devel tbb-devel MesaLib-devel libpng-devel libopenexr-devel libjpeg-turbo-devel libmagick-devel"
 short_desc="High Performance Ray Tracing Kernels"
-maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache-2.0"
 homepage="https://embree.github.io/"
 distfiles="https://github.com/$pkgname/$pkgname/archive/v$version.tar.gz"
-checksum=5191c308fb011ff558c395504681916205e710d538fb055424b7b1b499f83a31
+checksum=5a382f3c143e84f2f026e15f2b5674ff53295e4da6eda82280639bd68b4a6704
 
 nopie=y
 

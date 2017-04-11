@@ -8,6 +8,7 @@
  #include <unistd.h>
  #include <linux/sockios.h>
  #include <linux/if.h>
+
 --- module/modem-prober.c.orig	2016-03-27 09:19:20.635454542 +0200
 +++ module/modem-prober.c	2016-03-27 09:19:28.550355592 +0200
 @@ -38,6 +38,10 @@
@@ -20,4 +21,3 @@
 +
  static gboolean verbose = FALSE;
  
- void set_probe_debug(gboolean debug) {

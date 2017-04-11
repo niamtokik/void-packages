@@ -1,8 +1,8 @@
 # Template file for 'gst-plugins-good1'.
 pkgname=gst-plugins-good1
 reverts="1:1.4.5_3"
-version=1.10.3
-revision=1
+version=1.10.4
+revision=2
 wrksrc="${pkgname/1/}-${version}"
 lib32disabled=yes
 build_style=gnu-configure
@@ -16,19 +16,11 @@ makedepends="
  libXdamage-devel gtk+-devel aalib-devel libcaca-devel
  taglib-devel libsoup-gnome-devel gst-plugins-base1-devel
  GConf-devel pulseaudio-devel orc-devel libXv-devel wavpack-devel
- v4l-utils-devel jack-devel speex-devel
- $(vopt_if vpx libvpx-devel)"
+ v4l-utils-devel jack-devel speex-devel libvpx-devel"
 depends="gst-plugins-base1>=${version}"
 short_desc="GStreamer set of well-maintained good plug-ins (1.x)"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://gstreamer.freedesktop.org/"
+homepage="https://gstreamer.freedesktop.org"
 license="LGPL-2.1"
 distfiles="${homepage}/src/${pkgname/1/}/${pkgname/1/}-${version}.tar.xz"
-checksum=4e07e93e34d4b93208f1579c21e7d91a236577b36f128a5332ffee85b4465955
-
-build_options="vpx"
-
-case "$XBPS_TARGET_MACHINE" in
-	armv6*) ;;
-	*) build_options_default+=" vpx" ;;
-esac
+checksum=8a86c61434a8c44665365bd0b3557a040937d1f44bf69caee4e9ea816ce74d7e

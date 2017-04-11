@@ -1,6 +1,6 @@
 # Template file for 'mame'
 pkgname=mame
-version=0182
+version=0184
 revision=1
 wrksrc="mame-mame${version}"
 homepage="http://mamedev.org"
@@ -8,7 +8,7 @@ distfiles="https://github.com/mamedev/mame/archive/mame${version}.tar.gz"
 short_desc="The Multiple Arcade Machine Emulator"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2"
-checksum=9ecb35afaa6006ccf027f4dfc91ac818d3a894e6e4c3732b6f3706ee40ed240b
+checksum=8bae785a5fc97a84a8bb94a123de3b5c71efc31fe849151da9701329d6a31555
 
 hostmakedepends="perl pkg-config python automoc4"
 makedepends="libstdc++-devel SDL2_ttf-devel $(vopt_if qt qt5-devel) lua-devel

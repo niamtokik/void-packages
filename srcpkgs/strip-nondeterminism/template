@@ -1,15 +1,15 @@
 # Template file for 'strip-nondeterminism'
 pkgname=strip-nondeterminism
-version=0.029
+version=0.032
 revision=1
 create_wrksrc=yes
-build_style="perl-module"
-depends="perl-Archive-Zip"
-hostmakedepends="perl"
-makedepends="perl"
+build_style=perl-module
+hostmakedepends="perl-Archive-Zip"
+makedepends="${hostmakedepends}"
+depends="${makedepends}"
 short_desc="Non-deterministic information stripper"
-maintainer="Enno Boland <g@s01.de>"
+maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="GPL-3"
 homepage="https://tracker.debian.org/pkg/strip-nondeterminism"
 distfiles="http://http.debian.net/debian/pool/main/s/${pkgname}/${pkgname}_${version}.orig.tar.gz"
-checksum=1e6df1d0495c19859182c7746e6f5c189ca1494e7b6e6f143fb1bfecfd11de5c
+checksum=43912c367deaf3d2bf545180e07545415c5e0ee7461481e9d89e66328a591b89

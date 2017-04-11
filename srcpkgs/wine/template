@@ -1,15 +1,18 @@
 # Template file for 'wine'
 pkgname=wine
-version=1.9.23
+version=2.5
 revision=1
 build_style=gnu-configure
 configure_args="--without-gstreamer"
 short_desc="Run Microsoft Windows applications"
-maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="LGPL-2.1"
 homepage="http://www.winehq.org/"
-distfiles="https://dl.winehq.org/wine/source/${version%.*}/wine-${version}.tar.bz2"
-checksum=e3efa726f6b3df75cc1151341300c0dc9cd171d84313a428ca44684df9c4368c
+distfiles="https://dl.winehq.org/wine/source/${version%.*}.x/wine-${version}.tar.xz"
+checksum=13f92b7ab483323aaabbc6519851e688ad4372ea30569961c831d40d6d3bccd2
+
+CC="gcc"
+CFLAGS="-O2 -pipe"
 
 lib32mode=full
 only_for_archs=i686
@@ -25,7 +28,8 @@ makedepends="gettext-devel lcms2-devel zlib-devel ncurses-devel
  v4l-utils-devel fontconfig-devel gnutls-devel dbus-devel sane-devel
  libpcap-devel cups-devel dbus-devel ocl-icd-devel"
 depends="libXi libXinerama libXcomposite libXcursor libOSMesa
- desktop-file-utils hicolor-icon-theme liberation-fonts-ttf"
+ desktop-file-utils hicolor-icon-theme liberation-fonts-ttf
+ gnutls"
 
 binfmts="/usr/bin/wine --magic MZ"
 
@@ -41,8 +45,8 @@ fi
 
 if [ ${build_option_staging} ]; then
 	makedepends+=" libva-devel gtk+3-devel"
-	distfiles+=" https://github.com/wine-compholio/${pkgname}-staging/archive/v${version}.tar.gz"
-	checksum+=" 155c4a3c46e0924890a84e8182638658c571ddf26c905bc465dd364145df1c84"
+	distfiles+=" https://github.com/wine-compholio/wine-staging/archive/v${version}.tar.gz"
+	checksum+=" b5cf6fa38151ff47ab6d725077693b02b37bb07b2ab7fda55290bb1f63ac54ad"
 fi
 
 post_extract() {

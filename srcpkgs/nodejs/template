@@ -1,6 +1,6 @@
 # Template file for 'nodejs'
 pkgname=nodejs
-version=7.5.0
+version=7.8.0
 revision=1
 wrksrc=node-v${version}
 hostmakedepends="pkg-config python icu"
@@ -11,9 +11,11 @@ depends="python"
 short_desc="Evented I/O for V8 javascript"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="MIT"
-homepage="http://nodejs.org/"
+homepage="https://nodejs.org/"
 distfiles="${homepage}/dist/v${version}/node-v${version}.tar.gz"
-checksum=0da8e0288b5c0f136e650b7119219968720caf88b5a67ef0591555113f0844c2
+checksum=6aa2ab52763f33ce09b63e913f3caf67d9d4b1120c70b087b50155bd647b76da
+# TODO: Fix cross compiling
+nocross="https://api.travis-ci.org/jobs/208411830/log.txt?deansi=true"
 
 build_options="ssl libuv http_parser"
 desc_option_libuv="Enable shared libuv"
@@ -21,11 +23,6 @@ desc_option_http_parser="Enable shared http-parser"
 build_options_default="libuv http_parser"
 
 replaces="iojs>=0"
-
-if [ -n "$CROSS_BUILD" ]; then
-	# Cross compiling is currently broken
-	broken=https://build.voidlinux.eu/builders/armv7l_builder/builds/28955/steps/shell_3/logs/stdio
-fi
 
 do_configure() {
 	local _args

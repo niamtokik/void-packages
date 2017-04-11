@@ -1,0 +1,17 @@
+# Template file for 'gopass'
+pkgname=gopass
+version=1.0.2
+revision=2
+build_style=go
+go_import_path="github.com/justwatchcom/gopass"
+depends="gnupg2 git"
+short_desc="The slightly more awesome standard unix password manager for teams"
+maintainer="Dominic Monroe <monroef4@googlemail.com>"
+license="MIT"
+homepage="https://www.justwatch.com/gopass/"
+distfiles="https://github.com/justwatchcom/gopass/archive/v${version}.tar.gz"
+checksum=aeab11850dd6956e5680150c070fc142f043631738d66f3e3c1bdcbf03682bda
+
+post_install() {
+	vlicense LICENSE
+}

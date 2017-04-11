@@ -1,6 +1,6 @@
 # Template build file for 'grep'.
 pkgname=grep
-version=2.27
+version=3.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config gettext-devel"
@@ -8,9 +8,9 @@ makedepends="pcre-devel"
 short_desc="The GNU grep utility"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
-homepage="http://www.gnu.org/software/grep/"
+homepage="https://www.gnu.org/software/grep/"
 distfiles="${GNU_SITE}/$pkgname/$pkgname-$version.tar.xz"
-checksum=ad4cc44d23074a1c3a8baae8fbafff2a8c60f38a9a6108f985eef6fbee6dcaeb
+checksum=e2c81db5056e3e8c5995f0bb5d0d0e1cad1f6f45c3b2fc77b6e81435aed48ab5
 
 pre_configure() {
 	autoreconf -fi

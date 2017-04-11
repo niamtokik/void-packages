@@ -1,6 +1,6 @@
 # Template file for 'less'
 pkgname=less
-version=487
+version=491
 revision=1
 build_style=gnu-configure
 configure_args="--with-regex=pcre"
@@ -10,4 +10,4 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="http://www.greenwoodsoftware.com/less"
 distfiles="${homepage}/less-${version}.tar.gz"
-checksum=f3dc8455cb0b2b66e0c6b816c00197a71bf6d1787078adeee0bcf2aea4b12706
+checksum=1b40da1d58e9604b50bc75fd31c8591e6138a627a9525572c6c4232dee4c83fd

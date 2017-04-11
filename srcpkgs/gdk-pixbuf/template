@@ -1,6 +1,6 @@
 # Template build file for 'gdk-pixbuf'.
 pkgname=gdk-pixbuf
-version=2.36.4
+version=2.36.6
 revision=1
 build_style=gnu-configure
 configure_args="$(vopt_enable gir introspection) --without-libjasper
@@ -14,7 +14,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.gtk.org/"
 license="GPL-2"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=0b19901c3eb0596141d2d48ddb9dac79ad1524bdf59366af58ab38fcb9ee7463
+checksum=455eb90c09ed1b71f95f3ebfe1c904c206727e0eeb34fc94e5aaf944663a820c
 
 # Package build options
 build_options="gir"
@@ -27,6 +27,10 @@ fi
 pre_configure() {
 	sed -i '/SUBDIRS/s/tests//' Makefile.am
 	autoreconf -fi
+	# Can't create loaders.cache with cross compiled modules
+	if [ -n "$CROSS_BUILD" ]; then
+		touch gdk-pixbuf/loaders.cache
+	fi
 }
 
 gdk-pixbuf-xlib_package() {
