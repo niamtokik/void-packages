@@ -44,6 +44,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 |------------------|---|---|---|---|---|---|---------|-------|
 | barrel-platform  | X | X | X | E |   |   |   0.6.0 | rebar3 release |
 | barrel-erlang    | X | X | X | X |   |   |   0.2.0 | ok.   |
+| beaglebone-kernel| X | X | X | X |   |   |     4.4 | need to make test  |
 | clojure          | X | X | X | X | X | ~ |   1.8.0 | ok.   |
 | corosync         | X | X | X | X |   |   |   2.4.2 | ok.   |
 | elasticsearch    |   |   |   |   |   |   |         | outdated | 
