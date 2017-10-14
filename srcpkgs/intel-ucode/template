@@ -1,15 +1,18 @@
 # Template file for 'intel-ucode'
 pkgname=intel-ucode
-version=20161104
+version=20170707
 revision=1
+_dlid=26925
 noarch=yes
 create_wrksrc=yes
 short_desc="Microcode update files for Intel CPUs"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="INTEL Software License Agreement"
 homepage="http://downloadcenter.intel.com/SearchResult.aspx?lang=eng&keyword=%22microcode%22"
-distfiles="http://downloadmirror.intel.com/26400/eng/microcode-${version}.tgz"
-checksum=70154ca62ff9b3da6291dfdecc90daaeb399d7290c0d308d719df16dff5ee3d1
+distfiles="http://downloadmirror.intel.com/${_dlid}/eng/microcode-${version}.tgz"
+checksum=4fd44769bf52a7ac11e90651a307aa6e56ca6e1a814e50d750ba8207973bee93
+
+conf_files="/etc/dracut.conf.d/intel_ucode.conf"
 
 only_for_archs="i686 x86_64 i686-musl x86_64-musl"
 
@@ -20,5 +23,7 @@ do_build() {
 do_install() {
 	vmkdir usr/lib/firmware/intel-ucode
 	vcopy "intel-ucode/*" usr/lib/firmware/intel-ucode
+	vmkdir etc/dracut.conf.d
+	echo "early_microcode=yes" >> ${DESTDIR}/etc/dracut.conf.d/intel_ucode.conf
 	vlicense ${FILESDIR}/LICENSE
 }

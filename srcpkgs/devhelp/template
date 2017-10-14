@@ -1,16 +1,16 @@
 # Template file for 'devhelp'
 pkgname=devhelp
-version=3.22.0
+version=3.26.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel"
-makedepends="webkit2gtk-devel"
+makedepends="webkit2gtk-devel gsettings-desktop-schemas-devel"
 short_desc="API documentation browser for GTK+ and GNOME"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="GPL-2"
 homepage="https://wiki.gnome.org/devhelp"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=59cae02e12d238cc5fc3f049d779895ba89701426d9173f5b534d4ab90c5ffb0
+checksum=6bf2714f7f953b5858c643585383c4e4c8e9c65055527505abbf24fbf1ac8e38
 
 devhelp-devel_package() {
 	short_desc+=" - development files"

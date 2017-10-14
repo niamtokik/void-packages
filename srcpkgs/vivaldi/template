@@ -1,10 +1,10 @@
 # Template file for 'vivaldi'
 pkgname=vivaldi
-version=1.8.770.54
+version=1.12.955.36
 revision=1
 _release=1
 only_for_archs="i686 x86_64"
-short_desc="An advanced browser made with the power user in mind"
+short_desc="Advanced browser made with the power user in mind"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="Proprietary"
 homepage="https://vivaldi.com"
@@ -12,19 +12,19 @@ repository="nonfree"
 restricted=yes
 nopie=yes
 
-if [ "${XBPS_TARGET_MACHINE}" = "x86_64" ];then
+if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
 	_debarch=amd64
-	checksum=068c27c96e32dd42ec8541f50f4de7de18c9a330027030a1ec1988c382e70740
+	checksum=12775223bfd916d8792dfbfa4d5cd5985def263ab6eb9e1ce5de6fec17d9063a
 else
 	_debarch=i386
-	checksum=233f8e8133ed9734d6b13c4ddade5f4375d7b9bc0c6d94aca2722bd4dbd85be2
+	checksum=5f5e378f9911eb61e805a0da3d612c968fdb7ac21470d32e768a54739265de4d
 fi
 
 distfiles="https://downloads.vivaldi.com/stable/vivaldi-stable_${version}-${_release}_${_debarch}.deb"
+
 do_extract() {
 	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/vivaldi-stable_${version}-${_release}_${_debarch}.deb
-	cd ${wrksrc}
-	tar xfJ data.tar.xz
+	tar xf data.tar.xz
 }
 
 do_install() {

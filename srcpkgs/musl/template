@@ -1,7 +1,7 @@
 # Template file for 'musl'.
 pkgname=musl
 version=1.1.16
-revision=1
+revision=2
 build_style=gnu-configure
 configure_args="--prefix=/usr --disable-gcc-wrapper"
 conflicts="glibc>=0"
@@ -16,6 +16,11 @@ checksum=937185a5e5d721050306cf106507a006c3f1f86d86cd550024ea7be909071011
 nostrip_files="libc.so"
 shlib_provides="libc.so"
 only_for_archs="i686-musl x86_64-musl armv5tel-musl armv6l-musl armv7l-musl aarch64-musl mips-musl mipsel-musl mipselhf-musl"
+
+desc_option_bigstack="bigger default pthread stack size"
+build_options="bigstack"
+
+CFLAGS="$(vopt_if bigstack -DVOID_BIGSTACK)"
 
 post_build() {
 	$CC $CFLAGS $LDFLAGS ${FILESDIR}/getent.c -o getent

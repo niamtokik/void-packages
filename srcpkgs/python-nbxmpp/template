@@ -1,6 +1,6 @@
 # Template file for 'python-nbxmpp'
 pkgname=python-nbxmpp
-version=0.5.5
+version=0.6.0
 revision=1
 noarch=yes
 wrksrc=${pkgname#*-}-${version}
@@ -13,7 +13,7 @@ maintainer="Duncaen <duncaen@voidlinux.eu>"
 license="GPL-3"
 homepage="https://python-nbxmpp.gajim.org/"
 distfiles="${PYPI_SITE}/n/nbxmpp/nbxmpp-${version}.tar.gz"
-checksum=66d77fc50dc55b8d9722c3da21c1a1ba282f782c17f5c27488d112daf2cfdfbe
+checksum=a79ca44bb391d5a1b848d3fe5fb6ddd1f4cea5f7edf0f8fdd56d2e05962f8974
 
 python3-nbxmpp_package() {
 	noarch=yes

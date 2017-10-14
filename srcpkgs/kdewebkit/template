@@ -1,6 +1,6 @@
 # Template file for 'kdewebkit'
 pkgname=kdewebkit
-version=5.29.0
+version=5.37.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,7 +11,11 @@ maintainer="Denis Revin <denis.revin@gmail.com>"
 license="LGPL-2"
 homepage="https://projects.kde.org/projects/frameworks/kdewebkit"
 distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=40e37e5c6436c6a930b12c538bfcb9c4734c60718f17732d0276d858640ce475
+checksum=e1c1a1f6514126a07e4ef7fbd4258c4a9ca068774b26b6748582f4c8415103de
+
+if [ -n "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools qt5-qmake python"
+fi
 
 kdewebkit-devel_package() {
 	short_desc+=" - development"

@@ -1,26 +1,28 @@
 # Template build file for 'libGL'.
 pkgname=libGL
-version=17.0.3
+version=17.2.2
 revision=1
 wrksrc="mesa-${version}"
 build_style=gnu-configure
 configure_args="--enable-shared-glapi --enable-gbm
  --enable-gles1 --enable-gles2 --enable-egl --enable-vdpau
  --enable-xvmc --enable-osmesa --enable-texture-float
- --with-egl-platforms=x11,drm,$(vopt_if wayland wayland)"
+ --with-platforms=x11,drm,$(vopt_if wayland wayland)"
 short_desc="Graphics library similar to SGI's OpenGL"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.mesa3d.org/"
 license="MIT, LGPL-2.1"
 distfiles="https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
-checksum=ca646f5075a002d60ef9123c8a4331cede155c01712ef945a65c59a5e69fe7ed
+checksum=cf522244d6a5a1ecde3fc00e7c96935253fe22f808f064cab98be6f3faa65782
 
 hostmakedepends="
- automake libtool flex pkg-config llvm python-Mako libxml2-python $(vopt_if wayland wayland-devel)"
+ automake libtool flex pkg-config llvm python-Mako libxml2-python
+ $(vopt_if wayland 'wayland-protocols wayland-devel')"
 makedepends="
  glproto dri2proto dri3proto presentproto libXext-devel libXxf86vm-devel
  eudev-libudev-devel libdrm-devel expat-devel talloc-devel libvdpau-devel libva-devel
- libXdamage-devel libXvMC-devel libxshmfence-devel $(vopt_if wayland wayland-devel)
+ libXdamage-devel libXvMC-devel libxshmfence-devel
+ $(vopt_if wayland 'wayland-protocols wayland-devel')
  elfutils-devel ncurses-devel zlib-devel libffi-devel"
 conf_files="/etc/drirc"
 
@@ -45,7 +47,7 @@ i686*|x86_64*)
 	subpackages+=" libxatracker mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
 	subpackages+=" mesa-vmwgfx-dri mesa-opencl"
 	;;
-armv[67]l*)
+armv7l*)
 	# Enable Videocore IV and swrast for RaspberryPi
 	configure_args+=" --with-gallium-drivers=swrast,vc4"
 	configure_args+=" --with-dri-drivers=swrast"
@@ -59,12 +61,21 @@ armv[67]l*)
 	configure_args+=" --disable-xa"
 	;;
 esac
+if [ "$XBPS_GCC_VERSION_MAJOR" -ge 7 ]; then
+	case "$XBPS_TARGET_MACHINE" in
+	armv[5-6]*)
+		# Enable MISSING_64BIT_ATOMICS for armv6*
+		CFLAGS+=" -DMISSING_64BIT_ATOMICS=1"
+		CXXFLAGS+=" -DMISSING_64BIT_ATOMICS=1"
+		;;
+	esac
+fi
 
 # -devel must be the last one for proper order.
 subpackages+=" MesaLib-devel"
 
 case "$XBPS_TARGET_MACHINE" in
-	i686*) configure_args+=" --with-dri-driverdir=/usr/lib32/xorg/modules/drivers";;
+	i686) configure_args+=" --with-dri-driverdir=/usr/lib32/xorg/modules/drivers";;
 	*) configure_args+=" --with-dri-driverdir=/usr/lib/xorg/modules/drivers";;
 esac
 case "$XBPS_TARGET_MACHINE" in
@@ -74,14 +85,23 @@ case "$XBPS_TARGET_MACHINE" in
 	*) configure_args+=" --enable-glx-tls";;
 esac
 
-
 pre_configure() {
 	libtoolize -f
 	NOCONFIGURE=1 ./autogen.sh
+	case "$XBPS_TARGET_MACHINE" in
+		armv6*) sed -i src/gallium/drivers/vc4/Makefile.am \
+			-e 's;\(libvc4_neon_la_SOURCES =\) vc4_tiling_lt.c;\1;' \
+			-e 's;\(libvc4_neon_la_CFLAGS = $(AM_CFLAGS)\) -DVC4_BUILD_NEON;\1;'
+			;;
+	esac
 }
 post_install() {
 	vmkdir usr/lib/xorg/modules/extensions
 	ln -s libglx-xorg.so ${DESTDIR}/usr/lib/xorg/modules/extensions/libglx.so
+	if [ -d "$DESTDIR/usr/lib32" ]; then
+		mv "$DESTDIR/usr/lib32/d3d" "$DESTDIR/usr/lib"
+		mv "$DESTDIR/usr/lib32/pkgconfig"/* "$DESTDIR/usr/lib/pkgconfig"
+	fi
 }
 
 libglapi_package() {
@@ -129,7 +149,7 @@ MesaLib-devel_package() {
 		libGL>=${version}_${revision}
 		libGLES>=${version}_${revision} libEGL>=${version}_${revision}
 		libOSMesa>=${version}_${revision} libgbm>=${version}_${revision}
-		$(vopt_if wayland libwayland-egl>=${version}_${revision})"
+		$(vopt_if wayland "libwayland-egl>=${version}_${revision}")"
 	case "$XBPS_TARGET_MACHINE" in
 		i686*|x86_64*)  depends+=" libxatracker>=${version}_${revision}";;
 	esac
@@ -199,4 +219,3 @@ mesa-opencl_package() {
 		vmove "usr/lib/lib*OpenCL*"
 	}
 }
-

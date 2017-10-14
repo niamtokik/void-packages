@@ -1,0 +1,17 @@
+# Template file for 'bubblewrap'
+pkgname=bubblewrap
+version=0.2.0
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake pkg-config"
+makedepends="libcap-devel"
+short_desc="Unprivileged sandboxing tool"
+maintainer="Duncaen <duncaen@voidlinux.eu>"
+license="LGPL-2"
+homepage="https://github.com/projectatomic/bubblewrap"
+distfiles="https://github.com/projectatomic/bubblewrap/archive/v${version}.tar.gz"
+checksum=50d612a2775e402105e26f8a9ab4ed314c7ba65ff85d4d051e96970b7136e99c
+
+pre_configure() {
+	autoreconf -fi
+}

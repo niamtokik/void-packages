@@ -1,16 +1,15 @@
 # Template build file for 'libuv'
 pkgname=libuv
-version=1.11.0
-revision=2
-wrksrc="${pkgname}-v${version}"
+version=1.15.0
+revision=1
 short_desc="Multi-platform support library with a focus on asynchronous I/O"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="BSD/ISC"
 build_style="gnu-configure"
 hostmakedepends="automake libtool pkg-config"
 homepage="http://libuv.org/"
-distfiles="http://dist.libuv.org/dist/v${version}/libuv-v${version}.tar.gz"
-checksum=0f686994dcea6cb5cd3f50e35d5fdda07211b4b3586516df7c39bdbf19acb9a7
+distfiles="https://github.com/libuv/libuv/archive/v$version.tar.gz"
+checksum=17afc94ec307be28fe8d4316679171219770df4f993905a79643c7583e106489
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh

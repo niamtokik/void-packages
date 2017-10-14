@@ -1,7 +1,7 @@
 # Template file for 'cgal'
 
 pkgname="cgal"
-version="4.9"
+version="4.10"
 revision=1
 build_style=cmake
 short_desc="Computational Geometry Algorithms Library"
@@ -9,7 +9,7 @@ maintainer="Pierre Allegraud <pierre.allegraud@crans.org>"
 license="GPL-3, LGPL-3"
 homepage="http://www.cgal.org"
 distfiles="https://github.com/CGAL/cgal/archive/releases/CGAL-${version}.tar.gz"
-checksum="472b6154a0d62a5e78cc51772a460ffe8e8faf1f0a9639ca0054a5a7c2310f3f"
+checksum=cff3081453a4b4e738ca90d3ce70ddd888b8a23e8acb735a4917653ad51b3045
 wrksrc="cgal-releases-CGAL-${version}"
 nocross=yes
 

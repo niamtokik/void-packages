@@ -1,6 +1,6 @@
 # Template file for 'xjobs'
 pkgname=xjobs
-version=20151016
+version=20170829
 revision=1
 build_style=gnu-configure
 hostmakedepends="flex"
@@ -9,4 +9,4 @@ maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="GPL-2"
 homepage="http://www.maier-komor.de/xjobs.html"
 distfiles="http://www.maier-komor.de/xjobs/xjobs-${version}.tgz"
-checksum=1b80abe5effe057db21897f897842dccd76e7812c1caaa80f9b8e85cca409251
+checksum=ebbd0b7fa90451773732680e6d0afe426c75150ad5ec7bce77537d109afcc6da

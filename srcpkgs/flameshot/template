@@ -1,0 +1,19 @@
+# Template file for 'flameshot'
+pkgname=flameshot
+version=0.4.2
+revision=1
+build_style=qmake
+configure_args="CONFIG+=packaging"
+makedepends="qt5-devel"
+depends="desktop-file-utils"
+maintainer="cr6git <quark6@protonmail.com>"
+short_desc="Powerful yet simple to use screenshot software for GNU/Linux"
+homepage="https://github.com/lupoDharkael/flameshot"
+license="GPL-3"
+distfiles="https://github.com/lupoDharkael/flameshot/archive/v${version}.tar.gz"
+checksum=bbc67bcf56305de824058e59f654024231b458a1d73412db75abc574c783a7dd
+
+if [ -n "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-devel"
+fi
+

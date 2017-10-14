@@ -1,7 +1,7 @@
 # Template file for 'syncthing'
 pkgname=syncthing
-version=0.14.26
-revision=2
+version=0.14.39
+revision=1
 build_style=go
 go_import_path="github.com/syncthing/syncthing"
 go_package="${go_import_path}/cmd/strelaysrv ${go_import_path}/cmd/syncthing"
@@ -12,7 +12,7 @@ maintainer="Duncaen <duncaen@voidlinux.eu>"
 license="MPLv2"
 homepage="http://syncthing.net/"
 distfiles="https://github.com/syncthing/${pkgname}/archive/v${version}.tar.gz"
-checksum=8d26b48834df9aaae83aa9cb1187ab053a020393e901658ba6c5fded3c578ee2
+checksum=0a4a64615c3080aab9285bbe9746ae2c6b9cc8fa0ce2ec7dd9b1dd9b801ff89c
 
 pre_build() {
 	GOARCH= go run script/genassets.go gui > ./lib/auto/gui.files.go
@@ -24,7 +24,7 @@ post_install() {
 }
 
 syncthing-relaysrv_package() {
-	short_desc+="- relay server"
+	short_desc+=" - relay server"
 	license="MIT"
 	replaces="relaysrv>=0.12.18_2"
 	provides="relaysrv-${version}_${revision}"

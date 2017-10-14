@@ -1,0 +1,18 @@
+# Template file for 'google-authenticator-libpam'
+pkgname=google-authenticator-libpam
+version=1.04
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake libtool pam-devel"
+makedepends=""
+depends=""
+short_desc="PAM module for two-factor authentication."
+maintainer="Enno Boland <gottox@voidlinux.eu>"
+license="Apache-2.0"
+homepage="https://github.com/google/google-authenticator-libpam"
+distfiles="https://github.com/google/google-authenticator-libpam/archive/$version.tar.gz"
+checksum=8284cc046be436513d9d4bbb1285017327edbcc32f6f620c47e7e889c4b966ef
+
+pre_configure() {
+	autoreconf -fi
+}

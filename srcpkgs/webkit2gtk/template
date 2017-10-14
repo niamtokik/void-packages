@@ -1,19 +1,22 @@
 # Template file for 'webkit2gtk'
 pkgname=webkit2gtk
-version=2.16.1
+version=2.18.0
 revision=1
 wrksrc="webkitgtk-$version"
 build_style=cmake
-configure_args="-DPORT=GTK -DENABLE_GTKDOC=OFF -DCMAKE_LINKER=${XBPS_CROSS_TRIPLET}-gcc"
+configure_args="-DPORT=GTK -DENABLE_GTKDOC=OFF -DCMAKE_LINKER=${XBPS_CROSS_TRIPLET}-gcc
+ -DUSE_GSTREAMER_GL=OFF"
 short_desc="GTK+3 port of the WebKit2 browser engine"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://webkitgtk.org/"
+homepage="https://webkitgtk.org/"
 license="LGPL-2.1, 2-clause-BSD"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=eb92383232328ce655b703c64370ed3795662479719ad1b4a869ed46769d2945
+checksum=b583e46a3de36a3e80ba33b084ead60512a2046aca01ff61e50e519436e5038d
 
 # ETOOHUGE
 nodebug=1
+
+CXXFLAGS="-D_GLIBCXX_USE_C99_STDIO=1 -D_GLIBCXX_USE_C99_STDLIB=1 -Wno-expansion-to-defined"
 
 hostmakedepends="perl python pkg-config intltool gperf flex ruby glib-devel geoclue2"
 makedepends="
@@ -24,12 +27,12 @@ makedepends="
  geoclue2-devel libnotify-devel hyphen-devel"
 
 case "$XBPS_TARGET_MACHINE" in
-aarch64*)
-	broken="https://build.voidlinux.eu/builders/aarch64_builder/builds/1709/steps/shell_3/logs/stdio" ;;
-armv6*)
-	configure_args+=" -DENABLE_JIT=0"
-	CXXFLAGS="-D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1"
-	;;
+armv6*) configure_args+=" -DENABLE_JIT=0" CXXFLAGS+=" -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1";;
+aarch64*) configure_args+=" -DUSE_LD_GOLD=0";;
+esac
+
+case "$XBPS_TARGET_MACHINE" in
+*-musl) configure_args+=" -DENABLE_SAMPLING_PROFILER=OFF";;
 esac
 
 # Package build options
@@ -40,7 +43,7 @@ if [ -z "$CROSS_BUILD" ]; then
 	build_options_default+=" gir"
 else
 	# Make cmake detect Ruby headers in cross base
-	configure_args+=" -DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include/ruby-2.2.0"
+	configure_args+=" -DRUBY_VERSION=2.4 -DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include/ruby-2.4.0"
 	# Fix non-working target CPU detection
 	configure_args+=" -DCMAKE_SYSTEM_PROCESSOR=${XBPS_TARGET_MACHINE%-musl}"
 fi

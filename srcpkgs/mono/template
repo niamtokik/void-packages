@@ -1,8 +1,8 @@
 # Template file for 'mono'
 pkgname=mono
-version=4.8.0.524
+version=5.2.0.224
 revision=1
-wrksrc="mono-${version%.*}"
+wrksrc="mono-${version}"
 lib32disabled=yes
 build_style=gnu-configure
 configure_args="--disable-system-aot"
@@ -15,7 +15,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.mono-project.com"
 license="MIT, 3-clause-BSD, GPL-2, LGPL-2, MPL-1.1"
 distfiles="http://download.mono-project.com/sources/mono/$pkgname-$version.tar.bz2"
-checksum="ca02614cfc9fe65e310631cd611d7b07d1ff205ce193006d4be0f9919c26bdcf"
+checksum=03b8e463032bc425673dec844b35b4c669f5b99b0e45521195efb3741a9f5e94
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) configure_args+=" --disable-boehm --without-sigaltstack" ;;
@@ -26,6 +26,8 @@ pre_configure() {
 }
 
 post_install() {
+	# Avoid conflict with chicken's csc compiler
+	mv ${DESTDIR}/usr/bin/csc  ${DESTDIR}/usr/bin/mono-csc
 	vlicense LICENSE
 }
 

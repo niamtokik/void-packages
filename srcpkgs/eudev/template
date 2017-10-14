@@ -3,8 +3,8 @@
 _UDEV_VERSION="220" # compatible udev version provided
 
 pkgname=eudev
-version=3.2.1
-revision=2
+version=3.2.4
+revision=1
 conf_files="/etc/udev/udev.conf"
 build_style=gnu-configure
 configure_args="--enable-hwdb --enable-manpages --disable-introspection"
@@ -15,7 +15,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="https://github.com/gentoo/eudev"
 distfiles="http://dev.gentoo.org/~blueness/eudev/eudev-${version}.tar.gz"
-checksum=57e3d9e51cfefbdad431848ea0ad8ae1cde04928da42474f44bd200b12f5fe19
+checksum=dddcf4c89b21f5f3210f7e4d3888c92cbfc657ff734ac21b6bdd3f5bcb146fed
 
 pre_configure() {
 	autoreconf -fi

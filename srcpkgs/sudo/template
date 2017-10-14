@@ -1,6 +1,6 @@
 # Template build file for 'sudo'.
 pkgname=sudo
-version=1.8.19p2
+version=1.8.21p2
 revision=1
 lib32disabled=yes
 build_style=gnu-configure
@@ -16,7 +16,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://www.sudo.ws/"
 license="ISC, BSD, zlib"
 distfiles="https://www.sudo.ws/dist/sudo-${version}.tar.gz"
-checksum=237e18e67c2ad59ecacfa4b7707198b09fcf84914621585a9bc670dcc31a52e0
+checksum=74c5746cd33a814e2431c39faf0d76f7f8a697379bd073862e3b156cf0d76368
 
 post_configure() {
 	case "$XBPS_TARGET_MACHINE" in

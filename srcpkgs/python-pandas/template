@@ -1,7 +1,7 @@
 # Template file for 'python-pandas'
 pkgname=python-pandas
-version=0.19.2
-revision=1
+version=0.20.3
+revision=2
 wrksrc="pandas-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
@@ -15,7 +15,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="http://pandas.pydata.org/"
 license="3-clause-BSD"
 distfiles="https://github.com/pandas-dev/pandas/archive/v${version}.tar.gz"
-checksum=af634dd6ed3ca1f8635183f41e7f7769108531ccca8213067d9627857461702e
+checksum=f09c8f999611c2a4c073b5fa3ec212b859b5569e14a59f084f47f4203c2d0600
 
 post_install() {
 	vlicense LICENSE

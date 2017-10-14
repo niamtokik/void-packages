@@ -1,0 +1,14 @@
+# Template file for 'disorderfs'
+pkgname=disorderfs
+version=0.5.2
+revision=1
+build_style=gnu-makefile
+hostmakedepends="pkg-config"
+makedepends="fuse-devel attr-devel"
+depends="${makedepends}"
+short_desc="FUSE filesystem that introduces non-determinism filesystem metadata"
+maintainer="Enno Boland <gottox@voidlinux.eu>"
+license="GPL-3"
+homepage="https://reproducible-builds.org/tools/"
+distfiles="http://http.debian.net/debian/pool/main/d/${pkgname}/${pkgname}_${version}.orig.tar.bz2"
+checksum=4e3234bca33826a1339a61732e9ea29a3f31be2261cbfbaccdb8b47bc36aaa49

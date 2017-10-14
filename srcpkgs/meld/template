@@ -1,7 +1,7 @@
 # Template file for 'meld'
 pkgname=meld
-version=3.17.1
-revision=1
+version=3.18.0
+revision=2
 noarch=yes
 build_style=python3-module
 hostmakedepends="pkg-config intltool gnome-doc-utils python3 itstool gtk-update-icon-cache"
@@ -12,7 +12,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://meldmerge.org/"
 license="GPL-2"
 distfiles="${GNOME_SITE}/meld/${version%.*}/meld-${version}.tar.xz"
-checksum=0f499a7fed47e557dc49afff140b1dc5eb2ee99ca265c45e923862d2c0d8f1df
+checksum=848158b1e5c7473b9da3ddc16e057aad8951ec82979beb5914b8b4acdf97223e
 configure_args="--disable-schemas-compile"
 
 post_install() {

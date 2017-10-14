@@ -1,15 +1,15 @@
-# Template file for 'Lutris'
+# Template file for 'lutris'
 pkgname=lutris
-version=0.4.6
-revision=1
+version=0.4.13
+revision=2
 build_style=python3-module
 wrksrc="${pkgname}"
 pycompile_module="${pkgname}"
 hostmakedepends="python3-setuptools python3-gobject"
-depends="python3-dbus python3-gobject python3-yaml python3-inotify xrandr"
+depends="python3-dbus python3-gobject python3-yaml xrandr"
 short_desc="Open gaming platform for managing games in a unified way"
 maintainer="Jan Wey. <janwey.git@gmail.com>"
 license="GPL-3"
 homepage="https://lutris.net"
 distfiles="${homepage}/releases/${pkgname}_${version}.tar.xz"
-checksum=fb02a4c2d482f44760681b92b6458b1d85d1eaeb903806a5317fe6e13ae15334
+checksum=5acf00c9dbb5d6ae90d876eee1f7a1b026647bf1ec70bf1a800fec0ffd33618e

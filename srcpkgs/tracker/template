@@ -1,15 +1,15 @@
 # Template file for 'tracker'
 pkgname=tracker
-version=1.12.0
+version=2.0.1
 revision=1
 build_style=gnu-configure
 configure_args="--enable-libflac --enable-libvorbis --disable-unit-tests
  --enable-libtiff --disable-static --enable-network-manager
  $(vopt_enable gir introspection) LDFLAGS=
  ac_cv_lib_sqlite3_sqlite3_threadsafe=yes ax_cv_sqlite_threadsafe=yes
- ax_cv_sqlite_auto_extension=yes"
+ ax_cv_sqlite_auto_extension=yes ax_cv_sqlite_builtin_fts5=yes"
 hostmakedepends="automake libtool pkg-config intltool glib-devel
- gettext-devel gobject-introspection libxslt"
+ gettext-devel gobject-introspection libxslt python3"
 makedepends="
  libpng-devel libgee-devel libsecret-devel upower-devel
  exempi-devel poppler-glib-devel gupnp-dlna-devel libgxps-devel
@@ -23,7 +23,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://live.gnome.org/Tracker"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=83193dd8c05e3e8b05fa8f1cfb80964fa78f7aeb86f3302fa4be6ec7e6ff596f
+checksum=ac5c9f4dbb0741af5877ae2818d8c053aa9a431477a924a17976bb7e44411e47
 
 # Package build options
 build_options="gir"
@@ -59,7 +59,7 @@ libtracker_package() {
 	short_desc+=" - shared libraries"
 	pkg_install() {
 		vmove "usr/lib/*.so.*"
-		vmove "usr/lib/tracker-1.0/*.so*"
+		vmove "usr/lib/tracker-2.0/*.so*"
 		if [ "$build_option_gir" ]; then
 			vmove usr/lib/girepository-1.0
 		fi

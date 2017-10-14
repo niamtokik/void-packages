@@ -1,6 +1,6 @@
 # Template file for 'python-Babel'
 pkgname=python-Babel
-version=2.4.0
+version=2.5.1
 revision=1
 noarch=yes
 wrksrc="${pkgname#*-}-${version}"
@@ -13,7 +13,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="http://babel.pocoo.org/"
 license="3-clause-BSD"
 distfiles="${PYPI_SITE}/B/Babel/Babel-${version}.tar.gz"
-checksum=8c98f5e5f8f5f088571f2c6bd88d530e331cbbcb95a7311a0db69d3dca7ec563
+checksum=6007daf714d0cd5524bbe436e2d42b3c20e68da66289559341e48d2cd6d25811
 alternatives="babel:pybabel:/usr/bin/pybabel2"
 
 post_install() {

@@ -1,6 +1,6 @@
 # Template file for 'libwebsockets'
 pkgname=libwebsockets
-version=2.2.1
+version=2.3.0
 revision=1
 build_style=cmake
 makedepends="zlib-devel libressl-devel libev-devel"
@@ -10,7 +10,7 @@ maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="LGPL-2"
 homepage="https://libwebsockets.org"
 distfiles="https://github.com/warmcat/libwebsockets/archive/v$version.tar.gz"
-checksum=e7f9eaef258e003c9ada0803a9a5636757a5bc0a58927858834fb38a87d18ad2
+checksum=f08a8233ca1837640b72b1790cce741ce4b0feaaa6b408fe28a303cbf0408fa1
 
 CFLAGS="-Wno-error"
 

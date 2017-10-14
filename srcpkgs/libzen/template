@@ -1,6 +1,6 @@
 # Template build file for 'libzen'.
 pkgname=libzen
-version=0.4.34
+version=0.4.37
 revision=1
 short_desc="Shared library for libmediainfo and mediainfo"
 homepage="http://mediaarea.net/MediaInfo"
@@ -8,7 +8,7 @@ maintainer="Georg Schabel <gescha@posteo.de>"
 license="zlib"
 
 distfiles="https://mediaarea.net/download/source/${pkgname}/${version}/${pkgname}_${version}.tar.gz"
-checksum=bb51136f9cf5c5660d3804a10ed5b34224cf7bbbacdf264ea50e1e65a9c0394e
+checksum=165ea5cd8d2e26d09b93b388904d228b71717b4a024b4694d455a407269686a6
 
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"

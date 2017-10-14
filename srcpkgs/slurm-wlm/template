@@ -1,6 +1,6 @@
 # Template file for 'slurm-wlm'
 pkgname=slurm-wlm
-version=17.02.1.1
+version=17.02.7.1
 revision=1
 _distver="${version//./-}"
 wrksrc="slurm-slurm-${_distver}"
@@ -16,7 +16,7 @@ maintainer="Toyam Cox <Vaelatern@gmail.com>"
 license="GPL-2"
 homepage="http://slurm.schedmd.com/slurm.html"
 distfiles="https://github.com/SchedMD/slurm/archive/slurm-${_distver}.tar.gz"
-checksum=508f40c68127d6d345a3d765150ad42e596a351e26381bf5e63d0da37f589be0
+checksum=ca2ddc5c1b2c747b5a04170b499cf1db28c71c059eac2be58d60ebbded3cefdf
 
 case "${XBPS_TARGET_MACHINE}" in
 	# Undefined: inet_nsap_addr and getgrent_r
@@ -28,3 +28,8 @@ if [ -z "${CROSS_BUILD}" ]; then
 	# The below at time of writing can not be cross compiled
 	makedepends+=" rrdtool-devel hdf5-devel libnuma-devel"
 fi
+
+post_install() {
+	# Rename slurm(1) manpage to avoid conflict with slurm
+	mv ${DESTDIR}/usr/share/man/man1/slurm.1 ${DESTDIR}/usr/share/man/man1/slurm-wlm.1
+}

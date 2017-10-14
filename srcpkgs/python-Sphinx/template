@@ -1,6 +1,6 @@
 # Template file for 'python-Sphinx'
 pkgname=python-Sphinx
-version=1.5.5
+version=1.6.4
 revision=1
 noarch=yes
 wrksrc="Sphinx-${version}"
@@ -9,13 +9,13 @@ pycompile_module="sphinx"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-setuptools python-docutils python-Jinja2 python-Pygments
  python-six python-Babel python-alabaster python-snowballstemmer
- python-imagesize python-requests"
+ python-imagesize python-requests python-typing python-sphinxcontrib-websupport"
 short_desc="Python2 documentation generator"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="http://sphinx-doc.org/"
 license="2-clause-BSD"
 distfiles="${PYPI_SITE}/S/Sphinx/Sphinx-${version}.tar.gz"
-checksum=4064ea6c56feeb268838cb8fbbee507d0c3d5d92fa63a7df935a916b52c9e2f5
+checksum=f101efd87fbffed8d8aca6ef307fec57693334f39d32efcbc2fc96ed129f4a3e
 
 alternatives="
  sphinx:sphinx-apidoc:/usr/bin/sphinx-apidoc2
@@ -34,10 +34,9 @@ python3-Sphinx_package() {
 	 sphinx:sphinx-build:/usr/bin/sphinx-build3
 	 sphinx:sphinx-quickstart:/usr/bin/sphinx-quickstart3"
 	noarch=yes
-	depends="
-	 python3-setuptools python3-docutils python3-Jinja2 python3-Pygments
+	depends="python3-setuptools python3-docutils python3-Jinja2 python3-Pygments
 	 python3-six python3-Babel python3-alabaster python3-snowballstemmer
-	 python3-imagesize python3-requests"
+	 python3-imagesize python3-requests python3-sphinxcontrib-websupport"
 	pycompile_module="sphinx"
 	replaces="python3.4-Sphinx>=0"
 	short_desc="${short_desc/Python2/Python3}"

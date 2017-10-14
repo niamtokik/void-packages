@@ -1,15 +1,17 @@
 # Template file for 'rng-tools'
 pkgname=rng-tools
-version=5
-revision=5
+version=6.1
+revision=1
+wrksrc=${pkgname}-${version}
 build_style=gnu-configure
-makedepends="libgcrypt-devel"
+makedepends="libgcrypt-devel libsysfs-devel libcurl-devel libxml2-devel"
+hostmakedepends="automake pkg-config"
 short_desc="Random number generator related utilities"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-3"
-homepage="http://sourceforge.net/projects/gkernel"
-distfiles="${SOURCEFORGE_SITE}/gkernel/${pkgname}-${version}.tar.gz"
-checksum=60a102b6603bbcce2da341470cad42eeaa9564a16b4490e7867026ca11a3078e
+homepage="https://github.com/nhorman/rng-tools/releases"
+distfiles="https://github.com/nhorman/rng-tools/archive/v${version}.tar.gz"
+checksum=6144818cd9c93008f72f14e2d23d8f717640d3f45afcea666a32b12bedd4dc03
 configure_args="--sbindir=/usr/bin"
 
 case "$XBPS_TARGET_MACHINE" in
@@ -17,13 +19,18 @@ case "$XBPS_TARGET_MACHINE" in
 		;;
 esac
 
+pre_configure() {
+	sh autogen.sh
+}
+
 do_build() {
 	case "$XBPS_TARGET_MACHINE" in
 		*-musl)
 			LIBS="-largp -lgcrypt"
-                ;;
+			;;
 		*)
 			LIBS="-lgcrypt"
+			;;
 	esac
 
 	make CC="$CC" LIBS="$LIBS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"

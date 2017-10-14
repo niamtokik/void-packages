@@ -1,15 +1,25 @@
 # Template file for 'brotli'
 pkgname=brotli
-version=0.5.2
+version=1.0.1
 revision=1
 build_style=cmake
 short_desc="Generic-purpose lossless compression algorithm"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="MIT"
 homepage="https://github.com/google/brotli"
 distfiles="https://github.com/google/${pkgname}/archive/v${version}.tar.gz"
-checksum=2b7b1183682a17d8a9b83170fccdbec270c9e56baf8c0082f5d9c4528412d343
+checksum=6870f9c2c63ef58d7da36e5212a3e1358427572f6ac5a8b5a73a815cf3e0c4a6
 
 post_install() {
 	vlicense LICENSE
+}
+
+brotli-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+	}
 }

@@ -1,26 +1,24 @@
 # Template file for 'elogind'
 pkgname=elogind
-version=226.4
+version=234.4
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libxslt intltool libtool pkg-config gperf docbook-xsl gettext-devel"
-makedepends="libcap-devel libmount-devel libseccomp-devel libblkid-devel pam-devel gettext-devel eudev-libudev-devel glib-devel"
+makedepends="libcap-devel libmount-devel libseccomp-devel libblkid-devel pam-devel gettext-devel eudev-libudev-devel glib-devel acl-devel"
 depends="dbus"
 short_desc="Standalone logind fork"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="GPL-2, LGPL-2, MIT"
 homepage="https://github.com/elogind/elogind"
 distfiles="https://github.com/$pkgname/$pkgname/archive/v$version.tar.gz"
-checksum=585ac8746cd81a74f47b4e93cb5f000494da4104ad53da0bae023e1758d0456d
-LDFLAGS="-lrt"
+checksum=ffb465a62c4281c19b07eb7fbb9ad0987f3b726ae1a868a92a3144d7714542f3
 conf_files="/etc/elogind/logind.conf"
+configure_args+=" --disable-kdbus --disable-lto --disable-tests \
+ --with-rootlibexecdir=/usr/libexec/elogind/"
 
 pre_configure() {
 	autoreconf -fi
 	intltoolize
-
-	sed -i -e "s#^Exec=/bin/false#Exec=/usr/libexec/elogind/elogind.wrapper#" \
-		src/login/org.freedesktop.login1.service
 }
 
 post_install() {

@@ -1,15 +1,15 @@
 # Template file for 'maim'
 pkgname=maim
-version=4.4.62
+version=5.4.68
 revision=1
 build_style=cmake
 configure_args="-DCMAKE_COMPRESS_MAN=FALSE"
 hostmakedepends="pkg-config"
-makedepends="libXrandr-devel libXcomposite-devel libjpeg-turbo-devel
+makedepends="libXrandr-devel libXcomposite-devel libjpeg-turbo-devel icu-devel
  libpng-devel MesaLib-devel glm slop-devel"
 short_desc="Desktop screenshot utility"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="https://github.com/naelstrof/maim"
 distfiles="https://github.com/naelstrof/maim/archive/v${version}.tar.gz"
-checksum=21ef84fe1c1cdef82dc9cc1f734626f839f0c28fd7e898c38c98aa98a85e9622
+checksum=25207497a1808d67f2aa940ecd2fbded571e9b480a63ab522e4df6acd9d1a438

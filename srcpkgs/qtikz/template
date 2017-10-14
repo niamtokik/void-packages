@@ -1,0 +1,14 @@
+# Template file for 'qtikz'
+pkgname=qtikz
+version=0.11
+revision=1
+wrksrc=ktikz-${version}
+build_style=qmake
+hostmakedepends="qt-qmake pkg-config qt-plugin-sqlite qt-devel"
+makedepends="poppler-qt4-devel qt-devel"
+short_desc="Editor for graphics set in TikZ"
+maintainer="Piraty <piraty1@inbox.ru>"
+license="GPL-2"
+homepage="http://www.hackenberger.at/blog/ktikz-editor-for-the-tikz-language/"
+distfiles="https://github.com/fhackenberger/ktikz/archive/${version}.tar.gz"
+checksum=8f08988c52edc95d766cef433c8ce1cdbd517528bbb474faee26ed8574682705

@@ -1,50 +1,41 @@
 # Template file for 'flightgear'
 pkgname=flightgear
-version=2017.1.2
+version=2017.3.1
 revision=1
 build_style=cmake
-configure_args="-DFG_DATA_DIR:STRING=/usr/share/flightgear/fgdata"
+configure_args="-DFG_DATA_DIR:STRING=/usr/share/flightgear/fgdata -DSYSTEM_SQLITE=1"
 hostmakedepends="fltk pkg-config"
 makedepends="MesaLib-devel boost-devel freealut-devel libfreeglut-devel fltk-devel
  libgsm-devel glew-devel speex-devel sqlite-devel osg-devel plib-devel libcurl-devel
- simgear $(vopt_if qt qt5-devel)"
+ simgear $(vopt_if qt 'qt5-devel qt5-declarative-devel')"
 depends="flightgear-data>=${version}"
-short_desc="Sophisticated flight wimulator"
+short_desc="Sophisticated flight simulator"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-3"
 homepage="http://www.flightgear.org/"
-#distfiles="
-# $SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/${pkgname}-${version}.tar.bz2
-# $SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/FlightGear-${version}-data.tar.bz2"
-_mirror=http://mirror.netcologne.de/gentoo/distfiles
+#_mirror=http://mirror.netcologne.de/gentoo/distfiles
 distfiles="
- http://mirror.netcologne.de/gentoo/distfiles/${pkgname}-${version}.tar.bz2
- http://mirror.netcologne.de/gentoo/distfiles/FlightGear-${version}-data.tar.bz2"
+ $SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/${pkgname}-${version}.tar.bz2
+ $SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/FlightGear-${version}-data.tar.bz2"
 checksum="
- 41fe2a4ab0c14ed10436026c2edbb83148bf603691487976aaf2a5314f524659
- 99d38d0478a8c8031f59376112bd54a6f996e1d363807b3bb45786384cfb2753"
+ 6f2e1d992e2f202b8f9c918c9fb19124ef06824ea0e767e2f4dff6ba43728ccd
+ df08b06e88a29a9f80f29186afd54d278636a663281a1b68e8f484bbb403d898"
 
-case "$XBPS_TARGET_MACHINE" in
-	aarch64-musl)
-		broken="ICE: dependency simgear does not build"
-		;;
-esac
+nocross=https://build.voidlinux.eu/builders/armv7l-musl_builder/builds/4773/steps/shell_3/logs/stdio
 
 build_options="qt"
 build_options_default="qt"
 if [ "$CROSS_BUILD" ]; then
-	configure_args+=" -DSIMGEAR_COMPILE_TEST_EXITCODE=0"
-	hostmakedepends+=" qt5-host-tools $(vopt_if qt qt5-devel)"
+	hostmakedepends+=" qt5-host-tools $(vopt_if qt 'qt5-devel qt5-declarative-devel')"
 fi
 # Suppress warnings regarding auto_ptr
 CXXFLAGS="-Wno-deprecated-declarations"
 
 post_install() {
-	vinstall package/flightgear.desktop 644 usr/share/applications
+	vinstall package/org.flightgear.FlightGear.desktop 644 usr/share/applications
 	vinstall package/flightgear.ico 644 usr/share/icons
 	vinstall ${FILESDIR}/flightgear.png 644 usr/share/pixmaps
-	vinstall scripts/completion/fg-completion.bash 644 usr/share/bash-completion/completions/fgfs
-	sed -i ${DESTDIR}/usr/share/applications/flightgear.desktop \
+	sed -i ${DESTDIR}/usr/share/applications/*.desktop \
 		-e "s;Exec=.*;Exec=fgfs --fg-root=/usr/share/flightgear/fgdata;"
 }
 

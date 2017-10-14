@@ -1,23 +1,19 @@
 # Template build file for 'libxslt'.
 pkgname=libxslt
-version=1.1.29
-revision=2
+version=1.1.31
+revision=1
 build_style=gnu-configure
 configure_args="--disable-static"
-makedepends="python-devel libxml2-devel libgcrypt-devel"
+makedepends="python-devel libxml2-devel libxml2-python libgcrypt-devel"
 short_desc="XSLT parser library from the GNOME project"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://xmlsoft.org/XSLT/"
 license="MIT"
 distfiles="ftp://xmlsoft.org/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=b5976e3857837e7617b29f2249ebb5eeac34e249208d31f1fbf7a6ba7a4090ce
+checksum=db25e96b6b801144277e67c05b10560ac09dfff82ccd53a154ce86e43622f3ab
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends="libtool automake gettext-devel ${makedepends}"
-	pre_configure() {
-		sed -e "s|AM_CONFIG_HEADER|AC_CONFIG_HEADERS|g" -i configure.in
-		autoreconf -fi
-	}
 	pre_build() {
 		sed -e "s|/usr/\(include/python2.7\)|$XBPS_CROSS_BASE/\1|g" \
 			-e "s|/usr/\(lib/python2.7/site-packages\)|$XBPS_CROSS_BASE/\1|g" \

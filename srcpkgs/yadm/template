@@ -1,0 +1,18 @@
+# Template file for 'yadm'
+pkgname=yadm
+version=1.11.1
+revision=1
+noarch=yes
+depends="bash git gnupg"
+short_desc="Yet Another Dotfiles Manager"
+maintainer="John <johnz@posteo.net>"
+license="GPL-3"
+homepage="https://thelocehiliosan.github.io/yadm/"
+distfiles="https://github.com/TheLocehiliosan/${pkgname}/archive/${version}.tar.gz"
+checksum=7074c08a317c627106cef3663f2ab05b6397fdf3e2f9186730368b44a26d8fe4
+
+do_install() {
+	vbin ${pkgname}
+	vman ${pkgname}.1
+	vinstall completion/yadm.bash_completion 644 usr/share/bash-completion/completions yadm
+}

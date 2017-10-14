@@ -1,40 +1,27 @@
 # Template file for 'opera'
 pkgname=opera
-version=44.0.2510.857
+version=47.0.2631.39
 revision=1
-only_for_archs="i686 x86_64"
+only_for_archs="x86_64"
 hostmakedepends="freetype-devel"
 depends="ffmpeg desktop-file-utils"
 short_desc="Fast, secure, easy to use browser"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="Proprietary"
 repository="nonfree"
-homepage="http://www.opera.com/browser/"
+homepage="https://www.opera.com/computer"
 nopie=yes
-
-if [ "${XBPS_TARGET_MACHINE}" = "x86_64" ];then
-	_debarch=amd64
-	checksum=d517a0969d5cd69de15c59bc0161d5230dc4065833cafe70634d5241ea4d50b9
-else
-	_debarch=i386
-	checksum=665cb684c14b4025f6cac43ec084e39678472acd137fa7c0c9bafed515bc0995
-fi
-
-distfiles="http://get.geo.opera.com/pub/opera/desktop/${version}/linux/opera-stable_${version}_${_debarch}.deb"
+distfiles="https://get.geo.opera.com/pub/${pkgname}/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
+checksum=9a719476fc632656b56511f4b51b64707b2b7478268c1824214db0b08b74fef9
 
 do_extract() {
-	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/opera-stable_${version}_${_debarch}.deb
-	cd ${wrksrc}
-	tar xfJ data.tar.xz
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-stable_${version}_amd64.deb
+	tar xf data.tar.xz
 }
 
 do_install() {
 	vbin ${FILESDIR}/opera
-	if [ "${XBPS_TARGET_MACHINE}" = "x86_64" ]; then
-		vcopy usr/lib/x86_64-linux-gnu usr/lib
-	else
-		vcopy usr/lib/i386-linux-gnu/opera usr/lib
-	fi
+	vcopy usr/lib/x86_64-linux-gnu usr/lib
 	vcopy usr/share /usr/share
 	vlicense usr/share/doc/opera-stable/copyright
 	ln -sf /usr/lib/libfreetype.so.6 ${DESTDIR}/usr/lib/opera/libfreetype.so.6

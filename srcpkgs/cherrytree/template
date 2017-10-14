@@ -1,10 +1,10 @@
 # Template file for 'cherrytree'
 pkgname=cherrytree
-version=0.38.0
+version=0.38.2
 revision=1
 noarch=yes
 build_style=python2-module
-hostmakedepends="python-setuptools desktop-file-utils"
+hostmakedepends="python-devel desktop-file-utils"
 depends="pygtksourceview python-dbus python-enchant desktop-file-utils"
 pycompile_dirs="usr/share/cherrytree/modules"
 short_desc="Hierarchial note taking application with syntax highlighting"
@@ -12,7 +12,7 @@ maintainer="Logen K <logen@sudotask.com>"
 license="GPL-3"
 homepage="http://www.giuspen.com/cherrytree/"
 distfiles="http://www.giuspen.com/software/${pkgname}-${version}.tar.xz"
-checksum=cbc691cdbc2859d3247c09ede23c4a64c76bc1257e7d10fe6197a77771d07d55
+checksum=15c846c7454dff698d983791f0dfca021a0f0263b83a57da867b775a6f10c140
 
 post_install() {
 	# don’t install useless egg

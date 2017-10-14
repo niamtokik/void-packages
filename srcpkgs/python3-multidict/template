@@ -1,0 +1,15 @@
+# Template file for 'python3-multidict'
+pkgname=python3-multidict
+version=3.2.0
+revision=1
+wrksrc="multidict-${version}"
+build_style=python3-module
+pycompile_module="multidict"
+hostmakedepends="python3-setuptools python3-Cython"
+makedepends="python3-devel"
+short_desc="Multidict implementation from aiohttp"
+maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+license="Apache-2.0"
+homepage="https://github.com/aio-libs/multidict"
+distfiles="https://github.com/aio-libs/multidict/archive/v${version}.tar.gz"
+checksum=cefa2da44fea2248c967a2de5ac4cb5a17dfe23a19118c40bf99204b3fb848b7

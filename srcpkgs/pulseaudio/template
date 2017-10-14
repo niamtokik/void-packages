@@ -1,6 +1,6 @@
 # Template file for 'pulseaudio'
 pkgname=pulseaudio
-version=10.0
+version=11.1
 revision=1
 build_style=gnu-configure
 configure_args="--disable-oss-output --disable-oss-wrapper --disable-tcpwrap
@@ -17,11 +17,7 @@ makedepends="
  webrtc-audio-processing-devel orc-devel jack-devel fftw-devel
  libcap-progs sbc-devel libxcb-devel libXtst-devel libSM-devel"
 depends="rtkit"
-conf_files="
-	/etc/pulse/system.pa
-	/etc/pulse/daemon.conf
-	/etc/pulse/client.conf
-	/etc/pulse/default.pa"
+conf_files="/etc/pulse/*"
 short_desc="A featureful, general-purpose sound server"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.freedesktop.org/wiki/Software/PulseAudio"
@@ -31,7 +27,7 @@ system_accounts="pulse"
 pulse_groups="audio"
 pulse_homedir="/var/run/pulse"
 distfiles="${FREEDESKTOP_SITE}/${pkgname}/releases/${pkgname}-${version}.tar.xz"
-checksum=a3186824de9f0d2095ded5d0d0db0405dc73133983c2fbb37291547e37462f57
+checksum=f2521c525a77166189e3cb9169f75c2ee2b82fa3fcf9476024fbc2c3a6c9cd9e
 
 case "$XBPS_TARGET_MACHINE" in
 	# Disable neon optimizations for the arm* architectures

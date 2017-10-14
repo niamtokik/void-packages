@@ -1,19 +1,21 @@
 # Template file for 'tumbler'.
 pkgname=tumbler
-version=0.1.31
-revision=5
+version=0.2.0
+revision=1
 build_style=gnu-configure
 configure_args="--disable-gstreamer-thumbnailer"
 hostmakedepends="automake libtool pkg-config intltool xfce4-dev-tools
- gettext-devel glib-devel dbus-glib-devel"
-makedepends="libjpeg-turbo-devel libpng-devel gtk+-devel dbus-glib-devel
+ gettext-devel glib-devel"
+makedepends="libjpeg-turbo-devel libpng-devel gtk+-devel
  libgsf-devel poppler-glib-devel libopenraw-devel ffmpegthumbnailer-devel"
 short_desc="D-Bus Thumbnailer service"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
-homepage="http://xfce.org"
+homepage="https://xfce.org"
 distfiles="http://archive.xfce.org/src/xfce/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=d0fd329273ff6ac98885eade4c3d8c87a4dd0816f713646130808bfa90b87173
+checksum=4e27a59694b0a5cc69ebccbdb00c724e670b5b7c30bc4dc0b461aac93f234fac
+
+CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/freetype2"
 
 pre_configure() {
 	mkdir m4

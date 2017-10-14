@@ -1,6 +1,6 @@
 # Template file for 'pdfpc'
 pkgname=pdfpc
-version=4.0.6
+version=4.0.8
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config vala libgee08-devel"
@@ -10,4 +10,4 @@ maintainer="Aaron Marcher <info@nulltime.net>"
 license="GPL-2"
 homepage="https://pdfpc.github.io/"
 distfiles="https://github.com/pdfpc/pdfpc/archive/v${version}.tar.gz>pdfpc-${version}.tar.gz"
-checksum=42b6bd421e977a98cf00d688da7b392b8d8be423eb56ea7ca929c3c0334f8aa4
+checksum=c04539398176b0911ec7216c48a04d90d7c893aa5b16cfdef8ea861885991066

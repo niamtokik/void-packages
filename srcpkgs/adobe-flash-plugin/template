@@ -1,21 +1,21 @@
 # Template file for 'adobe-flash-plugin'
 pkgname=adobe-flash-plugin
-version=25.0.0.127
+version=27.0.0.159
 revision=1
 # The EULA file
 _eula="https://www.adobe.com/content/dam/Adobe/en/legal/licenses-terms/pdf/PlatformClients_PC_WWEULA-en_US-20150407_1357.pdf"
-_eulacksum=91e504a9e99ebd988ffa95ce0d5feaf340410c03709348297301a22dc11df1a8
+_eulacksum=2851b4b39df44a2777c6c07e1f59cbc3055a346d2e775121b9ed38e0a4bf40d2
 _url=http://fpdownload.adobe.com/get/flashplayer/pdc/${version}
 if [ "$XBPS_MACHINE" = "x86_64" ]; then
 	_disttarball="${_url}/flash_player_npapi_linux.x86_64.tar.gz"
-	_distcksum=f65b43312429393fb2fe5a3aedd40a39f79f71ae30ac0444f2d4acfa7b925af9
+	_distcksum=2d5aff35d00b7f443b69ba40f1250ea5cbe5b5cb67520a642a17a602ec3723dc
 else
 	_disttarball="${_url}/flash_player_npapi_linux.i386.tar.gz"
-	_distcksum=2ddd617be4a970c3a35c1ab11f95993ca15a824f32d2e0a213f43a5399087a0b
+	_distcksum=3443daf0bb70532e754ed4ffc7090e68f8faf41f2e9fc4663437e20badcc881a
 fi
 distfiles="${_eula} ${_disttarball}"
 checksum="${_eulacksum} ${_distcksum}"
-skip_extraction="$(basename ${_eula})"
+skip_extraction="${_eula##*/}"
 short_desc="Adobe Flash Player plugin for Netscape compatible browsers"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.adobe.com"
@@ -40,6 +40,5 @@ do_install() {
 		usr/share/applications
 	vinstall usr/share/kde4/services/kcm_adobe_flash_player.desktop 644 \
 		usr/share/kde4/services
-	vinstall "${XBPS_SRCDISTDIR}/${pkgname}-${version}/$(basename ${_eula})" 644 \
-		usr/share/licenses/${pkgname} LICENSE.pdf
+	vlicense "${XBPS_SRCDISTDIR}/${pkgname}-${version}/$(basename ${_eula})" LICENSE.pdf
 }

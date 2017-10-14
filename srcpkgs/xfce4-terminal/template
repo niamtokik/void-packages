@@ -1,6 +1,6 @@
 # Template file for 'xfce4-terminal'
 pkgname=xfce4-terminal
-version=0.8.4
+version=0.8.6
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool"
@@ -11,4 +11,4 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.xfce.org"
 license="GPL-2"
 distfiles="http://archive.xfce.org/src/apps/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=c5c1163b30e7a43d56ff92a25193bf9f29ce60e6cf43e5988530df79c84cfdc8
+checksum=bc2a560409a0f0b666d1c557e991748b986ec27572a45ae88b0ee5a480d881d7

@@ -1,6 +1,6 @@
 # Template file for 'qmc2'
 pkgname=qmc2
-version=0.183
+version=0.187
 revision=1
 wrksrc=${pkgname}
 build_style=gnu-makefile
@@ -16,7 +16,7 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2"
 homepage="http://qmc2.arcadehits.net/wordpress/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}/${version}/${pkgname}-${version}.tar.bz2"
-checksum=ff3226172c9aaf2078eb8c1bef6208062d4d739c204f1b6d93f009cf6731d5fc
+checksum=8db7e4e8fb22b40c65869e70f8517c6897e20bcf2c78026b09a443a8c4459092
 
 if [ -n "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-multimedia-devel qt5-script-devel qt5-svg-devel"

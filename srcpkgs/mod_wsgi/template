@@ -1,14 +1,15 @@
 # Template file for 'mod_wsgi'
 pkgname=mod_wsgi
-version=4.5.15
+version=4.5.20
 revision=1
 lib32disabled=yes
 build_style=gnu-configure
 hostmakedepends="python"
 makedepends="apache-devel python-devel"
 short_desc="Python WSGI adapter module for Apache"
-homepage="https://modwsgi.org"
+homepage="https://www.modwsgi.org"
 license="Apache-2.0"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 distfiles="https://github.com/GrahamDumpleton/$pkgname/archive/$version.tar.gz"
-checksum=26e6d8253b342f78bf824152f8923a83e26d4f4d82cba105da2d5d466724bc22
+checksum=37fb0abcaca35435b1cca99e17ea55edee73082bd2196e7999b5b1284baf1f11
+nocross=yes

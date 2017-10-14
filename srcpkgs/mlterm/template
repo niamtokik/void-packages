@@ -1,6 +1,6 @@
 # Template file for 'mlterm'
 pkgname=mlterm
-version=3.8.0
+version=3.8.3
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static
@@ -14,10 +14,13 @@ short_desc="Multi Lingual TERMinal emulator for X"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="3-clause-BSD"
 homepage="http://mlterm.sourceforge.net/"
-distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"  
-checksum=6be0165fe43dc45099c4b37303fcca918e5dd07c5b0abb1fd4e35c8d73e9bf01
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=cd4bddb10bd7866255ddf45192add4853c2e8c49b36df6e9a9d2f274af18f9ee
 nocross=yes
 
 pre_configure() {
 	export ac_cv_func_posix_openpt=yes
+}
+post_install() {
+	vlicense LICENCE
 }

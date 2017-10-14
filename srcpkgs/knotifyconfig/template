@@ -1,6 +1,6 @@
 # Template file for 'knotifyconfig'
 pkgname=knotifyconfig
-version=5.29.0
+version=5.37.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,7 +11,11 @@ maintainer="Denis Revin <denis.revin@gmail.com>"
 license="LGPL-2"
 homepage="https://projects.kde.org/projects/frameworks/knotifyconfig"
 distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=9cb4a084a5a136397de695a1dc64430ef2cc321ba11e449b604b84e59e104bcd
+checksum=65c695561bf26dc5899e28a35604afb3da39283a459e704b00687f6dfd647292
+
+if [ -n "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools qt5-qmake python"
+fi
 
 knotifyconfig-devel_package() {
 	short_desc+=" - development"

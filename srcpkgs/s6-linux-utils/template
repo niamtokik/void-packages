@@ -1,0 +1,28 @@
+# Template file for 's6-linux-utils'
+pkgname=s6-linux-utils
+version=2.4.0.1
+revision=1
+build_style=gnu-configure
+makedepends="skalibs-devel"
+configure_args="--libdir=/usr/lib --includedir=/usr/include --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps --with-lib=${XBPS_CROSS_BASE}/usr/lib"
+short_desc="Minimalistic Linux-specific system utilities (s6-chroot, s6-mount etc.)"
+maintainer="<opsaaspo@yandex.ru>"
+license="ISC"
+homepage="http://skarnet.org/software/${pkgname}/"
+distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=9562ef293c916c4448d16fcbbc065eb28fd995ac34cd3538179cbc3ee056ab93
+
+post_install() {
+	vlicense COPYING
+	vdoc README
+	vcopy "doc/*" usr/share/doc/${pkgname}
+}
+
+s6-linux-utils-doc_package() {
+	noarch=yes
+	short_desc+=" - documentation"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/share/doc
+	}
+}

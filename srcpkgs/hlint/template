@@ -1,0 +1,18 @@
+# Template file for 'hlint'
+pkgname=hlint
+version=2.0.9
+revision=1
+build_style=haskell-stack
+nocross=yes # Can't yet cross compile Haskell
+stackage="lts-8.12"
+short_desc="Haskell source code suggestions"
+maintainer="Inokentiy Babushkin <twk@twki.de>"
+license="BSD-3"
+homepage="https://github.com/ndmitchell/hlint"
+distfiles="https://github.com/ndmitchell/${pkgname}/archive/v${version}.tar.gz"
+checksum=4dfc496818ef0b4f2c6aebe581c12f11c2575edf26907e0629e02e547219b496
+nopie=yes
+
+post_install() {
+	vlicense LICENSE
+}

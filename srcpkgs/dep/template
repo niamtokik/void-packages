@@ -1,0 +1,23 @@
+# Template file for 'dep'
+pkgname=dep
+version=0.3.1
+revision=1
+build_style=go
+hostmakedepends="git"
+depends="git go"
+short_desc="Go dependency management tool"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
+license="Apache"
+go_import_path="github.com/golang/dep"
+go_package="$go_import_path/cmd/dep"
+homepage="https://$go_import_path"
+distfiles="$homepage/archive/v$version.tar.gz"
+checksum=386e2d163c5a95166fa3b89da4f8166361c7c5210fb172f64c116cccd19d1d44
+
+pre_build() {
+	git config --global http.https://gopkg.in.followRedirects true
+}
+
+post_install() {
+	vlicense LICENSE
+}

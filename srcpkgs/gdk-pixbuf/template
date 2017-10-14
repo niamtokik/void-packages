@@ -1,6 +1,6 @@
-# Template build file for 'gdk-pixbuf'.
+# Template file for 'gdk-pixbuf'
 pkgname=gdk-pixbuf
-version=2.36.6
+version=2.36.11
 revision=1
 build_style=gnu-configure
 configure_args="$(vopt_enable gir introspection) --without-libjasper
@@ -9,12 +9,12 @@ hostmakedepends="automake libtool perl pkg-config gettext-devel
  glib-devel $(vopt_if gir gobject-introspection)"
 makedepends="libglib-devel libpng-devel libjpeg-turbo-devel tiff-devel libX11-devel"
 triggers="gtk-pixbuf-loaders"
-short_desc="An Image loading library for The GTK+ toolkit (v2)"
+short_desc="Image loading library for The GTK+ toolkit (v2)"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.gtk.org/"
+homepage="https://wiki.gnome.org/Projects/GdkPixbuf"
 license="GPL-2"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=455eb90c09ed1b71f95f3ebfe1c904c206727e0eeb34fc94e5aaf944663a820c
+checksum=ae62ab87250413156ed72ef756347b10208c00e76b222d82d9ed361ed9dde2f3
 
 # Package build options
 build_options="gir"
@@ -51,6 +51,6 @@ gdk-pixbuf-devel_package() {
 		if [ "$build_option_gir" ]; then
 			vmove usr/share/gir-1.0
 		fi
-		vmove usr/share/gtk-doc 
+		vmove usr/share/gtk-doc
 	}
 }

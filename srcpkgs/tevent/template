@@ -1,16 +1,16 @@
 # Template file for 'tevent'
 pkgname=tevent
-version=0.9.31
+version=0.9.33
 revision=1
 build_style=gnu-configure
 hostmakedepends="python pkg-config"
 makedepends="talloc-devel"
 short_desc="Event system based on the talloc memory management library"
-maintainer="Michael Aldridge <aldridge.mac@gmail.com>"
+maintainer="Yuusha Spacewolf <xyuusha@paranoici.org>"
 license="GPL-3"
 homepage="https://tevent.samba.org"
 distfiles="https://www.samba.org/ftp/tevent/tevent-${version}.tar.gz"
-checksum=4a13f2256ad804c860e84068258bd0f8be31cf0c79aa8f3019fa32f6928c2bfc
+checksum=22712ee981fd4298fcd5f3afb27d87a72257cebad37812cfbd3da5d968ed1bdc
 
 nocross="see srcpkgs/tdb (cross-32bit.answers)"
 

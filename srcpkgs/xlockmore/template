@@ -1,6 +1,6 @@
 # Template file for 'xlockmore'
 pkgname=xlockmore
-version=5.51
+version=5.55
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
@@ -10,7 +10,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="BSD"
 homepage="http://sillycycle.com/xlockmore.html"
 distfiles="http://sillycycle.com/xlock/xlockmore-${version}.tar.xz"
-checksum=47118e718e5c892e52ecb21ff4ccfc65592643696768c57c388095732f42608d
+checksum=d4f1fa5b19efc20262d77207636aa54fc66ba40aa867119f03a15981b3396ef8
 CFLAGS="-D_DEFAULT_SOURCE"
 
 pre_configure() {

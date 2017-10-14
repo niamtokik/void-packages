@@ -1,7 +1,7 @@
 # Template file for 'kglobalaccel'
 pkgname=kglobalaccel
-version=5.29.0
-revision=2
+version=5.37.0
+revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools qt5-tools"
@@ -11,7 +11,7 @@ maintainer="Denis Revin <denis.revin@gmail.com>"
 license="LGPL-2"
 homepage="https://projects.kde.org/projects/frameworks/kglobalaccel"
 distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=5fb143c4cf71f19ea0a145a2d4d80c98dfb437739bc03d6d3ef1b16a3bb75573
+checksum=4b373660976ba8c5e0fed74ddfc61dd8629757a849a5ea29a3c2166cf2c004b5
 
 kglobalaccel-devel_package() {
 	short_desc+=" - development"

@@ -1,6 +1,6 @@
 # Template file for 'postgresql'
 pkgname=postgresql
-version=9.5.6
+version=9.6.5
 revision=1
 build_style=gnu-configure
 make_build_target="world"
@@ -13,8 +13,8 @@ short_desc="Sophisticated open-source Object-Relational DBMS"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.postgresql.org"
 license="BSD"
-distfiles="ftp://ftp.postgresql.org/pub/source/v${version}/${pkgname}-${version}.tar.bz2"
-checksum=bb9e5f6d34e20783e96e10c1d6c0c09c31749e802aaa46b793ce2522725ae12f
+distfiles="https://ftp.postgresql.org/pub/source/v${version}/${pkgname}-${version}.tar.bz2"
+checksum=06da12a7e3dddeb803962af8309fa06da9d6989f49e22865335f0a14bad0744c
 
 hostmakedepends="flex docbook docbook2x openjade"
 makedepends="libfl-devel readline-devel libressl-devel perl

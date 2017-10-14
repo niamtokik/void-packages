@@ -1,20 +1,20 @@
 # Template file for 'gjs'
 pkgname=gjs
-version=1.46.0
-revision=2
+version=1.50.0
+revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel gobject-introspection"
 makedepends="libffi-devel libgirepository-devel dbus-glib-devel
- cairo-devel readline-devel mozjs24-devel"
+ cairo-devel readline-devel mozjs52-devel"
 short_desc="Mozilla-based javascript bindings for the GNOME platform"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="MPL-1.1, LGPL-2.1, GPL-2"
-homepage="http://live.gnome.org/Gjs"
+homepage="https://wiki.gnome.org/action/show/Projects/Gjs"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=2283591fa70785443793e1d7db66071b36052d707075f229baeb468d8dd25ad4
+checksum=2d529d315fc926995c5174d0ac45dacd604e52b9213ba3c4cd77f30bc4aec945
 
 gjs-devel_package() {
-	depends="libgirepository-devel mozjs24-devel gjs>=${version}_${revision}"
+	depends="libgirepository-devel mozjs52-devel ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

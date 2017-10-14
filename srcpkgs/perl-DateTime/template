@@ -1,15 +1,15 @@
 # Template build file for 'perl-DateTime'.
 pkgname=perl-DateTime
-version=1.42
-revision=1
+version=1.44
+revision=2
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="${hostmakedepends}"
-depends="perl-DateTime-Locale perl-DateTime-TimeZone perl-Params-Validate perl-Try-Tiny"
-short_desc="A date and tie object for perl"
+depends="perl-DateTime-Locale perl-DateTime-TimeZone perl-Try-Tiny"
+short_desc="A date and time object for Perl"
 maintainer="John Regan <john@jrjrtech.com>"
 homepage="http://search.cpan.org/dist/DateTime"
 license="Artistic, GPL-1"
 distfiles="${CPAN_SITE}/DateTime/${pkgname/perl-/}-$version.tar.gz"
-checksum=efa4badf07365d1b03ee5527fc79baaf7d8b449bf7baad13599f04177232416e
+checksum=a7165a9b1bcef735e76ea44c184ea741840249dd1862b8465f3777cd8f0bd701

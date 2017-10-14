@@ -1,37 +1,36 @@
 # Template file for 'assimp'
 pkgname=assimp
-version=3.3.1
+version=4.0.1
 revision=2
 build_style=cmake
-hostmakedepends="cmake pkg-config doxygen"
-makedepends="boost-devel zlib-devel"
+configure_args="-DASSIMP_BUILD_SAMPLES=OFF"
+hostmakedepends="cmake pkg-config qt5-qmake qt5-host-tools qt5-devel"
+makedepends="boost-devel libgomp-devel devil-devel qt5-devel minizip-devel zziplib-devel"
 short_desc="Import library for various well-known 3D model formats"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="3-clause-BSD"
 homepage="http://assimp.sourceforge.net/"
 distfiles="https://github.com/assimp/assimp/archive/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=d385c3f90876241343f09e45f4e5033a6a05861b971c63d1f6d512371ffdc7bf
+checksum=60080d8ab4daaab309f65b3cffd99f19eb1af8d05623fff469b9b652818e286e
 depends="libassimp>=${version}_${revision}"
 
 post_install() {
-	cd doc
+	# Install assimp_qt_viewer
+	vbin build/tools/assimp_qt_viewer/assimp_qt_viewer
+	vlicense LICENSE
+
 	# Create command documentation
-	rm -rf AssimpCmdDoc_Html
-	doxygen Doxyfile_Cmd
+	cd doc
 	vmkdir usr/share/doc/${pkgname}
 	vcopy AssimpCmdDoc_Html/* usr/share/doc/${pkgname}
+
 	# Create library documentation
-	rm -rf AssimpDoc_Html
-	doxygen Doxyfile
 	vmkdir usr/share/doc/${pkgname}/lib
 	vcopy AssimpDoc_Html/* usr/share/doc/${pkgname}/lib
-	cd ..
-	vlicense LICENSE
 }
 
 libassimp_package() {
 	short_desc+=" - libraries"
-	depends="${makedepends}"
 	pkg_install() {
 		vmove usr/lib/*.so.*
 		vlicense LICENSE
@@ -39,7 +38,7 @@ libassimp_package() {
 }
 libassimp-devel_package() {
 	short_desc+=" - development files"
-	depends="libassimp>=${version}_${revision}"
+	depends="libassimp>=${version}_${revision} ${makedepends}"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/*.so

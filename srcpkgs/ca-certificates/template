@@ -1,8 +1,8 @@
 # Template file for 'ca-certificates'
 pkgname=ca-certificates
-version=20161130
+version=20170717
 revision=1
-wrksrc="$pkgname"
+wrksrc="${pkgname}"
 bootstrap=yes
 noarch="yes"
 hostmakedepends="libressl"
@@ -10,10 +10,10 @@ depends="libressl>=2.2.4_2 run-parts"
 conf_files="/etc/ca-certificates.conf"
 short_desc="Common CA certificates for SSL/TLS"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://packages.qa.debian.org/c/ca-certificates.html"
-license="GPL-2"
+homepage="https://tracker.debian.org/pkg/ca-certificates"
+license="GPL-2, MPL-2.0"
 distfiles="${DEBIAN_SITE}/main/c/${pkgname}/${pkgname}_${version}.tar.xz"
-checksum=04bca9e142a90a834aca0311f7ced237368d71fee7bd5c9f68ef7f4611aee471
+checksum=e487639b641fa75445174734dd6e9d600373e3248b3d86a7e3c6d0f6977decd2
 
 post_extract() {
 	$BUILD_CC $BUILD_CFLAGS ${FILESDIR}/certdata2pem.c -o ${wrksrc}/mozilla/certdata2pem

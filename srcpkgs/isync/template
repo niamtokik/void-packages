@@ -1,17 +1,17 @@
 # Template file for 'isync'
 pkgname=isync
-version=1.2.1
-revision=3
+version=1.3.0
+revision=2
 build_style=gnu-configure
-hostmakedepends="pkg-config"
+hostmakedepends="perl pkg-config"
 makedepends="libressl-devel libsasl-devel db-devel zlib-devel"
 depends="ca-certificates"
 short_desc="IMAP and MailDir mailbox synchronizer"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2"
 homepage="http://isync.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=e716de28c9a08e624a035caae3902fcf3b511553be5d61517a133e03aa3532ae
+checksum=8d5f583976e3119705bdba27fa4fc962e807ff5996f24f354957178ffa697c9c
 
 post_install() {
 	vsconf src/mbsyncrc.sample

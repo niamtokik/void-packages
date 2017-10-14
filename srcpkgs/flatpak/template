@@ -1,0 +1,35 @@
+# Template file for 'flatpak'
+pkgname=flatpak
+version=0.9.99
+revision=1
+build_style=gnu-configure
+configure_args="--disable-documentation --with-system-bubblewrap"
+hostmakedepends="bubblewrap libxslt pkg-config glib-devel"
+makedepends="elfutils-devel fuse-devel glib-devel gpgme-devel json-glib-devel
+ libarchive-devel libcap-devel libostree-devel libseccomp-devel libsoup-devel
+ libXau-devel polkit-devel"
+depends="bubblewrap"
+short_desc="Application sandboxing and distribution framework"
+maintainer="Duncaen <duncaen@voidlinux.eu>"
+license="LGPL-2.1"
+homepage="http://flatpak.org/"
+#changelog="https://github.com/flatpak/flatpak/blob/master/NEWS"
+distfiles="https://github.com/flatpak/flatpak/releases/download/${version}/flatpak-${version}.tar.xz"
+checksum=7a41618c5ddaed26005c13595c70f1b8271f1c86785f762f07e6bb448b7fce25
+
+post_install() {
+	rm -rf $DESTDIR/usr/lib/systemd
+}
+
+flatpak-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision} glib-devel libostree-devel"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/*.so
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
+	}
+}

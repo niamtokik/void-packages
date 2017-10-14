@@ -1,6 +1,6 @@
 # Template build file for 'xf86-input-libinput'.
 pkgname=xf86-input-libinput
-version=0.25.0
+version=0.26.0
 revision=1
 lib32disabled=yes
 build_style=gnu-configure
@@ -12,7 +12,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://xorg.freedesktop.org/"
 license="MIT"
 distfiles="${XORG_SITE}/driver/$pkgname-$version.tar.bz2"
-checksum=bb7fd1658fa7e6c757fd55480aa8a07f8ccfb0a80ae42c29dbc67d57958c556f
+checksum=abca558fc2226f295691f1cf3412d4c0edeaa439f677ca25b5c9fab310d2387b
 
 post_install() {
 	vlicense COPYING

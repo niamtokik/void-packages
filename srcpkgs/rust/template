@@ -1,6 +1,6 @@
 # Template file for 'rust'
 pkgname=rust
-version=1.16.0
+version=1.20.0
 revision=1
 # NB. if you push any(!) new version, don't forget to put a build
 # output of musl to https://repo.voidlinux.eu/distfiles/
@@ -11,46 +11,47 @@ build_style=configure
 make_build_args="dist VERBOSE=1"
 only_for_archs="i686 x86_64 x86_64-musl"
 hostmakedepends="cmake curl pkg-config python"
-makedepends="libffi-devel lld-devel llvm ncurses-devel zlib-devel"
+makedepends="libffi-devel llvm ncurses-devel zlib-devel"
 short_desc="Safe, concurrent, practical systems language"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 homepage="http://www.rust-lang.org/"
 license="MIT, Apache-2.0"
 distfiles="https://static.rust-lang.org/dist/rustc-${version}-src.tar.gz"
-checksum=f966b31eb1cd9bd2df817c391a338eeb5b9253ae0a19bf8a11960c560f96e8b4
+checksum=2aa4875ff4472c6e35262bbb9052cb2623da3dae6084a858cc59d36f33f18214
 
 case "$XBPS_MACHINE" in
 x86_64-musl)
+	hostmakedepends+=" libcurl libgit2"
 	distfiles+="
-	 https://repo.voidlinux.eu/distfiles/rustc-1.15.1-x86_64-unknown-linux-musl.tar.gz
-	 https://repo.voidlinux.eu/distfiles/rust-std-1.15.1-x86_64-unknown-linux-musl.tar.gz
-	 https://alpine.geeknet.cz/distfiles/cargo-0.11.0-nightly-x86_64-alpine-linux-musl.tar.gz"
+	 https://repo.voidlinux.eu/distfiles/rustc-1.19.0-x86_64-unknown-linux-musl.tar.gz
+	 https://repo.voidlinux.eu/distfiles/rust-std-1.19.0-x86_64-unknown-linux-musl.tar.gz
+	 https://repo.voidlinux.eu/distfiles/cargo-0.18.0-x86_64-unknown-linux-musl.tar.gz"
 	checksum+="
-	 e7518b083cfa871ff84b589db754ebf9cbf727e3be37e6df4169056c9b34b45e
-	 ac65873446807038df761ba94e00ba5aaa51efd379a69b938102773cbad7f2dc
-	 587172026c0565e839d96b0c1d4c68c000927817398241f96682dca47fa8c3b9"
+	 28aa0f1335fad547072602520a773d29000785aceaed9ec71b1b207256b31d1f
+	 4e9e92c56708cccc5f567058b21bc62cb0a40bf2ed38466f0dc28eac64aae7d2
+	 28f2ee839f14f8b3edf3f4e4cc8600ac99ea50905ee8fb91116bba676728c2e9"
 	;;
 x86_64)
 	# extract from src/stage0.txt
 	distfiles+="
-	 https://static.rust-lang.org/dist/2017-02-09/rustc-1.15.1-x86_64-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/2017-02-09/rust-std-1.15.1-x86_64-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/cargo-dist/2016-11-26/cargo-nightly-x86_64-unknown-linux-gnu.tar.gz"
+	 https://static.rust-lang.org/dist/2017-07-20/rustc-1.19.0-x86_64-unknown-linux-gnu.tar.gz
+	 https://static.rust-lang.org/dist/2017-07-20/rust-std-1.19.0-x86_64-unknown-linux-gnu.tar.gz
+	 https://s3.amazonaws.com/rust-lang-ci/cargo-builds/6b05583d71f982bcad049b9fa094c637c062e751/cargo-nightly-x86_64-unknown-linux-gnu.tar.gz"
 	checksum+="
-	 33ff44672b731fc71145974ce84194a1a9bafe6da3a74fd1e7543f12467f8894
-	 69b251b478e284dfcaefc1153183f26f41d504ae213a81224f2101d8dbd52bb0
-	 4a76ae206dba572e3de3f2fd7b906b42866ca4fd5f929a6f52d38579d2794e61"
+	 4c8df3088d17c8e06bf58d453d39bd521487defcefc8193203b80f0fb797d6fe
+	 5905803e8a127f656bf253978692f0d6cf6c9206c527e4d6d7e981980618d1b6
+	 d9e69d2b87dc0cf7fafe0e0eb64f82fe3414ef14fcb27f5eeff34df860e459d9"
 	;;
 i686)
 	# extract from src/stage0.txt
 	distfiles+="
-	 https://static.rust-lang.org/dist/2017-02-09/rustc-1.15.1-i686-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/2017-02-09/rust-std-1.15.1-i686-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/cargo-dist/2016-11-28/cargo-nightly-i686-unknown-linux-gnu.tar.gz"
+	 https://static.rust-lang.org/dist/2017-07-20/rustc-1.19.0-i686-unknown-linux-gnu.tar.gz
+	 https://static.rust-lang.org/dist/2017-07-20/rust-std-1.19.0-i686-unknown-linux-gnu.tar.gz
+	 https://s3.amazonaws.com/rust-lang-ci/cargo-builds/6b05583d71f982bcad049b9fa094c637c062e751/cargo-nightly-i686-unknown-linux-gnu.tar.gz"
 	checksum+="
-	 a833304f99071600c72ecd868c1c7bd5ce49d1102332637a8eb7adb942f349ab
-	 eff452a54b208a83b35432f226cb7de046d27b5e43edfc31d71ff340af686db0
-	 8fb0cacdd2ab32b8dbdf74ae63914e1f97baf8bac0e8c1db1414a57677b93f88"
+	 33377c93d8afc08f3f211adcfb88b0e9bb0fba5af2ee52016293921c14aa355c
+	 7cdc76ef163050e9bc352d0ffc48d7d40ae66be0eb1fa1295e0635665c6e32ef
+	 863a4f92bbeec76257403fd571a90b90bd759ec8bcaddb7517fb89d40959e9e5"
 	;;
 esac
 
@@ -111,8 +112,9 @@ do_configure() {
 		--release-channel=stable
 		--disable-rpath
 		--enable-ccache
-		--enable-rustbuild
 		--llvm-root=/usr
+		--enable-local-rust
+		--local-rust-root=$wrksrc/stage0
 	"
 	case "$XBPS_TARGET_MACHINE" in
 	*-musl)

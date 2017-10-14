@@ -1,6 +1,6 @@
 # Template file for 'anki'
 pkgname=anki
-version=2.0.41
+version=2.0.47
 revision=1
 noarch=yes
 depends="python-PyQt4-webkit python-httplib2 python-SQLAlchemy"
@@ -10,7 +10,7 @@ maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="AGPL-3"
 homepage="http://ankisrs.net"
 distfiles="http://ankisrs.net/downloads/current/${pkgname}-${version}-source.tgz"
-checksum=f9e8498d62cda2c2892ca2141ec1a318159499c6b280edeaf8c2b95e97e3ab4e
+checksum=fbb5356d642a94a2cb2fb7f949e6db7c8acbe322f38a18c0603ff88f5bd4eb18
 
 do_install() {
 	vmkdir usr/share/anki

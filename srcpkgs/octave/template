@@ -1,10 +1,11 @@
 # Template file for 'octave'
 pkgname=octave
 version=4.2.1
-revision=1
+revision=5
 build_style=gnu-configure
+configure_args=" --with-blas=openblas --with-lapack=openblas "
 hostmakedepends="perl gcc-fortran pkg-config gnuplot"
-makedepends="pcre-devel lapack-devel readline-devel libSM-devel libltdl-devel
+makedepends="pcre-devel openblas-devel readline-devel libSM-devel libltdl-devel
  lcms2-devel"
 short_desc="A high-level language, primarily intended for numerical computations"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
@@ -12,8 +13,6 @@ license="GPL-3"
 homepage="https://gnu.org/software/octave/"
 distfiles="${GNU_SITE}/octave/octave-${version}.tar.gz"
 checksum=80c28f6398576b50faca0e602defb9598d6f7308b0903724442c2a35a605333b
-
-export FFLAGS="-fPIC"
 
 # Package build options
 # TODO: some options are still missing, such as java
@@ -73,4 +72,9 @@ makedepends+="
 
 pre_build() {
 	chmod +x build-aux/mk-opts.pl
+}
+post_build() {
+	# Remove references to hardening -specs.
+	sed -e "s|\(-specs=.*hardened-ld\)||g" -e "s|\(-specs=.*hardened-cc1\)||g" \
+		-i src/mkoctfile.cc libinterp/build-env.cc
 }

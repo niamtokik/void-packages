@@ -1,6 +1,6 @@
 # Template file for 'apache-tomcat'
 pkgname=apache-tomcat
-version=8.5.4
+version=8.5.23
 revision=1
 wrksrc=${pkgname}-${version}-src
 hostmakedepends="openjdk apache-ant"
@@ -11,11 +11,11 @@ make_dirs="/usr/share/${pkgname}/webapps 0755 tomcat tomcat \
  /usr/share/${pkgname}/temp 0755 tomcat tomcat"
 system_accounts="tomcat"
 short_desc="An open source implementation of the Java Servlet"
-maintainer="Michael Aldridge <aldridge.mac@gmail.com>"
+maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
 license="Apache-2.0"
 homepage="https://tomcat.apache.org"
 distfiles="http://mirrors.advancedhosters.com/apache/tomcat/tomcat-8/v${version}/src/apache-tomcat-${version}-src.tar.gz"
-checksum=bb35d2b37e2ff237e09e389dbfb0a99fa8a71f11c947c20f5bbea375f6f3449d
+checksum=eaaf35752841356dec976fa6250cd71680b8b5b9c0bdf4df9a86ac38630bcbd4
 
 do_build() {
 	ant

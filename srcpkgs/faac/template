@@ -1,29 +1,19 @@
 # Template file for 'faac'
 pkgname=faac
-version=1.28
-revision=9
+version=1.29.7.5
+revision=1
 build_style=gnu-configure
-configure_args="--with-mp4v2 --disable-static"
+configure_args="--disable-static"
 hostmakedepends="automake libtool"
-makedepends="libmp4v2-devel"
 short_desc="AAC audio encoder library"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.audiocoding.com/"
-license="GPL-2, BSD"
+license="LGPL-2"
 distfiles="${SOURCEFORGE_SITE}/faac/faac-${version}.tar.gz"
-checksum=c5141199f4cfb17d749c36ba8cfe4b25f838da67c22f0fec40228b6b9c3d19df
-
-pre_configure() {
-	find . -type f -print0 | xargs -0 sed -i 's/\r//g'
-	sed -e 's,AM_CONFIG_HEADER,AC_CONFIG_HEADERS,g' -i configure.in
-	./bootstrap
-}
-post_install() {
-	vlicense libfaac/kiss_fft/COPYING
-}
+checksum=a9c36c49d6956eb78d062768927a87014dbb04573d7ce38e50a65a4772fc8016
 
 faac-devel_package() {
-	depends="${makedepends} faac>=${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

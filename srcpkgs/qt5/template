@@ -1,7 +1,7 @@
 # Template file for 'qt5'
 pkgname=qt5
 version=5.8.0
-revision=4
+revision=8
 wrksrc="qt-everywhere-opensource-src-${version}"
 build_style=gnu-configure
 homepage="http://qt.io/"
@@ -35,7 +35,8 @@ replaces="qt5-doc<5.6.0 qt5-quick1<5.6.0 qt5-quick1-devel<5.6.0 qt5-webkit<5.6.0
 
 # Work around SSLv3_{client,server}_method missing in libressl-2.3.3
 CFLAGS="-DOPENSSL_NO_PSK -DOPENSSL_NO_NEXTPROTONEG -DOPENSSL_NO_SSL3_METHOD"
-CXXFLAGS="${CFLAGS} -Wno-deprecated-declarations -fno-delete-null-pointer-checks"
+CXXFLAGS="${CFLAGS} -D_GLIBCXX_USE_C99_STDLIB=1 -D_GLIBCXX_USE_C99_STDIO=1"
+CXXFLAGS+=" -Wno-deprecated-declarations -fno-delete-null-pointer-checks"
 # Required for musl libc
 LDFLAGS="-pthread -ldl -fPIE"
 
@@ -231,11 +232,8 @@ do_configure() {
 	# opts+=" -silent"
 	opts+=" -v"
 
-	if [ -z "$CROSS_BUILD" ]; then
-		if [ "${XBPS_MACHINE%%-musl}" = i686 ]; then
-			LDFLAGS+=" -Wl,--no-keep-memory"  # else OOM on 32-bit
-		fi
-	else
+	LDFLAGS+=" -Wl,--no-keep-memory"  # needs more than 8GB RAM else
+	if [ -n "$CROSS_BUILD" ]; then
 		spec=void-${XBPS_CROSS_TRIPLET}-g++
 		_create_config ${spec}
 		opts+=" -device ${spec}"

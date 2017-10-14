@@ -1,6 +1,6 @@
 # Template file for 'hwids'
 pkgname=hwids
-version=20170328
+version=20171003
 revision=1
 noarch=yes
 wrksrc="hwids-hwids-${version}"
@@ -9,7 +9,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://github.com/gentoo/hwids"
 license="GPL-2"
 distfiles="https://github.com/gentoo/hwids/archive/hwids-${version}.tar.gz"
-checksum=e46abb9ccb54aff728bb0502405aa700974a2a7366d3bb257967ce60d847cfb3
+checksum=9befd0d4d796fe77f3ab7576d5beba8ea5c0066285db255d93389d1592d5cd2f
 
 do_install() {
 	vmkdir usr/share/hwdata

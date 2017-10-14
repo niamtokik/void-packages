@@ -1,11 +1,11 @@
 # Template file for 'MultiMarkdown'
 pkgname=MultiMarkdown
 version=5.4.0
-revision=1
+revision=3
 build_style=cmake
 _greg_git=265003c8cb3022183f48df3e2684336b788af39d
 _cheatsheet_git=199dae83cfd22254a7b329450e48aaedb8d4d2e9
-short_desc="a superset of the Markdown syntax"
+short_desc="Superset of the Markdown syntax"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="MIT"
 homepage="http://fletcherpenney.net/multimarkdown/"
@@ -34,7 +34,10 @@ pre_configure() {
 	touch build/README.html
 }
 
-# TODO: markdown alternatives
 post_install() {
-	mv $DESTDIR/usr/bin/markdown $DESTDIR/usr/bin/mmd_markdown
+	# TODO: markdown alternatives
+	mv ${DESTDIR}/usr/bin/markdown ${DESTDIR}/usr/bin/multimarkdown-markdown
+	# Avoid conflict with mtools
+	mv ${DESTDIR}/usr/bin/mmd  ${DESTDIR}/usr/bin/multimarkdown-mmd
+	vlicense LICENSE.txt LICENSE
 }

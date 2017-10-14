@@ -1,6 +1,6 @@
 # Template file for 'glpk'
 pkgname=glpk
-version=4.61
+version=4.63
 revision=1
 build_style=gnu-configure
 configure_args="--with-gmp"
@@ -10,7 +10,7 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3"
 homepage="http://www.gnu.org/software/glpk/glpk.html"
 distfiles="${GNU_SITE}/glpk/${pkgname}-${version}.tar.gz"
-checksum=9866de41777782d4ce21da11b88573b66bb7858574f89c28be6967ac22dfaba9
+checksum=914d27f1a51c2bf4a51f1bd4a507f875fcca99db7b219380b836a25b29b3e7f6
 
 glpk-devel_package() {
 	short_desc+=" - development files"

@@ -1,6 +1,6 @@
 # Template file for 'diffutils'
 pkgname=diffutils
-version=3.5
+version=3.6
 revision=2
 bootstrap=yes
 build_style=gnu-configure
@@ -9,4 +9,9 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.gnu.org/software/diffutils"
 license="GPL-3"
 distfiles="${GNU_SITE}/$pkgname/$pkgname-$version.tar.xz"
-checksum=dad398ccd5b9faca6b0ab219a036453f62a602a56203ac659b43e889bec35533
+checksum=d621e8bdd4b573918c8145f7ae61817d1be9deb4c8d2328a65cea8e11d783bd6
+
+if [ -n "$CROSS_BUILD" ]; then
+	# Tell configure we have GNU getopt
+	configure_args+=" gl_cv_func_getopt_gnu=yes"
+fi

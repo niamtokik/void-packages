@@ -1,6 +1,6 @@
 # Template file for 'redis'
 pkgname=redis
-version=3.2.8
+version=4.0.2
 revision=1
 makedepends="jemalloc-devel"
 homepage="http://redis.io"
@@ -8,7 +8,7 @@ distfiles="http://download.redis.io/releases/${pkgname}-${version}.tar.gz"
 short_desc="Advanced key-value store"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="BSD"
-checksum=61b373c23d18e6cc752a69d5ab7f676c6216dc2853e46750a8c4ed791d68482c
+checksum=b1a0915dbc91b979d06df1977fe594c3fa9b189f1f3d38743a2948c9f7634813
 
 system_accounts="redis"
 redis_homedir="/var/lib/redis"

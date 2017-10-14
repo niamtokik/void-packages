@@ -1,14 +1,15 @@
 # Template file for 'gnupg2'
 pkgname=gnupg2
-version=2.1.20
-revision=2
+version=2.2.1
+revision=1
 wrksrc="gnupg-${version}"
 build_style=gnu-configure
 configure_args="
  --with-libgcrypt-prefix=${XBPS_CROSS_BASE}
  --with-ksba-prefix=${XBPS_CROSS_BASE}
  --with-npth-prefix=${XBPS_CROSS_BASE}
- --with-libassuan-prefix=${XBPS_CROSS_BASE}"
+ --with-libassuan-prefix=${XBPS_CROSS_BASE}
+ --enable-gpg-is-gpg2"
 hostmakedepends="pkg-config"
 makedepends="zlib-devel libldap-devel libcurl-devel readline-devel
  libusb-compat-devel libgpg-error-devel libgcrypt-devel libassuan-devel
@@ -18,9 +19,9 @@ depends="pinentry"
 short_desc="The GNU Privacy Guard (2.x)"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
-homepage="http://www.gnupg.org/"
-distfiles="ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-${version}.tar.bz2"
-checksum=24cf9a69369be64a9f6f8cc11a1be33ab7780ad77a6a1b93719438f49f69960d
+homepage="https://www.gnupg.org/"
+distfiles="https://gnupg.org/ftp/gcrypt/gnupg/gnupg-${version}.tar.bz2"
+checksum=34d70cd65b9c95f3f2f90a9f5c1e0b6a0fe039a8d685e2d66d69c33d1cbf62fb
 
 pre_configure() {
 	sed -i '/^CFLAGS_orig=/d;/^CFLAGS=$/d' configure

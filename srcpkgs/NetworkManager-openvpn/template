@@ -1,6 +1,6 @@
 # Template build file for 'NetworkManager-openvpn'.
 pkgname=NetworkManager-openvpn
-version=1.2.8
+version=1.8.0
 revision=1
 lib32disabled=yes
 build_style=gnu-configure
@@ -13,5 +13,11 @@ homepage="https://wiki.gnome.org/Projects/NetworkManager"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
 license="GPL-2"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-checksum=3e0b4007f248d96df4b8eb5d0f937536044af7053debbbf525e67c9bc5d30654
-LDFLAGS="-ldl"
+checksum=166e1123ade1b322162b83876c605393a8e74240aa908cba934319f312b2e3a4
+system_accounts="_nm_openvpn"
+_nm_openvpn_homedir="/var/empty"
+
+post_extract() {
+	sed -i 's/\(#define NM_OPENVPN_\(USER\|GROUP\)\).*/\1 "_nm_openvpn"/' \
+		shared/nm-service-defines.h
+}

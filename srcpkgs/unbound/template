@@ -1,14 +1,15 @@
 # Template file for 'unbound'
 pkgname=unbound
-version=1.6.1
-revision=2
+version=1.6.7
+revision=1
 build_style=gnu-configure
 configure_args="--with-libevent --with-conf-file=/etc/unbound/unbound.conf
  --with-pidfile=/run/unbound.pid --with-ssl=${XBPS_CROSS_BASE}/usr
  --with-libevent=${XBPS_CROSS_BASE}/usr --with-libexpat=${XBPS_CROSS_BASE}/usr
+ --enable-dnscrypt --enable-event-api
  --with-rootkey-file=/etc/dns/root.key --sbindir=/usr/bin"
 conf_files="/etc/unbound/unbound.conf"
-makedepends="libressl-devel expat-devel libevent-devel"
+makedepends="expat-devel libevent-devel libressl-devel libsodium-devel"
 depends="dnssec-anchors"
 system_accounts="unbound"
 short_desc="Validating, recursive, and caching DNS resolver"
@@ -16,12 +17,13 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="3-clause-BSD"
 homepage="http://unbound.net/"
 distfiles="http://unbound.net/downloads/${pkgname}-${version}.tar.gz"
-checksum=42df63f743c0fe8424aeafcf003ad4b880b46c14149d696057313f5c1ef51400
+checksum=4e7bd43d827004c6d51bef73adf941798e4588bdb40de5e79d89034d69751c9f
 
 post_install() {
 	vsconf doc/example.conf unbound.conf
 	vinstall ${FILESDIR}/unbound.conf 644 etc/unbound
 	vsv unbound
+	vlicense LICENSE
 }
 
 unbound-devel_package() {

@@ -1,19 +1,19 @@
 # Template file for 'gnome-maps'
 pkgname=gnome-maps
-version=3.24.0
+version=3.26.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel $(vopt_if gir gobject-introspection)"
 makedepends="
  gjs-devel gnome-desktop-devel geoclue2-devel geocode-glib-devel rest-devel
  libgee08-devel folks-devel libchamplain-devel"
-depends="gjs>=1.40 desktop-file-utils"
+depends="gjs>=1.40 desktop-file-utils gfbgraph geoclue2"
 short_desc="GNOME maps application"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="http://live.gnome.org/Design/Apps/Maps"
 license="GPL-2"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=f4ab876c5cece1a897abe4a385967451bce8b7319c5eb540cc76d557a055da85
+checksum=f412919e2549c59929898d8303b5bfa92a8333f8eb1dd07d8fdf64be17300514
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then

@@ -1,6 +1,6 @@
 # Template file for 'botan'
 pkgname=botan
-version=2.0.1
+version=2.3.0
 revision=1
 wrksrc="${pkgname^}-${version}"
 build_style=gnu-makefile
@@ -11,44 +11,79 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="3-clause-BSD"
 homepage="http://botan.randombit.net/"
 distfiles="http://botan.randombit.net/releases/Botan-${version}.tgz"
-checksum=a138ed316d11450a8405451b9c9664b8e640a9b7ad84d3f3ad34e8071f364e0b
+checksum=39f970fee5986a4c3e425030aef50ac284da18596c004d1a9cce7688c4e6d47c
 
 LDFLAGS="-pthread"
 
 do_configure() {
-	local _arch _cpu _march _tune
+	local _args _arch _cpu _march _tune
+
+	_args="--prefix=/usr"
+	_args+=" --os=linux"
+	_args+=" --cc=gcc"
+	_args+=" --cc-bin=$CXX"
+	_args+=" --with-doxygen"
+	_args+=" --with-openssl"
+	_args+=" --with-bzip2"
+	_args+=" --with-lzma"
+	_args+=" --with-zlib"
+	_args+=" --with-sqlite3"
+	_args+=" --enable-shared"
+
 	case "$XBPS_TARGET_MACHINE" in
 	i686*)
-		_cpu="i686"; _arch="x86"; _march="i686"; _tune="i686" ;;
+		_cpu="i686"
+		_arch="x86"
+		_march="i686"
+		_tune="i686"
+		;;
 	x86_64*)
-		_cpu="x86_64"; _arch="x86"; _march="x86_64"; _tune="generic" ;;
+		_cpu="x86_64"
+		_arch="x86"
+		_march="x86_64"
+		_tune="generic"
+		;;
 	armv5*)
-		_cpu="armv5"; _arch="armv5te"; _march="armv5te" ;;
+		_cpu="armv5"
+		_arch="armv5te"
+		_march="armv5te"
+		_args+=" --disable-modules=simd"
+		;;
 	armv6*)
-		_cpu="armv6"; _arch="armv6"; _march="armv6" ;;
+		_cpu="armv6"
+		_arch="armv6"
+		_march="armv6"
+		_args+=" --disable-modules=simd"
+		;;
 	armv7*)
-		_cpu="armv7-a"; _arch="armv7"; _march="armv7-a" ;;
+		_cpu="armv7-a"
+		_arch="armv7"
+		_march="armv7-a"
+		_args+=" --disable-modules=simd"
+		;;
 	aarch64*)
-		_cpu="armv8-a"; _arch="arm64"; _march="armv8-a" ;;
+		_cpu="armv8-a"
+		_arch="arm64"
+		_march="armv8-a"
+		;;
 	mipselhf*)
-		_cpu="mips32"; _arch="mips"; _march="mips32"; _mtune="mips32r2 --hard-float" ;;
+		_cpu="mips32"
+		_arch="mips"
+		_march="mips32"
+		_mtune="mips32r2 --hard-float"
+		;;
 	mips*)
-		_cpu="mips32"; _arch="mips"; _march="mips32"; _mtune="mips32r2 --soft-float" ;;
+		_cpu="mips32"
+		_arch="mips"
+		_march="mips32"
+		_mtune="mips32r2 --soft-float"
+		;;
 	esac
+
 	python configure.py \
-		--prefix=/usr \
-		--os=linux \
-		--cc=gcc \
-		--cc-bin=$CXX \
 		--cc-abi-flags="-arch ${_arch} -stdlib=libc++" \
-		--cpu=$_cpu \
-		--with-doxygen \
-		--with-openssl \
-		--with-bzip2 \
-		--with-lzma \
-		--with-zlib \
-		--with-sqlite3 \
-		--enable-shared
+		--cpu=${_cpu} \
+		${_args}
 
 	sed -i Makefile \
 		-e"s;^\(CXX.*\)=.*;\1= $CXXFLAGS;" \

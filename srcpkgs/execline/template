@@ -1,16 +1,16 @@
 # Template file for 'execline'
 pkgname=execline
-version=2.3.0.0
+version=2.3.0.3
 revision=1
 build_style=gnu-configure
 makedepends="skalibs-devel"
-configure_args="--libdir=/usr/lib"
+configure_args="--libdir=/usr/lib --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps --with-lib=${XBPS_CROSS_BASE}/usr/lib"
 short_desc="A non-interactive scripting language"
 maintainer="bougyman <bougyman@voidlinux.eu>"
 license="ISC"
 homepage="http://skarnet.org/software/execline/"
 distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=a0ec43b8feba299cc1e5c65b1978ed76571afa595bc53165373e29a57468f425
+checksum=1a698425740a410a38be770f98b8faf94c633e29a74ba1d25adddbb294e979f5
 conflicts="ImageMagick" # /usr/bin/import
 
 CFLAGS="-fPIC"

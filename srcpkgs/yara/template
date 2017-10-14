@@ -1,0 +1,43 @@
+# Template file for 'yara'
+pkgname=yara
+version=3.6.3
+revision=1
+build_style=gnu-configure
+configure_args="--enable-magic --enable-cuckoo"
+hostmakedepends="automake libtool"
+makedepends="libressl-devel file-devel jansson-devel"
+short_desc="Pattern matching swiss knife for malware researchers"
+maintainer="Michael Gehring <mg@ebfe.org>"
+license="3-clause-BSD"
+homepage="http://virustotal.github.io/yara/"
+distfiles="https://github.com/VirusTotal/yara/archive/v${version}.tar.gz"
+checksum=ad2c0e788b4d8b2f3e9078f448754313249a302b749b9a24e932bfc5e141a5e8
+
+pre_configure() {
+	autoreconf -fi
+}
+
+libyara_package() {
+	short_desc+=" - library"
+	pkg_install() {
+		vmove usr/lib/*.so.*
+	}
+}
+
+yara-devel_package() {
+	depends="libyara-${version}-${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+	}
+}
+
+post_install() {
+	for f in docs/*.rst docs/modules/*.rst; do
+		vdoc $f
+	done
+	vlicense COPYING
+}

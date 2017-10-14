@@ -1,7 +1,7 @@
 # Template file for 'texmaker'
 pkgname=texmaker
-version=4.5
-revision=2
+version=5.0.2
+revision=1
 build_style=qmake
 hostmakedepends="qt5-qmake pkg-config"
 makedepends="poppler-qt5-devel qt5-webkit-devel qt5-script-devel"
@@ -10,7 +10,7 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-3"
 homepage="http://www.xm1math.net/texmaker/index.html"
 distfiles="http://www.xm1math.net/$pkgname/$pkgname-$version.tar.bz2"
-checksum=2ce9966e410bf878649d1c756e3dc2a077e55e1eaa9f4beb10aa7224cd94d614
+checksum=a94e8d77a16fddd0789c452b0913bb098b1f895397b3ad53be29ad84aaac0179
 
 if [ -n "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-webkit-devel qt5-script-devel"

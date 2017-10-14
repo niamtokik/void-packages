@@ -1,7 +1,7 @@
 # Template file for 'connman'
 pkgname=connman
-version=1.33
-revision=3
+version=1.35
+revision=1
 lib32disabled=yes
 build_style=gnu-configure
 configure_args="--sbindir=/usr/bin
@@ -11,13 +11,13 @@ configure_args="--sbindir=/usr/bin
  --disable-tools --disable-wispr --with-openconnect=/usr/bin/openconnect"
 hostmakedepends="automake libtool pkg-config wpa_supplicant iptables"
 makedepends="libglib-devel dbus-devel iptables-devel gnutls-devel readline-devel"
-depends="wpa_supplicant"
+depends="dbus wpa_supplicant"
 short_desc="Open Source CONNection MANager"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://connman.net/"
 distfiles="${KERNEL_SITE}/network/$pkgname/$pkgname-$version.tar.xz"
-checksum=bc8946036fa70124d663136f9f6b6238d897ca482782df907b07a428b09df5a0
+checksum=66d7deb98371545c6e417239a9b3b3e3201c1529d08eedf40afbc859842cf2aa
 
 pre_configure() {
 	case "$XBPS_TARGET_MACHINE" in

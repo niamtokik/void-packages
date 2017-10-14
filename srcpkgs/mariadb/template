@@ -1,6 +1,6 @@
 # Template file for 'mariadb'
 pkgname=mariadb
-version=10.1.22
+version=10.1.26
 revision=1
 build_style=cmake
 configure_args="-DMYSQL_DATADIR=/var/lib/mysql
@@ -28,10 +28,10 @@ system_accounts="mysql"
 mysql_homedir="/var/lib/mysql"
 short_desc="Fast SQL database server, drop-in replacement for MySQL"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://mariadb.org/"
+homepage="https://mariadb.org/"
 license="GPL-2"
 distfiles="https://downloads.$pkgname.org/f/$pkgname-$version/source/$pkgname-$version.tar.gz"
-checksum=bcb0572e7ad32cea9740a21e9255f733bdf60a5561ffbda317c22dd12b3966ce
+checksum=ba88b1cb9967dea2909938a34ba89373b162b0d83e5c98a0f1c94540156bf73d
 CFLAGS="-w"
 
 pre_configure() {
@@ -122,9 +122,9 @@ mariadb-client_package() {
 }
 mytop_package() {
 	noarch=yes
-	depends="perl-Term-ReadKey perl-DBD-mysql"
+	depends="${sourcepkg}>=${version}_${revision} perl-Term-ReadKey perl-DBD-mysql"
 	short_desc="Top-like query monitor for MariaDB"
 	pkg_install() {
-		vbin ${DESTDIR}/usr/bin/mytop
+		vmove usr/bin/mytop
 	}
 }

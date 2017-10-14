@@ -8,6 +8,8 @@ do_build() {
 	if [ -f "${FILESDIR}/stack.yaml" ]; then
 		msg_normal "Using stack config in stack.yaml.\n"
 		cp "${FILESDIR}/stack.yaml" .
+	elif [ -z "$stackage" -a -f "stack.yaml" ]; then
+		msg_normal "Using stack.yaml from downloaded source.\n"
 	else
 		if [ -z "$stackage" ]; then
 			msg_error "Stackage version not set in \$stackage.\n"
@@ -17,11 +19,12 @@ do_build() {
 			stack init --force --resolver ${stackage}
 	fi
 
-	STACK_ROOT=$wrksrc/.stack stack ${makejobs} build ${make_build_args}
+	STACK_ROOT=$wrksrc/.stack stack --system-ghc ${makejobs} build \
+		${make_build_args}
 }
 
 do_install() {
 	vmkdir usr/bin
-	STACK_ROOT=$wrksrc/.stack stack install ${make_build_args} \
-		--local-bin-path=${DESTDIR}/usr/bin
+	STACK_ROOT=$wrksrc/.stack stack --system-ghc install \
+	       	${make_build_args} --local-bin-path=${DESTDIR}/usr/bin
 }

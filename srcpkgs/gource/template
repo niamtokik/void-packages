@@ -1,6 +1,6 @@
 # Template file for 'gource'
 pkgname=gource
-version=0.44
+version=0.47
 revision=2
 build_style=gnu-configure
 configure_args="--with-tinyxml --enable-ttf-font-dir=/usr/share/fonts/TTF"
@@ -13,4 +13,6 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="http://gource.io/"
 distfiles="https://github.com/acaudwell/Gource/releases/download/gource-${version}/gource-${version}.tar.gz"
-checksum=2604ca4442305ffdc5bb1a7bac07e223d59c846f93567be067e8dfe2f42f097c
+checksum=f2b16083a01b897b6c062b363793028fb9e01cd6f888d91772ee06e56ce398d2
+
+nocross="https://build.voidlinux.eu/builders/armv6l_builder/builds/5099/steps/shell_3/logs/stdio"

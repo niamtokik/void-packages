@@ -1,7 +1,7 @@
 # Template build file for 'libdwarf'
 pkgname=libdwarf
-version=20161124
-revision=1
+version=20170709
+revision=2
 build_style=gnu-configure
 configure_args="--prefix=/usr --enable-shared"
 short_desc="DWARF Debugging Information Format Library"
@@ -10,11 +10,18 @@ license="GPL-2, LGPL-2.1"
 makedepends="elfutils-devel"
 homepage="http://www.prevanders.net/dwarf.html"
 distfiles="http://prevanders.net/${pkgname}-${version}.tar.gz"
-checksum=bd3d6dc7da0509876fb95b8681f165febd898845dc66714aa58e69b8feca988f
+checksum=46ccfb24ecd24bd7cce466d67a7bfeb62b9ed405dafdc924918d58c529abccb8
 wrksrc="dwarf-${version}"
 build_wrksrc="libdwarf"
-nocross="yes"
-# XXX need to fix cross-compile
+
+if [ -n "$CROSS_BUILD" ]; then
+	make_cmd="make HOSTCC=cc HOSTCFLAGS=-I./ HOSTLDFLAGS="
+
+	pre_build() {
+		# Makefile doesn’t use $HOSTLDFLAGS when using $HOSTCC
+		sed -i -e 's|\$(HOSTCC) \$(HOSTCFLAGS) \$(LDFLAGS)|\$(HOSTCC) \$(HOSTCFLAGS) \$(HOSTLDFLAGS)|' Makefile
+	}
+fi
 
 do_install() {
 	install -dm755 $DESTDIR/usr/lib

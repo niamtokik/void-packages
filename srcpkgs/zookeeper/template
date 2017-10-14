@@ -1,48 +1,45 @@
 # Template file for 'zookeeper'
-
-pkgname="zookeeper"
-version="3.5.2"
+pkgname=zookeeper
+version=3.4.10
 revision=1
-build_style=gnu-configure
-short_desc="open-source server which enables highly reliable distributed coordination"
-maintainer="Mathieu Kerjouan <void@steepath.eu>"
-license="MPL-2.0"
-homepage="https://github.com/apache/zookeeper"
-distfiles="https://github.com/apache/${pkgname}/archive/release-${version}.tar.gz"
-checksum="c3bd54382adaad9c0bf5d366949eb1d21762d5fd1ac643399adcb0f5349ced65"
-hostmakedepends="openjdk openjdk-jre apache-ant"
-wrksrc=${pkgname}-release-${version}
-
-do_configure() {
-	:
-}
-
-do_build() {
-	ant
-}
+noarch=yes
+short_desc="A dristributed hierarchical key-value store"
+maintainer="Mickael Fortunato <morsi.morsicus@gmail.com>"
+license="Apache-2.0"
+homepage="http://zookeeper.apache.org/"
+distfiles="http://mirrors.ircam.fr/pub/apache/zookeeper/stable/zookeeper-${version}.tar.gz"
+checksum="7f7f5414e044ac11fee2a1e0bc225469f51fb0cdf821e67df762a43098223f27"
+depends="virtual?java-runtime"
+system_accounts="_zookeeper"
 
 do_install() {
-	# libraries
-	vmkdir usr/share/java/
-	vcopy build/zookeeper-${version}-alpha.jar usr/share/java
-
-	# executable
-	vinstall src/contrib/zooinspector/zooInspector.sh 555 usr/bin
-
-	# configuration
-	vmkdir etc/zookeeper
-	vcopy conf/* etc/zookeeper
-	vmkdir etc/zookeeper/zooinspector
-	vcopy src/contrib/zooinspector/config/* etc/zookeeper/zooinspector
-
-	# license
+	# License
 	vlicense LICENSE.txt
 
-	# extra
-	vmkdir usr/share/zookeeper/bin
-	vcopy bin/*.sh usr/share/zookeeper/bin
-	vcopy bin/*.txt usr/share/zookeeper/bin
+	# Documentation
+	vmkdir usr/share/doc/${pkgname}
+	vcopy docs usr/share/doc/${pkgname}
 
-	vmkdir usr/share/doc/zookeeper
-	vcopy docs/* usr/share/doc/zookeeper
+	# Configuration example
+	vmkdir usr/share/examples/${pkgname}
+	vcopy conf usr/share/examples/${pkgname}
+
+	# Default configuration
+	vmkdir etc/${pkgname}/conf
+	vcopy conf/zoo_sample.cfg etc/${pkgname}/conf/environment
+
+	# Main class
+	vmkdir usr/share/${pkgname}
+	vcopy ${pkgname}-${version}.jar usr/share/${pkgname}
+
+	# Tools
+	vmkdir usr/share/${pkgname}/bin
+	vcopy bin/*.sh usr/share/${pkgname}/bin
+
+	# Classpath
+	vmkdir usr/share/${pkgname}/lib
+	vcopy lib/* usr/share/${pkgname}/lib
+
+	# Service
+	vsv ${pkgname}
 }

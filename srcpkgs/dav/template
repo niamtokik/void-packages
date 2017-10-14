@@ -1,0 +1,26 @@
+# Template file for 'dav'
+pkgname=dav
+version=0.8.7
+revision=1
+_commit=4b6234968f1028ea9d761673c21584fa54b83e8b
+wrksrc="dav-text-dav-text-${version}-${_commit}"
+build_style=gnu-makefile
+make_install_args="prefix=${DESTDIR}/usr"
+makedepends="ncurses-devel"
+maintainer="cr6git <quark6@protonmail.com>"
+short_desc="Efficient, small editor for GNU/Linux"
+homepage="https://gitlab.com/atsb/dav-text"
+license="GPL-2"
+distfiles="https://gitlab.com/atsb/dav-text/repository/dav-text-${version}/archive.tar.gz"
+checksum=10e55b242be23369b6426ff3d5539a72df89e3f15c6f464d016436ed8aba5e9f
+
+pre_configure() {
+	# fix for env LDFLAGS
+	sed -i '/^LDFLAGS/d' Makefile
+	sed -i 's/$(CC)/$(CC) -lncurses/' Makefile
+}
+
+post_install() {
+	# remove executable bits from man page
+	chmod -x ${DESTDIR}/usr/share/man/man1/dav.1.gz
+}

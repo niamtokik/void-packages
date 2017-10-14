@@ -1,0 +1,17 @@
+# Template file for 'neovim-qt'
+pkgname=neovim-qt
+version=0.2.8
+revision=1
+build_style=cmake
+makedepends="qt5-devel neovim"
+depends="neovim"
+short_desc="Neovim client library and GUI, in Qt5"
+maintainer="Dominic Monroe <monroef4@googlemail.com>"
+license="ISC"
+homepage="https://github.com/equalsraf/neovim-qt"
+distfiles="https://github.com/equalsraf/neovim-qt/archive/v${version}.tar.gz"
+checksum=53653c21de1dd41fb78a65f27e989b3478c74ad91cbde92f831fb3d81b25802b
+
+post_install() {
+	vlicense LICENSE
+}

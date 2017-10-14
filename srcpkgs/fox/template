@@ -1,6 +1,6 @@
 # Template file for 'fox'
 pkgname=fox
-version=1.6.52
+version=1.6.55
 revision=1
 build_style=gnu-configure
 configure_args="--enable-release --with-xft=yes --with-opengl=yes --with-xim
@@ -13,7 +13,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.fox-toolkit.org/"
 license="LGPL-2.1, MIT"
 distfiles="http://ftp.fox-toolkit.org/pub/fox-$version.tar.gz"
-checksum=8e57af9801a3400dbecf34927e871896ff4198ab72c1a3a5e4e27258a3a47d1b
+checksum=172416625221e54dcc1c4293fc892b9695f1e952f4b895376e6604c6c3813d74
 
 CPPFLAGS="-I${XBPS_CROSS_BASE}/usr/include/freetype2"
 

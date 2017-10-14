@@ -1,18 +1,19 @@
 # Template build file for 'librsvg'.
 pkgname=librsvg
-version=2.40.16
+version=2.40.19
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static $(vopt_enable gir introspection)"
-hostmakedepends="automake libtool pkg-config intltool python glib-devel gdk-pixbuf-devel gobject-introspection"
+hostmakedepends="automake libtool pkg-config intltool python glib-devel
+ gdk-pixbuf-devel gobject-introspection"
 makedepends="libcroco-devel gtk+3-devel"
 triggers="gtk-pixbuf-loaders"
 short_desc="SVG library for GNOME"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://librsvg.sourceforge.net/"
+homepage="https://wiki.gnome.org/Projects/LibRsvg"
 license="LGPL-2.1"
 distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=d48bcf6b03fa98f07df10332fb49d8c010786ddca6ab34cbba217684f533ff2e
+checksum=612b4d8b8609036f5d899be3fe70d9866b5f6ac5c971154c1c0ef7242216c1f7
 
 # Package build options
 build_options="gir"

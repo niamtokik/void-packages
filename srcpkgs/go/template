@@ -1,7 +1,7 @@
 # Template file for 'go'
 pkgname=go
 _bootstrap_version=1.4.2
-version=1.8.1
+version=1.9.1
 revision=1
 wrksrc=go
 hostmakedepends="git ca-certificates"
@@ -12,7 +12,7 @@ license="BSD"
 distfiles="http://golang.org/dl/go${_bootstrap_version}.src.tar.gz
  http://golang.org/dl/go${version}.src.tar.gz"
 checksum="299a6fd8f8adfdce15bc06bde926e7b252ae8e24dd5b16b7d8791ed79e7b5e9b
- 33daf4c03f86120fdfdc66bddf6bfff4661c7ca11c5da473e537f4d69b470e57"
+ a84afc9dc7d64fe0fa84d4d735e2ece23831a22117b50dafc75c1484f1cb550e"
 
 nostrip=yes
 noverifyrdeps=yes
@@ -89,12 +89,10 @@ do_build() {
 	GOARCH=$targetarch
 
 	git clone https://go.googlesource.com/tools \
-		-b release-branch.go$(echo "$version" | cut -d "." -f "1-2") \
+		-b release-branch.go$(echo "${version}" | cut -d "." -f "1-2") \
 		$GOPATH/src/golang.org/x/tools
 
-	for tool in godoc cover; do
-		$GOROOT/bin/go install golang.org/x/tools/cmd/${tool}
-	done
+	$GOROOT/bin/go install golang.org/x/tools/cmd/godoc
 }
 
 do_install() {
@@ -134,6 +132,7 @@ do_install() {
 	ln -sfr ${DESTDIR}/usr/share/go/misc ${DESTDIR}/usr/lib/go/misc
 
 	# For godoc
+	vbin ${XBPS_BUILDDIR}/go_gopath/${bindir}/godoc
 	vinstall favicon.ico 644 usr/lib/go
 
 	rm -f ${DESTDIR}/usr/share/go/doc/articles/wiki/get.bin

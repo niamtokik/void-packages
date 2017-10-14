@@ -1,14 +1,11 @@
 # Template file for 'seafile-client-qt'
 pkgname=seafile-client-qt
-version=6.0.4
-revision=2
+version=6.1.1
+revision=1
 _sourcename="seafile-client"
 wrksrc="${_sourcename}-${version}"
 build_style=cmake
 configure_args="-DUSE_QT5=ON"
-
-# nocross since qt unavailable for arm* architecture
-nocross=yes
 hostmakedepends="pkg-config"
 makedepends="sqlite-devel jansson-devel ccnet-devel libsearpc-devel
 	libressl-devel seafile-libclient-devel libevent-devel libuuid-devel
@@ -19,13 +16,17 @@ maintainer="yopito <pierre.bourgin@free.fr>"
 license="ASL-2"
 homepage="https://github.com/haiwen/${_sourcename}"
 distfiles="https://github.com/haiwen/${_sourcename}/archive/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=530c9f12176b69117f319fb3cfd5d2624825df20a44ea6760530a47bf60ba535
+checksum=19db358c6d6fd5e1d59f7d8a529e8183d33af488f6a861fead078dbf43320d6e
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl)	# Add musl-fts implementation
 		makedepends+=" musl-fts-devel"
 		;;
 esac
+
+if [ -n "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-qmake qt5-host-tools qt5-tools"
+fi
 
 pre_configure() {
 	case "$XBPS_TARGET_MACHINE" in

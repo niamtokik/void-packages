@@ -1,20 +1,19 @@
 # Template file for 'litecoin'
 pkgname=litecoin
-version=0.10.4.0
-revision=5
-wrksrc="${pkgname}-${version}"
+version=0.14.2
+revision=3
 build_style=gnu-configure
 configure_args="--with-incompatible-bdb --with-gui=qt5 --disable-static --disable-tests
  --with-libressl"
 hostmakedepends="automake libtool pkg-config yasm"
 makedepends="zlib-devel db-devel libressl-devel boost-devel
- qt5-tools-devel miniupnpc-devel protobuf-devel"
+ qt5-tools-devel miniupnpc-devel protobuf-devel libevent-devel"
 short_desc="Peer-to-peer Internet currency based on scrypt cryptography"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
 homepage="http://www.litecoin.org/"
 distfiles="https://github.com/litecoin-project/litecoin/archive/v${version}.tar.gz"
-checksum=a9adb6d2ae555afdaa2a5febb81341ac506930cf04ab95b9dc3ab99a4de0405e
+checksum=953fd6cee2da3ed63779b2dbce8a775e76d7a926be3de5b906d40f6641a2b4d5
 nocross=yes
 
 pre_configure() {
@@ -23,7 +22,6 @@ pre_configure() {
 post_install() {
 	rm -rf ${DESTDIR}/usr/include
 	vsconf contrib/debian/examples/bitcoin.conf
-	vman contrib/debian/manpages/bitcoind.1 litecoin-bitcoind.1
-	vman contrib/debian/manpages/bitcoin.conf.5 litecoin-bitcoin.conf.5
+	vman doc/man/litecoind.1 litecoind.1
 	vlicense COPYING
 }

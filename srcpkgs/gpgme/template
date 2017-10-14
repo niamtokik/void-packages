@@ -1,20 +1,21 @@
 # Template file for 'gpgme'
 pkgname=gpgme
-version=1.7.1
+version=1.9.0
 revision=2
 build_style=gnu-configure
 configure_args="--enable-fd-passing --disable-gpgconf-test
  --disable-gpg-test --disable-gpgsm-test
  --with-libgpg-error-prefix=$XBPS_CROSS_BASE/usr
  --with-libassuan-prefix=$XBPS_CROSS_BASE/usr"
-makedepends="libgpg-error-devel libassuan-devel"
+hostmakedepends="qt5-qmake pkg-config qt5-host-tools"
+makedepends="libgpg-error-devel libassuan-devel qt5-tools-devel"
 depends="gnupg2"
 short_desc="GnuPG Made Easy"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://www.gnupg.org/related_software/gpgme/"
 distfiles="ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-$version.tar.bz2"
-checksum=d0abe1449395315eac37e4e45076bbb82732cedf94210937b37776e10cdc2bb6
+checksum=1b29fedb8bfad775e70eafac5b0590621683b2d9869db994568e6401f4034ceb
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) configure_args+=" ac_cv_sys_file_offset_bits=no";;
@@ -23,16 +24,16 @@ case "$XBPS_TARGET_MACHINE" in
 		CXXFLAGS="${CFLAGS}"
 		;;
 esac
+CXXFLAGS+=" -D_GLIBCXX_USE_C99_STDIO=1"
 
 gpgme-devel_package() {
-	depends="${makedepends} gpgme>=${version}_${revision}"
+	depends="${makedepends/qt5-tools-devel/} gpgme>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/bin/gpgme-config
 		vmove usr/include/gpgme.h
 		vmove usr/share
 		vmove usr/lib/libgpgme.so
-		vmove usr/lib/libgpgme-pthread.so
 	}
 }
 
@@ -48,10 +49,28 @@ gpgmepp-devel_package() {
 	depends="gpgme-devel>=${version}_${revision} gpgmepp>=${version}_${revision}"
 	short_desc+=" - C++ library development files"
 	pkg_install() {
-		vmove usr/include/gpgmepp_version.h
 		vmove usr/include/gpgme++
 		vmove usr/lib/libgpgmepp.so
 		vmove usr/lib/cmake/Gpgmepp/GpgmeppConfig.cmake
 		vmove usr/lib/cmake/Gpgmepp/GpgmeppConfigVersion.cmake
+	}
+}
+
+gpgmeqt_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - Qt binding"
+	pkg_install() {
+		vmove usr/lib/libqgpgme.so.*
+	}
+}
+
+gpgmeqt-devel_package() {
+	depends="gpgme-devel>=${version}_${revision} gpgmeqt>=${version}_${revision}"
+	short_desc+=" - Qt binding development files"
+	pkg_install() {
+		vmove usr/include/QGpgME
+		vmove usr/include/qgpgme
+		vmove usr/lib/libqgpgme.so
+		vmove usr/lib/cmake/QGpgme
 	}
 }

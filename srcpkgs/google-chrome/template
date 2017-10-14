@@ -1,12 +1,12 @@
 # Template file for 'google-chrome'
-_chromeVersion=57.0.2987.133
+_chromeVersion=61.0.3163.100
 _chromeRevision=1
 _channel=stable
 
 pkgname=google-chrome
 version=${_chromeVersion}.${_chromeRevision}
 revision=1
-maintainer="Michael Aldridge <aldridge.mac@gmail.com>"
+maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
 homepage="http://www.google.com/chrome/"
 license="chrome"
 short_desc="An attempt at creating a safer, faster, and more stable browser"
@@ -20,7 +20,7 @@ _filename="google-chrome-${_channel}_${_chromeVersion}-${_chromeRevision}_amd64.
 _chromeUrl="${_baseUrl}/${_filename}"
 
 distfiles="${_chromeUrl}"
-checksum=4a62a77b3c7960f9313d41a40f645b7178d6a8b91f9f1141d7664026692ef63d
+checksum=5b8b9655db8dcce4b276db7860ae1c8ce1079a33f161a716c17fda24b8d5a9b2
 
 do_extract() {
 	mkdir -p ${DESTDIR}

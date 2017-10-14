@@ -1,6 +1,6 @@
 # Template file for 'man-pages'
 pkgname=man-pages
-version=4.10
+version=4.13
 revision=1
 noarch=yes
 short_desc="Linux Documentation Project (LDP) manual pages"
@@ -8,7 +8,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://man7.org/linux/man-pages/index.html"
 distfiles="${KERNEL_SITE}/docs/man-pages/$pkgname-$version.tar.xz"
-checksum=7395dfc391d545385a998d23df9accb60f2020451c53940eaf8a07b6ea8a63fa
+checksum=d5c005c5b653248ab6680560de00ea8572ff39e48a57bd5be1468d986a0631bf
 
 do_install() {
 	make all prefix=${DESTDIR}/usr

@@ -1,0 +1,17 @@
+# Template file for 'jgmenu'
+pkgname=jgmenu
+version=0.7.1
+revision=1
+build_style=gnu-makefile
+make_use_env=yes
+make_install_args="prefix=/usr"
+hostmakedepends="pkg-config"
+makedepends="cairo-devel libglib-devel librsvg-devel libxml2-devel
+ libX11-devel libXinerama-devel menu-cache-devel pango-devel"
+depends="python3"
+maintainer="cr6git <quark6@protonmail.com>"
+short_desc="Small X11 menu intended to be used with openbox and tint2"
+homepage="https://www.github.com/johanmalm/jgmenu"
+license="GPL-2"
+distfiles="https://www.github.com/johanmalm/jgmenu/archive/v${version}.tar.gz"
+checksum=a7424173dcb8d66fc978e1162fe5ee25977b891dd370404569bb213823711d82
