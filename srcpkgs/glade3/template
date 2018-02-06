@@ -1,6 +1,6 @@
 # Template file for 'glade3'
 pkgname=glade3
-version=3.20.0
+version=3.20.2
 revision=1
 wrksrc="glade-${version}"
 build_style=gnu-configure
@@ -13,7 +13,7 @@ homepage="http://glade.gnome.org/"
 license="GPL-2"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 distfiles="${GNOME_SITE}/glade/${version%.*}/glade-${version}.tar.xz"
-checksum=82d96dca5dec40ee34e2f41d49c13b4ea50da8f32a3a49ca2da802ff14dc18fe
+checksum=07d1545570951aeded20e9fdc6d3d8a56aeefe2538734568c5335be336c6abed
 
 lib32disabled=yes
 
@@ -31,6 +31,11 @@ if [ "$build_option_gir" ]; then
 else
 	configure_args+=" --disable-introspection"
 fi
+
+do_check() {
+	# tests require a xserver running
+	:
+}
 
 libgladeui3_package() {
 	depends="python-gobject"

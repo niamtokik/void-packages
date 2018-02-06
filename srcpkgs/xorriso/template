@@ -1,6 +1,6 @@
 # Template file for 'xorriso'
 pkgname=xorriso
-version=1.4.8
+version=1.4.9
 revision=1
 build_style=gnu-configure
 makedepends="zlib-devel bzip2-devel readline-devel acl-devel"
@@ -9,4 +9,4 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="https://www.gnu.org/software/xorriso"
 distfiles="https://www.gnu.org/software/xorriso/xorriso-$version.tar.gz"
-checksum=ec82069e04096cd9c18be9b12b87b750ade0b5e37508978feabcde36b2278481
+checksum=28b698976e2565b81665ec16239df840dbe8eb2578967fb95996495f99bd543f

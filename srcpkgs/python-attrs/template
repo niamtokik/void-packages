@@ -1,7 +1,7 @@
 # Template file for 'python-attrs'
 pkgname=python-attrs
-version=17.2.0
-revision=2
+version=17.4.0
+revision=1
 noarch=yes
 wrksrc="attrs-${version}"
 build_style=python-module
@@ -13,7 +13,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
 homepage="https://attrs.readthedocs.io/"
 distfiles="${PYPI_SITE}/a/attrs/attrs-${version}.tar.gz"
-checksum=5d4d1b99f94d69338f485984127e4473b3ab9e20f43821b0e546cc3b2302fd11
+checksum=1c7960ccfd6a005cd9f7ba884e6316b5e430a3f1a6c37c5f87d8b43f83b54ec9
 
 post_install() {
 	vlicense LICENSE
@@ -23,16 +23,9 @@ python3-attrs_package() {
 	noarch=yes
 	depends="python3"
 	pycompile_module="attr"
-	replaces="python3.4-attrs>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vlicense LICENSE
 		vmove usr/lib/python3*
 	}
-}
-python3.4-attrs_package() {
-	noarch=yes
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-attrs>=${version}_${revision}"
 }

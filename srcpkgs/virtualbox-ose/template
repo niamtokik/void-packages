@@ -1,6 +1,6 @@
 # Template file for 'virtualbox-ose'
 pkgname=virtualbox-ose
-version=5.1.28
+version=5.2.6
 revision=1
 wrksrc="VirtualBox-${version%*a}"
 short_desc="General-purpose full virtualizer for x86 hardware"
@@ -8,7 +8,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://virtualbox.org"
 license="GPL-2, CDDL"
 distfiles="http://download.virtualbox.org/virtualbox/${version%*a}/VirtualBox-$version.tar.bz2"
-checksum=ce7d4bf6535f70e3214abeb4866f7a8634aa3c7b6dedf8825e6ad80bd821398d
+checksum=fe705288ee50efcce10ff4c80e461a1c7091e461a7b55f98842fa1c9772ca4e7
 
 nopie=yes
 lib32disabled=yes
@@ -23,6 +23,8 @@ makedepends="libressl-devel libcurl-devel libpng-devel libvpx-devel
 
 if [ "$XBPS_MACHINE" = "x86_64" ]; then
 	makedepends+=" gcc-multilib"
+else
+	broken="https://build.voidlinux.eu/builders/i686_builder/builds/7205/steps/shell_3/logs/stdio"
 fi
 
 depends="virtualbox-ose-dkms-${version}_${revision} hicolor-icon-theme desktop-file-utils dbus"
@@ -36,6 +38,7 @@ pre_configure() {
 	cp ${FILESDIR}/LocalConfig.kmk .
 	ln -s /bin/echo makeself
 
+	echo 'VBOX_USE_SYSTEM_GL_HEADERS=true' >> LocalConfig.kmk
 	sed -i 's/^check_gcc$/#check_gcc/' configure
 }
 do_configure() {

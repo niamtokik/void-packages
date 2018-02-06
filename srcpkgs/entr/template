@@ -1,6 +1,6 @@
 # Template file for 'entr'
 pkgname=entr
-version=3.9
+version=4.0
 revision=1
 build_style=gnu-makefile
 short_desc="A utility for running arbitrary commands when files change"
@@ -8,7 +8,7 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="ISC"
 homepage="http://entrproject.org"
 distfiles="$homepage/code/$pkgname-$version.tar.gz"
-checksum=a49daac8c46290f9886ac4ef3143da5b042a696c3969f6b40383e591c137d1ce
+checksum=4ad4fe9108b179199951cfc78a581a8a69602b073dae59bcae4b810f6e1f6c8b
 
 post_extract() {
 	mv ${XBPS_BUILDDIR}/eradman-entr-* $wrksrc
@@ -20,4 +20,8 @@ post_extract() {
 
 pre_build() {
 	cp Makefile.linux Makefile
+}
+
+post_install() {
+	vlicense LICENSE
 }

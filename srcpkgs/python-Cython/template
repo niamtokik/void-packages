@@ -1,6 +1,6 @@
 # Template file for 'python-Cython'
 pkgname=python-Cython
-version=0.27.1
+version=0.27.3
 revision=1
 wrksrc="Cython-${version}"
 build_style=python-module
@@ -12,7 +12,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="http://cython.org"
 license="Apache-2.0"
 distfiles="${PYPI_SITE}/C/Cython/Cython-${version}.tar.gz"
-checksum=e6840a2ba2704f4ffb40e454c36f73aeb440a4005453ee8d7ff6a00d812ba176
+checksum=6a00512de1f2e3ce66ba35c5420babaef1fe2d9c43a8faab4080b0dbcc26bc64
 
 alternatives="
  cython:cygdb:/usr/bin/cygdb2
@@ -35,9 +35,4 @@ python3-Cython_package() {
 		vmove usr/bin/*3
 		vmove usr/lib/python3*
 	}
-}
-python3.4-Cython_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-Cython>=${version}_${revision}"
 }

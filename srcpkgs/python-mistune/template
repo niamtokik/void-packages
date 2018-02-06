@@ -1,7 +1,7 @@
 # Template file for 'python-mistune'
 pkgname=python-mistune
-version=0.7.4
-revision=2
+version=0.8.3
+revision=1
 wrksrc="mistune-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools python-Cython python3-Cython"
@@ -12,7 +12,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/lepture/mistune"
 license="3-clause-BSD"
 distfiles="${PYPI_SITE}/m/mistune/mistune-${version}.tar.gz"
-checksum=8517af9f5cd1857bb83f9a23da75aa516d7538c32a2c5d5c56f3789a9e4cd22f
+checksum=bc10c33bfdcaa4e749b779f62f60d6e12f8215c46a292d05e486b869ae306619
 
 post_install() {
 	vlicense LICENSE
@@ -20,15 +20,9 @@ post_install() {
 
 python3-mistune_package() {
 	pycompile_module="mistune.py"
-	replaces="python3.4-mistune>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 		vlicense LICENSE
 	}
-}
-python3.4-mistune_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-mistune>=${version}_${revision}"
 }

@@ -1,6 +1,6 @@
 # Template file for 'vc'
 pkgname=vc
-version=1.3.2
+version=1.3.3
 revision=1
 wrksrc="Vc-${version}"
 build_style=cmake
@@ -10,5 +10,21 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="3-clause-BSD"
 homepage="https://github.com/VcDevel/Vc"
 distfiles="${homepage}/releases/download/${version}/Vc-${version}.tar.gz"
-checksum=3eae2b05836a1a57545e624b38345ad33cfde23d527e12575edde784c4c330ee
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+checksum=08c629d2e14bfb8e4f1a10f09535e4a3c755292503c971ab46637d2986bdb4fe
+
+# CMAKE_SYSTEM_PROCESSOR isn’t set when cross compiling
+case "$XBPS_TARGET_MACHINE" in
+	x86_64*) configure_args+=" -DCMAKE_SYSTEM_PROCESSOR=amd64";;
+	i686*) configure_args+=" -DCMAKE_SYSTEM_PROCESSOR=x86";;
+	aarch64*) configure_args+=" -DCMAKE_SYSTEM_PROCESSOR=aarch64";;
+	arm*) configure_args+=" -DCMAKE_SYSTEM_PROCESSOR=arm";;
+	mips*) broken="No optimized implementation of the Vc types available";;
+esac
+
+post_extract() {
+	sed -i -e "s/(x86|AMD64|amd64)/(i686|x86|AMD64|amd64)/" CMakeLists.txt
+}
+
+post_install() {
+	vlicense LICENSE
+}

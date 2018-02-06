@@ -1,6 +1,6 @@
 # Template file for 'seafile-libclient'
 pkgname=seafile-libclient
-version=6.1.1
+version=6.1.4
 revision=1
 _distname="${pkgname/-libclient/}"
 wrksrc="${_distname}-${version}"
@@ -15,7 +15,7 @@ maintainer="yopito <pierre.bourgin@free.fr>"
 license="GPL-3"
 homepage="https://github.com/haiwen/seafile"
 distfiles="${homepage}/archive/v${version}.tar.gz>${_distname}-${version}.tar.gz"
-checksum=9082a15aa095a8b795c24519e342740b7822c436b5c417a0536d5fa08496f196
+checksum=475b1fc4754050edc5442ed3a2c620de51fcfb405f77446a2fbc626f3d2987be
 
 pre_configure() {
 	./autogen.sh

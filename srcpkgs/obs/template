@@ -1,21 +1,21 @@
 # Template file for 'obs'
 pkgname=obs
-version=20.0.1
-revision=1
+version=21.0.2
+revision=2
 wrksrc=obs-studio-${version}
 only_for_archs="i686 x86_64 i686-musl x86_64-musl"
 build_style=cmake
 configure_args="-DOBS_VERSION_OVERRIDE=${version}"
-hostmakedepends="pkg-config"
-makedepends="libX11-devel glu-devel ffmpeg-devel qt5-devel qt5-x11extras-devel
+hostmakedepends="pkg-config swig"
+makedepends="glu-devel ffmpeg-devel qt5-x11extras-devel
  libXcomposite-devel pulseaudio-devel v4l-utils-devel jack-devel x264-devel libcurl-devel
- alsa-lib-devel speexdsp-devel"
+ alsa-lib-devel speexdsp-devel vlc-devel fdk-aac-devel LuaJIT-devel python3-devel"
 short_desc="Open Broadcaster Software"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="GPL-2"
 homepage="https://obsproject.com"
 distfiles="https://github.com/jp9000/obs-studio/archive/${version}.tar.gz"
-checksum=3241667f180816b860622fd9ac572a86375a9a766ac45c69a886dcbdaf524643
+checksum=22093f170fbcdef0bf54797019159d6195f0b6b16bab066e06e0dbe95b979a51
 
 obs-devel_package() {
 	short_desc+=" - development files"

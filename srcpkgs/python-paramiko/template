@@ -1,6 +1,6 @@
 # Template file for 'python-paramiko'
 pkgname=python-paramiko
-version=2.3.1
+version=2.4.0
 revision=1
 noarch=yes
 wrksrc="${pkgname/python-/}-${version}"
@@ -13,21 +13,14 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.paramiko.org/"
 license="LGPL-2.1"
 distfiles="${PYPI_SITE}/p/paramiko/paramiko-${version}.tar.gz"
-checksum=fa6b4f5c9d88f27c60fd9578146ff24e99d4b9f63391ff1343305bfd766c4660
+checksum=486f637f0a33a4792e0e567be37426c287efaa8c4c4a45e3216f9ce7fd70b1fc
 
 python3-paramiko_package() {
 	noarch=yes
 	pycompile_module="paramiko"
-	replaces="python3.4-paramiko>=0"
 	depends="python3-cryptography python3-pyasn1 python3-bcrypt python3-pynacl"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 	}
-}
-python3.4-paramiko_package() {
-	noarch=yes
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-paramiko>=${version}_${revision}"
 }

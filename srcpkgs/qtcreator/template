@@ -1,7 +1,7 @@
 # Template file for 'qtcreator'
 pkgname=qtcreator
-version=4.4.0
-revision=2
+version=4.5.0
+revision=1
 wrksrc=qt-creator-opensource-src-${version}
 build_style=qmake
 make_install_args="INSTALL_ROOT=\${DESTDIR}/usr"
@@ -14,7 +14,7 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="LGPL-2.1"
 homepage="http://wiki.qt.io/Category:Tools::QtCreator"
 distfiles="http://download.qt.io/official_releases/qtcreator/${version%.*}/${version}/${wrksrc}.tar.gz"
-checksum=ddd03f725de9a26a41c07a9aa227599d5def02250b88dcd285ae9ea903d21711
+checksum=1292e91a18cd1f06e29f698d50a732a37e8f6f74b1bbe2199c94f7446c37fd48
 
 do_build() {
 	# Note: A simple "make ${makejobs}" fails after libs because
@@ -36,11 +36,10 @@ post_install() {
 }
 
 qtcreator-full_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - full Qt5 dependencies"
-	depends+="
+	depends="${sourcepkg}>=${version}_${revision}
  qt5-3d-devel qt5-canvas3d qt5-connectivity-devel qt5-charts-devel qt5-declarative-devel
- qt5-datavis3d-devel qt5-gamepad-devel qt5-graphicaleffects qt5-location-devel
+ qt5-datavis3d-devel qt5-gamepad-devel qt5-graphicaleffects qt5-location-devel qt5-quickcontrols2-devel
  qt5-multimedia-devel qt5-script-devel qt5-scxml-devel qt5-sensors-devel qt5-serialbus-devel
  qt5-serialport-devel qt5-svg-devel qt5-tools-devel qt5-virtualkeyboard-devel qt5-wayland-devel
  qt5-webchannel-devel qt5-webengine-devel qt5-webkit-devel qt5-websockets-devel

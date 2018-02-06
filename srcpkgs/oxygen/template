@@ -1,14 +1,14 @@
 # Template file for 'oxygen'
 pkgname=oxygen
-version=5.8.7
+version=5.11.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules pkg-config"
+hostmakedepends="extra-cmake-modules pkg-config qt5-devel qt5-qmake kconfig"
 makedepends="kdecoration-devel frameworkintegration-devel kwayland-devel kcmutils-devel kdoctools"
 short_desc="Oxygen visual style for the Plasma Desktop"
 maintainer="Denis Revin <denis.revin@gmail.com>"
 license="LGPL-2"
 homepage="https://projects.kde.org/projects/plasma/oxygen"
 distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=6b6bcf69bc50182671e55680ba2e260d569a6203131108728ca58d584716453b
+checksum=4888902421eadfa690644f8f16b4a6b25b73bca558be947c745d0000d4c85dd8

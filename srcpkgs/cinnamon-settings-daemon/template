@@ -1,23 +1,22 @@
 # Template file for 'cinnamon-settings-daemon'
 pkgname=cinnamon-settings-daemon
-version=3.2.1
+version=3.6.2
 revision=1
 short_desc="The Cinnamon Settings Daemon"
 build_style=gnu-configure
-configure_args=" --disable-static --disable-schemas-compile --disable-gconf
- --disable-systemd"
+configure_args=" --disable-static --disable-schemas-compile --disable-gconf"
 hostmakedepends="automake libtool gnome-common pkg-config gobject-introspection
  gettext-devel glib-devel dbus-glib-devel intltool xmlto docbook-xml"
-makedepends="gtk+3-devel dbus-devel upower0-devel json-glib-devel libSM-devel
+makedepends="gtk+3-devel dbus-devel upower-devel json-glib-devel libSM-devel
  libnotify-devel cinnamon-desktop-devel lcms2-devel ibus-devel nss-devel
  pulseaudio-devel libcanberra-devel colord-devel cups-devel polkit-devel
- libgnomekbd-devel libxklavier-devel kbproto"
+ libgnomekbd-devel libxklavier-devel kbproto elogind-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="http://cinnamon.linuxmint.com/"
 distfiles="https://github.com/linuxmint/${pkgname}/archive/${version}.tar.gz"
-checksum=d2ef718f26e7c460b56881f2dbf86c90fa86c8de5f1c3b6620039d7c55e78e6c
+checksum=60f4de4eb1e05d720605dbd6f90bb841039be00ca1ad4f2bedaf39725ea34339
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh

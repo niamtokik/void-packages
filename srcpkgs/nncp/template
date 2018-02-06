@@ -1,18 +1,20 @@
 # Template file for 'nncp'
 pkgname=nncp
-version=0.12
-revision=1
+version=2.0
+revision=2
 build_style=go
+go_import_path=cypherpunks.ru/nncp
 short_desc="Node to Node copy, utilities for secure store-and-forward"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3"
 homepage="http://www.nncpgo.org/"
 distfiles="http://www.nncpgo.org/download/${pkgname}-${version}.tar.xz"
-checksum=707b400597753b2973a5f3e5dab51b9221cc296d690ef4bcade93e0d2595a5f2
+checksum=bef31b13fb25381ea511fb77067798ab27409238bdf5600fe2eadb29e5e78996
 
 do_build() {
 	make
 }
+
 do_install() {
 	make install DESTDIR="$DESTDIR" PREFIX=/usr \
 		INFODIR=$DESTDIR/usr/share/info

@@ -1,7 +1,7 @@
 # Template file for 'unzip'
 pkgname=unzip
 version=6.0
-revision=9
+revision=10
 makedepends="bzip2-devel"
 wrksrc=unzip60
 short_desc="List, test and extract compressed files in a ZIP archive"
@@ -21,6 +21,10 @@ do_build() {
 		D_USE_BZ2=-DUSE_BZIP2 L_BZ2=-lbz2 unzips
 }
 
+do_check() {
+	make -f unix/Makefile test
+}
+
 do_install() {
 	cd ${wrksrc}
 	make ${makejobs} -f unix/Makefile prefix=${DESTDIR}/usr \
@@ -28,4 +32,6 @@ do_install() {
 
 	vmkdir usr/share
 	mv ${DESTDIR}/usr/man ${DESTDIR}/usr/share
+
+	vlicense LICENSE
 }

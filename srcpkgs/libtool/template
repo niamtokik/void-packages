@@ -16,6 +16,7 @@ pre_configure() {
 	./bootstrap --force
 }
 
+
 libltdl-devel_package() {
 	depends="libltdl-${version}_${revision}"
 	short_desc="GNU Libtool Dynamic Module Loader development files"

@@ -1,0 +1,16 @@
+# Template file for 'perl-Mail-Message'
+pkgname=perl-Mail-Message
+version=3.005
+revision=1
+noarch=yes
+wrksrc="${pkgname/perl-/}-${version}"
+build_style=perl-module
+hostmakedepends="perl"
+makedepends="perl-IO-stringy perl-MailTools perl-MIME-Types perl-URI perl-User-Identity"
+depends="${makedepends}"
+short_desc="Container for MIME-encoded message information"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="Artistic, GPL-1"
+homepage="http://search.cpan.org/dist/Mail-Message/"
+distfiles="${CPAN_SITE}/Mail/${pkgname/perl-/}-${version}.tar.gz"
+checksum=e53f8b791c58b136959358bddb0a26993ffb8bb391eabc5ce981d79b04afc672

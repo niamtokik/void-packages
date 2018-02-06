@@ -1,18 +1,28 @@
 # Template file for 'albert'
 pkgname=albert
-version=0.12.0
+version=0.14.15
 revision=1
+_plugins_hash=caa38cfa1ba6289ee2fc4913ea70d49fd761244e
+_pybind_version=2.2.1
 build_style=cmake
-makedepends="muparser-devel qt5-svg-devel qt5-x11extras-devel qt5-plugin-mysql
- qt5-plugin-odbc qt5-plugin-pgsql qt5-plugin-sqlite qt5-plugin-tds"
+configure_args="-DBUILD_VIRTUALBOX=OFF"
+hostmakedepends="git qt5-host-tools qt5-qmake"
+makedepends="muparser-devel python-devel qt5-svg-devel qt5-x11extras-devel
+ qt5-declarative-devel qt5-plugin-mysql qt5-plugin-odbc qt5-plugin-pgsql
+ qt5-plugin-sqlite qt5-plugin-tds"
 depends="qt5-plugin-sqlite"
 short_desc="Lightweight desktop environment agnostic launcher"
 maintainer="Nemh <nemh@protonmail.com>"
 license="GPL-3"
-homepage="https://github.com/ManuelSchneid3r/albert"
-distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=e1ec7783b6cc22e5ed28d2f1ac6148528cb3eb734f139945b49d44e07770d9c8
+homepage="https://github.com/albertlauncher/albert"
+distfiles="https://github.com/albertlauncher/albert/archive/v${version}.tar.gz
+ https://github.com/albertlauncher/plugins/archive/${_plugins_hash}.tar.gz
+ https://github.com/pybind/pybind11/archive/v${_pybind_version}.tar.gz"
+checksum="4d5cd395c1b3fc2c5ff1688e60dd4e1a9f90e925f76cccba4ea13a6cd5d27b1c
+ 5a095404fa314c57086acecdd009f4541024e305d85a0bb6f6cdc3969ec429ac
+ f8bd1509578b2a1e7407d52e6ee8afe64268909a1bbda620ca407318598927e7"
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-svg-devel qt5-x11extras-devel"
-fi
+post_extract() {
+	cp -rup ${wrksrc}/../plugins-*/* ${wrksrc}/plugins
+	cp -rup ${wrksrc}/../pybind11-*/* ${wrksrc}/plugins/python/pybind11
+}

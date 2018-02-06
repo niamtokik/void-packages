@@ -3,7 +3,7 @@ only_for_archs="i686 i686-musl x86_64 x86_64-musl"
 
 pkgname=handbrake
 version=1.0.7
-revision=2
+revision=4
 wrksrc="HandBrake-${version}"
 build_options="fdk_aac"
 hostmakedepends="automake libtool cmake pkg-config intltool
@@ -18,8 +18,8 @@ depends="gst-plugins-good1 desktop-file-utils hicolor-icon-theme"
 short_desc="Multithreaded video transcoder"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
-homepage="http://handbrake.fr/"
-distfiles="https://handbrake.fr/rotation.php?file=HandBrake-${version}.tar.bz2>HandBrake-${version}.tar.bz2"
+homepage="https://handbrake.fr/"
+distfiles="https://download.handbrake.fr/releases/1.0.7/HandBrake-${version}.tar.bz2"
 checksum=ffdee112f0288f0146b965107956cd718408406b75db71c44d2188f5296e677f
 
 CFLAGS="-msse"

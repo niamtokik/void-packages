@@ -1,6 +1,6 @@
 # Template file for 'pngquant'
 pkgname=pngquant
-version=2.10.2
+version=2.11.7
 revision=1
 build_style=gnu-configure
 configure_args="--with-openmp"
@@ -14,4 +14,5 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-3"
 homepage="https://pngquant.org/"
 distfiles="https://github.com/pornel/${pkgname}/archive/${version}.tar.gz"
-checksum=6c620bc2ae5ec835c3927e59dceb76ba60010a0140207fa990d86fd155685e42
+checksum=0ca09a1f253b264e5aab8477b7f0e3cde51d9f88ed668b38ae057ced24076bda
+make_check_target="test"

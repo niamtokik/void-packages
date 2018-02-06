@@ -455,6 +455,10 @@ By default set to `make`.
 `${build_style}` is set to `configure`, `gnu-configure` or `gnu-makefile`
 build methods. Unset by default.
 
+- `make_check_args` The arguments to be passed in to `${make_cmd}` at the check phase if
+`${build_style}` is set to `configure`, `gnu-configure` or `gnu-makefile`
+build methods. Unset by default.
+
 - `make_install_args` The arguments to be passed in to `${make_cmd}` at the `install-destdir`
 phase if `${build_style}` is set to `configure`, `gnu-configure` or
 `gnu-makefile` build methods. By default set to
@@ -463,6 +467,10 @@ phase if `${build_style}` is set to `configure`, `gnu-configure` or
 - `make_build_target` The target to be passed in to `${make_cmd}` at the build phase if
 `${build_style}` is set to `configure`, `gnu-configure` or `gnu-makefile`
 build methods. Unset by default (`all` target).
+
+- `make_check_target` The target to be passed in to `${make_cmd}` at the check phase if
+`${build_style}` is set to `configure`, `gnu-configure` or `gnu-makefile`
+build methods. By default set to `check`.
 
 - `make_install_target` The target to be passed in to `${make_cmd}` at the `install-destdir` phase
 if `${build_style}` is set to `configure`, `gnu-configure` or `gnu-makefile`
@@ -1187,6 +1195,12 @@ The following variables influence how Go packages are built:
   packages; using a versioned distfile is preferred.
 - `go_build_tags`: An optional, space-separated list of build tags to
   pass to Go.
+
+Occasionally it is necessary to perform operations from within the Go
+source tree.  This is usually needed by programs using go-bindata or
+otherwise preping some assets.  If possible do this in pre_build().
+The path to the package's source inside `$GOPATH` is available as
+`$GOSRCPATH`.
 
 <a id="pkgs_haskell"></a>
 ### Haskell packages

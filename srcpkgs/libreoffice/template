@@ -1,15 +1,10 @@
 # Template file for 'libreoffice'
 pkgname=libreoffice
-version=5.4.2.2
+version=5.4.4.2
 revision=1
 build_style=gnu-configure
 configure_args="--disable-werror"
-nopie=yes
 nocross=yes
-
-case "$XBPS_TARGET_MACHINE" in
-	i686*) broken="https://build.voidlinux.eu/builders/i686_builder/builds/5125/steps/shell_3/logs/stdio" ;;
-esac
 
 #
 # XXX: mit-krb5-devel nasm firebird3 hamcrest iwyu ogl-math
@@ -58,10 +53,10 @@ distfiles="
  ${_ooopurl}/${_ooop_templates_md5hash}-OOOP-templates-pack-${_ooop_templates_version}.zip
 "
 checksum="
- 2fda4a8c446786a3afff2cf1b07b818c45c9dcd136bfae1f3191b0b1565ba675
- 36ee07e62c62383af7e3f742f85ea446450d1ccb3ff587829beca5b006029636
- 5fc740dbe77876b96ed731f0a6ce793925a9a4a4ba983b5a3506ab24beb73057
- d0eb02a65ffd164d8a9c287ef8b3e0d4db9b45979f72f496a6693ed5c39158d2
+ 6826751b4cd7076e0c7adfe6eee025cde7253c502ba51ab7072aec6070557e03
+ 42782cc8f965b8bd22f25d59044a3a8769573f491865fcb99676865d0746aa8a
+ 280495861fc789868db62c4b19ef361eede9299a93003e0efd58499dcf862509
+ 2be3a5867f720f7298aad3d67b5d11bab2253af5be970a30ca4c7b2d8de902c5
  cf21b8a0a58c0f0af562869846ce2af4c68b13a7178b9b74ee7be7480a87c84c
  c95f6c398e81ee7def378e51e4c7b5bdeba526f28ff281e79ca3795e6d467159
  1834aa0632499134f98ce85057d6d67604b9ed3b7efa7f13e76046f5886a3a2d
@@ -71,11 +66,14 @@ skip_extraction="
  ${pkgname}-dictionaries-${version}.tar.xz
  ${pkgname}-help-${version}.tar.xz
  ${pkgname}-translations-${version}.tar.xz
- ${_ooop_fonts_md5}-OOOP-fonts-pack-${_ooop_fonts_ver}.zip
- ${_ooop_gallery_md5}-OOOP-gallery-pack-${_ooop_gallery_ver}.zip
- ${_ooop_samples_md5}-OOOP-samples-pack-${_ooop_samples_ver}.zip
- ${_ooop_templates_md5}-OOOP-templates-pack-${_ooop_templates_ver}.zip
+ ${_ooop_fonts_md5hash}-OOOP-fonts-pack-${_ooop_fonts_version}.zip
+ ${_ooop_gallery_md5hash}-OOOP-gallery-pack-${_ooop_gallery_version}.zip
+ ${_ooop_samples_md5hash}-OOOP-samples-pack-${_ooop_samples_version}.zip
+ ${_ooop_templates_md5hash}-OOOP-templates-pack-${_ooop_templates_version}.zip
 "
+
+build_options="java"
+desc_option_java="Enable Java support"
 
 if [ -z "$CROSS_BUILD" ]; then
 	# mariadbclient can't currently be cross compiled
@@ -83,20 +81,20 @@ if [ -z "$CROSS_BUILD" ]; then
 fi
 
 case "$XBPS_TARGET_MACHINE" in
-	i686*)	# Broken unit tests
-		CXXFLAGS="-DDISABLE_CVE_TESTS=1"
+	i686)	# Broken unit tests
+		CXXFLAGS+=" -DDISABLE_CVE_TESTS=1"
+		makedepends+=" clucene-devel"
 		;;
 	*-musl)	# use shipped clucene, because CLucene/analysis/cjk/CJKAnalyzer.h
 		# is missing in the musl clucene-devel files
+		# make no checks because they fail on the builder
+		make_build_args="build-nocheck"
+		;;
+	x86_64)	build_options_default="java"
+		makedepends+=" apache-ant openjdk "
+		makedepends+=" clucene-devel"
 		;;
 	*)	makedepends+=" clucene-devel"
-		;;
-esac
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl)
-		;;
-	*)	makedepends+=" apache-ant openjdk "
 		;;
 esac
 
@@ -126,6 +124,13 @@ pre_configure() {
 	cp ${FILESDIR}/musl-os_utils_h.patch external/firebird/
 	sed -i external/firebird/UnpackedTarball_firebird.mk \
 		-e's;\(.*external/firebird\)/libc++.patch\(.*\)$;\1/libc++.patch\2\n\1/musl-os_utils_h.patch\2;'
+
+	case "$XBPS_TARGET_MACHINE" in
+		i686*)	# Don't run broken tests
+			sed -i "/CppunitTest_sw_ooxmlexport9/d" sw/Module_sw.mk
+			make_build_args="build-nocheck"
+			;;
+	esac
 }
 
 do_configure() {
@@ -152,19 +157,27 @@ do_configure() {
 	# New strategy: enable all libs and headers, then disable what's missing
 	configure_args+=" --with-system-libs"
 	configure_args+=" --with-system-headers"
+	configure_args+=" --with-system-opencollada"
 	case "$XBPS_TARGET_MACHINE" in
-	*-musl)	configure_args+=" --without-java"
+	i686*|*-musl)
+		# Can't use system clucence
 		configure_args+=" --without-system-clucene"
 		;;
-	*)	configure_args+=" --enable-ext-mariadb-connector"
+	x86_64)	configure_args+=" --enable-ext-mariadb-connector"
 		configure_args+=" --enable-ext-ct2n"
 		configure_args+=" --enable-ext-numbertext"
 		configure_args+=" --enable-ext-nlpsolver"
 		configure_args+=" --enable-ext-languagetool"
-		configure_args+=" --with-jdk-home=/usr/lib/jvm/openjdk"
-		configure_args+=" --without-junit"
 		;;
 	esac
+
+	if [ "$build_option_java" ]; then
+		configure_args+=" --with-java"
+		configure_args+=" --with-jdk-home=/usr/lib/jvm/openjdk"
+		configure_args+=" --without-junit"
+	else
+		configure_args+=" --without-java"
+	fi
 	configure_args+=" --with-tls=nss"
 	# xmlsec1-nss is missing, thus don't use system-xmlsec
 	configure_args+=" --without-system-xmlsec"
@@ -186,10 +199,9 @@ do_configure() {
 	OPENCOLLADA_CFLAGS="-I${incdir}/opencollada/COLLADABaseUtils -I${incdir}/opencollada/COLLADAFramework -I${incdir}/opencollada/COLLADASaxFrameworkLoader -I${incdir}/opencollada/COLLADAStreamWriter -I${incdir}/opencollada/GeneratedSaxParser" \
 	OPENCOLLADA_LIBS="-L${XBPS_CROSS_BASE}/usr/lib -lGeneratedSaxParser -lMathMLSolver -lOpenCOLLADABaseUtils -lOpenCOLLADAFramework -lOpenCOLLADASaxFrameworkLoader -lOpenCOLLADAStreamWriter -lUTF -lbuffer -lftoa" \
 	./configure ${configure_args} --with-lang='en-US de es fr it pl pt'
-}
 
-do_build() {
-	make build
+	# Disable slowchecks target
+	sed -i Makefile -e "/gb_Top_MODULE_CHECK_TARGETS /s/ slowchecks//"
 }
 
 do_install() {
@@ -205,4 +217,12 @@ do_install() {
 
 	# Remove useless directory usr/lib32
 	rm -rf ${DESTDIR}/usr/lib32
+}
+
+post_install() {
+	case "$XBPS_TARGET_MACHINE" in
+		i686*)	# correct desktop files
+			sed -i "s/libreoffice5.4/libreoffice/" ${DESTDIR}/usr/lib/libreoffice/share/xdg/*.desktop
+			;;
+	esac
 }

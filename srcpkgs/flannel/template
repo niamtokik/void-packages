@@ -1,7 +1,7 @@
 # Template file for 'flannel'
 pkgname=flannel
-version=0.9.0
-revision=1
+version=0.10.0
+revision=2
 build_style=go
 short_desc="Etcd backed network fabric for containers"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
@@ -10,11 +10,7 @@ license="Apache-2.0"
 go_import_path="github.com/coreos/flannel"
 homepage="https://$go_import_path"
 distfiles="$homepage/archive/v${version}.tar.gz"
-checksum=3d04611497eab9f066d0316a23e5cc931b730707cc5fdcd1ea9940146f41151f
-
-pre_build() {
-	CGO_CFLAGS="${CGO_CFLAGS/-O2/}" # Disable optimizations because of a cgo bug in Go 1.6
-}
+checksum=499bc26c2d38cc7aca321eeb596eb2fa054c7002b2f3f935ee79695adcd9b724
 
 post_install() {
 	vsv flannel

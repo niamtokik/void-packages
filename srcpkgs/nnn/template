@@ -1,15 +1,16 @@
 # Template file for 'nnn'
 pkgname=nnn
-version=1.4
+version=1.6
 revision=1
 build_style=gnu-makefile
+hostmakedepends="pkg-config"
 makedepends="ncurses-devel readline-devel"
 short_desc="A lightweight terminal file browser"
 maintainer="Dennis Kraus <kraus@posteo.de>"
 license="BSD"
 homepage="https://github.com/jarun/nnn"
 distfiles="https://github.com/jarun/nnn/archive/v${version}.tar.gz"
-checksum=f1170864c26e55d89034d555572484950998fa6d99784237d76cd4e3bf45aed8
+checksum=e8b10a3b9847ba7ad3317f608691aaebcdaf2b67219d732f7a5d468221d3e83e
 
 post_install() {
 	vlicense LICENSE

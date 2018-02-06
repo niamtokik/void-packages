@@ -1,6 +1,6 @@
 # Template file for 'python-lxml'
 pkgname=python-lxml
-version=4.0.0
+version=4.1.1
 revision=1
 wrksrc="lxml-lxml-${version}"
 build_style=python-module
@@ -13,23 +13,17 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://lxml.de/"
 license="3-clause-BSD, ElementTree, GPL-2, ZPL-2.0"
 distfiles="https://github.com/lxml/lxml/archive/lxml-${version}.tar.gz"
-checksum=51b04cc61046713bf4a0eea6ec91403cec1de780bfde348fba2a24e3b463c94e
+checksum=776608f4bcb97bb3b51578d324922dabc7f5518f22a066ea3c1e5f7cf0deca4b
 
 post_install() {
 	vlicense LICENSES.txt LICENSES
 }
 
 python3-lxml_package() {
-	replaces="python3.4-lxml>=0"
 	pycompile_module="lxml"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 		vlicense LICENSES.txt LICENSES
 	}
-}
-python3.4-lxml_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-lxml>=${version}_${revision}"
 }

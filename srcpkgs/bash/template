@@ -1,9 +1,9 @@
 # Template build file for 'bash'.
 pkgname=bash
 _bash_distver=4.4
-_bash_patchlevel=012
+_bash_patchlevel=018
 version=${_bash_distver}.${_bash_patchlevel}
-revision=1
+revision=2
 wrksrc=${pkgname}-${_bash_distver}
 build_style=gnu-configure
 configure_args="--without-bash-malloc --with-curses --without-installed-readline"
@@ -33,6 +33,9 @@ pre_configure() {
 		patch -sNp0 -i ${FILESDIR}/bash${ver}-${p}
 		msg_normal " Applying patch bash${ver}-$p.\n"
 	done
+}
+do_check() {
+	make tests
 }
 post_install() {
 	rm -r ${DESTDIR}/usr/share/doc

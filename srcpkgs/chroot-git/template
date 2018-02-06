@@ -1,6 +1,6 @@
 # Template build file for "chroot-git".
 pkgname=chroot-git
-version=2.14.1
+version=2.16.0
 revision=1
 bootstrap=yes
 wrksrc="git-$version"
@@ -17,7 +17,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://git-scm.com/"
 license="GPL-2"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=6f724c6d0e9e13114ab35db6f67e1b2c1934b641e89366e6a0e37618231f2cc6
+checksum=0d10764e66b3d650dee0d99a1c77afa4aaae5e739c0973fcc1c5b9e6516e30f8
 
 if [ "$CHROOT_READY" ]; then
 	hostmakedepends="perl"

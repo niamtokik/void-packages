@@ -1,13 +1,13 @@
 # Template file for 'ffmpeg'
 pkgname=ffmpeg
-version=3.3.4
-revision=1
+version=3.4.1
+revision=3
 short_desc="Decoding, encoding and streaming software"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="http://www.ffmpeg.org"
 distfiles="${homepage}/releases/ffmpeg-${version}.tar.xz"
-checksum=98b97e1b908dfeb6aeb6d407e5a5eacdfc253a40c2d195f5867ed2d1d46ea957
+checksum=5a77278a63741efa74e26bf197b9bb09ac6381b9757391b922407210f0f991c0
 
 hostmakedepends="pkg-config perl yasm"
 makedepends="zlib-devel bzip2-devel freetype-devel alsa-lib-devel libXfixes-devel
@@ -25,6 +25,7 @@ build_options_default="x265 v4l2 vpx"
 
 case "$XBPS_TARGET_MACHINE" in
 	i686*|x86_64*) build_options_default+=" vaapi vdpau";;
+	mips*) CFLAGS="-mnan=legacy";;
 esac
 
 do_configure() {
@@ -58,7 +59,7 @@ do_configure() {
 		$(vopt_if faac '--enable-nonfree --enable-libfaac') \
 		$(vopt_if fdk_aac '--enable-nonfree --enable-libfdk-aac') \
 		--disable-libopencore_amrnb --disable-libopencore_amrwb \
-		--disable-libschroedinger --disable-libopenjpeg \
+		--disable-libopenjpeg \
 		--enable-postproc --enable-opencl ${_args} \
 		$(vopt_if x265 '--enable-libx265' '--disable-libx265') \
 		$(vopt_if v4l2 '--enable-libv4l2' '--disable-libv4l2') \

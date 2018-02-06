@@ -1,14 +1,14 @@
 # Template file for 'intellij-idea-community-edition'
 pkgname=intellij-idea-community-edition
-version=2017.2
+version=2017.3.3
 revision=1
 depends="virtual?java-environment giflib libXtst"
 short_desc="Java integrated development environment"
-maintainer="Adrian Siekierka <asiekierka@gmail.com>"
+maintainer="Adrian Siekierka <kontakt@asie.pl>"
 license="Apache-2.0"
 homepage="https://www.jetbrains.org/"
 distfiles="https://download.jetbrains.com/idea/ideaIC-${version}-no-jdk.tar.gz"
-checksum=d88257b17447398ed60e7d774803cbc21e0fe7750add09622a98b936f14cd91f
+checksum=83fe8c0b063da15b88f21977158a84a5c812712fee403fe729f0772179078019
 repository=nonfree
 nopie=yes
 only_for_archs="i686 x86_64"

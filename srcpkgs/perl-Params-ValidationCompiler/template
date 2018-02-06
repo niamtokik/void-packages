@@ -1,6 +1,6 @@
 # Template build file for 'perl-Params-ValidationCompiler'.
 pkgname=perl-Params-ValidationCompiler
-version=0.24
+version=0.26
 revision=1
 noarch=yes
 wrksrc="${pkgname/perl-/}-${version}"
@@ -13,4 +13,4 @@ maintainer="newbluemoon <blaumolch@mailbox.org>"
 homepage="http://search.cpan.org/dist/Params-ValidationCompiler/"
 license="Artistic-2.0, GPL-1"
 distfiles="${CPAN_SITE}/Params/${pkgname/perl-/}-$version.tar.gz"
-checksum=a8963747bae618c2b96ec1918ef2b6ea7dd7ff3dbcebc9de6124b2771a4f4287
+checksum=6a9ea4895c9288ae4a0a2f5f1309d0dea8ffc46d429263c8f59a83c126c75805

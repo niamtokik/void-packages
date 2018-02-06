@@ -1,7 +1,7 @@
 # Template file for 'python-simplejson'
 pkgname=python-simplejson
-version=3.11.1
-revision=2
+version=3.13.2
+revision=1
 wrksrc="simplejson-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
@@ -12,7 +12,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="https://github.com/simplejson/simplejson"
 license="MIT, AFL-2.1"
 distfiles="${PYPI_SITE}/s/simplejson/simplejson-${version}.tar.gz"
-checksum=01a22d49ddd9a168b136f26cac87d9a335660ce07aa5c630b8e3607d6f4325e7
+checksum=4c4ecf20e054716cc1e5a81cadc44d3f4027108d8dd0861d8b1e3bd7a32d4f0a
 
 post_install() {
 	vlicense LICENSE.txt LICENSE
@@ -20,15 +20,9 @@ post_install() {
 
 python3-simplejson_package() {
 	pycompile_module="simplejson"
-	replaces="python3.4-simplejson>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 		vlicense LICENSE.txt LICENSE
 	}
-}
-python3.4-simplejson_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-simplejson>=${version}_${revision}"
 }

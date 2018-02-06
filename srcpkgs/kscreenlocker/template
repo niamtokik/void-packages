@@ -1,17 +1,19 @@
 # Template file for 'kscreenlocker'
 pkgname=kscreenlocker
-version=5.8.7
+version=5.11.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules pkg-config"
-makedepends="kdeclarative-devel kidletime-devel kcmutils-devel kwayland-devel libXi-devel pam-devel libXcursor-devel"
+makedepends="kdeclarative-devel kidletime-devel kcmutils-devel
+ kwayland-devel libXi-devel pam-devel libXcursor-devel"
 short_desc="KDE Library and components for secure lock screen architecture"
 maintainer="Denis Revin <denis.revin@gmail.com>"
 license="GPL-2"
 homepage="https://projects.kde.org/projects/plasma/kscreenlocker"
 distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=bc7c61a24a5fb7ba84ac24508f5c82a36506b18deb331d8098873a7ce428d003
+checksum=5f59936eba34b57068d265d823e4525cb7ab7a81c8e7b954c8b6eeda25f22b63
+nocross="desktop2json: Exec format error"
 
 kscreenlocker-devel_package() {
 	short_desc+=" - development"

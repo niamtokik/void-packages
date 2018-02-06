@@ -1,6 +1,6 @@
 # Template file for 'extra-cmake-modules'
 pkgname=extra-cmake-modules
-version=5.37.0
+version=5.42.0
 revision=1
 noarch=yes
 build_style=cmake
@@ -12,7 +12,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="BSD"
 homepage="https://projects.kde.org/projects/kdesupport/extra-cmake-modules"
 distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=26198cf05c084c158bb23f0585a9df5bba1aa16b746252c80bdf4f0261b527cb
+checksum=430db21202c01e5a49f6fbaa6a0b2d7fb169857de5d16ff7a83f96acf5d086d6
 
 post_install() {
 	vlicense COPYING-CMAKE-SCRIPTS

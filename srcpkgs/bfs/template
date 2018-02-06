@@ -1,0 +1,15 @@
+# Template file for 'bfs'
+pkgname=bfs
+version=1.2
+revision=1
+build_style=gnu-makefile
+short_desc="Breadth-first version of the UNIX find command"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="BSD"
+homepage="https://github.com/tavianator/bfs"
+distfiles="https://github.com/tavianator/bfs/archive/${version}.tar.gz"
+checksum=1589d7c5bd11d99d6d46b77727112dcdd53f3b228b88b807b04de1b5a4e84c88
+
+post_install() {
+	vlicense COPYING
+}

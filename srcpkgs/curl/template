@@ -1,6 +1,6 @@
 # Template build file for 'curl'.
 pkgname=curl
-version=7.56.0
+version=7.58.0
 revision=1
 build_style=gnu-configure
 configure_args="ac_cv_sizeof_off_t=8
@@ -21,8 +21,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="MIT"
 homepage="https://curl.haxx.se"
 distfiles="$homepage/download/$pkgname-$version.tar.bz2"
-checksum=de60a4725a3d461c70aa571d7d69c788f1816d9d1a8a2ef05f864ce8f01279df
-
+checksum=1cb081f97807c01e3ed747b6e1c9fee7a01cb10048f1cd0b5f56cfe0209de731
 build_options="gnutls gssapi ldap rtmp ssh ssl"
 build_options_default="ssh ssl"
 vopt_conflict ssl gnutls
@@ -39,8 +38,10 @@ post_install() {
 
 libcurl_package() {
 	short_desc="The multiprotocol file transfer library"
+	shlib_provides="libcurl-gnutls.so.4"
 	pkg_install() {
 		vmove "usr/lib/*.so.*"
+		ln -sf libcurl.so.4.5.0 ${PKGDESTDIR}/usr/lib/libcurl-gnutls.so.4
 	}
 }
 libcurl-devel_package() {
@@ -49,6 +50,8 @@ libcurl-devel_package() {
 	pkg_install() {
 		vmove usr/bin/curl-config
 		vmove "usr/share/man/man1/curl-config*"
+		vmove usr/share/man/man3
+		vmove usr/share/aclocal
 		vmove usr/include
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"

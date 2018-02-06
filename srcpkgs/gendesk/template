@@ -1,9 +1,9 @@
 # Template file for 'gendesk'
 pkgname=gendesk
-version=0.6.5
+version=0.7
 revision=1
 build_style=go
-hostmakedepends="git-perl mercurial"
+hostmakedepends="git"
 go_import_path="github.com/xyproto/gendesk"
 short_desc="Utility to generate .desktop files and download icons"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
@@ -12,7 +12,7 @@ homepage="http://roboticoverlords.org/gendesk/"
 distfiles="https://github.com/xyproto/${pkgname}/archive/${version}.tar.gz
  http://roboticoverlords.org/images/default.png"
 skip_extraction="default.png"
-checksum="d5a36b03c323181c514ef47c351dbf84cd42a5c3201a49262df68dd069cebe2c
+checksum="520b042ad5b3b3f4c2a983624ad0c91676cb39fddeed1b8c9bdc6fca9207ffc4
  4d96eded48e536d02e35727c36dc20844c2e44654e81baf78e10aee4eb48e837"
 
 post_install() {

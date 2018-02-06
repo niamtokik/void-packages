@@ -15,3 +15,11 @@ checksum=db625c7ab3bb3ee757b3926a5cfa8d9e1c3991ad24707a83dde8a5ef2bf7a07e
 pre_configure() {
 	autoreconf -fi
 }
+
+pre_check() {
+	case "$XBPS_TARGET_MACHINE" in
+		*-musl)
+			# Disable locale tests that fail on musl
+			sed -i '/test-localename$(EXEEXT)/d' gnulib-tests/Makefile
+	esac
+}

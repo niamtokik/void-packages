@@ -1,6 +1,6 @@
 # Template file for 'kgamma5'
 pkgname=kgamma5
-version=5.8.7
+version=5.11.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,4 +11,4 @@ maintainer="Denis Revin <denis.revin@gmail.com>"
 license="GPL-2"
 homepage="https://projects.kde.org/projects/plasma/kgamma5"
 distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=c61c24706eb004f419c2785d66c09d367de7d2a287e2012c7b73f7646c7903eb
+checksum=efa55bf9cc81c8c94c1ed8d8df9f72da74f29789927ced6cc0458a6243e9749b

@@ -1,6 +1,6 @@
 # Template file for 'nwipe'
 pkgname=nwipe
-version=0.21
+version=0.24
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake pkg-config"
@@ -10,7 +10,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="https://github.com/martijnvanbrummelen/nwipe"
 distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=21251065b5a59d81286a2afdc25ef5602c06895113f8d2e5b537c11f2e0c3819
+checksum=5cd7292518bc479f7e28d223b13ab9091cc1e6ca9beaa381651ac80d01241302
 
 CFLAGS="-D_FILE_OFFSET_BITS=64"
 

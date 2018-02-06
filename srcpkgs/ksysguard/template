@@ -1,6 +1,6 @@
 # Template file for 'ksysguard'
 pkgname=ksysguard
-version=5.8.7
+version=5.11.5
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -12,8 +12,4 @@ maintainer="Denis Revin <denis.revin@gmail.com>"
 license="GPL-2"
 homepage="https://projects.kde.org/projects/plasma/ksysguard"
 distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=ab69a8f3c8d21422b17e689dc0cf1b2137723dafded343ad3ea8db1802014080
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl) broken="https://build.voidlinux.eu/builders/x86_64-musl_builder/builds/4687/steps/shell_3/logs/stdio";;
-esac
+checksum=d1a88bef03c75993eab0b422f547adab2a1e17d6eec791e7d3542ec275652b98

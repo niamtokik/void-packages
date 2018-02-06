@@ -1,6 +1,6 @@
 # Template file for 'offlineimap'
 pkgname=offlineimap
-version=7.1.2
+version=7.1.5
 revision=1
 noarch=yes
 build_style=python2-module
@@ -12,7 +12,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://offlineimap.org/"
 license="GPL-2"
 distfiles="https://github.com/OfflineIMAP/offlineimap/archive/v${version}.tar.gz"
-checksum=7203435e34f73e90d1833b72c49a859decf7b5828384a2648ee4b2d1ef3bdc66
+checksum=8e28e786a00768e8a97d9f049406744829212cffb69903ffbb15faa1479d43e1
 
 post_install() {
 	make -C docs man

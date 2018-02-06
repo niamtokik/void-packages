@@ -1,6 +1,6 @@
 # Template file for 'wayland-protocols'
 pkgname=wayland-protocols
-version=1.10
+version=1.12
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config wayland-devel"
@@ -9,7 +9,7 @@ maintainer="Sir_Boops <admin@boops.me>"
 license="MIT"
 homepage="http://wayland.freedesktop.org"
 distfiles="https://wayland.freedesktop.org/releases/wayland-protocols-${version}.tar.xz"
-checksum=5719c51d7354864983171c5083e93a72ac99229e2b460c4bb10513de08839c0a
+checksum=3b19e8a9e1e19474756a7069db23b90ca9b8ebb438448c6063b4a7fc89b7c8b2
 
 post_install() {
 	vlicense COPYING

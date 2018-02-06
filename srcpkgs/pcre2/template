@@ -23,6 +23,7 @@ pre_configure() {
 	autoreconf -fi
 }
 
+
 libpcre2_package() {
 	short_desc+=" - shared libraries"
 	pkg_install() {

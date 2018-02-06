@@ -1,6 +1,6 @@
 # Template file for 'units'
 pkgname=units
-version=2.14
+version=2.16
 revision=1
 build_style=gnu-configure
 hostmakedepends="python"
@@ -11,4 +11,4 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="http://www.gnu.org/software/units/units.html"
 distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=9d33893d82f3ddd831d5822992007c40bcd0826ae67d3cbc96539951fb0a82e8
+checksum=dcf3f78482a13b150fc6bf0f8d611510816a3424bc2b26229b85b1cadeb81686

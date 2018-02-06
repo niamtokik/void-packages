@@ -29,6 +29,7 @@ if [ "$CROSS_BUILD" ]; then
 	}
 fi
 
+
 post_install() {
 	# Fix conflict with musl.
 	if [ -e ${DESTDIR}/usr/include/libintl.h ]; then

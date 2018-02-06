@@ -1,24 +1,23 @@
 # Template file for 'enlightenment'
 pkgname=enlightenment
-version=0.21.10
+version=0.22.1
 revision=1
-nopie=yes
 lib32disabled=yes
 build_options="wayland"
-build_style=gnu-configure
-configure_args="--enable-pam --disable-bluez4 --disable-systemd
- $(vopt_if wayland '--enable-wayland-egl --enable-wayland-clients' '--disable-wayland-egl')"
+build_style=meson
+configure_args="--sysconfdir=/etc -Dpam=true -Dbluez4=false -Dsystemd=false
+ $(vopt_if wayland '-Dwayland=true' '-Dwayland=false')"
 hostmakedepends="pkg-config efl"
-makedepends="pam-devel pixman-devel efl-devel
+makedepends="pam-devel pixman-devel efl-devel xkeyboard-config
  $(vopt_if wayland 'libxkbcommon-devel MesaLib-devel wayland-devel')"
-depends="hicolor-icon-theme desktop-file-utils"
+depends="hicolor-icon-theme desktop-file-utils xkeyboard-config"
 conf_files="/etc/enlightenment/sysactions.conf"
 homepage="http://enlightenment.org"
 short_desc="Enlightenment desktop"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="2-clause-BSD"
 distfiles="http://download.enlightenment.org/rel/apps/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=9bb915caa5b390b2e212ff5f6f75b57a3d082f80d2f7b5b278bd902e2fad7f14
+checksum=207b6b88dafc4932ab007a835510823c5a1dd8c191876ac037628176ca77a7e0
 
 post_install() {
 	# Use our native tools to shutdown/suspend.

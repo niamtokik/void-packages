@@ -1,7 +1,7 @@
 # Template file for 'python-astroid'
 pkgname=python-astroid
-version=1.5.3
-revision=2
+version=1.6.1
+revision=1
 noarch=yes
 wrksrc="astroid-${version}"
 build_style=python-module
@@ -14,7 +14,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/PyCQA/astroid"
 license="GPL-2, LGPL-2.1"
 distfiles="${PYPI_SITE}/a/astroid/astroid-${version}.tar.gz"
-checksum=492c2a2044adbf6a84a671b7522e9295ad2f6a7c781b899014308db25312dd35
+checksum=f0a0e386dbca9f93ea9f3ea6f32b37a24720502b7baa9cb17c3976a680d43a06
 
 post_install() {
 	# no tests
@@ -23,17 +23,10 @@ post_install() {
 
 python3-astroid_package() {
 	noarch=yes
-	replaces="python3.4-astroid>=0"
 	depends="python3-six python3-lazy-object-proxy python3-wrapt"
 	pycompile_module="astroid"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 	}
-}
-python3.4-astroid_package() {
-	noarch=yes
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-astroid>=${version}_${revision}"
 }

@@ -27,6 +27,58 @@ run_func() {
     set +E
 }
 
+ch_wrksrc() {
+  cd "$wrksrc" || msg_error "$pkgver: cannot access wrksrc directory [$wrksrc]\n"
+  if [ -n "$build_wrksrc" ]; then
+    cd $build_wrksrc || \
+        msg_error "$pkgver: cannot access build_wrksrc directory [$build_wrksrc]\n"
+  fi
+}
+
+# runs {pre,do,post}_X tripplets
+run_step() {
+  local step_name="$1" optional_step="$2" skip_post_hook="$3"
+
+  ch_wrksrc
+  run_pkg_hooks "pre-$step_name"
+
+  # Run pre_* Phase
+  if declare -f "pre_$step_name" >/dev/null; then
+    ch_wrksrc
+    run_func "pre_$step_name"
+  fi
+
+  ch_wrksrc
+  # Run do_* Phase
+  if declare -f "do_$step_name" >/dev/null; then
+    run_func "do_$step_name"
+  elif [ -n "$build_style" ]; then
+    if [ -r $XBPS_BUILDSTYLEDIR/${build_style}.sh ]; then
+      . $XBPS_BUILDSTYLEDIR/${build_style}.sh
+      if declare -f "do_$step_name" >/dev/null; then
+        run_func "do_$step_name"
+      elif [ ! "$optional_step" ]; then
+        msg_error "$pkgver: cannot find do_$step_name() in $XBPS_BUILDSTYLEDIR/${build_style}.sh!\n"
+      fi
+    else
+      msg_error "$pkgver: cannot find build helper $XBPS_BUILDSTYLEDIR/${build_style}.sh!\n"
+    fi
+  elif [ ! "$optional_step" ]; then
+    msg_error "$pkgver: cannot find do_$step_name()!\n"
+  fi
+
+  # Run post_* Phase
+  if declare -f "post_$step_name" >/dev/null; then
+    ch_wrksrc
+    run_func "post_$step_name"
+  fi
+
+  if ! [ "$skip_post_hook" ]; then
+    ch_wrksrc
+    run_pkg_hooks "post-$step_name"
+  fi
+}
+
 error_func() {
     if [ -n "$1" -a -n "$2" ]; then
         msg_red "$pkgver: failed to run $1() at line $2.\n"
@@ -379,6 +431,8 @@ setup_pkg() {
         fi
     fi
 
+    set_build_options
+
     export CFLAGS="$XBPS_TARGET_CFLAGS $XBPS_CFLAGS $XBPS_CROSS_CFLAGS $CFLAGS $dbgflags"
     export CXXFLAGS="$XBPS_TARGET_CXXFLAGS $XBPS_CXXFLAGS $XBPS_CROSS_CXXFLAGS $CXXFLAGS $dbgflags"
     export FFLAGS="$XBPS_TARGET_FFLAGS $XBPS_FFLAGS $XBPS_CROSS_FFLAGS $FFLAGS"
@@ -482,8 +536,6 @@ setup_pkg() {
         unset RANLIB_host STRIP_host OBJDUMP_host OBJCOPY_host NM_host READELF_host
         unset CFLAGS_host CXXFLAGS_host CPPFLAGS_host LDFLAGS_host
     fi
-
-    set_build_options
 
     # Setup some specific package vars.
     if [ -z "$wrksrc" ]; then

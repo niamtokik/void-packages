@@ -1,6 +1,6 @@
 # Template file for 'python-scipy'
 pkgname=python-scipy
-version=0.19.1
+version=1.0.0
 revision=2
 wrksrc="scipy-${version}"
 build_style=python-module
@@ -11,10 +11,10 @@ depends="python-numpy"
 pycompile_module="scipy"
 short_desc="Scientific library for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
-homepage="http://www.scipy.org/"
+homepage="https://www.scipy.org/"
 license="3-clause-BSD"
 distfiles="https://github.com/scipy/scipy/archive/v${version}.tar.gz"
-checksum=ac268fe92edd149c6f52fa138d2a03877c080981d7944e96bab8ef68764f71cc
+checksum=c423a4511684554958dab55f2877df78e765b44f8eef46d5425891d6ac3b49bc
 
 LDFLAGS="-shared"
 
@@ -23,7 +23,6 @@ post_install() {
 }
 
 python3-scipy_package() {
-	replaces="python3.4-scipy>=0"
 	pycompile_module="scipy"
 	depends="python3-numpy"
 	short_desc="${short_desc/Python2/Python3}"
@@ -31,9 +30,4 @@ python3-scipy_package() {
 		vmove usr/lib/python3*
 		vlicense LICENSE.txt LICENSE
 	}
-}
-python3.4-scipy_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-scipy>=${version}_${revision}"
 }

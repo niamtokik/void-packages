@@ -1,17 +1,18 @@
 # Template file for 'chrony'
+# When Updating: Please confirm the upstream config still refers to make_dirs
 pkgname=chrony
 version=3.2
-revision=1
+revision=6
 build_style=gnu-configure
 configure_args="--without-nss --enable-scfilter --with-sendmail=/usr/bin/sendmail"
 hostmakedepends="pkg-config"
 makedepends="libtomcrypt-devel libcap-devel libedit-devel libseccomp-devel"
 conf_files="/etc/chrony.conf"
 system_accounts="chrony"
-chrony_homedir="/var/db/chrony"
+chrony_homedir="/var/lib/chrony"
 make_dirs="
 	/var/log/chrony 0755 chrony chrony
-	/var/db/chrony	0755 chrony chrony"
+	/var/lib/chrony	0755 chrony chrony"
 short_desc="Versatile implementation of the Network Time Protocol (NTP)"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
@@ -26,7 +27,12 @@ alternatives="
  ntpd:ntpd:/etc/sv/chronyd"
 
 post_install() {
-	vconf ${FILESDIR}/chrony.conf
+	vconf examples/chrony.conf.example3 chrony.conf
+	# Modify default configuration so it works out-of-the-box
+	sed -e 's,! pool pool.ntp.org iburst,pool pool.ntp.org iburst,' -i ${DESTDIR}/etc/chrony.conf
+	sed -e 's,! rtcfile /var/lib/chrony/rtc,rtcfile /var/lib/chrony/rtc,' -i ${DESTDIR}/etc/chrony.conf
+	sed -e 's,! makestep 1.0 3,makestep 1.0 3,' -i ${DESTDIR}/etc/chrony.conf
+	vsconf examples/chrony.conf.example1
+	vsconf examples/chrony.conf.example2
 	vsv chronyd
-	rm -rf ${DESTDIR}/usr/share/doc
 }

@@ -1,13 +1,13 @@
 # Template file for 'e2fsprogs'
 pkgname=e2fsprogs
-version=1.43.6
+version=1.43.8
 revision=1
 short_desc="Ext2/3/4 Filesystem Utilities"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2, LGPL-2.1"
 homepage="http://e2fsprogs.sourceforge.net/"
 distfiles="${KERNEL_SITE}/kernel/people/tytso/e2fsprogs/v${version}/e2fsprogs-${version}.tar.xz"
-checksum=c9b226234ee878a8d89951f3b155cec7416dd0ec09c932c855f1b1df8ad93402
+checksum=c0841d5fe724d49132158850f3975e886fccfcef642878dca2425a1b5d30b12a
 
 build_style=gnu-configure
 configure_args="--enable-elf-shlibs --disable-fsck
@@ -22,6 +22,10 @@ conf_files="/etc/mke2fs.conf"
 
 pre_configure() {
 	autoreconf -fi
+}
+do_check() {
+	ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib
+	make LD_LIBRARY_PATH=/tools/lib check
 }
 post_install() {
 	# Remove stuff belonging to libblkid or libuuid pkgs.

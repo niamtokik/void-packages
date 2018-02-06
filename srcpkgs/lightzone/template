@@ -1,7 +1,7 @@
 # Template file for 'lightzone'
 pkgname=lightzone
-version=4.1.7
-revision=1
+version=4.1.8
+revision=2
 wrksrc=LightZone-${version}
 hostmakedepends="automake git openjdk apache-ant javahelp2 rsync pkg-config"
 makedepends="libgomp-devel lcms2-devel libX11-devel"
@@ -10,8 +10,8 @@ short_desc="Professional-level digital darkroom and photo editor"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="3-clause-BSD"
 homepage="http://www.lightzoneproject.org/"
-distfiles="https://github.com/Aries85/LightZone/archive/${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=33c6163dd450ef3e80fe0ea390f14a0d11fbe6ed261f560afdd057a0dbd405ef
+distfiles="https://github.com/ktgw0316/LightZone/archive/${version}.tar.gz>${pkgname}-${version}.tar.gz"
+checksum=c92666ebcb4d066a5acbe3c41b6c4d74f78f9ac68998e3ac8ac3e13bb316905e
 # Cross building dcraw_lz is not supported
 nocross=yes
 # JNI binaries are not PIE

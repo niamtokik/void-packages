@@ -1,6 +1,6 @@
-# Template build file for 'firefox-esr'.
+# Template file for 'firefox-esr'
 pkgname=firefox-esr
-version=52.4.0
+version=52.6.0
 revision=1
 wrksrc="firefox-${version}esr"
 short_desc="Mozilla Firefox web browser - Extended Support Release (ESR)"
@@ -8,18 +8,16 @@ maintainer="Eivind Uggedal <eivind@uggedal.com>"
 homepage="https://www.mozilla.org/firefox/"
 license="MPL-2.0, GPL-2, LGPL-2.1"
 distfiles="${MOZILLA_SITE}/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz"
-checksum=58ae7cb6c2fb81d22762ab3c60e46cadbe7c5b687f24c2823d9533ec998a21ee
+checksum=587cd94a315f5a94bf5c1f85e4a0ea92c9103503b51d649a3c4a4a122d691e42
 
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
-nopie=yes
 lib32disabled=yes
 
 hostmakedepends="autoconf213 unzip zip pkg-config perl python yasm
- $(vopt_if rust 'rust cargo')"
+ $(vopt_if rust cargo)"
 makedepends="
- nss-devel libjpeg-turbo-devel gtk+-devel icu-devel pixman-devel
- sqlite-devel libevent-devel libnotify-devel libvpx-devel libXrender-devel
- hunspell-devel libXcomposite-devel libSM-devel libXt-devel libXdamage-devel
+ libatomic-devel nss-devel gtk+-devel
+ sqlite-devel libevent-devel libnotify-devel libvpx-devel
+ hunspell-devel libXcomposite-devel libSM-devel libXt-devel
  $(vopt_if alsa alsa-lib-devel) $(vopt_if dbus dbus-glib-devel)
  $(vopt_if gtk3 gtk+3-devel) $(vopt_if pulseaudio pulseaudio-devel)
  $(vopt_if startup_notification startup-notification-devel)

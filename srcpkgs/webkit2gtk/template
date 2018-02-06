@@ -1,6 +1,6 @@
 # Template file for 'webkit2gtk'
 pkgname=webkit2gtk
-version=2.18.0
+version=2.18.6
 revision=1
 wrksrc="webkitgtk-$version"
 build_style=cmake
@@ -11,12 +11,12 @@ maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="https://webkitgtk.org/"
 license="LGPL-2.1, 2-clause-BSD"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=b583e46a3de36a3e80ba33b084ead60512a2046aca01ff61e50e519436e5038d
+checksum=93912cc2f40f12e452be1ca4babdbdaac0ec4f828d441257a6b06c2963bbac3c
 
 # ETOOHUGE
 nodebug=1
 
-CXXFLAGS="-D_GLIBCXX_USE_C99_STDIO=1 -D_GLIBCXX_USE_C99_STDLIB=1 -Wno-expansion-to-defined"
+CXXFLAGS="-Wno-expansion-to-defined"
 
 hostmakedepends="perl python pkg-config intltool gperf flex ruby glib-devel geoclue2"
 makedepends="
@@ -27,7 +27,9 @@ makedepends="
  geoclue2-devel libnotify-devel hyphen-devel"
 
 case "$XBPS_TARGET_MACHINE" in
-armv6*) configure_args+=" -DENABLE_JIT=0" CXXFLAGS+=" -D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1";;
+armv[56]*|mips*) configure_args+=" -DENABLE_JIT=0"
+	makedepends+=" libatomic-devel"
+	;;
 aarch64*) configure_args+=" -DUSE_LD_GOLD=0";;
 esac
 

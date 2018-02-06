@@ -20,9 +20,14 @@ homepage="http://www.riverbankcomputing.co.uk/software/pyqt/intro"
 license="GPL-3"
 distfiles="${SOURCEFORGE_SITE}/pyqt/PyQt5_gpl-${version}.tar.gz"
 checksum=ebd70515b30bbd6098fee29e6271a6696b1183c5530ee30e6ba9aaab195536e8
-# FIXME: Cross fails because make -f qtdetail uses g++ but $CXXFLAGS
-# qtdetail is a host tool and should be compiled as such
-nocross=yes
+
+if [ -n "$CROSS_BUILD" ]; then
+	hostmakedepends+=" python python3 sip python-dbus-devel
+ 	 qt5-tools-devel qt5-connectivity-devel qt5-declarative-devel qt5-location-devel
+	 qt5-multimedia-devel qt5-sensors-devel qt5-serialport-devel qt5-svg-devel
+	 qt5-webchannel-devel qt5-webengine-devel qt5-webkit-devel qt5-websockets-devel
+	 qt5-x11extras-devel qt5-xmlpatterns-devel"
+fi
 
 pre_build() {
 	mkdir -p pyqt5-${py2_ver}
@@ -36,8 +41,36 @@ do_build() {
 
 	for pyver in $py2_ver $py3_ver; do
 		cd $wrksrc/pyqt5-$pyver
-		python${pyver} configure.py --confirm-license --assume-shared \
-			STRIP="" QMAKE_CXXFLAGS="${CXXFLAGS}" QMAKE_LFLAGS="${LDFLAGS}"
+
+		if [ -n "$CROSS_BUILD" ]; then
+cat > qtdetail.inc << END
+QMAKE_CC="$CC_host"
+QMAKE_CFLAGS="$CFLAGS_host"
+QMAKE_CXX="$CXX_host"
+QMAKE_CXXFLAGS="$CXXFLAGS_host"
+QMAKE_LINK="$CXX_host"
+QMAKE_LINK_SHLIB=
+QMAKE_LFLAGS=
+END
+
+			# target opengl features aren’t detected when cross compiling
+			case "$XBPS_TARGET_MACHINE" in
+				arm*|aarch64*) sed -i -e "/self.pyqt_disabled_features = lines\[1:-1\]/a \
+				 \        self.pyqt_disabled_features.append('PyQt_Desktop_OpenGL')" configure.py ;;
+			esac
+
+			# configure.py stops when $XBPS_CROSS_BASE is empty in a
+			# native build; so only set sysroot when cross compiling
+			_sysroot="--sysroot=$XBPS_CROSS_BASE"
+		else
+			unset _sysroot
+		fi
+
+		python${pyver} configure.py --confirm-license --assume-shared $_sysroot \
+			QMAKE_CC="${CC}" QMAKE_CFLAGS="${CFLAGS}" QMAKE_CXX="${CXX}" QMAKE_CXXFLAGS="${CXXFLAGS}" \
+			QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" QMAKE_LFLAGS="${LDFLAGS}" QMAKE_STRIP=""
+		find -name Makefile -exec sed -i "{}" \
+			-e "s;\(\$(INSTALL_ROOT)/usr/\)${XBPS_CROSS_TRIPLET}/;\1;g" \;
 		make ${makejobs}
 	done
 }
@@ -45,14 +78,16 @@ do_install() {
 	# install python-pyqt5
 	make -C pyqt5-${py2_ver} DESTDIR=${DESTDIR} INSTALL_ROOT=${DESTDIR} install
 	for f in pylupdate5 pyrcc5 pyuic5; do
-		sed -i 's,/usr/bin/python2.7,/usr/bin/python2,' ${DESTDIR}/usr/bin/${f}
+		sed -i -e 's,/usr/bin/python2.7,/usr/bin/python2,' \
+		 -e "s,${XBPS_CROSS_TRIPLET}/,," ${DESTDIR}/usr/bin/${f}
 		mv ${DESTDIR}/usr/bin/{,python2-}${f}
 	done
 
 	# install python3-pyqt5
 	make -C pyqt5-${py3_ver} DESTDIR=${DESTDIR} INSTALL_ROOT=${DESTDIR} install
 	for f in pylupdate5 pyrcc5 pyuic5; do
-		sed -i 's,/usr/bin/python3[.0-9]*,/usr/bin/python3,' ${DESTDIR}/usr/bin/${f}
+		sed -i -e 's,/usr/bin/python3[.0-9]*,/usr/bin/python3,' \
+		 -e "s,${XBPS_CROSS_TRIPLET}/,," ${DESTDIR}/usr/bin/${f}
 		mv ${DESTDIR}/usr/bin/{,python3-}${f}
 	done
 
@@ -139,10 +174,17 @@ python-PyQt5-opengl_package() {
 	lib32disabled=yes
 	depends="${sourcepkg}-${version}_${revision}"
 	short_desc+=" - opengl module"
+
 	pkg_install() {
 		vmove ${py2_sitelib}/PyQt5/QtOpenGL.so
-		vmove ${py2_sitelib}/PyQt5/_QOpenGLFunctions_2_0.so
+
+		# ‘QOpenGLFunctions’ is missing for arm*/aarch64* (mips* probably, too)
+		# cfgtest__QOpenGLFunctions_2_0.cpp:(.text.startup+0x10): undefined reference to 'QOpenGLFunctions_2_0::QOpenGLFunctions_2_0()'
+		if [ -e "$DESTDIR/${py2_sitelib}/PyQt5/_QOpenGLFunctions_2_0.so" ]; then
+				vmove ${py2_sitelib}/PyQt5/_QOpenGLFunctions_2_0.so
+		fi
 	}
+
 }
 python-PyQt5-location_package() {
 	lib32disabled=yes
@@ -195,13 +237,20 @@ python-PyQt5-svg_package() {
 		vmove ${py2_sitelib}/PyQt5/QtSvg.so
 	}
 }
+
 python-PyQt5-tools_package() {
 	lib32disabled=yes
 	depends="${sourcepkg}-${version}_${revision}"
 	short_desc+=" - designer, help modules"
+
 	pkg_install() {
-		vmove ${py2_sitelib}/PyQt5/QtDesigner.so
 		vmove ${py2_sitelib}/PyQt5/QtHelp.so
+
+		# /usr/lib/gcc/armv7l-linux-musleabihf/7.2.0/../../../../armv7l-linux-musleabihf/bin/ld: cannot find -lQt5Designer
+		# there is no libQt5Designer.so.* in qt5-tools for arm*/aarch64* (mips* probably, too)
+		if [ -e "$DESTDIR/${py2_sitelib}/PyQt5/QtDesigner.so" ]; then
+			vmove ${py2_sitelib}/PyQt5/QtDesigner.so
+		fi
 	}
 }
 python-PyQt5-webchannel_package() {
@@ -260,7 +309,7 @@ python3-PyQt5_package() {
 	lib32disabled=yes
 	depends="python3-sip"
 	pycompile_module="PyQt5"
-	replaces="python3.4-PyQt5>=0 python3-PyQt5-enginio<5.7_1"
+	replaces="python3-PyQt5-enginio<5.7_1"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove ${py3_sitelib}
@@ -268,7 +317,6 @@ python3-PyQt5_package() {
 }
 python3-PyQt5-dbus_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-dbus>=0"
 	depends="python3-PyQt5-${version}_${revision} python3-dbus"
 	short_desc="${short_desc/Python2/Python3} - dbus support"
 	pkg_install() {
@@ -277,7 +325,6 @@ python3-PyQt5-dbus_package() {
 }
 python3-PyQt5-connectivity_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-connectivity>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - connectivity module"
 	pkg_install() {
@@ -287,7 +334,6 @@ python3-PyQt5-connectivity_package() {
 }
 python3-PyQt5-multimedia_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-multimedia>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - multimedia module"
 	pkg_install() {
@@ -297,17 +343,20 @@ python3-PyQt5-multimedia_package() {
 }
 python3-PyQt5-opengl_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-opengl>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - opengl module"
 	pkg_install() {
 		vmove ${py3_sitelib}/PyQt5/QtOpenGL.so
-		vmove ${py3_sitelib}/PyQt5/_QOpenGLFunctions_2_0.so
+
+		# ‘QOpenGLFunctions’ is missing for arm*/aarch64* (mips* probably, too)
+		# cfgtest__QOpenGLFunctions_2_0.cpp:(.text.startup+0x10): undefined reference to 'QOpenGLFunctions_2_0::QOpenGLFunctions_2_0()'
+		if [ -e "$DESTDIR/${py3_sitelib}/PyQt5/_QOpenGLFunctions_2_0.so" ]; then
+			vmove ${py3_sitelib}/PyQt5/_QOpenGLFunctions_2_0.so
+		fi
 	}
 }
 python3-PyQt5-location_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-location>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - location module"
 	pkg_install() {
@@ -317,7 +366,6 @@ python3-PyQt5-location_package() {
 }
 python3-PyQt5-quick_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-quick>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - quick module"
 	pkg_install() {
@@ -329,7 +377,6 @@ python3-PyQt5-quick_package() {
 }
 python3-PyQt5-sensors_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-sensors>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - sensors module"
 	pkg_install() {
@@ -338,7 +385,6 @@ python3-PyQt5-sensors_package() {
 }
 python3-PyQt5-serialport_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-serialport>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - serialport module"
 	pkg_install() {
@@ -347,7 +393,6 @@ python3-PyQt5-serialport_package() {
 }
 python3-PyQt5-sql_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-sql>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - sql module"
 	pkg_install() {
@@ -356,7 +401,6 @@ python3-PyQt5-sql_package() {
 }
 python3-PyQt5-svg_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-svg>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - svg module"
 	pkg_install() {
@@ -365,18 +409,21 @@ python3-PyQt5-svg_package() {
 }
 python3-PyQt5-tools_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-tools>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - designer, help modules"
 	pkg_install() {
-		vmove ${py3_sitelib}/PyQt5/QtDesigner.so
 		vmove ${py3_sitelib}/PyQt5/QtHelp.so
-		vmove usr/lib/qt5/plugins/designer/libpyqt5.so
+
+		# /usr/lib/gcc/armv7l-linux-musleabihf/7.2.0/../../../../armv7l-linux-musleabihf/bin/ld: cannot find -lQt5Designer
+		# there is no libQt5Designer.so.* in qt5-tools for arm*/aarch64* (mips* probably, too)
+		if [ -e "$DESTDIR/${py3_sitelib}/PyQt5/QtDesigner.so" ]; then
+			vmove ${py3_sitelib}/PyQt5/QtDesigner.so
+			vmove usr/lib/qt5/plugins/designer/libpyqt5.so
+		fi
 	}
 }
 python3-PyQt5-webchannel_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-webchannel>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - webchannel module"
 	pkg_install() {
@@ -385,7 +432,6 @@ python3-PyQt5-webchannel_package() {
 }
 python3-PyQt5-webengine_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-webengine>=0"
 	depends="python3-PyQt5-${version}_${revision}
 	 python3-PyQt5-webchannel-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - webengine module"
@@ -397,7 +443,6 @@ python3-PyQt5-webengine_package() {
 }
 python3-PyQt5-webkit_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-webkit>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - webkit module"
 	pkg_install() {
@@ -407,7 +452,6 @@ python3-PyQt5-webkit_package() {
 }
 python3-PyQt5-websockets_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-websockets>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - websockets module"
 	pkg_install() {
@@ -416,7 +460,6 @@ python3-PyQt5-websockets_package() {
 }
 python3-PyQt5-x11extras_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-x11extras>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - x11extras module"
 	pkg_install() {
@@ -425,101 +468,9 @@ python3-PyQt5-x11extras_package() {
 }
 python3-PyQt5-xmlpatterns_package() {
 	lib32disabled=yes
-	replaces="python3.4-PyQt5-xmlpatterns>=0"
 	depends="python3-PyQt5-${version}_${revision}"
 	short_desc="${short_desc/Python2/Python3} - xmlpatterns module"
 	pkg_install() {
 		vmove ${py3_sitelib}/PyQt5/QtXmlPatterns.so
 	}
-}
-python3.4-PyQt5_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-PyQt5>=${version}_${revision}"
-	replaces="python3.4-PyQt5-enginio<5.7_1"
-}
-python3.4-PyQt5-connectivity_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - connectivity module (transitional dummy package)"
-	depends="python3-PyQt5-connectivity>=${version}_${revision}"
-}
-python3.4-PyQt5-dbus_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - dbus module (transitional dummy package)"
-	depends="python3-PyQt5-dbus>=${version}_${revision}"
-}
-python3.4-PyQt5-location_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - location module (transitional dummy package)"
-	depends="python3-PyQt5-location>=${version}_${revision}"
-}
-python3.4-PyQt5-multimedia_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - multimedia module (transitional dummy package)"
-	depends="python3-PyQt5-multimedia>=${version}_${revision}"
-}
-python3.4-PyQt5-opengl_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - opengl module (transitional dummy package)"
-	depends="python3-PyQt5-opengl>=${version}_${revision}"
-}
-python3.4-PyQt5-quick_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - quick module (transitional dummy package)"
-	depends="python3-PyQt5-quick>=${version}_${revision}"
-}
-python3.4-PyQt5-sensors_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - sensors module (transitional dummy package)"
-	depends="python3-PyQt5-sensors>=${version}_${revision}"
-}
-python3.4-PyQt5-serialport_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - serialport module (transitional dummy package)"
-	depends="python3-PyQt5-serialport>=${version}_${revision}"
-}
-python3.4-PyQt5-sql_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - sql module (transitional dummy package)"
-	depends="python3-PyQt5-sql>=${version}_${revision}"
-}
-python3.4-PyQt5-svg_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - svg module (transitional dummy package)"
-	depends="python3-PyQt5-svg>=${version}_${revision}"
-}
-python3.4-PyQt5-tools_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - designer, help module (transitional dummy package)"
-	depends="python3-PyQt5-tools>=${version}_${revision}"
-}
-python3.4-PyQt5-webchannel_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - webchannel module (transitional dummy package)"
-	depends="python3-PyQt5-webchannel>=${version}_${revision}"
-}
-python3.4-PyQt5-webengine_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - webengine module (transitional dummy package)"
-	depends="python3-PyQt5-webengine>=${version}_${revision}"
-}
-python3.4-PyQt5-webkit_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - webkit module (transitional dummy package)"
-	depends="python3-PyQt5-webkit>=${version}_${revision}"
-}
-python3.4-PyQt5-websockets_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - websockets module (transitional dummy package)"
-	depends="python3-PyQt5-websockets>=${version}_${revision}"
-}
-python3.4-PyQt5-x11extras_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - x11extras module (transitional dummy package)"
-	depends="python3-PyQt5-x11extras>=${version}_${revision}"
-}
-python3.4-PyQt5-xmlpatterns_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} - xmlpatterns module (transitional dummy package)"
-	depends="python3-PyQt5-xmlpatterns>=${version}_${revision}"
 }

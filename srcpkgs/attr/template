@@ -4,6 +4,7 @@ version=2.4.47
 revision=6
 bootstrap=yes
 build_style=gnu-configure
+checkdepends="perl"
 configure_args="--libdir=/usr/lib --libexecdir=/usr/lib"
 short_desc="Extended attribute support library for ACL support"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
@@ -11,10 +12,24 @@ homepage="http://savannah.nongnu.org/projects/attr"
 license="LGPL-2.1"
 distfiles="${NONGNU_SITE}/attr/attr-${version}.src.tar.gz"
 checksum=25772f653ac5b2e3ceeb89df50e4688891e21f723c460636548971652af0a859
+make_check_args="-j1" # Tests broken when ran in parallel
+make_check_target="tests"
 
 if [ "$XBPS_TARGET_MACHINE" = "i686" ]; then
 	configure_args="--libdir=/usr/lib32 --libexecdir=/usr/lib32"
 fi
+
+pre_check() {
+	sed -i 's:{(:\\{(:' test/run
+
+	# Either the test wasn't updated or the package misconfigures/miscompiles
+	# the error message in musl based systems
+	# EXPECTED: Operation not supported
+	# RECIEVED: Not supported
+	case "$XBPS_TARGET_MACHINE" in
+	 *-musl* ) sed -i 's|f: Operation n|f: N|g' test/attr.test ;;
+	esac
+}
 
 do_install() {
 	make DIST_ROOT=${DESTDIR} install install-lib install-dev

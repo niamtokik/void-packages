@@ -1,6 +1,6 @@
 # Template file for 'txr'
 pkgname=txr
-version=186
+version=188
 revision=1
 build_style=configure
 hostmakedepends="bison flex"
@@ -9,12 +9,17 @@ maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
 license="2-clause-BSD"
 homepage="http://www.nongnu.org/txr/"
 distfiles="http://www.kylheku.com/cgit/txr/snapshot/${pkgname}-${version}.tar.bz2"
-checksum=0475ee855449c1c4bcdb707c5c58a4cb3e4a1d13d6199d0c235e87285775697f
+checksum=4fd3ce7bc91ad9e27c664e26f0a1d291ba6d559b00f92d12ad07918be4814c36
+make_check_target="tests"
 
 do_configure() {
 	./configure --prefix=/usr --ccname="${CC}" \
 		--platform-cflags="${CFLAGS}" \
 		--platform-ldflags="${LDFLAGS}"
+}
+
+pre_check() {
+	rm -rf tests/017
 }
 
 post_install() {

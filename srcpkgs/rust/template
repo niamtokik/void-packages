@@ -1,7 +1,8 @@
 # Template file for 'rust'
 pkgname=rust
-version=1.20.0
+version=1.23.0
 revision=1
+_date=2018-01-02
 # NB. if you push any(!) new version, don't forget to put a build
 # output of musl to https://repo.voidlinux.eu/distfiles/
 wrksrc="rustc-${version}-src"
@@ -11,47 +12,47 @@ build_style=configure
 make_build_args="dist VERBOSE=1"
 only_for_archs="i686 x86_64 x86_64-musl"
 hostmakedepends="cmake curl pkg-config python"
-makedepends="libffi-devel llvm ncurses-devel zlib-devel"
+makedepends="libffi-devel llvm3.9 ncurses-devel zlib-devel"
 short_desc="Safe, concurrent, practical systems language"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 homepage="http://www.rust-lang.org/"
 license="MIT, Apache-2.0"
 distfiles="https://static.rust-lang.org/dist/rustc-${version}-src.tar.gz"
-checksum=2aa4875ff4472c6e35262bbb9052cb2623da3dae6084a858cc59d36f33f18214
+checksum=7464953871dcfdfa8afcc536916a686dd156a83339d8ec4d5cb4eb2fe146cb91
 
 case "$XBPS_MACHINE" in
 x86_64-musl)
 	hostmakedepends+=" libcurl libgit2"
 	distfiles+="
-	 https://repo.voidlinux.eu/distfiles/rustc-1.19.0-x86_64-unknown-linux-musl.tar.gz
-	 https://repo.voidlinux.eu/distfiles/rust-std-1.19.0-x86_64-unknown-linux-musl.tar.gz
-	 https://repo.voidlinux.eu/distfiles/cargo-0.18.0-x86_64-unknown-linux-musl.tar.gz"
+	 https://repo.voidlinux.eu/distfiles/rustc-1.22.1-x86_64-unknown-linux-musl.tar.gz
+	 https://repo.voidlinux.eu/distfiles/rust-std-1.22.1-x86_64-unknown-linux-musl.tar.gz
+	 https://repo.voidlinux.eu/distfiles/cargo-0.24.0-x86_64-unknown-linux-musl.tar.gz"
 	checksum+="
-	 28aa0f1335fad547072602520a773d29000785aceaed9ec71b1b207256b31d1f
-	 4e9e92c56708cccc5f567058b21bc62cb0a40bf2ed38466f0dc28eac64aae7d2
-	 28f2ee839f14f8b3edf3f4e4cc8600ac99ea50905ee8fb91116bba676728c2e9"
+	 2a2a807a11bc41dd52649edcd2e96552694f037b478066f5b96dc02d70159f05
+	 0eb41deb30ce8158077adb291e49cdd3447f0949c5827858ce022462825b36fc
+	 8a784a2318eea7bfd7db7d854f51dc31a25ed866757bc948babbb8edb3ba41a0"
 	;;
 x86_64)
 	# extract from src/stage0.txt
 	distfiles+="
-	 https://static.rust-lang.org/dist/2017-07-20/rustc-1.19.0-x86_64-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/2017-07-20/rust-std-1.19.0-x86_64-unknown-linux-gnu.tar.gz
-	 https://s3.amazonaws.com/rust-lang-ci/cargo-builds/6b05583d71f982bcad049b9fa094c637c062e751/cargo-nightly-x86_64-unknown-linux-gnu.tar.gz"
+	 https://dev-static.rust-lang.org/dist/2017-11-20/rustc-1.22.0-x86_64-unknown-linux-gnu.tar.gz
+	 https://dev-static.rust-lang.org/dist/2017-11-20/rust-std-1.22.0-x86_64-unknown-linux-gnu.tar.gz
+	 https://dev-static.rust-lang.org/dist/${_date}/cargo-0.24.0-x86_64-unknown-linux-gnu.tar.xz"
 	checksum+="
-	 4c8df3088d17c8e06bf58d453d39bd521487defcefc8193203b80f0fb797d6fe
-	 5905803e8a127f656bf253978692f0d6cf6c9206c527e4d6d7e981980618d1b6
-	 d9e69d2b87dc0cf7fafe0e0eb64f82fe3414ef14fcb27f5eeff34df860e459d9"
+	 a54835b06f960cb04507136a6491e561271374701bc38a8e8fd085f9e78e12e6
+	 c065c4958444955968aae60a3724bea177ddabf364c5b8cf29a08dd5d1e7df6f
+	 93b953c8c7a2088aef952de8dccd7f6ccf9b21bf94b735d3909961ffe831da8c"
 	;;
 i686)
 	# extract from src/stage0.txt
 	distfiles+="
-	 https://static.rust-lang.org/dist/2017-07-20/rustc-1.19.0-i686-unknown-linux-gnu.tar.gz
-	 https://static.rust-lang.org/dist/2017-07-20/rust-std-1.19.0-i686-unknown-linux-gnu.tar.gz
-	 https://s3.amazonaws.com/rust-lang-ci/cargo-builds/6b05583d71f982bcad049b9fa094c637c062e751/cargo-nightly-i686-unknown-linux-gnu.tar.gz"
+	 https://dev-static.rust-lang.org/dist/2017-11-20/rustc-1.22.0-i686-unknown-linux-gnu.tar.gz
+	 https://dev-static.rust-lang.org/dist/2017-11-20/rust-std-1.22.0-i686-unknown-linux-gnu.tar.gz
+	 https://dev-static.rust-lang.org/dist/${_date}/cargo-0.24.0-i686-unknown-linux-gnu.tar.xz"
 	checksum+="
-	 33377c93d8afc08f3f211adcfb88b0e9bb0fba5af2ee52016293921c14aa355c
-	 7cdc76ef163050e9bc352d0ffc48d7d40ae66be0eb1fa1295e0635665c6e32ef
-	 863a4f92bbeec76257403fd571a90b90bd759ec8bcaddb7517fb89d40959e9e5"
+	 fb5d94ccdfa5d60ca35b7aa8b2f60b82a2e1c67ae41acc3744549eaebd1f1ddf
+	 5ec4414598cfbba4114a343911042c8f01b6284cab386e52bd37c0adea56582b
+	 6ffc847e0ee2a1273223ce500f7b212d051e99a6d234e34585d0c55e21a963ea"
 	;;
 esac
 
@@ -61,7 +62,10 @@ post_extract() {
 	mkdir -p stage0
 	cp -flr ../rustc-*/rustc/* stage0
 	cp -flr ../rust-std-*/rust-std-*/* stage0
-	cp -flr ../cargo-*/cargo/* stage0
+	case "$XBPS_MACHINE" in
+		*-musl) cp -flr ../cargo stage0/bin;;
+		*) cp -flr ../cargo-*/cargo/* stage0;;
+	esac
 
 	# XXX: Cheat Rust build system so we can build rustc using different
 	# version of (prebuilt) stable rustc than preconfigured. It's hack-ish,
@@ -111,6 +115,8 @@ do_configure() {
 		--build=${_triplet}
 		--release-channel=stable
 		--disable-rpath
+		--disable-docs
+		--disable-codegen-tests
 		--enable-ccache
 		--llvm-root=/usr
 		--enable-local-rust
@@ -128,7 +134,6 @@ do_install() {
 	vmkdir usr
 	tar xf build/dist/rustc-*-*-*.tar.gz -C "$DESTDIR/usr" --strip-components=2 --exclude=manifest.in
 	tar xf build/dist/rust-std-*-*-*.tar.gz -C "$DESTDIR/usr/lib" --strip-components=3 --exclude=manifest.in
-	tar xf build/dist/rust-docs-*-*-*.tar.gz -C "$DESTDIR/usr" --strip-components=2 --exclude=manifest.in
 
 	vlicense COPYRIGHT
 	vlicense LICENSE-APACHE

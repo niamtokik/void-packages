@@ -1,7 +1,7 @@
 # Template file for 'python-pyzmq'
 pkgname=python-pyzmq
-version=16.0.2
-revision=2
+version=16.0.4
+revision=1
 wrksrc="pyzmq-${version}"
 build_style=python-module
 make_build_args="--zmq=${XBPS_CROSS_BASE}/usr"
@@ -14,7 +14,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://pyzmq.readthedocs.io/"
 license="LGPL-3, 3-clause-BSD"
 distfiles="https://github.com/zeromq/pyzmq/archive/v${version}.tar.gz"
-checksum=717dd902c3cf432b1c68e7b299ad028b0de0d0a823858e440b81d5f1baa2b1c1
+checksum=6381457420b0108226dab730b6728a4c2158e0286f614b2e89ef905f1c8fb580
 
 pre_build() {
 	cat > setup.cfg <<-EOF
@@ -25,14 +25,8 @@ pre_build() {
 
 python3-pyzmq_package() {
 	pycompile_module="zmq"
-	replaces="python3.4-pyzmq>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 	}
-}
-python3.4-pyzmq_package() {
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-pyzmq>=${version}_${revision}"
 }

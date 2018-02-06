@@ -1,7 +1,7 @@
 # Template file for 'fzf'
 pkgname=fzf
-version=0.17.0
-revision=1
+version=0.17.3
+revision=2
 build_style=go
 go_import_path="github.com/junegunn/fzf"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
@@ -11,7 +11,7 @@ license="MIT"
 homepage="https://github.com/junegunn/fzf"
 short_desc="Command-line fuzzy finder"
 distfiles="https://github.com/junegunn/fzf/archive/${version}.tar.gz"
-checksum=23569faf64cd6831c09aad7030c8b4bace0eb7a979c580b33cc4e4f9ff303e29
+checksum=e843904417adf926613431e4403fded24fade56269446e92aac6ff1db86af81e
 
 post_install() {
 	cd ${wrksrc}

@@ -1,6 +1,6 @@
 # Template file for 'bash-preexec'
 pkgname=bash-preexec
-version=0.3.4
+version=0.3.7
 revision=1
 noarch=yes
 depends="bash"
@@ -9,8 +9,9 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="MIT"
 homepage="https://github.com/rcaloras/bash-preexec"
 distfiles="https://github.com/rcaloras/bash-preexec/archive/${version}.tar.gz"
-checksum=a3050e1672ebc2374e235ea7879f129a62dfddc95875ba90e86271a48f6548b9
+checksum=56c33779763f9960dee863f4d87bc58f8da0ad9120b2c60dd12ba61c71c72da4
 
 do_install() {
 	vbin bash-preexec.sh
+	vlicense LICENSE.md
 }

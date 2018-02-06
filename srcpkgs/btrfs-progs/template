@@ -1,18 +1,20 @@
 # Template file for 'btrfs-progs'
 pkgname=btrfs-progs
-version=4.13.2
+version=4.15
 revision=1
 wrksrc=${pkgname}-v${version}
 build_style=gnu-configure
 configure_args="--disable-backtrace"
 hostmakedepends="automake libtool pkg-config asciidoc xmlto"
 makedepends="zlib-devel lzo-devel acl-devel libuuid-devel e2fsprogs-devel zstd-devel"
+checkdepends="util-linux acl-progs e2fsprogs"
 short_desc="Btrfs filesystem utilities"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://btrfs.wiki.kernel.org/"
 distfiles="${KERNEL_SITE}/kernel/people/kdave/${pkgname}/${pkgname}-v${version}.tar.xz"
-checksum=75c7331f1306495dfffabe542ef6c5539808f0cdaebdf14fa8b7ab09c59448bd
+checksum=9e3528c60c76970b73297ea4b01bdc23a70c39c82d540b61cf07a7c0612339e9
+make_check_target="test"
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
@@ -22,6 +24,16 @@ pre_build() {
 	if [ $CROSS_BUILD ]; then
 		${BUILD_CC} ${BUILD_CFLAGS} kernel-lib/mktables.c -o mktables
 	fi
+}
+
+pre_check() {
+	# This test requires fallocate but the testsuite detection methods still can't
+	# detect it properly so it keeps failing even when util-linux is added to checkdepends
+	mv tests/fsck-tests/025-file-extents/test.sh{,.broken}
+
+	# This one requires perl regex on grep binary which is disabled it fails with
+	# grep: support for the -P option is not compiled into this --disable-perl-regexp binary
+	mv tests/mkfs-tests/013-reserved-1M-for-single/test.sh{,.broken}
 }
 
 post_install() {

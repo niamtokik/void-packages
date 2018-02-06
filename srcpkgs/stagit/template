@@ -1,6 +1,6 @@
 # Template file for 'stagit'
 pkgname=stagit
-version=0.6
+version=0.7.2
 revision=1
 build_style=gnu-makefile
 make_install_args="MANPREFIX=/usr/share/man"
@@ -10,7 +10,7 @@ maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="MIT"
 homepage="http://git.2f30.org/stagit"
 distfiles="http://dl.2f30.org/releases/${pkgname}-${version}.tar.gz"
-checksum=71bfb26ed537955ef55119cf79c45654321a795a2d7e697dbce143324e48fd04
+checksum=25facb7ce384f1d2f06c536753e2754b38037b482c6a546196ebebf4c34b7ad4
 LDFLAGS="-lgit2"
 
 post_install() {

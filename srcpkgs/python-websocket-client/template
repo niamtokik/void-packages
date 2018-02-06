@@ -1,7 +1,7 @@
 # Template file for 'python-websocket-client'
 pkgname=python-websocket-client
-version=0.44.0
-revision=2
+version=0.46.0
+revision=1
 noarch=yes
 wrksrc="websocket_client-${version}"
 build_style=python-module
@@ -13,7 +13,7 @@ maintainer="Sergi Alvarez <pancake@nopcode.org>"
 homepage="https://github.com/websocket-client/websocket-client"
 license="LGPL-2.1"
 distfiles="${PYPI_SITE}/w/websocket-client/websocket_client-${version}.tar.gz"
-checksum=15f585566e2ea7459136a632b9785aa081093064391878a448c382415e948d72
+checksum=933f6bbf08b381f2adbca9e93d7e7958ba212b42c73acb310b18f0fbe74f3738
 alternatives="websocket-client:wsdump:/usr/bin/wsdump.py2"
 
 pre_build() {
@@ -26,17 +26,10 @@ python3-websocket-client_package() {
 	noarch=yes
 	depends="python3-six ca-certificates"
 	pycompile_module="websocket"
-	replaces="python3.4-websocket-client>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	alternatives="websocket-client:wsdump:/usr/bin/wsdump.py3"
 	pkg_install() {
 		vmove usr/bin/wsdump.py3
 		vmove usr/lib/python3*
 	}
-}
-python3.4-websocket-client_package() {
-	noarch=yes
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-websocket-client>=${version}_${revision}"
 }

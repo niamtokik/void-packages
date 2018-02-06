@@ -1,7 +1,7 @@
 # Template file for 'borg'
 pkgname=borg
-version=1.1.0
-revision=2
+version=1.1.4
+revision=4
 wrksrc="borgbackup-${version}"
 build_style=python3-module
 hostmakedepends="python3-setuptools python3-devel libressl-devel python3-Sphinx"
@@ -12,19 +12,32 @@ short_desc="Deduplicating backup program with compression and encryption"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="3-clause-BSD"
 homepage="https://borgbackup.github.io/"
+_changelog="https://borgbackup.readthedocs.io/en/stable/changes.html#changelog"
 distfiles="${PYPI_SITE}/b/borgbackup/borgbackup-${version}.tar.gz"
-checksum=b40c1120c480a8235ce403b8e6e7abf1377458896f438eafce60f54916789e6f
+checksum=22a4a53840886180e87de5636356f29e491209365861007c31d7f18220c72cb2
 
 export BORG_LZ4_PREFIX="${XBPS_CROSS_BASE}/usr"
 export BORG_OPENSSL_PREFIX="${XBPS_CROSS_BASE}/usr"
 
 pre_build() {
 	sed -i '/guzzle/d' docs/conf.py
+	# python-msgpack had a name transition from python-msgpack to msgpack
+	# adapt.
+	sed -i 's|msgpack-python|msgpack|g' setup.py
 }
 post_build() {
 	PYTHONPATH=.. make -C docs man SPHINXBUILD=sphinx-build3
 }
 post_install() {
 	vlicense LICENSE
-	vman docs/_build/man/borg.1
+
+	for f in docs/man/*.1 ; do
+		vman $f
+	done
+
+	cd scripts/shell_completions
+	vinstall bash/${pkgname} 644 usr/share/bash-completion/completions ${pkgname}
+	vinstall fish/${pkgname}.fish 644 usr/share/fish/completions ${pkgname}.fish
+	vinstall zsh/_${pkgname} 644 usr/share/zsh/site-functions _${pkgname}
+	cd ../..
 }

@@ -1,34 +1,23 @@
 # Template file for 'telegraf'
 pkgname=telegraf
-version=1.3.5
-revision=1
-_branch=release-1.3
-_commit=0f419e9a
+version=1.5.0
+revision=2
 build_style="go"
-nocross=https://travis-ci.org/kulinacs/void-packages/jobs/258706435
-go_import_path="github.com/influxdata/${pkgname}"
-build_wrksrc="_build-${pkgname}-xbps/src/${go_import_path}"
+go_import_path="github.com/influxdata/telegraf"
+go_package="${go_import_path}/cmd/telegraf"
+go_ldflags="-X main.version=${version}"
 hostmakedepends="go-gdm git"
 system_accounts="_telegraf"
 short_desc="The plugin-driven server agent for collecting & reporting metrics"
-maintainer="Nicklaus McClendon <nicklaus@kulinacs.com>"
+maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
 license="MIT"
 homepage="https://www.influxdata.com/time-series-platform/telegraf/"
 distfiles="https://github.com/influxdata/${pkgname}/archive/${version}.tar.gz"
-checksum=b4663e57b0ca71c9d126a8fdd87b64a0ab2b5bd5fa98ba579f0deb00aac27d4c
-
-post_extract() {
-	local path="${GOPATH}/src/${go_import_path}"
-	mkdir -p "$(dirname ${path})"
-	ln -fs $PWD "${path}"
-}
+checksum=56fc495bf2d2e1d9ff55e05896b15617f5e552bb7626a7c95c4a8922ef723c34
 
 pre_build() {
+	cd $GOSRCPATH
 	gdm restore
-}
-
-do_build() {
-	make build VERSION=${version} BRANCH=${_branch} COMMIT=${_commit}
 }
 
 post_install() {

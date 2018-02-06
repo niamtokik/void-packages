@@ -1,11 +1,9 @@
 # Template file for 'filezilla'
 pkgname=filezilla
-version=3.28.0
+version=3.30.0
 revision=1
-nocross=yes
 build_style=gnu-configure
-configure_args="WXRC=/usr/bin/wxrc-3.0 --with-wx-config=wx-config-3.0
- --disable-static --disable-manualupdatecheck --disable-autoupdatecheck"
+configure_args="--disable-static --disable-manualupdatecheck --disable-autoupdatecheck"
 hostmakedepends="pkg-config"
 makedepends="gnutls-devel pugixml-devel dbus-devel libidn-devel sqlite-devel
  gtk+-devel wxWidgets-devel xdg-utils libfilezilla-devel"
@@ -15,4 +13,16 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
 homepage="http://filezilla-project.org/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/FileZilla_${version}_src.tar.bz2"
-checksum=e49621aeb07c89547508c9ef244e2226168e06b120f49d2c4d428d95f1adbfb7
+checksum=910b676dd2b558a7c96cdbe77c2fb82df3cffd88a1b99b98b475e9c5d8c41ff0
+
+if [ -n "$CROSS_BUILD" ]; then
+	hostmakedepends+=" wxWidgets-devel xdg-utils"
+	case "$XBPS_TARGET_MACHINE" in
+		armv6*) makedepends+=" libatomic-devel" ;;
+	esac
+
+	pre_configure() {
+		# set --host for sub-configure script else configure breaks
+		sed -i -e "s|\"\$ac_abs_confdir/src/fzshellext/configure\" --disable-shellext|& --host=${XBPS_TRIPLET}|" configure
+	}
+fi

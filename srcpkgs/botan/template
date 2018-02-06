@@ -1,6 +1,6 @@
 # Template file for 'botan'
 pkgname=botan
-version=2.3.0
+version=2.4.0
 revision=1
 wrksrc="${pkgname^}-${version}"
 build_style=gnu-makefile
@@ -11,7 +11,7 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="3-clause-BSD"
 homepage="http://botan.randombit.net/"
 distfiles="http://botan.randombit.net/releases/Botan-${version}.tgz"
-checksum=39f970fee5986a4c3e425030aef50ac284da18596c004d1a9cce7688c4e6d47c
+checksum=ed9464e2a5cfee4cd3d9bd7a8f80673b45c8a0718db2181a73f5465a606608a5
 
 LDFLAGS="-pthread"
 
@@ -47,23 +47,27 @@ do_configure() {
 		_cpu="armv5"
 		_arch="armv5te"
 		_march="armv5te"
+		_float="soft"
 		_args+=" --disable-modules=simd"
 		;;
 	armv6*)
 		_cpu="armv6"
 		_arch="armv6"
 		_march="armv6"
+		_float="hard"
 		_args+=" --disable-modules=simd"
 		;;
 	armv7*)
 		_cpu="armv7-a"
 		_arch="armv7"
 		_march="armv7-a"
+		_float="hard"
 		_args+=" --disable-modules=simd"
 		;;
 	aarch64*)
 		_cpu="armv8-a"
 		_arch="arm64"
+		_float="hard"
 		_march="armv8-a"
 		;;
 	mipselhf*)
@@ -71,12 +75,21 @@ do_configure() {
 		_arch="mips"
 		_march="mips32"
 		_mtune="mips32r2 --hard-float"
+		_float="hard"
+		;;
+	mipshf*)
+		_cpu="mips32"
+		_arch="mips"
+		_march="mips32"
+		_mtune="mips32r2 --hard-float"
+		_float="hard"
 		;;
 	mips*)
 		_cpu="mips32"
 		_arch="mips"
 		_march="mips32"
 		_mtune="mips32r2 --soft-float"
+		_float="soft"
 		;;
 	esac
 
@@ -101,7 +114,8 @@ do_configure() {
 	sed -i Makefile \
 		-e"s;-std= ;-std=c++11 ;" \
 		-e"s;-march= ;-march=${_march} ;" \
-		-e"s;-mtune= ;-mtune=${_tune} ;"
+		-e"s;-mtune= ;-mtune=${_tune} ;" \
+		-e"s;-mfloat-abi= ;-mfloat-abi=${_float} ;"
 }
 post_install() {
 	vlicense license.txt

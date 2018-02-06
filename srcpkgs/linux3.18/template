@@ -1,15 +1,15 @@
 # Template file for 'linux3.18'
 pkgname=linux3.18
-version=3.18.71
+version=3.18.91
 revision=1
 patch_args="-Np1"
 wrksrc="linux-${version}"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.kernel.org"
+homepage="https://www.kernel.org"
 license="GPL-2"
 short_desc="The Linux kernel and modules (${version%.*} series)"
 distfiles="${KERNEL_SITE}/kernel/v3.x/linux-${version}.tar.xz"
-checksum=5abc9778ad44ce02ed6c8ab52ece8a21c6d20d21f6ed8a19287b4a38a50c1240
+checksum=a1e98176b25a9ce6c4996bd38d2bdfb19fba86d1aaf7a1a7e566257d703d8f2b
 
 _kernver="${version}_${revision}"
 
@@ -227,7 +227,6 @@ linux3.18-dbg_package() {
 	nostrip=yes
 	noverifyrdeps=yes
 	noshlibprovides=yes
-	nodebug=yes
 	repository=debug
 	short_desc+=" - debugging symbols"
 	pkg_install() {

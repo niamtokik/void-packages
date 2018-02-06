@@ -1,6 +1,6 @@
 # Template file for 'python-stevedore'
 pkgname=python-stevedore
-version=1.27.0
+version=1.28.0
 revision=1
 noarch=yes
 wrksrc="stevedore-${version}"
@@ -13,7 +13,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://git.openstack.org/cgit/openstack/stevedore"
 license="Apache-2.0"
 distfiles="${PYPI_SITE}/s/stevedore/stevedore-${version}.tar.gz"
-checksum=c1e53d6c5921be2001e8666cf7cad224aaaee1be6963444f0ea5a7595884fc1a
+checksum=f1c7518e7b160336040fee272174f1f7b29a46febb3632502a8f2055f973d60b
 
 pre_build() {
 	# remove dependency on pbr; it's not a runtime dependency
@@ -24,15 +24,8 @@ python3-stevedore_package() {
 	noarch=yes
 	depends="python3-six"
 	pycompile_module="stevedore"
-	replaces="python3.4-stevedore>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 	}
-}
-python3.4-stevedore_package() {
-	noarch=yes
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-stevedore>=${version}_${revision}"
 }

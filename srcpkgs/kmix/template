@@ -1,15 +1,14 @@
 # Template file for 'kmix'
 pkgname=kmix
-version=4.14.3
+version=17.12.1
 revision=1
 build_style=cmake
-configure_args="-Wno-dev -DKDE4_BUILD_TESTS=OFF -DSYSCONF_INSTALL_DIR=/etc"
-hostmakedepends="automoc4 pkg-config"
-makedepends="glib-devel libressl-devel qt-devel phonon-devel strigi-devel
- kdelibs-devel kde-baseapps-devel alsa-lib-devel pulseaudio-devel libcanberra-devel"
+configure_args="-Wno-dev -DBUILD_TESTING=OFF -DSYSCONF_INSTALL_DIR=/etc"
+hostmakedepends="extra-cmake-modules pkg-config"
+makedepends="plasma-framework-devel kinit-devel alsa-lib-devel pulseaudio-devel libcanberra-devel"
 short_desc="KDE's mixer application"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL, LGPL, FDL"
+license="GPL-2, LGPL-2, FDL"
 homepage="http://www.kde.org"
-distfiles="http://download.kde.org/stable/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=d7dd97ad5ee005fa039696d88ce21a6ede2b5d795001f1d023899f5a848b6e94
+distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=f854103fc9750ab31abeb932bb0161a9483209671c1d7a3ee2a52b632536c4f5

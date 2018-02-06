@@ -1,6 +1,6 @@
 # Template file for 'python-pyasn1'
 pkgname=python-pyasn1
-version=0.3.6
+version=0.4.2
 revision=1
 noarch=yes
 wrksrc="pyasn1-${version}"
@@ -13,7 +13,7 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/etingof/pyasn1"
 license="2-clause-BSD"
 distfiles="${PYPI_SITE}/p/pyasn1/pyasn1-${version}.tar.gz"
-checksum=f0380ea97db0ede095a0dd87ce3003d46c197191f924206e43f776fc77e51f09
+checksum=d258b0a71994f7770599835249cece1caef3c70def868c4915e6e5ca49b67d15
 
 post_install() {
 	vlicense LICENSE.rst LICENSE
@@ -23,16 +23,9 @@ python3-pyasn1_package() {
 	noarch=yes
 	depends="python3"
 	pycompile_module="pyasn1"
-	replaces="python3.4-pyasn1>=0"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
 		vlicense LICENSE.rst LICENSE
 	}
-}
-python3.4-pyasn1_package() {
-	noarch=yes
-	build_style=meta
-	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
-	depends="python3-pyasn1>=${version}_${revision}"
 }

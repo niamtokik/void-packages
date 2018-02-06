@@ -1,6 +1,6 @@
 # Template build file for 'nqp'.
 pkgname=nqp
-version=2016.07
+version=2017.12
 revision=1
 build_style=configure
 configure_script="perl Configure.pl"
@@ -14,4 +14,5 @@ homepage="http://github.com/perl6/nqp"
 license="Artistic-2.0"
 distfiles="https://github.com/perl6/nqp/archive/${version}.tar.gz"
 nocross=yes
-checksum=ef7ba7bf0c0d572e5b81c5cea13f53c7679931c30fb59572d70493a12af511e8
+checksum=4148287740616b4bcdd0f05edf5085e233c7006c458d4de258b4a03b7c1a681c
+make_check_target="test"

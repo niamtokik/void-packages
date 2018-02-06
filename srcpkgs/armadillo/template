@@ -1,6 +1,6 @@
 # Template file for 'armadillo'
 pkgname=armadillo
-version=7.960.0
+version=8.300.2
 revision=1
 build_style=cmake
 hostmakedepends="pkg-config openblas-devel"
@@ -10,7 +10,7 @@ maintainer="Julien Dehos <dehos@lisic.univ-littoral.fr>"
 license="BSD"
 homepage="http://arma.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/arma/${pkgname}-${version}.tar.xz"
-checksum=8ea919c4312ec43d454f61fdd0e34282f94739eb51adc78d21176717143cfd32
+checksum=b41886f4b4ec8eab2b97088834974e5479f2e2075e01859832d6516db77e655f
 
 # automatically link to openblas (so you just have to compile with
 # "-larmadillo" instead of "-larmadillo -lopenblas")

@@ -1,30 +1,22 @@
-# Template build file for 'template'.
-
-pkgname="clojure"
-version="1.8.0"
+# Template file for 'clojure'
+pkgname=clojure
+version=1.9.0.315
 revision=1
-build_style=gnu-configure
-short_desc="The Clojure programming language"
-maintainer="Mathieu Kerjouan <void@steepath.eu>"
-license="Eclipse-1.0"
-homepage="http://clojure.org"
-distfiles="http://github.com/clojure/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum="b0d92438a2ab6c396360d70569d07520c1edd6c6d895d6536c7d19ced72c9fe8"
-wrksrc="${pkgname}-${pkgname}-${version}"
-hostmakedepends="openjdk openjdk-jre apache-maven-bin apache-ant"
-depends="openjdk openjdk-jre"
-
-do_configure() {
-	:
-}
-
-do_build() {
-	mvn package
-}
+wrksrc="clojure-tools"
+depends="virtual?java-environment rlwrap"
+short_desc="The Clojure Programming Language"
+maintainer="Dominic Monroe <monroef4@googlemail.com>"
+license="EPL"
+homepage="https://clojure.org/"
+distfiles="https://download.clojure.org/install/clojure-tools-${version}.tar.gz"
+checksum=c9eba2fe2d151f9eb0635c997232c9637c8af4799f8dd0e93634d594ede80949
 
 do_install() {
-	vmkdir usr/share/java/classes
-	vcopy target/*.jar usr/share/java/classes
-	vinstall ${FILESDIR}/clojure 555 usr/bin
-	# vlicense
+	vmkdir /usr/lib/clojure
+	vmkdir /usr/lib/clojure/libexec
+	vcopy "deps.edn example-deps.edn" /usr/lib/clojure
+	vcopy clojure-tools-${version}.jar /usr/lib/clojure/libexec/
+	sed -i -e 's@PREFIX@/usr/lib/clojure@g' clojure
+	vbin clojure
+	vbin clj
 }

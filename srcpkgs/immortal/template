@@ -1,0 +1,30 @@
+# Template file for 'immortal'
+pkgname=immortal
+version=0.18.0
+revision=2
+build_style=go
+go_import_path=github.com/immortal/immortal
+go_package="${go_import_path}/cmd/immortal ${go_import_path}/cmd/immortalctl ${go_import_path}/cmd/immortaldir"
+go_ldflags="-X main.Version=v${version}"
+short_desc="A *nix cross-platform (OS agnostic) supervisor"
+hostmakedepends="git"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="BSD"
+homepage="https://github.com/immortal/immortal"
+distfiles="https://github.com/immortal/immortal/archive/${version}.tar.gz"
+checksum=8a2328daa5fce82e333fa01e1d87ea7720a405756788cc7edee96b7bb22b26e8
+
+do_check() {
+	go test -v
+}
+
+post_install() {
+	for f in man/* ; do
+		vman $f
+	done
+
+	vmkdir usr/share/${pkgname}/example
+	vcopy "${wrksrc}/example/*" usr/share/${pkgname}/example
+
+	vlicense LICENSE
+}

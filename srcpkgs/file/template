@@ -18,6 +18,7 @@ if [ "$CROSS_BUILD" ]; then
 	hostmakedepends="file"
 fi
 
+
 post_install() {
 	vlicense COPYING
 }

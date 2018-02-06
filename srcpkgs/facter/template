@@ -1,7 +1,7 @@
 # Template file for 'facter'
 pkgname=facter
-version=3.6.2
-revision=5
+version=3.9.3
+revision=1
 build_style=cmake
 configure_args="-DRUBY_CONFIG_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include"
 hostmakedepends="ruby-devel"
@@ -13,7 +13,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="Apache-2.0"
 homepage="http://puppetlabs.com/facter"
 distfiles="http://downloads.puppetlabs.com/$pkgname/$pkgname-$version.tar.gz"
-checksum=2aee3575162df98f94d85091e409205bbf70077ddaef031d3653e77040b752fd
+checksum=a91a38b6ff1ea912e824bce7fff125452a7b4632c503d0c888fc2ce24551ebb8
 
 pre_configure() {
 	# Subdirectory does not exist (in distfile).

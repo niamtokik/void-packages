@@ -1,7 +1,7 @@
 # Template file for 'tesseract-ocr'
 pkgname=tesseract-ocr
 version=3.05.01
-revision=1
+revision=4
 wrksrc=tesseract-${version}
 _tessdata_ver=8bf2e7ad08db9ca174ae2b0b3a7498c9f1f71d40
 build_style=gnu-configure
@@ -40,6 +40,7 @@ post_build() {
 	make ${makejobs} training
 }
 post_install() {
+	local lang
 	# Rename binary to avoid conflict with tesseract package
 	mv ${DESTDIR}/usr/bin/tesseract{,-ocr}
 	mv ${DESTDIR}/usr/share/man/man1/tesseract{,-ocr}.1
@@ -48,6 +49,12 @@ post_install() {
 	vdoc testing/eurotext.tif
 	vdoc testing/phototest.tif
 	vlicense tessdata/COPYING LICENSE-tessdata
+	# Move the pseudo languges "equ" (math / equation detection) and
+	# "osd" (orientation and script detection) to the main package
+	for lang in equ osd; do
+		$(pkg_lang ${lang})
+	done
+	
 }
 tesseract-ocr-tools_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
@@ -95,7 +102,7 @@ tesseract-ocr-basic_package() {
 	conflicts="tesseract-ocr-all>=0"
 	short_desc+=" - basic languages data"
 	# A number of basic (mostly European) languages
-	for lang in bel dan deu eng equ fin fra hun ita nld nor osd pol por rus spa swe tur; do
+	for lang in bel dan deu eng fin fra hun ita nld nor pol por rus spa swe tur; do
 		depends+=" tesseract-ocr-${lang}>=${version}_${revision}"
 	done
 }
@@ -106,12 +113,12 @@ tesseract-ocr-all_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	conflicts="tesseract-ocr-basic>=0"
 	short_desc+=" - all languages data"
-	# All aVailable languages
+	# All available languages
 	for lang in afr amh ara asm aze aze_cyrl bel ben bod bos bul cat ceb \
-		ces chi_sim chi_tra chr cym dan deu dzo ell eng enm epo equ est eus \
+		ces chi_sim chi_tra chr cym dan deu dzo ell eng enm epo est eus \
 		fas fin fra frk frm gle glg grc guj hat heb hin hrv hun iku ind isl ita \
 		ita_old jav jpn kan kat kat_old kaz khm kir kor kur lao lat lav lit mal mar \
-		mkd mlt msa mya nep nld nor ori osd pan pol por pus ron rus san sin slk slv \
+		mkd mlt msa mya nep nld nor ori pan pol por pus ron rus san sin slk slv \
 		spa spa_old sqi srp srp_latn swa swe syr tam tel tgk tgl tha tir tur \
 		uig ukr urd uzb uzb_cyrl vie yid; do
 		depends+=" tesseract-ocr-${lang}>=${version}_${revision}"
@@ -313,14 +320,6 @@ tesseract-ocr-epo_package() {
 	noarch=yes
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - Esperanto language data"
-	pkg_install() {
-		$(pkg_lang ${pkgname#tesseract-ocr-})
-	}
-}
-tesseract-ocr-equ_package() {
-	noarch=yes
-	depends="${sourcepkg}>=${version}_${revision}"
-	short_desc+=" - Math / equation detection module"
 	pkg_install() {
 		$(pkg_lang ${pkgname#tesseract-ocr-})
 	}
@@ -681,15 +680,6 @@ tesseract-ocr-ori_package() {
 	noarch=yes
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - Oriya language data"
-	pkg_install() {
-		$(pkg_lang ${pkgname#tesseract-ocr-})
-	}
-}
-tesseract-ocr-osd_package() {
-	noarch=yes
-	depends="${sourcepkg}>=${version}_${revision}"
-	# No ISO639 code?
-	short_desc+=" - OSD language data"
 	pkg_install() {
 		$(pkg_lang ${pkgname#tesseract-ocr-})
 	}

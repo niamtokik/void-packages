@@ -1,10 +1,10 @@
 # Template file for 'rpi-kernel'
 #
-_githash="31f8c0c3f269675085e1271c9d3f76c42e672594"
+_githash="6071d6022278d8b150e6427ba7b16624e0512358"
 _gitshort="${_githash:0:7}"
 
 pkgname=rpi-kernel
-version=4.9.51
+version=4.9.78
 revision=1
 wrksrc="linux-${_githash}"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
@@ -12,7 +12,7 @@ homepage="http://www.kernel.org"
 license="GPL-2"
 short_desc="The Linux kernel for Raspberry Pi (${version%.*} series [git ${_gitshort}])"
 distfiles="https://github.com/raspberrypi/linux/archive/${_githash}.tar.gz"
-checksum=5e93e7941c88c3f935898930dcfd546a7b2a7113dc53ec1835b8c8540b6e8fa5
+checksum=c6d7146593cf5068e5b5860c1bf695566eb28304d520d550dde1dfa1735d52ef
 
 _kernver="${version}_${revision}"
 
@@ -50,10 +50,18 @@ do_configure() {
 	case "$XBPS_TARGET_MACHINE" in
 	armv7l*)
 		echo "CONFIG_USER_NS=y" >> arch/arm/configs/bcm2709_defconfig
+		echo "CONFIG_CONNECTOR=y" >> arch/arm/configs/bcm2709_defconfig
+		echo "CONFIG_PROC_EVENTS=y" >> arch/arm/configs/bcm2709_defconfig
+		echo "CONFIG_F2FS_FS_SECURITY=y" >> arch/arm/configs/bcm2709_defconfig
+		echo "CONFIG_CGROUP_PIDS=y" >> arch/arm/configs/bcm2709_defconfig
 		make ${makejobs} ${_args} ARCH=arm bcm2709_defconfig
 		;;
 	armv6l*)
 		echo "CONFIG_USER_NS=y" >> arch/arm/configs/bcmrpi_defconfig
+		echo "CONFIG_CONNECTOR=y" >> arch/arm/configs/bcmrpi_defconfig
+		echo "CONFIG_PROC_EVENTS=y" >> arch/arm/configs/bcmrpi_defconfig
+		echo "CONFIG_F2FS_FS_SECURITY=y" >> arch/arm/configs/bcmrpi_defconfig
+		echo "CONFIG_CGROUP_PIDS=y" >> arch/arm/configs/bcmrpi_defconfig
 		make ${makejobs} ${_args} ARCH=arm bcmrpi_defconfig
 		;;
 	esac
@@ -81,10 +89,10 @@ do_install() {
 	# Generate kernel.img and install it to destdir.
 	case "$XBPS_TARGET_MACHINE" in
 	armv7l*)
-		scripts/mkknlimg --dtok arch/arm/boot/zImage ${DESTDIR}/boot/kernel7.img
+		cp arch/arm/boot/zImage ${DESTDIR}/boot/kernel7.img
 		;;
 	armv6l*)
-		scripts/mkknlimg --dtok arch/arm/boot/zImage ${DESTDIR}/boot/kernel.img
+		cp arch/arm/boot/zImage ${DESTDIR}/boot/kernel.img
 		;;
 	esac
 

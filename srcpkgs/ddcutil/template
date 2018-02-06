@@ -1,0 +1,26 @@
+# Template file for 'ddcutil'
+pkgname=ddcutil
+version=0.8.6
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake libtool pkg-config"
+makedepends="libdrm-devel libgudev-devel libusb-devel libXrandr-devel"
+depends="i2c-tools"
+short_desc="Query and change monitor settings using DDC/CI and USB"
+maintainer="cr6git <quark6@protonmail.com>"
+homepage="http://www.ddcutil.com"
+license="GPL-2"
+distfiles="https://github.com/rockowitz/ddcutil/archive/v${version}.tar.gz"
+checksum=9c32dd346c8afd6b30713c557773e5b756a09d0d8d62e3ea207f658ff59c50c6
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) makedepends+=" libexecinfo-devel"
+		post_extract() {
+			sed -i -e "/AM_CFLAGS += -Wpedantic/d" src/app_sysenv/Makefile.am
+		}
+		;;
+esac
+
+pre_configure() {
+	NOCONFIGURE=1 ./autogen.sh
+}

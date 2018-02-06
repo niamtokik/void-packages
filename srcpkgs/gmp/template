@@ -23,6 +23,7 @@ if [ "$CROSS_BUILD" ]; then
 	}
 fi
 
+
 gmpxx_package() {
 	short_desc+=" - C++ support"
 	pkg_install() {

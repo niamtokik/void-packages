@@ -1,30 +1,30 @@
 # Template build file for 'cross-x86_64-linux-musl'
 #
-_binutils_version=2.29
-_gcc_version=6.3.0
-_musl_version=1.1.16
+_binutils_version=2.29.1
+_gcc_version=7.3.0
+_musl_version=1.1.18
 _linux_version=4.9.8
 
 _triplet=x86_64-linux-musl
 _sysroot="/usr/${_triplet}"
 
 pkgname=cross-${_triplet}
-version=0.23
-revision=3
+version=0.25
+revision=1
 short_desc="Cross toolchain for x86_64 with musl"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.voidlinux.eu"
 license="GPL-3, GPL-2, MIT"
 distfiles="
  ${GNU_SITE}/binutils/binutils-${_binutils_version}.tar.bz2
- ${GNU_SITE}/gcc/gcc-${_gcc_version}/gcc-${_gcc_version}.tar.bz2
+ ${GNU_SITE}/gcc/gcc-${_gcc_version}/gcc-${_gcc_version}.tar.xz
  ${KERNEL_SITE}/kernel/v4.x/linux-${_linux_version}.tar.xz
  http://www.musl-libc.org/releases/musl-${_musl_version}.tar.gz"
 checksum="
- 29a29549869039aad75fdf507ac30366da5ad0b974fbff4a8e7148dbf4f40ebf
- f06ae7f3f790fbf0f018f6d40e844451e6bc3b7bc96e128e63b09825c1f8b29f
+ 1509dff41369fb70aed23682351b663b56db894034773e6dbf7d5d6071fc55cc
+ 832ca6ae04636adbb430e865a1451adf6979ab44ca1c8374f61fba65645ce15c
  150bb7f2dd4849b5d21b8ccd8d05294a48229e1fcb93a22e7b806a79ec0b0e45
- 937185a5e5d721050306cf106507a006c3f1f86d86cd550024ea7be909071011"
+ d017ee5d01aec0c522a1330fdff06b1e428cb409e1db819cc4935d5da4a5a118"
 
 lib32disabled=yes
 nocross=yes
@@ -82,9 +82,10 @@ _gcc_bootstrap() {
 	[ -f ${wrksrc}/.gcc_bootstrap_done ] && return 0
 
 	cd ${wrksrc}/gcc-${_gcc_version}
-	_apply_patch -p1 ${FILESDIR}/gcc-6.3.0-musl.diff
-	_apply_patch -p0 ${FILESDIR}/libcpp-source_date_epoch.patch
 	_apply_patch -p0 ${FILESDIR}/fix-cxxflags-passing.patch
+
+	sed -i '/m64=/s/lib64/lib/' gcc/config/i386/t-linux64
+	sed -i 's/lib64/lib/' gcc/config/i386/linux64.h
 
 	msg_normal "Building cross gcc bootstrap\n"
 
@@ -168,6 +169,8 @@ _gcc_build() {
 	_args+=" --with-sysroot=${_sysroot}"
 	_args+=" --enable-languages=c,c++,fortran,lto"
 	_args+=" --enable-lto"
+	_args+=" --enable-default-pie"
+	_args+=" --enable-default-ssp"
 	_args+=" --enable-libquadmath"
 	_args+=" --disable-libsanitizer"
 	_args+=" --disable-multilib"
@@ -247,11 +250,6 @@ do_install() {
 	cd ${DESTDIR}/${_sysroot}/usr/lib
 	ln -sf libc.so ld-musl-x86_64.so.1
 
-	# Move files to /usr/lib (lib64).
-	if [ -d ${DESTDIR}/${_sysroot}/usr/lib64 ]; then
-		mv ${DESTDIR}/${_sysroot}/usr/lib64/* ${DESTDIR}/${_sysroot}/usr/lib/
-		rmdir ${DESTDIR}/${_sysroot}/usr/lib64
-	fi
 	# Remove unnecessary stuff
 	rm -f ${DESTDIR}/usr/lib*/libiberty.a
 	rm -rf ${DESTDIR}/usr/share

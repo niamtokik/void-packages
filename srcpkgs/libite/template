@@ -1,6 +1,6 @@
 # Template file for 'libite'
 pkgname=libite
-version=1.9.2
+version=2.0.1
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool"
@@ -8,8 +8,9 @@ short_desc="Lightweight library of frog DNA"
 maintainer="Duncaen <duncaen@voidlinux.eu>"
 license="MIT, ISC, BSD"
 homepage="https://github.com/troglobit/libite"
+#changelog="https://raw.githubusercontent.com/troglobit/libite/master/ChangeLog.md"
 distfiles="https://github.com/troglobit/libite/archive/v${version}.tar.gz"
-checksum=18c087123f02cc3cfb612bf53b12dc8a94d4d3ebf015ed5937b1f9203eef72f8
+checksum=39a4c12af30a38a813fac7c8d7512efb3692f910eba9c697a50ce0203e039dad
 
 pre_configure() {
 	./autogen.sh

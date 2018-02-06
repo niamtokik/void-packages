@@ -1,6 +1,6 @@
 # Template file for 'python-raven'
 pkgname=python-raven
-version=6.2.1
+version=6.5.0
 revision=1
 noarch=yes
 wrksrc="raven-${version}"
@@ -13,7 +13,7 @@ maintainer="Michael Aldridge <aldridge.mac@gmail.com>"
 license="3-clause-BSD"
 homepage="https://github.com/getsentry/raven-python"
 distfiles="${PYPI_SITE}/r/raven/raven-${version}.tar.gz"
-checksum=c0a30bcc3e3206059f79656d80362ce080b1c991c95d867edce559a7294570fe
+checksum=84da75114739191bdf2388f296ffd6177e83567a7fbaf2701e034ad6026e4f3b
 alternatives="raven:raven:/usr/bin/raven2"
 
 post_install() {

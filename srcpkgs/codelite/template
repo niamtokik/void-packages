@@ -1,7 +1,7 @@
 # Template file for 'codelite'
 pkgname=codelite
 version=11.0
-revision=1
+revision=2
 build_style=cmake
 configure_args="-DENABLE_CLANG=1 -DENABLE_LLDB=1 -DWITH_MYSQL=1"
 hostmakedepends="pkg-config clang"
@@ -15,7 +15,6 @@ distfiles="https://github.com/eranif/${pkgname}/archive/${version}.tar.gz"
 checksum=9eb23ea635fc746318a832efd752b08027c11efcd9af7f494f31dbaacdd651a1
 
 only_for_archs="i686 x86_64"
-nopie=yes
 
 pre_configure() {
 	sed -i 's,wx-config,&-3.0,g' CMakeLists.txt

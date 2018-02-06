@@ -1,15 +1,18 @@
 # Template build file for 'gperftools'
 pkgname=gperftools
-version=2.6.1
-revision=1
+version=2.6.3
+revision=2
 build_style=gnu-configure
+checkdepends="perl"
 short_desc="Multi-threaded malloc() and performance analysis tools"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="BSD-3-Clause"
+license="3-clause-BSD"
 homepage="https://github.com/gperftools/gperftools"
 distfiles="https://github.com/${pkgname}/${pkgname}/releases/download/${pkgname}-${version}/${pkgname}-${version}.tar.gz"
-checksum=38b467eb42a028f253d227fbc428263cb39e6c8687c047466aa2ce5bb4699d81
+checksum=314b2ff6ed95cc0763704efb4fb72d0139e1c381069b9e17a619006bee8eee9f
 makedepends="libunwind-devel"
+provides="gperftools-devel-${version}_${revision}"
+replaces="gperftools-devel>=0"
 
 case "$XBPS_TARGET_MACHINE" in
 arm*-musl|aarch64-musl)
@@ -23,15 +26,7 @@ post_extract() {
 	sed -i -e 's/__off64_t/off64_t/' \
 		src/base/linux_syscall_support.h src/malloc_hook_mmap_linux.h
 }
-
-gperftools-devel_package() {
-	depends="gperftools>=${version}_${revision}"
-	short_desc+=" - development files"
-	pkg_install() {
-		vmove usr/include
-		vmove usr/lib/pkgconfig
-		vmove "usr/lib/*.a"
-		vmove "usr/lib/*.so"
-		vmove usr/share
-	}
+post_install() {
+	vlicense COPYING
+	rm -rf ${DESTDIR}/usr/share/doc
 }

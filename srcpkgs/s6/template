@@ -1,6 +1,6 @@
 # Template file for 's6'
 pkgname=s6
-version=2.6.1.1
+version=2.7.0.0
 revision=1
 build_style=gnu-configure
 makedepends="execline-devel skalibs-devel"
@@ -10,7 +10,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="ISC"
 homepage="http://skarnet.org/software/s6/"
 distfiles="http://skarnet.org/software/s6/s6-${version}.tar.gz"
-checksum=0172b7293d4d5607ca3ca77382fee9b87c10bd58680720b29625cf35afc75c5c
+checksum=6617cbf82c73273c67c6102a1a5c48449ef65ffbe8d0db6a587b7f0078dc6e13
 
 post_install() {
 	vlicense COPYING

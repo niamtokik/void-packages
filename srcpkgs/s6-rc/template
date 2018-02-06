@@ -1,6 +1,6 @@
 # Template file for 's6-rc'
 pkgname=s6-rc
-version=0.3.0.0
+version=0.4.0.0
 revision=1
 build_style=gnu-configure
 makedepends="execline-devel skalibs-devel s6-devel"
@@ -10,7 +10,7 @@ maintainer="<opsaaspo@yandex.ru>"
 license="ISC"
 homepage="http://skarnet.org/software/${pkgname}/"
 distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=78266a397330d35d5eac9e99d1436feba58e36f41bfe1db0fd16c4b6cc73c999
+checksum=96b8e7f275d42113b9ba7ef1d8856f64183b9421c39702f8332e6f5686496fba
 
 post_install() {
 	vlicense COPYING

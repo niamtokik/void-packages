@@ -1,7 +1,7 @@
 # Template file for 'suricata'
 pkgname=suricata
-version=4.0.0
-revision=1
+version=4.0.3
+revision=2
 build_style=gnu-configure
 configure_args="--disable-gccmarch-native"
 hostmakedepends="pkg-config"
@@ -12,8 +12,8 @@ license="GPL-2"
 homepage="https://suricata-ids.org/"
 distfiles="https://www.openinfosecfoundation.org/download/$pkgname-$version.tar.gz
 https://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz"
-checksum="6b8b183a8409829ca92c71854cc1abed45f04ccfb7f14c08211f4edf571fa577
- 02a962878ceb5fdf2bf93e95ab4620a570e8c9353820889855c59717e19f23c4"
+checksum="81a0bcb10b5c0b00efeafb4aac3ef70bf0e36b060ac6300d867f15f3dbe0e437
+ 4670a50ad4620b56b0af947a425276b16087bde4838ecd27ba325bb862e927de"
 
 system_accounts="$pkgname"
 conf_files="/etc/$pkgname/*.* /etc/$pkgname/rules/*"

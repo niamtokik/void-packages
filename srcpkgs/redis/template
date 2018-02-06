@@ -1,14 +1,15 @@
 # Template file for 'redis'
 pkgname=redis
-version=4.0.2
+version=4.0.7
 revision=1
-makedepends="jemalloc-devel"
-homepage="http://redis.io"
+makedepends="libatomic-devel jemalloc-devel"
+checkdepends="tcl-devel"
+homepage="https://redis.io"
 distfiles="http://download.redis.io/releases/${pkgname}-${version}.tar.gz"
 short_desc="Advanced key-value store"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 license="BSD"
-checksum=b1a0915dbc91b979d06df1977fe594c3fa9b189f1f3d38743a2948c9f7634813
+checksum=1bba546d44fb40e1fd8be1a15e1a9cc6484bceeea0bbd52919eebc656661ecd1
 
 system_accounts="redis"
 redis_homedir="/var/lib/redis"
@@ -19,13 +20,17 @@ do_configure() {
 		-e "s|^# bind 127.0.0.1|bind 127.0.0.1|" \
 		-e "s|^dir .*|dir ${redis_homedir}|" \
 		-e "s|^pidfile .*|pidfile /run/redis/redis.pid|" redis.conf
+	sed -i -e "s|^FINAL_LIBS=.*|& -latomic|" src/Makefile
 }
 do_build() {
 	case "$XBPS_TARGET_MACHINE" in
 		*-musl) _malloc="none";;
 		*) _malloc="jemalloc";;
 	esac
-	make CC=$CC CFLAGS="$CFLAGS" MALLOC=${_malloc} ${makejobs}
+	make CC=$CC CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" V=1 MALLOC=${_malloc} ${makejobs}
+}
+do_check() {
+	make test
 }
 do_install() {
 	make INSTALL_BIN=${DESTDIR}/usr/bin PREFIX=/usr install
