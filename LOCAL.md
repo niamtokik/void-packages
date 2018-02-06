@@ -105,6 +105,8 @@ __Please don't use it! Its not production ready (yet)!!!__
 
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
+| activemq         |   |   |   |   |   |   |         |       |
+| apache-beam      |   |   |   |   |   |   |         |       |
 | beef             | X |   |   |   |   |   | 0.4.7.0 |       |
 | chef             | X |   |   |   |   |   |12.19.10 |       |
 | duktape          |   |   |   |   |   |   |         |       |
@@ -112,16 +114,19 @@ __Please don't use it! Its not production ready (yet)!!!__
 | elm-core         |   |   |   |   |   |   |         |       |
 | elm-platform     |   |   |   |   |   |   |         |       |
 | fsharp           | X | X | X | X |   |   |4.0.1.21 | ok.  |
+| ganeti           |   |   |   |   |   |   |         |      |
 | gocd             | X |   |   |   |   |   |         |      |
 | govend           |   |   |   |   |   |   |         |      |
 | govendor         |   |   |   |   |   |   |         |      |
 | gox              | X | X | X | X | ~ | ~ |   0.3.0 | need more stuff (doc)|
 | gvt              |   |   |   |   |   |   |         |      |
 | hive             | X | X | X | ~ |   |   |   2.1.1 |      |
+| iridium          |   |   |   |   |   |   |         |      |
 | jenkins          |   |   |   |   |   |   |         |      |
 | logstash         | X | X | E |   |   |   |   5.2.0 | ruby gems error |
 | lustre           |   |   |   |   |   |   |         |      |
 | manul            |   |   |   |   |   |   |         |      |
+| mercury          |   |   |   |   |   |   |         |      |
 | metasploit-framework | X | | |   |   |   | 4.13.19 |      |
 | nagioscore       | X |   |   |   |   |   |   4.2.4 |      |
 | nanopb           |   |   |   |   |   |   |         |      |
@@ -148,6 +153,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | openstack-trove  |   |   |   |   |   |   |         |      |
 | openstack-sahara |   |   |   |   |   |   |         |      |
 | openstack-zaqar  |   |   |   |   |   |   |         |      |
+| osquery          |   |   |   |   |   |   |         |      |
 | perl-dancer      |   |   |   |   |   |   |         |      |
 | python-fabric    |   |   |   |   |   |   |         |      |
 | quagga           | X |   |   |   |   |   |   1.1.1 |      |
@@ -161,6 +167,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | spark            | X | X | X | W |   |   |   2.1.0 | compare to off. pkg. |
 | splunk           |   |   |   |   |   |   |         |      |
 | xorp             | X |   |   |   |   |   |   1.8.5 |      |
+| yap              |   |   |   |   |   |   |         |      |
 | zabbix           |   |   |   |   |   |   |         |      |
 | zinc             | X | X | E |   |   |   |  0.3.13 | need sbt |
 
