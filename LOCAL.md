@@ -20,7 +20,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | Name             | F | C | B | P | I | T | version | Notes |
 |------------------|---|---|---|---|---|---|---------|-------|
 | cassandra        | X | X | X | ~ |   |   |  3.0.11 |       |
-| cds              | X | X | X | W | ~ | ~ |   0.4.0 | go multi-project |
+| cds              | X | X | X | W | ~ | ~ |  0.26.0 | go multi-project |
 | graylog2-server  | X | X | X | ~ |   |   |   2.2.0 |      |
 | hadoop           | X | X | E |   |   |   |   2.7.3 | plugin error. | 
 | integrity        | X | X | E |   |   |   |      26 | rake error |
@@ -118,7 +118,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | gocd             | X |   |   |   |   |   |         |      |
 | govend           |   |   |   |   |   |   |         |      |
 | govendor         |   |   |   |   |   |   |         |      |
-| gox              | X | X | X | X | ~ | ~ |   0.3.0 | need more stuff (doc)|
+| go-gox           | X | X | X | X | ~ | ~ |   0.4.0 | need more stuff (doc)|
 | gvt              |   |   |   |   |   |   |         |      |
 | hive             | X | X | X | ~ |   |   |   2.1.1 |      |
 | iridium          |   |   |   |   |   |   |         |      |
