@@ -1,0 +1,12 @@
+# Template file for 'apache-activemq'
+pkgname=apache-activemq
+version=5.15.3
+revision=1
+build_style=maven
+short_desc="ok"
+maintainer="ok"
+license="ok"
+homepage="https://activemq.apache.org/"
+distfiles="https://github.com/apache/activemq/archive/activemq-${version}.tar.gz"
+checksum="efaa64b10a62806f7647be6bc721292c046bdfa32b65fa048e85162a328cbcbd"
+wrksrc="activemq-activemq-${version}"
