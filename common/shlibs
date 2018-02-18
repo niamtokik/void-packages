@@ -1794,6 +1794,8 @@ libGLEW.so.1.9 glew19-1.9.0_1
 librevenge-0.0.so.0 librevenge-0.0.1_1
 librevenge-generators-0.0.so.0 librevenge-0.0.1_1
 librevenge-stream-0.0.so.0 librevenge-0.0.1_1
+libepubgen-0.1.so.1 libepubgen-0.1.0_1
+libqxp-0.0.so.0 libqxp-0.0.1_1
 libetonyek-0.1.so.1 libetonyek-0.1.1_1
 libodfgen-0.1.so.1 libodfgen-0.1.1_1
 libKF5SonnetUi.so.5 sonnet-5.26.0_1
@@ -1819,6 +1821,7 @@ libabw-0.1.so.1 libabw-0.1.0_1
 libcmis-0.5.so.5 libcmis-0.5.0_1
 libcmis-c-0.5.so.5 libcmis-0.5.0_1
 libQt5Bluetooth.so.5 qt5-connectivity-5.6.0_1
+libQt53DAnimation.so.5 qt5-3d-5.10.1_1
 libQt53DCore.so.5 qt5-3d-5.6.0_1
 libQt53DInput.so.5 qt5-3d-5.6.0_1
 libQt53DLogic.so.5 qt5-3d-5.6.0_1
@@ -1826,8 +1829,10 @@ libQt53DRender.so.5 qt5-3d-5.6.0_1
 libQt53DQuick.so.5 qt5-3d-5.6.0_1
 libQt53DQuickInput.so.5 qt5-3d-5.6.0_1
 libQt53DQuickRender.so.5 qt5-3d-5.6.0_1
+libQt53DQuickScene2D.so.5 qt5-3d-5.10.1_1
 libQt53DExtras.so.5 qt5-3d-5.6.0_1
 libQt53DQuickExtras.so.5 qt5-3d-5.6.0_1
+libQt53DQuickAnimation.so.5 qt5-3d-5.10.1_1
 libQt5Charts.so.5 qt5-charts-5.7.1_1
 libQt5DataVisualization.so.5 qt5-datavis3d-5.7.1_1
 libQt5Gamepad.so.5 qt5-gamepad-5.7.1_1
@@ -1843,8 +1848,13 @@ libQt5QuickTemplates2.so.5 qt5-quickcontrols2-5.7.1_1
 libQt5Positioning.so.5 qt5-location-5.6.0_1
 libQt5Location.so.5 qt5-location-5.6.0_1
 libQt5Multimedia.so.5 qt5-multimedia-5.6.0_1
+libQt5MultimediaGstTools.so.5 qt5-multimedia-5.10.1_1
+libQt5MultimediaQuick.so.5 qt5-multimedia-5.10.1_1
 libQt5MultimediaQuick_p.so.5 qt5-multimedia-5.6.0_1
 libQt5MultimediaWidgets.so.5 qt5-multimedia-5.6.0_1
+libQt5NetworkAuth.so.5 qt5-networkauth-5.10.1_1
+libQt5Purchasing.so.5 qt5-purchasing-5.10.1_1
+libQt5RemoteObjects.so.5 qt5-remoteobjects-5.10.1_1
 libqgsttools_p.so.1 qt5-multimedia-5.6.0_1
 libQt5LabsTemplates.so.5 qt5-quickcontrols2-5.6.0_1
 libQt5Scxml.so.5 qt5-scxml-5.7.1_1
@@ -2095,7 +2105,7 @@ libkasten3okteta1core.so.1 okteta5-17.08.3_1
 libkasten3okteta1gui.so.1 okteta5-17.08.3_1
 libokteta2core.so.2 okteta5-17.08.3_1
 libokteta2gui.so.2 okteta5-17.08.3_1
-libhttp_parser.so.2.7.1 http-parser-2.7.1_1
+libhttp_parser.so.2.8 http-parser-2.8.0_1
 libmaa.so.3 libmaa-1.3.2_1
 libcodeblocks.so.0 codeblocks-13.12_1
 liblept.so.5 leptonica-1.73_1
@@ -2391,11 +2401,11 @@ libCbc.so.3 CoinMP-1.8.3_1
 libOsiCommonTests.so.1 CoinMP-1.8.3_1
 libCbcSolver.so.3 CoinMP-1.8.3_1
 libmwaw-0.3.so.3 libmwaw-0.3.7_1
-libixion-0.12.so.0 libixion-0.12.0_1
-liborcus-parser-0.12.so.0 liborcus-0.12.0_1
-liborcus-mso-0.12.so.0 liborcus-0.12.0_1
-liborcus-0.12.so.0 liborcus-0.12.0_1
-liborcus-spreadsheet-model-0.12.so.0 liborcus-0.12.0_1
+libixion-0.13.so.0 libixion-0.13.0_1
+liborcus-parser-0.13.so.0 liborcus-0.13.2_1
+liborcus-mso-0.13.so.0 liborcus-0.13.2_1
+liborcus-0.13.so.0 liborcus-0.13.2_1
+liborcus-spreadsheet-model-0.13.so.0 liborcus-0.13.2_1
 libGeneratedSaxParser.so opencollada-0.0.20160223_1
 libMathMLSolver.so opencollada-0.0.20160223_1
 libOpenCOLLADABaseUtils.so opencollada-0.0.20160223_1
@@ -2855,6 +2865,7 @@ libPocoUtil.so.50 poco-1.8.0.1_1
 libPocoRedis.so.50 poco-1.8.0.1_1
 libopenblas.so.0 openblas-0.2.19_1
 librtmidi.so.4 rtmidi-3.0.0_1
+libbiblesync.so.1.1.2 biblesync-1.1.2_1
 libbac-9.0.4.so bacula-common-9.0.4_1
 libbaccfg-9.0.4.so bacula-common-9.0.4_1
 libbacfind-9.0.4.so bacula-common-9.0.4_1
@@ -3085,6 +3096,7 @@ libzuluplay.so.1.1 zuluplay-1.1_1
 libzuluCryptPluginManager.so.1.0.0 zulucrypt-5.2.0_1
 libzuluCrypt-exe.so.1.2.0 zulucrypt-5.2.0_1
 libzuluCrypt.so.1.2.0 zulucrypt-5.2.0_1
+libaacs.so.0 libaacs-0.9.0_1
 libnfdump-1.6.15.so nfdump-1.6.15_1
 libttfautohint.so.1 ttfautohint-1.8.1_1
 libcob.so.4 gnucobol-libs-2.2_1
@@ -3093,3 +3105,13 @@ libarcan_shmif.so.0.11 arcan-0.5.4.3_1
 libarcan_shmif_ext.so.0.11 arcan-0.5.4.3_1
 libarcan_shmif_server.so.0.11 arcan-0.5.4.3_1
 libarcan_tui.so.0.11 arcan-0.5.4.3_1
+libscrypt.so.0 libscrypt-devel-1.21_1
+liblwipv6.so.2 lwipv6-1.5a_1
+libpipewire-0.1.so.0 pipewire-0.1.7_1
+libspa-lib.so.0 pipewire-0.1.7_1
+libvolk.so.1.3 volk-1.3_1
+libgnuradio-runtime-3.7.12git.so.0.0.0 gnuradio-3.7.12git_1
+libgnuradio-pmt-3.7.12git.so.0.0.0 gnuradio-3.7.12git_1
+libgnuradio-blocks-3.7.12git.so.0.0.0 gnuradio-3.7.12git_1
+libgnuradio-audio-3.7.12git.so.0.0.0 gnuradio-3.7.12git_1
+libgnuradio-noaa-3.7.12git.so.0.0.0 gnuradio-3.7.12git_1
