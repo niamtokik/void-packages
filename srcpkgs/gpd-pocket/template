@@ -1,0 +1,55 @@
+# Template file for 'gpd-pocket'
+pkgname=gpd-pocket
+version=0.1
+revision=1
+build_style=meta
+homepage="http://www.gpd.hk/pocket.asp"
+short_desc="GPD Pocket Laptop bootstrap"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Public domain"
+
+depends="linux4.15 alsa xorg xorg-server acpi
+         linux-firmware-network"
+
+do_install() {
+  configure_acpi
+  configure_network
+  configure_xorg
+  configure_alsa
+}
+
+xorg_files="xorg/20-install.conf:/etc/X11/xorg.conf.d
+            xorg/30-monitor.conf:/etc/X11/xorg.conf.d
+            xorg/35-screen.conf:/etc/X11/xorg.conf.d
+            xorg/40-touch.conf:/etc/X11/xorg.conf.d
+            xorg/40-trackpoint.conf:/etc/X11/xorg.conf.d"
+configure_xorg() {
+  if ! [ -d /etc/X11/xorg.conf.d ]
+  then
+    mkdir /etc/X11/xorg.conf.d
+  fi
+
+  for file in ${xorg_files}
+  do
+    src=${file%%:*}
+    dst=${file##*:}
+    cp -v ${FILESDIR}/${src} ${dst}
+  done
+}
+
+network_files="network/brcmfmac4356-pcie.txt:/lib/firmware/brcm"
+configure_network() {
+  echo wip
+}
+
+alsa_files="audio/alsa/HiFi.conf:/usr/share/alsa/ucm/chtrt5645
+            audio/alsa/chtrt5645.conf:/usr/share/alsa/ucm/chtrt5645"
+configure_alsa() {
+  echo wip
+}
+
+acpi_files=""
+configure_acpi() {
+  echo wip
+}
+
