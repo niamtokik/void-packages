@@ -1,1 +1,22 @@
-# template file for 'jitsi-videobridge'
+# Template file for 'jitsi-videobridge'
+pkgname=jitsi-videobridge
+version=4548
+revision=1
+archs=noarch
+hostmakedepends="openjdk8-jre openjdk8 apache-maven apache-maven-bin"
+depends="openjdk8-jre"
+short_desc="jitsi-videobridge"
+maintainer="Mathieu Kerjouan"
+license="Apache-2.0"
+homepage="https://www.jitsi.org"
+distfiles="https://github.com/jitsi/jitsi-videobridge/archive/stable/jitsi-meet_${version}.zip"
+checksum=9fb02708648d9c254b2ca4459b5427b13e4ca097cae8198ef4ec415486e106e6
+wrksrc="jitsi-videobridge-stable-jitsi-meet_${version}"
+
+do_build() {
+	mvn -B package --file pom.xml
+}
+
+do_install() {
+	echo wip
+}

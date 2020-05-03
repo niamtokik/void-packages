@@ -3,7 +3,7 @@ pkgname=jitsi-meet
 version=1.0.4077
 revision=1
 archs=noarch
-hostmakedepends=nodejs
+hostmakedepends="nodejs make"
 depends="nodejs"
 short_desc="jitsi"
 maintainer="Mathieu Kerjouan"
@@ -11,9 +11,12 @@ license="Apache-2.0"
 homepage="https://www.jitsi.org"
 distfiles="https://download.jitsi.org/jitsi-meet/src/jitsi-meet-${version}.tar.bz2"
 checksum=6c6a9e460c10994191c9ab8fbf64b19b51db645b95daadfc1449c8e8a884baca
+wrksrc=jitsi-meet
 
 do_build() {
-	echo wip
+	npm install
+	npm run lint
+	make
 }
 
 do_install() {
