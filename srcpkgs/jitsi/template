@@ -3,17 +3,18 @@ pkgname=jitsi
 version=2.11.5633
 revision=1
 archs=noarch
-hostmakedepends=apache-ant
-depends="apache-ant"
+hostmakedepends="apache-ant openjdk8 openjdk8-jre"
+depends="openjdk8 openjdk8-jre"
 short_desc="jitsi"
 maintainer="Mathieu Kerjouan"
 license="Apache-2.0"
 homepage="https://www.jitsi.org"
 distfiles="https://download.jitsi.org/jitsi/nightly/src/jitsi-src-${version}.zip"
 checksum=a498cc5d6baaa26434c39a46823b6431a333ec2b02f9234441f1dcd4780f17eb
+wrksrc="jitsi"
 
 do_build() {
-	ant .
+	JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk/jre" ant rebuild
 }
 
 do_install() {
