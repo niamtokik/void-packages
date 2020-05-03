@@ -1,88 +1,100 @@
 # Template file for 'dmd'
 pkgname=dmd
-version=2.077.0
-revision=2
-wrksrc="dmd2"
-short_desc="The Digital Mars D compiler"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.digitalmars.com/d/2.0/"
-license="Boost Software License 1.0"
-distfiles="http://downloads.dlang.org/releases/2.x/${version}/dmd.${version}.linux.tar.xz
- https://raw.githubusercontent.com/dlang/dmd/5f3bdcde7a870509a3e2f1af48909c62bf8a18e7/config.sh"
-skip_extraction="config.sh"
-checksum="54471d7c5fdb73dd38cd8ab1d8ac4cb6b7aca0d0d18e7a9f38dcafcb242732f4
- 778834ad25225c6656565b3c66437543ed40066b9e40fde657c4d632fd4e391c"
-
-if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
-	_archbits=64
-elif [ "$XBPS_TARGET_MACHINE" = "i686" ]; then
-	_archbits=32
-fi
-
-only_for_archs="x86_64"
-conf_files="/etc/dmd.conf"
-nopie=yes
-hostmakedepends="curl"
+version=2.091.0
+revision=1
+create_wrksrc=yes
+hostmakedepends="which"
+makedepends="dmd2.081 git"
 depends="libphobos>=${version} gcc"
+short_desc="Digital Mars D compiler"
+maintainer="streaks <assemblyislaw@gmail.com>"
+license="BSL-1.0"
+homepage="http://www.digitalmars.com/d/2.0/"
+distfiles="
+ https://github.com/dlang/dmd/archive/v${version}.tar.gz>dmd-${version}.tar.gz
+ https://github.com/dlang/druntime/archive/v${version}.tar.gz>druntime-${version}.tar.gz
+ https://github.com/dlang/phobos/archive/v${version}.tar.gz>phobos-${version}.tar.gz
+ http://downloads.dlang.org/releases/2.x/${version}/dmd.${version}.linux.tar.xz"
+checksum="bcca38f4b80b51ae0a1955dc29e6cbfaa4d01d94869ddfcacf9292898c34343a
+ cc8ba196b08cca04488d97d0e35c878f7351b7d8128aec90eaa312d2bd9a6af2
+ df9f81eecda4366adc5ca9ed31a0b4474c248544b120ff6fa3f6cb45917d8769
+ 6e4bd4ee73a553921cdca7e3e21768b842b18186d07c0b4898fbd13a359875c0"
+conf_files="/etc/dmd.conf"
+provides="d-compiler-${version}_${revision}"
+conflicts="dmd-bootstrap dmd2.081"
+nopie=yes
+LDFLAGS="-lpthread"
+
+case "$XBPS_TARGET_MACHINE" in
+	x86_64*) _archbits=64;;
+	i686) _archbits=32;;
+	*) broken="unsupported arch upstream";;
+esac
+
+post_extract() {
+	rm -rf dmd druntime phobos
+	mv dmd-${version} dmd
+	mv druntime-${version} druntime
+	mv phobos-${version} phobos
+}
 
 do_build() {
-	cp ${XBPS_SRCDISTDIR}/${pkgname}-${version}/config.sh src
-	chmod +x src/config.sh
-
-	cd src
-
-	# missing file in archive for some reason?
-	mkdir -p res
-	cp ${FILESDIR}/default_ddoc_theme.ddoc res
+	local dmd
 
 	cd dmd
+	make ${makejobs} -f posix.mak MODEL=${_archbits} TARGET_CPU=X86 ENABLE_RELEASE=1 PIC=1
+	dmd=${wrksrc}/dmd/generated/linux/release/$_archbits/dmd
 
-	mkdir src
-	cp osmodel.mak src
-	make ${makejobs} -f posix.mak MODEL=${_archbits} AUTO_BOOTSTRAP=1 PIC=1
+	make ${makejobs} -C docs
 
 	cd ../druntime
-	make ${makejobs} -f posix.mak MODEL=${_archbits} DMD=../dmd/dmd PIC=1
+	make ${makejobs} -f posix.mak MODEL=${_archbits} DMD=$dmd ENABLE_RELEASE=1 PIC=1
 
 	cd ../phobos
-	make ${makejobs} -f posix.mak MODEL=${_archbits} DMD=../dmd/dmd PIC=1
+	make ${makejobs} -f posix.mak MODEL=${_archbits} DMD=$dmd ENABLE_RELEASE=1 PIC=1
 }
 
 do_install() {
-	vbin src/dmd/dmd
+	cd dmd
+	vbin generated/linux/release/$_archbits/dmd
 	vinstall ${FILESDIR}/dmd.conf 644 etc
 
-	vman man/man1/dmd.1
-	vman man/man1/rdmd.1
-	vman man/man5/dmd.conf.5
+	vman generated/docs/man/man1/dmd.1
+	vman generated/docs/man/man5/dmd.conf.5
+}
 
-	vmkdir usr/share/d/samples
-	cp -r samples/d/* ${DESTDIR}/usr/share/d/samples/
+dmd-doc_package() {
+	short_desc="Documentation and sample code for D programming language"
+	replaces="dmd-docs>=0"
+	license="BSL-1.0"
 
-	find ${DESTDIR}/usr/share/d/samples -type f | xargs chmod 0644
+	pkg_install() {
+		cd dmd2
 
-	for f in ddemangle dumpobj obj2asm rdmd; do
-		vbin linux/bin${_archbits}/${f}
-	done
+		vmkdir usr/share/doc/d
+		vcopy samples usr/share/doc/d
+		vcopy html usr/share/doc/d
+
+		find ${PKGDESTDIR}/usr/share/doc/d -type f | xargs chmod 0644
+
+		vlicense license.txt
+	}
 }
 
 libphobos_package() {
-	short_desc="The phobos D standard library for DMD"
-	license="Boost License"
+	short_desc+=" - standard library"
+	license="BSL-1.0"
+	conflicts="dmd-bootstrap"
 	pkg_install() {
-		vinstall ${wrksrc}/src/druntime/generated/linux/release/$_archbits/libdruntime.a 644 usr/lib libdruntime.a
-		vinstall ${wrksrc}/src/phobos/generated/linux/release/$_archbits/libphobos2.a 644 usr/lib libphobos2.a
+		vinstall ${wrksrc}/druntime/generated/linux/release/$_archbits/libdruntime.a 644 usr/lib libdruntime.a
+		vinstall ${wrksrc}/phobos/generated/linux/release/$_archbits/libphobos2.a 644 usr/lib libphobos2.a
 
 		vmkdir usr/include/d
-		cp -r ${wrksrc}/src/phobos/{*.d,etc,std} ${PKGDESTDIR}/usr/include/d
+		cp -r ${wrksrc}/phobos/{*.d,etc,std} ${PKGDESTDIR}/usr/include/d
 
 		vmkdir usr/include/d/druntime
-		cp -r ${wrksrc}/src/druntime/import ${PKGDESTDIR}/usr/include/d/druntime
+		cp -r ${wrksrc}/druntime/import ${PKGDESTDIR}/usr/include/d/druntime
 
-		vmkdir usr/share/doc/d/
-		cp -r ${wrksrc}/html ${PKGDESTDIR}/usr/share/doc/d/
-		find ${PKGDESTDIR}/usr/share/doc/d -type f | xargs chmod 0644
-
-		vlicense ${wrksrc}/src/druntime/LICENSE
+		vlicense ${wrksrc}/druntime/LICENSE.txt
 	}
 }

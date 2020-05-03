@@ -1,21 +1,25 @@
-# template file for 'babeltrace'
+# Template file for 'babeltrace'
 pkgname=babeltrace
-version=1.5.3
+version=1.5.8
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
 makedepends="libelf glib-devel popt-devel"
-short_desc="A trace format converter"
+short_desc="Open source trace format converter"
 maintainer="Alexander Egorenkov <egorenar-dev@posteo.net>"
-license="LGPL-2.1"
+license="MIT, GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="http://diamon.org/babeltrace"
-distfiles="http://www.efficios.com/files/${pkgname}/${pkgname}-${version}.tar.bz2"
-checksum=2249fee5beba657731f5d6a84c5296c6517f544bfbe7571bd1fd7af23726137c
+distfiles="https://www.efficios.com/files/${pkgname}/${pkgname}-${version}.tar.bz2"
+checksum=9ff143e4d1d7f1902b05542ac8f1747fb2d7e0ca31c6fa39ccae5765e11d6fc2
 
 if [ "$CROSS_BUILD" ]; then
 	# configure_args+=" ac_cv_lib_elf_elf_version=0.170"
 	configure_args+=" --disable-debug-info"
 fi
+
+post_install() {
+	vlicense mit-license.txt
+}
 
 babeltrace-devel_package() {
 	short_desc+=" - development files"

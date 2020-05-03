@@ -1,17 +1,17 @@
 # Template file for 'file'
 pkgname=file
-version=5.32
+version=5.38
 revision=1
 bootstrap=yes
 build_style=gnu-configure
 configure_args="--enable-static"
 makedepends="zlib-devel"
 short_desc="File type identification utility"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="BSD-2-Clause"
 homepage="http://www.darwinsys.com/file/"
-license="2-clause-BSD"
-distfiles="ftp://ftp.astron.com/pub/file/file-${version}.tar.gz"
-checksum=8639dc4d1b21e232285cd483604afc4a6ee810710e00e579dbe9591681722b50
+distfiles="https://astron.com/pub/file/file-${version}.tar.gz"
+checksum=593c2ffc2ab349c5aea0f55fedfe4d681737b6b62376a9b3ad1e77b2cc19fa34
 
 if [ "$CROSS_BUILD" ]; then
 	# XXX cross compilation needs exactly the same version for the host
@@ -31,6 +31,7 @@ libmagic_package() {
 		vmove usr/share/man/man4
 	}
 }
+
 file-devel_package() {
 	depends="${makedepends} libmagic>=${version}_${revision}"
 	short_desc="File type identification library - development files"

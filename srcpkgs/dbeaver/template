@@ -1,0 +1,25 @@
+# Template file for 'dbeaver'
+pkgname=dbeaver
+version=7.0.3
+revision=1
+archs="x86_64"
+hostmakedepends="apache-maven-bin"
+short_desc="Free Universal Database Tool"
+maintainer="Kyle Nusbaum <knusbaum+void@sdf.org>"
+license="Apache-2.0"
+homepage="https://dbeaver.io"
+distfiles="https://github.com/dbeaver/dbeaver/archive/${version}.tar.gz"
+checksum=1c6a4ecd93979c3dbefed32d533a23d3cad20c574bbb8bc304c111dd245eb4b4
+nopie=true
+
+do_build() {
+	mvn package
+}
+
+do_install() {
+	vmkdir /usr/lib
+	vcopy "product/standalone/target/products/org.jkiss.dbeaver.core.product/linux/gtk/x86_64/dbeaver" /usr/lib/
+
+	vmkdir /usr/bin
+	ln -s /usr/lib/dbeaver/dbeaver ${DESTDIR}/usr/bin/dbeaver
+}

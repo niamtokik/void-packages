@@ -1,14 +1,14 @@
 # Template file for 'qalculate-gtk'
 pkgname=qalculate-gtk
-version=2.2.0
+version=3.8.0
 revision=1
 build_style=gnu-configure
-maintainer="Orphaned <orphan@voidlinux.eu>"
-hostmakedepends="intltool pkg-config"
-makedepends="libqalculate-devel gdk-pixbuf-devel gtk+3-devel"
+hostmakedepends="intltool pkg-config glib-devel"
+makedepends="libqalculate-devel gtk+3-devel"
 depends="gnuplot"
-license="GPL-2"
-homepage="https://qalculate.github.io/"
-short_desc="A multi-purpose desktop calculator - GTK+ version"
+short_desc="Multi-purpose desktop calculator - GTK+ version"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://qalculate.github.io"
 distfiles="https://github.com/Qalculate/qalculate-gtk/releases/download/v${version}/qalculate-gtk-${version}.tar.gz"
-checksum=d597a4f8cbee0cc5c17e6190fa34e97715d3144fbb15655cbc4ce18180e11571
+checksum=9a2abf5f5c06f6a3a58d41844de7a666d0304c0c261bc2acd1f64ed105a0cd5c

@@ -1,13 +1,13 @@
 # Template file for 'xtools'
 pkgname=xtools
-version=0.50
+version=0.58
 revision=1
-noarch=yes
+archs="noarch"
 build_style=gnu-makefile
 depends="bash curl findutils git make xbps"
 short_desc="Opinionated helpers for working with XBPS"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Public Domain"
-homepage="https://github.com/chneukirchen/xtools"
-distfiles="https://github.com/chneukirchen/xtools/archive/v${version}.tar.gz"
-checksum=9167a88f20d5277b4dc2b90ec348852b4a45cf8410bb25109b62d69354c303c9
+homepage="http://git.vuxu.org/xtools"
+distfiles="http://git.vuxu.org/xtools/snapshot/xtools-${version}.tar.gz"
+checksum=d75362a94ffb2d57bc9a3b6e6720364e51e2b05e86f358aeb5ee70b41622ce43

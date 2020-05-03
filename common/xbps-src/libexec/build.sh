@@ -26,6 +26,12 @@ for f in $XBPS_SHUTILSDIR/*.sh; do
     . $f
 done
 
+last="${XBPS_DEPENDS_CHAIN##*,}"
+case "$XBPS_DEPENDS_CHAIN" in
+    *,$last,*)
+        msg_error "Build-time cyclic dependency$last,${XBPS_DEPENDS_CHAIN##*,$last,} detected.\n"
+esac
+
 setup_pkg "$PKGNAME" $XBPS_CROSS_BUILD
 readonly SOURCEPKG="$sourcepkg"
 
@@ -43,7 +49,7 @@ if [ "$PKGNAME" != "$XBPS_TARGET_PKG" -o -z "$XBPS_SKIP_DEPS" ]; then
     install_pkg_deps $PKGNAME $XBPS_TARGET_PKG pkg $XBPS_CROSS_BUILD $XBPS_CROSS_PREPARE || exit $?
 fi
 
-if [ -z "$XBPS_CROSS_PREPARE" ]; then
+if [ "$XBPS_CROSS_BUILD" ]; then
     install_cross_pkg $XBPS_CROSS_BUILD || exit $?
 fi
 
@@ -55,6 +61,10 @@ $XBPS_LIBEXECDIR/xbps-src-dofetch.sh $SOURCEPKG $XBPS_CROSS_BUILD || exit 1
 # Fetch, extract, build and install into the destination directory.
 $XBPS_LIBEXECDIR/xbps-src-doextract.sh $SOURCEPKG $XBPS_CROSS_BUILD || exit 1
 [ "$XBPS_TARGET" = "extract" ] && exit 0
+
+# Run patch phrase
+$XBPS_LIBEXECDIR/xbps-src-dopatch.sh $SOURCEPKG $XBPS_CROSS_BUILD || exit 1
+[ "$XBPS_TARGET" = "patch" ] && exit 0
 
 # Run configure phase
 $XBPS_LIBEXECDIR/xbps-src-doconfigure.sh $SOURCEPKG $XBPS_CROSS_BUILD || exit 1
@@ -84,10 +94,34 @@ for subpkg in ${subpackages} ${sourcepkg}; do
     fi
 done
 
+# Clean list of preregistered packages
+printf "" > ${XBPS_STATEDIR}/.${sourcepkg}_register_pkg
 # If install went ok generate the binpkgs.
 for subpkg in ${subpackages} ${sourcepkg}; do
     $XBPS_LIBEXECDIR/xbps-src-dopkg.sh $subpkg "$XBPS_REPOSITORY" "$XBPS_CROSS_BUILD" || exit 1
 done
+
+# Registering packages at once per repository. This makes sure that staging is
+# triggered for all new packages if any of them introduces inconsistencies.
+cut -d: -f 1,2 ${XBPS_STATEDIR}/.${sourcepkg}_register_pkg | sort -u | \
+    while IFS=: read -r arch repo; do
+        paths=$(grep "^$arch:$repo:" "${XBPS_STATEDIR}/.${sourcepkg}_register_pkg" | \
+            cut -d : -f 2,3 | tr ':' '/')
+        if [ -n "${arch}" ]; then
+            msg_normal "Registering new packages to $repo ($arch)\n"
+            XBPS_TARGET_ARCH=${arch} $XBPS_RINDEX_CMD \
+                ${XBPS_REPO_COMPTYPE:+--compression $XBPS_REPO_COMPTYPE} ${XBPS_BUILD_FORCEMODE:+-f} -a ${paths}
+        else
+            msg_normal "Registering new packages to $repo\n"
+            if [ -n "$XBPS_CROSS_BUILD" ]; then
+                $XBPS_RINDEX_XCMD ${XBPS_REPO_COMPTYPE:+--compression $XBPS_REPO_COMPTYPE} \
+					${XBPS_BUILD_FORCEMODE:+-f} -a ${paths}
+            else
+                $XBPS_RINDEX_CMD ${XBPS_REPO_COMPTYPE:+--compression $XBPS_REPO_COMPTYPE} \
+					${XBPS_BUILD_FORCEMODE:+-f} -a ${paths}
+            fi
+        fi
+    done
 
 # pkg cleanup
 if declare -f do_clean >/dev/null; then
@@ -99,22 +133,6 @@ if [ -n "$XBPS_DEPENDENCY" -o -z "$XBPS_KEEP_ALL" ]; then
     remove_pkg_wrksrc
     remove_pkg $XBPS_CROSS_BUILD
     remove_pkg_statedir
-fi
-
-# If base-chroot not installed, install "base-files" into masterdir
-# from local repository; this is the only pkg required to be able to build
-# the bootstrap pkgs from scratch.
-if [ -z "$CHROOT_READY" -a "$PKGNAME" = "base-files" ]; then
-    msg_normal "Installing $PKGNAME into masterdir...\n"
-    _log=$(mktemp --tmpdir || exit 1)
-    XBPS_ARCH=$XBPS_MACHINE $XBPS_INSTALL_CMD -yf $PKGNAME >${_log} 2>&1
-    if [ $? -ne 0 ]; then
-        msg_red "Failed to install $PKGNAME into masterdir, see below for errors:\n"
-        cat ${_log}
-        rm -f ${_log}
-        msg_error "Cannot continue!\n"
-    fi
-    rm -f ${_log}
 fi
 
 exit 0

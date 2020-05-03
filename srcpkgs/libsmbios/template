@@ -1,37 +1,33 @@
 # Template file for 'libsmbios'
 pkgname=libsmbios
-version=2.3.3
+version=2.4.3
 revision=1
 build_style=gnu-configure
-configure_args="--sbindir=/usr/bin --disable-static --disable-python"
-hostmakedepends="pkg-config perl automake gettext-devel libtool doxygen"
-makedepends="libxml2-devel"
+configure_args="--sbindir=/usr/bin --disable-static"
+hostmakedepends="automake doxygen gettext gettext-devel help2man libtool pkg-config"
+makedepends="libxml2-devel python3-devel"
+checkdepends="python3"
 short_desc="Library for SMBIOS access"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, OLS-2.1"
 homepage="https://github.com/dell/libsmbios"
-license="GPL-2+, OLS-2.1"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
 distfiles="https://github.com/dell/libsmbios/archive/v${version}.tar.gz"
-checksum=272ba8c9fa4a468938b8fa81b23a09c72acc97371f3be7c882bb222c1ae7157d
+checksum=36c36a0f6b59190d6b4fef11696886e4511091929a5eb7ae7cf5fea0c32d3f58
+# explicitly list the subpackages to make sure they are installed in the
+# right order:
+subpackages="libsmbios-devel python3-libsmbios libsmbios-utils"
 
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl )
-		broken="requires glibc specific outb_p and inb_p" ;;
-esac
+archs="i686* x86_64*"
 
 pre_configure() {
-	autoreconf -fi
+	./autogen.sh --no-configure
 }
 
 post_install() {
 	rm -rf ${DESTDIR}/etc/yum ${DESTDIR}/usr/lib/yum-plugins
-	rm -rf ${DESTDIR}/libsmbios_c ${DESTDIR}/etc/libsmbios
-	rm -rf ${DESTDIR}/usr/share/smbios-utils
 	vmkdir usr/include
-	cp -r ${wrksrc}/src/include/smbios ${DESTDIR}/usr/include
+	cp -r ${wrksrc}/out/public-include/* ${DESTDIR}/usr/include
 	cp -r ${wrksrc}/src/include/smbios_c ${DESTDIR}/usr/include
-	rm -f ${DESTDIR}/usr/include/smbios/version.h.in
 }
 
 libsmbios-devel_package() {
@@ -43,9 +39,30 @@ libsmbios-devel_package() {
 		vmove "usr/lib/*.so"
 	}
 }
+
+python3-libsmbios_package() {
+	depends="python3 ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - python bindings"
+	pkg_install() {
+		vmove ${py3_sitelib}
+		vmove usr/share/smbios-utils/cli.py
+
+		vmove usr/bin/smbios-battery-ctl
+		vmove usr/bin/smbios-keyboard-ctl
+		vmove usr/bin/smbios-lcd-brightness
+		vmove usr/bin/smbios-passwd
+		vmove usr/bin/smbios-sys-info
+		vmove usr/bin/smbios-thermal-ctl
+		vmove usr/bin/smbios-token-ctl
+		vmove usr/bin/smbios-wakeup-ctl
+		vmove usr/bin/smbios-wireless-ctl
+	}
+}
+
 libsmbios-utils_package() {
 	short_desc+=" - utilities"
 	pkg_install() {
 		vmove usr/bin
+		vmove usr/share/man/man1
 	}
 }

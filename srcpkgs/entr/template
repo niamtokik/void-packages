@@ -1,17 +1,16 @@
 # Template file for 'entr'
 pkgname=entr
-version=4.0
+version=4.5
 revision=1
 build_style=gnu-makefile
-short_desc="A utility for running arbitrary commands when files change"
+short_desc="Utility for running arbitrary commands when files change"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="ISC"
 homepage="http://entrproject.org"
 distfiles="$homepage/code/$pkgname-$version.tar.gz"
-checksum=4ad4fe9108b179199951cfc78a581a8a69602b073dae59bcae4b810f6e1f6c8b
+checksum=d6cbb3109d50d0d8e28fccd9843c522f896f00d4bfde7b1588cd01c1536afa21
 
 post_extract() {
-	mv ${XBPS_BUILDDIR}/eradman-entr-* $wrksrc
 	case "$XBPS_TARGET_MACHINE" in
 		*-musl) # No need for _LINUX_PORT compat.h and strlcpy.c
 			sed -i $wrksrc/Makefile.linux -e "s;-D_LINUX_PORT;;"

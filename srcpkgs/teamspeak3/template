@@ -1,32 +1,38 @@
 # Template file for 'teamspeak3'
 pkgname=teamspeak3
-version=3.1.6
+version=3.5.2
 revision=1
+archs="i686 x86_64"
 wrksrc=teamspeak3
-repository="nonfree"
-nopie=yes
-restricted=yes
 create_wrksrc=yes
+hostmakedepends="tar"
+depends="glib bash grep freetype nss libXcomposite fontconfig glibc
+ libxslt dbus-libs alsa-lib libXi libXcursor libXtst libXScrnSaver pciutils"
 short_desc="Popular proprietary voice chat for gaming"
 maintainer="Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>"
 license="Proprietary"
 homepage="http://www.teamspeak.com/"
+restricted=yes
+repository="nonfree"
+nopie=yes
+nostrip=yes
+noverifyrdeps=yes
+
 if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
 	_pkg="TeamSpeak3-Client-linux_amd64-${version}"
-	distfiles="http://teamspeak.gameserver.gamed.de/ts3/releases/${version}/${_pkg}.run"
-	checksum=53fda7bc9137c712f1d30163b54981e4ae9c46bec76585a9b0fa87397dd19859
+	distfiles="https://files.teamspeak-services.com/releases/client/${version}/${_pkg}.run"
+	checksum=d739fa78b41ef7b1423771ca237804981ffc7f14c4e620769cfa3fbc538aece8
 elif [ "$XBPS_TARGET_MACHINE" = "i686" ]; then
 	_pkg="TeamSpeak3-Client-linux_x86-${version}"
-	distfiles="http://teamspeak.gameserver.gamed.de/ts3/releases/${version}/${_pkg}.run"
-	checksum=222e8abb24de9e3ea00fca10be32340ad88859a4d811afa644c5096aada4996d
+	distfiles="https://files.teamspeak-services.com/releases/client/${version}/${_pkg}.run"
+	checksum=209375141ea0d0fc1d6dc7612cb621ba0df946e033a3b1140f3e8a5c8938d566
 else
 	broken="No known upstream client for this architecture"
 fi
 
 do_extract() {
 	install -m755 ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_pkg}.run ${wrksrc}
-	cd ${wrksrc}
-	sh ./${_pkg}.run --tar -xf 2>/dev/null
+	sh ./${_pkg}.run --tar xf
 	rm -f ${_pkg}.run
 }
 
@@ -34,11 +40,11 @@ do_install() {
 	# Set proper permissions
 	find -type d | xargs chmod 755
 	find -type f | xargs chmod 644
-	find -name *.so | xargs chmod 755
-	chmod +x ts3client*
+	find -name '*.so*' | xargs chmod 755
+	chmod +x ts3client* package_inst QtWebEngineProcess
 
-	vmkdir "usr/share/teamspeak3"
-	vcopy * "usr/share/teamspeak3"
+	vmkdir "usr/lib/teamspeak3"
+	vcopy * "usr/lib/teamspeak3"
 
 	# Install desktop file
 	vinstall "${FILESDIR}/teamspeak3.desktop" 644 "usr/share/applications"

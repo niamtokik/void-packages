@@ -1,28 +1,31 @@
 # Template file for 'libwebsockets'
 pkgname=libwebsockets
-version=2.4.1
-revision=1
+version=3.2.2
+revision=2
 build_style=cmake
-makedepends="zlib-devel libressl-devel libev-devel"
-configure_args="-DLWS_WITH_LIBEV=1 -DLWS_WITH_HTTP2=1 -DLWS_USE_IPV6=1"
+configure_args="-DLWS_WITH_LIBEV=ON -DLWS_WITH_LIBUV=ON -DLWS_WITH_HTTP2=ON
+ -DLWS_IPV6=ON -DLWS_HAVE_LIBCAP=ON"
+makedepends="libcap-devel libev-devel libuv-devel libressl-devel zlib-devel"
 short_desc="Lightweight client and server websocket library"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="LGPL-2"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-only"
 homepage="https://libwebsockets.org"
-distfiles="https://github.com/warmcat/libwebsockets/archive/v$version.tar.gz"
-checksum=29414be4f79f6abc0e6aadccd09a4da0f0c431e3b5691f496acd081ae6a8240c
+changelog="https://raw.githubusercontent.com/warmcat/libwebsockets/v3.0-stable/changelog"
+distfiles="https://github.com/warmcat/libwebsockets/archive/v${version}.tar.gz"
+checksum=166d6e17cab64bfc10c2a71799c298284540a1fa63f6ea3de5caccb34502243c
 
 CFLAGS="-Wno-error"
 
 libwebsockets-devel_package() {
-	depends="libwebsockets>=${version}_${revision} libev-devel"
+	depends="libwebsockets>=${version}_${revision} libev-devel libcap-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/bin
 		vmove usr/share/libwebsockets-test-server
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove usr/lib/cmake
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 	}
 }

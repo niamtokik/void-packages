@@ -1,24 +1,21 @@
 # Template file for 'python3-yarl'
 pkgname=python3-yarl
-version=1.1.0
-revision=1
+version=1.3.0
+revision=3
 wrksrc="yarl-${version}"
 build_style=python3-module
 pycompile_module="yarl"
-hostmakedepends="python3-setuptools python3-Cython"
+hostmakedepends="python3-Cython python3-setuptools"
 makedepends="python3-devel"
-checkdepends="python3-pytest python3-multidict python3-idna"
-depends="python3-multidict python3-idna"
+depends="python3-idna python3-multidict"
+checkdepends="python3-idna python3-multidict python3-pytest"
 short_desc="Yet another URL library"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://yarl.readthedocs.io/"
 distfiles="https://github.com/aio-libs/yarl/archive/v${version}.tar.gz"
-checksum=bcdc3d7ebf96bacb1342d59525bc89df902b78fd50186f8e4d51bfbb02fd38ca
+checksum=0d4acfd6c750612871e11c49eea43213949f1528686a184eefc1366142a6fbb3
 
 do_check() {
-	# Ignore the tests that fail due _quote not being found
-	# TODO: find root cause and fix them
-	PYTHONENV="${PWD}/lib.linux-${XBPS_TARGET_MACHINE}-3.6" python3 -m pytest \
-		--ignore=tests/test_quoting.py tests/
+	python3 setup.py test
 }

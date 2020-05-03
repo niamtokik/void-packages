@@ -1,20 +1,23 @@
 # Template file for 'rex'
 pkgname=rex
-version=1.4.0
-revision=2
+version=1.9.0
+revision=1
+archs=noarch
 wrksrc="Rex-${version}"
-noarch=yes
 build_style=perl-module
-hostmakedepends="perl"
-makedepends="${hostmakedepends}
- perl-Devel-Caller perl-Hash-Merge perl-IO-String perl-IO-Tty perl-JSON-XS
- perl-LWP perl-List-MoreUtils perl-Net-OpenSSH perl-Net-SFTP-Foreign
- perl-PadWalker perl-Sort-Naturally perl-Term-ReadKey perl-Text-Glob perl-URI
- perl-XML-Simple perl-YAML"
-depends="${makedepends}"
+hostmakedepends="perl perl-AWS-Signature4 perl-Clone-Choose perl-Data-Validate-IP
+ perl-Devel-Caller perl-Digest-HMAC perl-Hash-Merge perl-IO-String
+ perl-IO-Tty perl-JSON-MaybeXS perl-LWP perl-List-MoreUtils
+ perl-Net-OpenSSH perl-Net-SFTP-Foreign perl-PadWalker
+ perl-Parallel-ForkManager perl-Sort-Naturally perl-String-Escape
+ perl-Term-ReadKey perl-Text-Glob perl-URI perl-XML-Simple perl-YAML"
+makedepends="perl"
+depends="${hostmakedepends}"
+checkdepends="${hostmakedepends}
+ perl-Test-Deep perl-Test-Pod perl-Test-UseAllModules"
 short_desc="Perl-based Deployment and Configuration Management"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
-homepage="http://www.rexify.org/"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Apache-2.0"
-distfiles="http://search.cpan.org/CPAN/authors/id/F/FE/FERKI/Rex-${version}.tar.gz"
-checksum=b4f930044ea907aae67c18f347a33b55cd3da4efe5f5a5869db3c891d6c4e125
+homepage="http://www.rexify.org/"
+distfiles="https://cpan.metacpan.org/authors/id/F/FE/FERKI/Rex-${version}.tar.gz"
+checksum=8890d3ab6eabe15cd81640738b59fe696be8abd2a1bc71b43ce1ef88bdfafd30

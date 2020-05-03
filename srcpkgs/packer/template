@@ -1,31 +1,17 @@
 # Template file for 'packer'
 pkgname=packer
-version=1.2.0
+version=1.5.4
 revision=1
-replaces="packer-bin>=0"
+build_style=go
+go_import_path="github.com/hashicorp/packer"
 short_desc="Create identical multiplatform machine images from a single source"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
-build_style=go
-hostmakedepends="git-perl"
-license="MPL-2"
+license="MPL-2.0"
 homepage="http://www.packer.io"
-go_import_path="github.com/mitchellh/packer"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=bbb8bcf60de329d61769fbf4478174d72535423d0803335f4f42c8b38f3e6be7
+checksum=d8e89836dceefdf7be5c41f84e67528fcf6a7a79b9441a39f886bd29e379aafe
+replaces="packer-bin>=0"
 
-post_build() {
-	for F in $(find -type f -name main.go); do
-		go get -x $go_import_path/${F%/*}
-	done
-}
-
-do_install() {
-	find "${GOPATH}/bin" -type f -executable | while read line
-	do
-		if [ "$(basename $line)" = packer ]; then
-			vbin $line
-		else
-			vbin $line packer-$(basename $line)
-		fi
-	done
-}
+case "$XBPS_TARGET_MACHINE" in
+	i686*|arm*) broken="https://build.voidlinux.org/builders/i686_builder/builds/9375/steps/shell_3/logs/stdio";;
+esac

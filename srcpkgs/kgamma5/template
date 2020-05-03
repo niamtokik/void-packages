@@ -1,16 +1,18 @@
 # Template file for 'kgamma5'
 pkgname=kgamma5
-version=5.12.0
+version=5.18.4.1
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="extra-cmake-modules gettext kcoreaddons"
 makedepends="kdesignerplugin-devel kdelibs4support-devel kdoctools-devel"
 short_desc="KDE gamma adjustiment app"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/plasma/kgamma5"
-distfiles="http://download.kde.org/stable/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=523767048e98ceaeb7425409f692fb60a53e2e56ca8b2a99cf6fc2442c7baded
+distfiles="${KDE_SITE}/plasma/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=08b5c447edc0210eaab7244cec640863f9097556d97bf010a525d8184705d2fd
 
-broken="Waiting for qt5>=5.9"
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-devel kdoctools"
+fi

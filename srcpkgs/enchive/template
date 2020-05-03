@@ -1,14 +1,14 @@
 # Template file for 'enchive'
 pkgname=enchive
-version=3.3
+version=3.5
 revision=1
 build_style=gnu-makefile
 short_desc="Encrypted personal archives"
 maintainer="Rubén Santos <kojicomics@cocaine.ninja>"
-license="UNLICENSE"
+license="Unlicense"
 homepage="https://github.com/skeeto/enchive"
 distfiles="https://github.com/skeeto/enchive/archive/${version}.tar.gz"
-checksum=64ae476186a7e84bce18a81e3d4e119cc5e4ef717982a79a45899db1369f5ab0
+checksum=e66d0417db2bcc7ddd2dea1e0e1e88df6b4be07e85173710cba254af342585ef
 
 post_install() {
 	vlicense UNLICENSE

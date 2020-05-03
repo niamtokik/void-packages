@@ -4,10 +4,7 @@
 
 
 purge_distfiles() {
-	# Ignore msg_error calls when sourcing templates
-	msg_error() {
-		:
-	}
+	readonly HASHLEN=64
 	if [ -z "$XBPS_SRCDISTDIR" ]; then
 		msg_error "The variable \$XBPS_SRCDISTDIR is not set."
 		exit 1
@@ -28,8 +25,7 @@ purge_distfiles() {
 		pkg=${template#*/}
 		pkg=${pkg%/*}
 		if [ ! -L "srcpkgs/$pkg" ]; then
-			unset checksum
-			source $template 2>/dev/null
+			checksum="$(grep -Ehrow [0-9a-f]{$HASHLEN} ${template}|sort|uniq|tr '\n' ' ')"
 			read -a _my_hashes <<< ${checksum}
 			i=0
 			while [ -n "${_my_hashes[$i]}" ]; do
@@ -77,14 +73,13 @@ purge_distfiles() {
 	echo
 
 	hashes=($XBPS_SRCDISTDIR/by_sha256/*)
-	readonly HASHLEN=64
 	for file in ${hashes[@]}; do
 		hash_distfile=${file##*/}
 		hash=${hash_distfile:0:$HASHLEN}
 		[ -n "${my_hashes[$hash]}" ] && continue
 		inode=$(stat "$file" --printf "%i")
 		echo "Obsolete $hash (inode: $inode)"
-		( IFS="|"; for f in ${inodes[$inode]}; do rm -v "$f"; rmdir "${f%/*}" 2>/dev/null; done )
+		( IFS="|"; for f in ${inodes[$inode]}; do rm -vf "$f"; rmdir "${f%/*}" 2>/dev/null; done )
 	done
 	echo "Done."
 }

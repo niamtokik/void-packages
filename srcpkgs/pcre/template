@@ -1,19 +1,18 @@
 # Template file for 'pcre'
 pkgname=pcre
-version=8.41
-revision=2
+version=8.44
+revision=1
 build_style=gnu-configure
 configure_args="--enable-utf8 --enable-unicode-properties --with-pic
---enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-newline-is-anycrlf
---enable-pcretest-libedit --enable-jit --enable-static"
-makedepends="zlib-devel bzip2-devel libedit-devel"
+ --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-newline-is-anycrlf
+ --enable-pcretest-libedit --enable-jit --enable-static"
+makedepends="bzip2-devel libedit-devel zlib-devel"
 short_desc="Perl Compatible Regular Expressions"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="http://www.pcre.org/"
-license="BSD"
-#distfiles="${SOURCEFORGE_SITE}/pcre/pcre-$version.tar.gz"
-distfiles="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${version}.tar.bz2"
-checksum=e62c7eac5ae7c0e7286db61ff82912e1c0b7a0c13706616e94a7dd729321b530
+distfiles="https://ftp.pcre.org/pub/pcre/pcre-${version}.tar.bz2"
+checksum=19108658b23b3ec5058edc9f66ac545ea19f9537234be1ec62b714c84399366d
 
 case "$XBPS_TARGET_MACHINE" in
 	mips*) ;; # Without stack for recursion the mips builds fail

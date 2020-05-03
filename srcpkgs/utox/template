@@ -1,20 +1,22 @@
 # Template file for 'utox'
 pkgname=utox
-version=0.16.1
+version=0.17.2
 revision=1
-wrksrc="uTox-${version}"
+wrksrc=uTox
 build_style=cmake
 configure_args="-DENABLE_ASAN=OFF"
-short_desc="Lightweight TOX instant messenger client written in C"
-maintainer="Spencer Hill <spencernh77@gmail.com>"
-license="GPL-3"
-homepage="http://utox.org/"
 hostmakedepends="pkg-config"
-makedepends="toxcore-devel filter_audio-devel fontconfig-devel
- freetype-devel libopenal-devel libvpx-devel libX11-devel libXext-devel
- libXrender-devel dbus-devel v4l-utils-devel libsodium-devel opus-devel
- check-devel"
-distfiles="https://github.com/uTox/uTox/archive/v${version}.tar.gz"
-checksum=d8fcee0dbf25596e67c4323fc153069552eeeb4d99cdcdc09ca2074ebc38b493
-
+makedepends="check-devel dbus-devel filter_audio-devel fontconfig-devel
+ libXrender-devel libopenal-devel libsodium-devel libvpx-devel opus-devel
+ toxcore-devel v4l-utils-devel"
+short_desc="Lightweight Tox instant messenger client written in C"
+maintainer="avoidr <avoidr@firemail.cc>"
+license="MIT"
+homepage="https://github.com/uTox/uTox/"
+distfiles="https://github.com/uTox/uTox/releases/download/v${version}/uTox-${version}-full.tar.gz"
+checksum=8437827b899e4e358adaf0641680c214f4b6dfb52af6534f261d747a905f08b6
 nocross=yes
+
+post_install() {
+	vlicense LICENSE
+}

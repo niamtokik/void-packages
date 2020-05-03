@@ -1,21 +1,37 @@
 # Template file for 'nftables'
 pkgname=nftables
-version=0.8.2
+version=0.9.4
 revision=1
 build_style=gnu-configure
-configure_args="--sbindir=/usr/bin CONFIG_MAN=y DB2MAN=docbook2man"
-hostmakedepends="pkg-config docbook2x flex bison"
-makedepends="libnftnl-devel libmnl-devel gmp-devel readline-devel"
+configure_args="--sbindir=/usr/bin --with-json --with-python-bin=/bin/python3"
+hostmakedepends="python3 asciidoc docbook2x flex pkg-config"
+makedepends="gmp-devel jansson-devel libmnl-devel libnftnl-devel readline-devel"
 short_desc="Netfilter nftables userspace tools"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="GPL-2"
+license="GPL-2.0-only"
 homepage="http://netfilter.org/projects/nftables/"
 distfiles="http://www.netfilter.org/projects/${pkgname}/files/${pkgname}-${version}.tar.bz2"
-checksum=675f0aaf88f11e7eacef63dc89cb65d207d9e09c3ea6d518f0ebbb013f0767ec
+checksum=08b8683a9db5fba980bc092b75288af98d218bbe8ab446daf2338570d0730f9a
 
-post_extract() {
-	sed -i '1i#include "config.h"' src/proto.c
-}
 post_install() {
-	vsv $pkgname
+	vsv nftables
+}
+
+libnftables_package() {
+	short_desc+=" - runtime libraries"
+	pkg_install() {
+		vmove "usr/lib/*.so.*"
+	}
+}
+
+libnftables-devel_package() {
+	depends="libnftables-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		vmove "usr/lib/*.a"
+		vmove usr/share/man/man3
+	}
 }

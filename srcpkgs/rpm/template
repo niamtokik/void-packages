@@ -1,41 +1,45 @@
 # Template file for 'rpm'
 pkgname=rpm
-version=4.13.0.2
-revision=1
+version=4.15.1
+revision=3
 build_style=gnu-configure
-configure_args="--with-lua --with-cap --with-acl --with-external-db --enable-python PYTHON=python2"
-hostmakedepends="pkg-config python-setuptools nss-devel nspr-devel automake"
-makedepends="zlib-devel nspr-devel nss-devel bzip2-devel elfutils-devel file-devel popt-devel
-libarchive-devel db-devel python-devel libcap-devel lua52-devel zstd-devel binutils-devel"
-checkdepends="${makedepends}"
+configure_args="--with-lua --with-cap --with-acl --with-external-db
+ --enable-python PYTHON=python3 --sharedstatedir=/var/lib"
+hostmakedepends="automake gettext-devel libtool nss-devel pkg-config
+ python3-setuptools"
+makedepends="binutils-devel db-devel elfutils-devel file-devel libarchive-devel
+ libcap-devel lua52-devel nss-devel popt-devel python3-devel libgomp-devel"
 short_desc="Red Hat Package Management Utils"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
-license="GPL-2"
-homepage="http://rpm.org"
-distfiles="http://ftp.rpm.org/releases/rpm-${version%.*.*}.x/rpm-${version}.tar.bz2"
-checksum=2f3e2c07c354d16f2305ddd93ed030c8403d59b272f2fb6722445b091ff14194
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://rpm.org"
+changelog="https://rpm.org/wiki/Releases/${version}.html"
+distfiles="http://ftp.rpm.org/releases/rpm-4.15.x/rpm-${version}.tar.bz2"
+checksum=ddef45f9601cd12042edfc9b6e37efcca32814e1e0f4bb8682d08144a3e2d230
+python_version=2 #unverified
 conflicts="rpmextract>=0" # Both provide rpm2cpio
 
-CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/python2.7"
+CFLAGS="-I${XBPS_CROSS_BASE}${py3_inc}"
 CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/nss"
 CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/nspr"
 
 case "$XBPS_TARGET_MACHINE" in
 	# Musl requires gettext to be included and it's cflag added otherwise
 	# it fails with _nl_msg_cat_cntr undefined reference error
-	*-musl*)
+	*-musl)
 	makedepends+=" gettext-devel"
 	LDFLAGS+=" -lintl"
 	;;
 esac
 
-post_install() {
-	mv "${DESTDIR}"/bin/rpm "${DESTDIR}"/usr/bin/rpm
-	rm -r "${DESTDIR}"/bin
+pre_configure() {
+	autoreconf -fi
 }
 
-rpm-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
+librpm-devel_package() {
+	depends="librpm-${version}_${revision} librpmbuild-${version}_${revision}
+	 librpmsign-${version}_${revision} librpmio-${version}_${revision} db-devel
+	 popt-devel liblzma-devel zlib-devel bzip2-devel nss-devel lua52-devel"
 	short_desc+=" - development files"
 	depends="${makedepends}"
 	pkg_install() {
@@ -45,12 +49,38 @@ rpm-devel_package() {
 	}
 }
 
-rpm-python_package() {
+rpm-python3_package() {
+	depends="rpm"
 	short_desc+=" - python bindings"
-	depends="${sourcepkg}>=${version}_${revision}"
-	noarch=yes
-	pycompile_module="rpm"
 	pkg_install() {
-		vmove usr/lib/python2*
+		vmove usr/lib/python3*
+	}
+}
+
+librpm_package() {
+	short_desc+=" - rpm library"
+	pkg_install() {
+		vmove "usr/lib/librpm.so.*"
+	}
+}
+
+librpmbuild_package() {
+	short_desc+=" - rpmbuild library"
+	pkg_install() {
+		vmove "usr/lib/librpmbuild.so.*"
+	}
+}
+
+librpmsign_package() {
+	short_desc+=" - rpmsign library"
+	pkg_install() {
+		vmove "usr/lib/librpmsign.so.*"
+	}
+}
+
+librpmio_package() {
+	short_desc+=" - rpmio library"
+	pkg_install() {
+		vmove "usr/lib/librpmio.so.*"
 	}
 }

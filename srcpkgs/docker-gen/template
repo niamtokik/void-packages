@@ -1,9 +1,9 @@
 # Template file for 'docker-gen'
 pkgname=docker-gen
 version=0.7.4
-revision=2
+revision=7
 build_style=go
-hostmakedepends="git-perl glock"
+hostmakedepends="git glock"
 short_desc="Generate files from docker container meta-data"
 go_import_path="github.com/jwilder/docker-gen"
 go_package="${go_import_path}/cmd/docker-gen"

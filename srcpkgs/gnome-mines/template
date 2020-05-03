@@ -1,13 +1,13 @@
 # Template file for 'gnome-mines'
 pkgname=gnome-mines
-version=3.26.0
+version=3.36.0
 revision=1
-build_style=gnu-configure
-hostmakedepends="glib intltool itstool pkg-config"
-makedepends="gtk+3-devel librsvg-devel libgnome-games-support-devel"
+build_style=meson
+hostmakedepends="gettext glib-devel itstool pkg-config vala"
+makedepends="libgnome-games-support-devel librsvg-devel"
 short_desc="GNOME puzzle game where you locate mines in the ocean"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Mines"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=2b041eaf0d57307498c56d8e285b2e539f634fdba95d689f6af75aa4ed6edde9
+checksum=4afe897d96c26bc8f221752e154a761a6a033197df8db0fd5879e4b77af5a354

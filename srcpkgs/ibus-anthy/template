@@ -1,18 +1,18 @@
 # Template file for 'ibus-anthy'
 pkgname=ibus-anthy
-version=1.5.9
+version=1.5.11
 revision=1
 build_style=gnu-configure
 configure_args="--libexec=/usr/lib/ibus $(vopt_enable gir introspection)"
-hostmakedepends="pkg-config intltool automake gettext-devel libtool swig $(vopt_if gir gobject-introspection)"
-makedepends="python-gobject-devel anthy-devel ibus-devel"
-depends="ibus gtk-update-icon-cache python-gobject"
+hostmakedepends="automake gettext-devel $(vopt_if gir gobject-introspection) libtool pkg-config swig"
+makedepends="anthy-devel ibus-devel python-gobject-devel"
+depends="ibus"
 short_desc="Japanese input method Anthy IMEngine for IBus Framework"
 maintainer="7185 <7185@free.fr>"
-license="LGPL-2.1"
+license="LGPL-2.1-or-later"
 homepage="https://github.com/ibus/ibus/wiki"
 distfiles="https://github.com/ibus/${pkgname}/archive/${version}.tar.gz"
-checksum=b06657b5c8fb73f40260d254ad80e8c6c55355b16fe799821096374791172deb
+checksum=57d42a302be72409708274aa680c6d7515077766853a2b9193b9974c9c6eeaf6
 
 # Package build options
 build_options="gir"
@@ -24,5 +24,4 @@ fi
 
 pre_configure() {
 	autoreconf -fi
-	intltoolize -f
 }

@@ -1,29 +1,30 @@
 # Template file for 'libcap-pam'
 pkgname=libcap-pam
-version=2.25
-revision=2
+version=2.33
+revision=1
 wrksrc="libcap-${version}"
+build_style=gnu-makefile
+make_use_env=yes
+make_install_args="RAISE_SETFCAP=no"
 hostmakedepends="gperf perl pam-devel"
 makedepends="pam-devel attr-devel"
-conf_files="/etc/security/capability.conf"
 short_desc="POSIX.1e capabilities suite - PAM module"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
 homepage="http://sites.google.com/site/fullycapable/"
-license="GPL-2"
-distfiles="${KERNEL_SITE}/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
-checksum=693c8ac51e983ee678205571ef272439d83afe62dd8e424ea14ad9790bc35162
+distfiles="${KERNEL_SITE}/libs/security/linux-privs/libcap2/libcap-${version}.tar.xz"
+checksum=08edeaba2757021aeec45c4eeec52566675e0e0f5d4f057284d729e04f2643d6
 
-do_build() {
-	make CC="$CC" BUILD_CC=cc
+conf_files="/etc/security/capability.conf"
+
+pre_build() {
+	vsed -e 's,CC :=,CC ?=,' -i Make.Rules
+	# Disable tests, as they cause cross-build failure
+	 vsed -e '/test:/,/.sh/d' -e '/tests/d' -i Makefile
 }
+
 do_install() {
-	_destdir=${wrksrc}/temp_install
-
-	make DESTDIR=${_destdir} MANDIR=/usr/share/man \
-		SBINDIR=/usr/sbin LIBDIR=/usr/lib \
-		RAISE_SETFCAP=no PKGCONFIGDIR=/usr/lib/pkgconfig install
-
 	vinstall pam_cap/capability.conf 644 etc/security
-	vmkdir usr/lib
-	mv ${_destdir}/usr/lib/security ${DESTDIR}/usr/lib
+	vmkdir usr/lib/security
+	mv pam_cap/pam_cap.so ${DESTDIR}/usr/lib/security
 }

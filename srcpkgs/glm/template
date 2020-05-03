@@ -1,21 +1,27 @@
 # Template file for 'glm'
 pkgname=glm
-version=0.9.8.5
-revision=2
-noarch=yes
-build_style=cmake
+version=0.9.9.7
+revision=1
+archs=noarch
+wrksrc=glm
 hostmakedepends="dos2unix unzip"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+short_desc="C++ mathematics library for graphics programming"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
-short_desc="A C++ mathematics library for graphics programming"
 homepage="http://glm.g-truc.net"
 distfiles="https://github.com/g-truc/glm/releases/download/${version}/glm-${version}.zip"
-checksum=9f9f520ec7fb8c20c69d6b398ed928a2448c6a3245cbedb8631a56a987c38660
-wrksrc=${pkgname}
+checksum=6b79c3d06d9745d1cce3f38c0c15666596f9aefff25ddb74df3af0a02f011ee1
 
-post_extract() {
-	# Fix compiler version detection: GCC >= 7.2
-	sed -i glm/simd/platform.h -e "/(__GNUC__ == 7)/s/ == 2/>= 2/"
+# No longer has install target
+# Install manually
+do_install() {
+	local i
+	vmkdir usr/include
+	for i in glm ; do
+		vcopy $i usr/include
+	done
+	vmkdir usr/share/pkgconfig
+	vinstall ${FILESDIR}/glm.pc 644 usr/share/pkgconfig
 }
 
 post_install() {
@@ -23,5 +29,7 @@ post_install() {
 	for f in $(find ${DESTDIR}/usr/include -type f); do
 		dos2unix "$f"
 	done
-	vlicense copying.txt
+	rm -f "${DESTDIR}/usr/include/CMakeLists.txt"
+	sed -n '88,110p' manual.md > LICENSE
+	vlicense LICENSE
 }

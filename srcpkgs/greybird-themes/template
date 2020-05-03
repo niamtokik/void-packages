@@ -1,25 +1,15 @@
 # Template file for 'greybird-themes'
 pkgname=greybird-themes
-version=3.22.5
+version=3.22.12
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="Greybird-${version}"
-short_desc="An elegant grey GTK+2/3 theme"
-maintainer="Jakub Skrzypnik <jot.skrzyp@gmail.com>"
-license="GPL-2, CC-BY-SA-3.0"
+build_style=meson
+hostmakedepends="sassc ninja glib-devel gdk-pixbuf-devel librsvg-devel"
 depends="gtk-engine-murrine"
+short_desc="Elegant grey GTK+2/3 theme"
+maintainer="Jakub Skrzypnik <jot.skrzyp@gmail.com>"
+license="GPL-2.0-or-later, CC-BY-SA-3.0"
 homepage="https://github.com/shimmerproject/Greybird"
 distfiles="https://github.com/shimmerproject/Greybird/archive/v${version}.tar.gz"
-checksum=a4c0f5f8172fa7035c35668099715e3e33be249b2dfaf48dbed480991a5b8563
-
-do_install() {
-	vmkdir usr/share/themes/Greybird
-	vmkdir usr/share/themes/Greybird-bright/xfce-notify-4.0
-	vmkdir usr/share/themes/Greybird-accessibility/xfwm4
-	vmkdir usr/share/themes/Greybird-compact/xfwm4
-	vcopy "Greybird.emerald gnome-shell gtk-2.0 gtk-3.0 index.theme metacity-1 plank
-	 ubiquity-panel-bg.png unity xfce-notify-4.0 xfwm4" usr/share/themes/Greybird
-	vcopy xfce-notify-4.0_bright/* usr/share/themes/Greybird-bright/xfce-notify-4.0
-	vcopy xfwm4-a11y/* usr/share/themes/Greybird-accessibility/xfwm4
-	vcopy xfwm4-compact/* usr/share/themes/Greybird-compact/xfwm4
-}
+checksum=410804cd5daca33cbc5c7c4a179f3a334ced87f408e515fc5d9c083a04bec4bc

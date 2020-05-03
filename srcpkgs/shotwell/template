@@ -1,21 +1,25 @@
 # Template file for 'shotwell'
 pkgname=shotwell
-reverts="0.27.1_1"
-version=0.26.4
+version=0.30.7
 revision=1
-lib32disabled=yes
-build_style=gnu-configure
-configure_args="--disable-schemas-compile"
-hostmakedepends="pkg-config gnome-doc-utils gcr-devel
- vala-devel libgee08-devel libgexiv2-devel itstool glib-devel"
-makedepends="gnome-doc-utils vala-devel libgee08-devel libraw-devel
- libgphoto2-devel libgexiv2-devel libunique-devel rest-devel
- sqlite-devel gtk+3-devel webkit2gtk-devel libgudev-devel json-glib-devel
- gst-plugins-base1-devel gcr-devel libgdata-devel"
-depends="hicolor-icon-theme desktop-file-utils"
+build_style=meson
+hostmakedepends="gcr-devel gettext glib-devel gnome-doc-utils itstool
+ libgee08-devel libgexiv2-devel pkg-config vala-devel"
+makedepends="gnome-doc-utils gst-plugins-base1-devel libgdata-devel
+ libgee08-devel libgexiv2-devel libgphoto2-devel libgudev-devel libraw-devel
+ libunique-devel rest-devel vala-devel webkit2gtk-devel"
+depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Open source photo manager for GNOME"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-or-later, CC-BY-SA-3.0"
 homepage="https://wiki.gnome.org/Apps/Shotwell"
 distfiles="${GNOME_SITE}/shotwell/${version%.*}/shotwell-${version}.tar.xz"
-checksum=70802d290419454e3194f6cf4a74db6c5a5ee2674f92809477083bcf58d32cd8
+checksum=345d4205760d26f54033d44cf1b778ed9d3fc964de71293bfd5034ff484631d5
+lib32disabled=yes
+nocross="https://build.voidlinux.org/builders/armv7l-musl_builder/builds/20405/steps/shell_3/logs/stdio"
+
+post_extract() {
+	# because shotwell intelligently forces fatal warnings even for
+	# harmless stuff coming from the outside that we can do nothing about
+	vsed -i "/'--fatal-warnings'/d" meson.build
+}

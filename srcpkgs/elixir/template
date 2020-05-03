@@ -1,15 +1,16 @@
 # Template file for 'elixir'
 pkgname=elixir
-version=1.6.1
+version=1.10.2
 revision=1
 build_style=gnu-makefile
 make_check_target="test"
 hostmakedepends="erlang"
-depends="erlang"
+depends="erlang>=21"
 checkdepends="git"
 short_desc="Functional, concurrent, general-purpose programming language"
-maintainer="Duncaen <duncaen@voidlinux.eu>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="Apache-2.0"
 homepage="http://elixir-lang.org/"
+changelog="https://github.com/elixir-lang/elixir/raw/v1.9/CHANGELOG.md"
 distfiles="https://github.com/elixir-lang/elixir/archive/v${version}.tar.gz"
-checksum=91109a1774e9040fb10c1692c146c3e5a102e621e9c48196bfea7b828d54544c
+checksum=5adffcf4389aa82fcfbc84324ebbfa095fc657a0e15b2b055fc05184f96b2d50

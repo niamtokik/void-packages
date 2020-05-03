@@ -1,34 +1,29 @@
 # Template file for 'python-CherryPy'
 pkgname=python-CherryPy
-version=14.0.0
+reverts="18.0.1_1 18.0.0_1"
+version=17.4.2
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="CherryPy-${version}"
-build_style=python-module
-hostmakedepends="python-setuptools python3-setuptools"
-depends="python-six python-Cheroot"
+build_style=python2-module
 pycompile_module="cherrypy"
+hostmakedepends="python-setuptools"
+depends="python-setuptools python-six python-Cheroot python-portend
+ python-contextlib2 python-zc.lockfile"
 short_desc="Object-oriented HTTP framework (Python2)"
-maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="3-clause-BSD"
-homepage="http://www.cherrypy.org"
+maintainer="bra1nwave <brainwave@openmailbox.org>"
+license="BSD-3-Clause"
+homepage="https://cherrypy.org/"
 distfiles="${PYPI_SITE}/C/CherryPy/CherryPy-${version}.tar.gz"
-checksum=5f5ee020d6547a8d452b3560775ca2374ffe2ff8c0aec1b272e93b6af80d850e
+checksum=ef1619ad161f526745d4f0e4e517753d9d985814f1280e330661333d2ba05cdf
 alternatives="cherrypy:cherryd:/usr/bin/cherryd2"
 
-post_install() {
-	vlicense LICENSE.md
+pre_build() {
+	vsed -i setup.py \
+		-e '/setuptools_scm/d' \
+		-e "s|use_scm_version=True|version='${version}'|"
 }
-
-python3-CherryPy_package() {
-	noarch=yes
-	depends="python3-six python3-Cheroot"
-	pycompile_module="cherrypy"
-	short_desc="${short_desc/Python2/Python3}"
-	alternatives="cherrypy:cherryd:/usr/bin/cherryd3"
-	pkg_install() {
-		vmove usr/bin/cherryd3
-		vmove usr/lib/python3*
-		vlicense LICENSE.md
-	}
+post_install() {
+	mv ${DESTDIR}/usr/bin/cherryd ${DESTDIR}/usr/bin/cherryd2
+	vlicense LICENSE.md
 }

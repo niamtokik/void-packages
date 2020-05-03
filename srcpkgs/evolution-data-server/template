@@ -1,28 +1,27 @@
 # Template file for 'evolution-data-server'
 pkgname=evolution-data-server
-version=3.26.4
+version=3.36.1
 revision=1
 build_style=cmake
-configure_args="-DENABLE_GOOGLE_AUTH=OFF -DENABLE_UOA=OFF"
-hostmakedepends="pkg-config intltool flex glib-devel gperf $(vopt_if gir gobject-introspection)"
-makedepends="db-devel sqlite-devel mit-krb5-devel nss-devel libical-devel
- libsecret-devel libsoup-gnome-devel gcr-devel libldap-devel
- libgdata-devel $(vopt_if gir vala-devel) libgweather-devel icu-devel"
-depends="libsoup-gnome>=2.46 libgweather>=3.12"
+build_helper=gir
+configure_args="-DENABLE_UOA=OFF
+ $(vopt_if gir '-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON' '-DENABLE_WEATHER=OFF')"
+hostmakedepends="flex glib-devel gperf intltool pkg-config libglib-devel
+ $(vopt_if gir 'gobject-introspection')"
+makedepends="boost-devel libcanberra-devel libgdata-devel $(vopt_if gir libgweather-devel)
+ libical-devel libsecret-devel mit-krb5-devel $(vopt_if gir 'vala-devel') webkit2gtk-devel"
+depends="$(vopt_if gir libgweather) libsoup-gnome"
 short_desc="Centralized access to appointments and contacts"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-only"
 homepage="https://wiki.gnome.org/Apps/Evolution"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=063ea91b94492c69928d3181c745781fe09e5234f1b94e0ba110cee00c2cb40f
+changelog="https://raw.githubusercontent.com/GNOME/evolution-data-server/gnome-3-36/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=13122b2edddb98306207d2a35d5ccae25a90702769ca0a0b51653b5984986796
 
 build_options="gir"
 if [ -z "$CROSS_BUILD" ]; then
 	build_options_default="gir"
-fi
-
-if [ ! -z "$build_option_gir" ]; then
-	configure_args+=" -DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON"
 fi
 
 # cmake perfomrms 2 checks using binary runtime, about iconv and sfrtime.
@@ -43,15 +42,15 @@ pre_configure() {
 		cp ${FILESDIR}/disableRuntimeTests.cmake ${wrksrc}/build/.
 	fi
 }
+
 post_install() {
-	# Fix broken pkg-config
-	sed -i "s|^Requires: gio-2.0, , |Requires: gio-2.0, mozilla-nspr, mozilla-nss|" \
-		$DESTDIR/usr/lib/pkgconfig/evolution-data-server-1.2.pc
+	rm -rf ${DESTDIR}/usr/lib/systemd
 }
 
 evolution-data-server-devel_package() {
-	depends="sqlite-devel mit-krb5-devel nss-devel libical-devel
+	depends="sqlite-devel mit-krb5-devel nss-devel nspr-devel libical-devel
 		libldap-devel libgdata-devel>=0.15 libsecret-devel libglib-devel
+		libsoup-devel gtk+3-devel libxml2-devel gnome-desktop-devel
 		${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {

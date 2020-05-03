@@ -1,27 +1,23 @@
 # Template file for 'mergerfs'
-pkgname="mergerfs"
-version=2.23.1
+pkgname=mergerfs
+version=2.29.0
 revision=1
 build_style=gnu-makefile
-makedepends="fuse-devel attr-devel"
-hostmakedepends="automake libtool pkg-config"
+hostmakedepends="automake libtool pkg-config which"
 short_desc="FUSE union filesystem"
-maintainer="Orphaned <orphan@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="ISC"
 homepage="https://github.com/trapexit/mergerfs"
-distfiles="${homepage}/archive/${version}/${pkgname}-${version}.tar.gz"
-checksum=f38c3909c7145d291fa4cb85241f488efc01000ec9657a3cf72ee6ab4400c733
-
-case "$XBPS_TARGET_MACHINE" in
-	*-musl)	# Does not have pandoc
-		;;
-	*)	hostmakedepends+=" pandoc"
-		;;
-esac
+distfiles="${homepage}/archive/${version}.tar.gz"
+checksum=f16f7c90d9db35b9f8fadbb529c4bf0f7d65d18fd2e7443a662cbfa7a8dbd4f9
 
 pre_build() {
-	sed -i 's|^CFLAGS[[:blank:]]*=|override CFLAGS +=|g' Makefile
-	sed -i 's|^LDFLAGS[[:blank:]]*=|override LDFLAGS +=|g' Makefile
+	vsed -i 's|^CXXFLAGS[[:blank:]]*=|override CXXFLAGS +=|g' Makefile
+	vsed -i 's|^LDFLAGS[[:blank:]]*=|override LDFLAGS +=|g' Makefile
+
+	# we build from source, spoof release tarball
+	echo "$version" > VERSION
+	./tools/update-version
 }
 
 post_install() {

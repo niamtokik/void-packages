@@ -1,22 +1,17 @@
 # Template file for 'zathura-djvu'
 pkgname=zathura-djvu
-version=0.2.7
+version=0.2.9
 revision=1
-build_style=gnu-makefile
-maintainer="lemmi <lemmi@nerd2nerd.org>"
+build_style=meson
 hostmakedepends="pkg-config"
 makedepends="djvulibre-devel zathura-devel"
 depends="zathura"
-license="zlib"
-homepage="http://pwmt.org/projects/zathura-djvu/"
 short_desc="DjVu support for zathura"
-distfiles="http://pwmt.org/projects/${pkgname}/download/${pkgname}-${version}.tar.gz"
-checksum=0d6e9470abfa3a2a67c9acf2f6fcc261e7c089d5a810c27a410c8372bd6e6ee9
-
-pre_build() {
-	sed -i 's/^\(CFLAGS *+=\)/override \1/' config.mk
-	sed -i 's/^\(LDFLAGS *+=\)/override \1/' config.mk
-}
+maintainer="lemmi <lemmi@nerd2nerd.org>"
+license="Zlib"
+homepage="http://pwmt.org/projects/zathura-djvu/"
+distfiles="https://pwmt.org/projects/${pkgname}/download/${pkgname}-${version}.tar.xz"
+checksum=96e6f8a6ee53231073b2f7003264872f84501e63c3da7bf0598d046286b0c200
 
 post_install() {
 	vlicense LICENSE

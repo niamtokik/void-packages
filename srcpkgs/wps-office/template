@@ -1,60 +1,51 @@
 # Template file for 'wps-office'
-_numericVersion=10.1.0.5707
-_releaseIncrement=a21
-_patchLevel=
-
 pkgname=wps-office
-version=${_numericVersion}${_releaseIncrement}
+version=11.1.0.9505
 revision=1
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
-homepage="http://wps-community.org"
-license="Kingsoft WPS Community License"
-#Full license is at: http://wps-community.org/license.md (Not downloadable)
+archs="x86_64"
+create_wrksrc=yes
+makedepends="rpmextract"
 short_desc="Linux office suite with similar appearance to MS Office"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
+#The old Kingsoft WPS Community License has disappeared from the
+#site. There is an EULA in the archive which is instaled as license
+#and a non-downloadable EULA which is accesible from inside the program:
+#https://www.wps.com/eula?distsrc=2019help&lang=en_US&version=11.1.0.9505
+license="custom:EULA"
+homepage="http://wps-community.org"
+changelog="http://linux.wps.com/wpslinuxlog.html"
+checksum="58d1eec639b8573f4a1a1e33cb1a6a6ee5feda30eb8c13387cf6538e38213e24"
 allow_unknown_shlibs=yes
 nodebug=yes
 restricted=yes
 
+
 #The programs themselves are PIE, but the error reporter isn't :/
 nopie=yes
 
-_disturl="http://kdl.cc.ksosoft.com/ksodl/download/linux/${_releaseIncrement}"
-
-only_for_archs="i686 x86_64"
-if [ "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
-	_arch=x86_64
-	checksum=aa875a06e7eef79a30d6e5a4bd03f08eeb1524013edd59122d95a20b1638d9c5
-elif [ "$XBPS_TARGET_MACHINE" = "i686" ]; then
-	_arch=x86
-	checksum=3478f88794b4e473357c1b2b4514b6ddf41bc1aac6e018dfeac637aaac7a021f
-fi
-
-_distTar="${pkgname}_${_numericVersion}~${_releaseIncrement}${_patchLevel}_${_arch}.tar.xz"
+_disturl=http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/9505/
+_distTar="${pkgname}-${version}.XA-1.x86_64.rpm"
 distfiles="${_disturl}/${_distTar}"
 
-do_extract() {
-	vmkdir "opt/kingsoft/wps-office"
-	tar xvf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_distTar}" -C "${DESTDIR}/opt/kingsoft/wps-office" --strip-components=1
-}
 
 do_install() {
-	# Install the wps-office suites
-	vmkdir usr/bin
-	vmkdir usr/share
-	vmkdir usr/lib
+	cp -R ${wrksrc}/* ${DESTDIR}
+}
 
-	_programs="wps wpp et"
-	for prog in ${_programs}; do
-		ln -fs /opt/kingsoft/wps-office/$prog ${DESTDIR}/usr/bin/$prog
-	done
-	mv ${DESTDIR}/opt/kingsoft/wps-office/resource/* ${DESTDIR}/usr/share/
+post_install() {
 
-	#Fonts
-	vmkdir usr/share/fonts/TTF
-	install -m644 ${DESTDIR}/opt/kingsoft/wps-office/fonts/*.TTF ${DESTDIR}/usr/share/fonts/TTF
+	#Clean up:
+	#Delete everything under /etc. It contains cron, logrotate and autostart
+	# configuration for the update check and a seperate menu category for the
+	# wps programs that does not work.
+	rm -rf ${DESTDIR}/etc
 
-	#Clean up some things
-	rm ${DESTDIR}/opt/kingsoft/wps-office/README.txt
-	rm -rf ${DESTDIR}/opt/kingsoft/wps-office/font*
-	rm ${DESTDIR}/opt/kingsoft/wps-office/install_fonts
+	#Delete postinst and prerm scripts
+	rm -rf ${DESTDIR}/opt/kingsoft/wps-office/INSTALL
+
+	# Install license
+	vlicense ${DESTDIR}/opt/kingsoft/wps-office/office6/mui/default/EULA_linux.txt
+
+	# Install privacy notice as documentation
+	vdoc ${DESTDIR}/opt/kingsoft/wps-office/office6/mui/default/Privacy_Linux.txt
 }

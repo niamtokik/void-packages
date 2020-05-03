@@ -1,17 +1,17 @@
 # Template file for 'kitemmodels'
 pkgname=kitemmodels
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-declarative-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-declarative-devel"
 makedepends="qt5-devel qt5-declarative-devel"
 short_desc="Set of item models extending the Qt model-view framework"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kitemmodels"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=0c5663904536568d898c3fd1655575165efc325cd2669d23bfc9edca71fb8d55
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=a67bca5267a2f25d6bb07c10bbb534b480b74479b27ad4f91058f3c94b909dcb
 
 kitemmodels-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kitemmodels-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

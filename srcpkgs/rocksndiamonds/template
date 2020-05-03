@@ -1,37 +1,19 @@
 # Template file for 'rocksndiamonds'
 pkgname=rocksndiamonds
-version=4.0.1.1
+version=4.1.4.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="pkg-config"
 makedepends="SDL2_image-devel SDL2_mixer-devel SDL2_net-devel"
+depends="rocksndiamonds-data"
 short_desc="Arcade style game"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-2"
+license="GPL-2.0-only"
 homepage="http://www.artsoft.org/rocksndiamonds"
 distfiles="http://www.artsoft.org/RELEASES/unix/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=66a40b0386e58e9d7f2b1ddf0519fc7994bcba0da94eb2a778cfea516a125538
+checksum=0f65559070b24e8a82c27e7cae40243a8dcdca9028c4c9cc75487112129854ce
 
-# Package build options
-build_options="gles"
-
-case "$XBPS_TARGET_MACHINE" in
-	arm*)
-		# Enable OpenGL/ES on rpi platforms
-		build_options_default="gles"
-		;;
-esac
-
-
-if [ "$build_option_gles" ]; then
-	case "$XBPS_TARGET_MACHINE" in
-	armv[67]*)
-		# RaspberryPi, use Videocore IV
-		makedepends+=" rpi-userland-devel"
-		LDFLAGS="-L${XBPS_CROSS_BASE}/opt/vc/lib -lbcm_host"
-		;;
-	esac
-fi
+LDFLAGS="-lz"
 
 do_build() {
 	CFLAGS+=" -DTARGET_SDL2"
@@ -39,7 +21,7 @@ do_build() {
 	CFLAGS+=" -DRW_GAME_DIR='\"/var/lib/${pkgname}\"'"
 	CFLAGS+=" $(sdl2-config --cflags)"
 	LDFLAGS+=" $(sdl2-config --libs) -lSDL2_image -lSDL2_mixer -lSDL2_net -lm"
-	make CC="${CC}" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" sdl2
+	make ${makejobs} CC="${CC}" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" sdl2
 }
 
 do_install() {
@@ -50,4 +32,12 @@ do_install() {
 	# vman rocksndiamonds.1
 	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
 	vinstall ${FILESDIR}/${pkgname}.png 644 usr/share/pixmaps
+}
+
+rocksndiamonds-data_package() {
+	short_desc+=" - data files"
+	archs=noarch
+	pkg_install() {
+		vmove usr/share/rocksndiamonds
+	}
 }

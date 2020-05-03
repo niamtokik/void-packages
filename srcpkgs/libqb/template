@@ -1,18 +1,22 @@
-# Template build file for 'libqb'.
+# Template file for 'libqb'
 pkgname=libqb
-version=1.0.1
+version=1.0.5
 revision=1
-build_style=configure
-short_desc="libqb is a library providing high performance logging, tracing, ipc, and poll."
-maintainer="Mathieu Kerjouan <void@steepath.eu>"
-license="LGPL-2.1"
-homepage="https://github.com/ClusterLabs/libqb"
-distfiles="https://github.com/ClusterLabs/${pkgname}/archive/v${version}.tar.gz"
-checksum=98a6f8d7b83013747788ff7f1aace387ec532a8e7fbecc354ad9260f426dd518
-hostmakedepends="autoconf automake libtool check-devel glib-devel pkg-config"
-configure_args="--prefix=/usr --sbindir=/usr/bin --with-check=yes"
-shlib_provides="libqb.so.0"
+build_style=gnu-configure
+short_desc="High performance logging, tracing, ipc, poll"
+maintainer="Kevin Klopfenstein <kk@sudo-i.net>"
+license="LGPL-2.1-or-later"
+homepage="https://clusterlabs.github.io/libqb/"
+distfiles="https://github.com/ClusterLabs/libqb/releases/download/v${version}/${pkgname}-${version}.tar.gz"
+checksum=89fe0c743e5be15f2fa25849f107df41cb144928259752d5c797c13644eba6b1
 
-pre_configure() {
-	sh autogen.sh
+libqb-devel_package() {
+	depends="libqb-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
 }

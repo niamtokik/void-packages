@@ -1,19 +1,23 @@
 # Template file for 'hugo'
 pkgname=hugo
-version=0.36.1
+version=0.69.2
 revision=1
 build_style=go
-hostmakedepends="git-perl mercurial"
-depends="python-Pygments"
-go_import_path="github.com/spf13/${pkgname}"
-short_desc="A Fast & Modern Static Website Engine"
+go_import_path="github.com/gohugoio/${pkgname}"
+go_build_tags="$(vopt_if extended extended)"
+hostmakedepends="git"
+depends="$(vopt_if pygments python-Pygments)"
+short_desc="Fast & Modern Static Website Engine"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="SimPL-2"
-homepage="http://gohugo.io"
+license="Apache-2.0"
+homepage="https://gohugo.io"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=3ef3d572e78d0fa5bf41fcbc8d686d168e9ba0548d87d406c55f8a4728131b36
+checksum=1cd3caaa13ca14cd4258a04528b7dade7da7f93d6f9151db1efe0946b629a75c
+
+build_options="pygments extended"
+desc_option_pygments="Alternative syntax highlighter"
+desc_option_extended="SASS/SCSS build support for Hugo"
 
 post_install() {
-	vlicense LICENSE.md
 	vdoc README.md
 }

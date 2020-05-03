@@ -1,26 +1,28 @@
 # Template file for 'remmina'
 pkgname=remmina
-version=1.2.0rc26
+version=1.4.3
 revision=1
-_gitrev=1.2.0-rcgit.26
-wrksrc="Remmina-${_gitrev}"
+wrksrc="Remmina-v${version}"
 build_style=cmake
-configure_args="-DWITH_APPINDICATOR=OFF"
+configure_args="-DWITH_APPINDICATOR=OFF -DCMAKE_USE_PTHREADS_INIT=ON"
 hostmakedepends="intltool pkg-config"
-makedepends="avahi-glib-libs-devel avahi-ui-libs-devel
- freerdp-devel libgnome-keyring-devel libgcrypt-devel libssh-devel
- libsecret-devel libvncserver-devel libxkbfile-devel telepathy-glib-devel
+makedepends="avahi-glib-libs-devel avahi-ui-libs-devel freerdp-devel
+ gobject-introspection gstreamermm-devel json-glib-devel
+ libgnome-keyring-devel liblz4-devel libsasl-devel libsecret-devel
+ libsodium-devel libsoup-devel libssh-devel libva-devel
+ libvncserver-devel libxkbfile-devel opus-devel phodav-devel
+ spice-gtk-devel spice-protocol telepathy-glib-devel usbredir-devel
  vte3-devel"
 depends="desktop-file-utils hicolor-icon-theme"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Remote desktop client written in GTK+"
-homepage="http://www.remmina.org/wp/"
-license="GPL-2"
-distfiles="https://github.com/FreeRDP/Remmina/archive/v${_gitrev}.tar.gz"
-checksum=180202126617e4286b255ef23aa75f0eb782db2ca4657af140d5e62226ce8661
+maintainer="Frank Steinborn <steinex@nognu.de>"
+license="GPL-2.0-or-later"
+homepage="https://remmina.org"
+changelog="https://raw.githubusercontent.com/FreeRDP/Remmina/master/CHANGELOG.md"
+distfiles="https://gitlab.com/Remmina/Remmina/-/archive/v${version}/Remmina-v${version}.tar.bz2"
+checksum=3ed23be326be0bf3c98428c1b4f4c948c1ded2048bd27f107380e12574797930
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" libexecinfo-devel" ;;
 	*) ;;
 esac
-

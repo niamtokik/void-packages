@@ -1,35 +1,31 @@
 # Template file for 'kdegraphics-mobipocket'
 pkgname=kdegraphics-mobipocket
-version=17.12.1
+version=20.04.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="extra-cmake-modules kcoreaddons qt5-host-tools qt5-qmake gettext"
 makedepends="kio-devel"
-short_desc="A collection of plugins to handle mobipocket files"
+short_desc="Collection of plugins to handle mobipocket files"
 maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/kde/kdegraphics-mobipocket"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname%5}-${version}.tar.xz"
-checksum=86e5231fae4ee80e870bec772f72a32efd794bbf3d7b56fe9eff88fc25067025
+distfiles="${KDE_SITE}/release-service/${version}/src/kdegraphics-mobipocket-${version}.tar.xz"
+checksum=4f5fb8fc9721451b62adca7d06187427542de780f5445f271e3bc186d80c5c3f
 
 libqmobipocket_package() {
 	short_desc+=" - runtime library"
 	pkg_install() {
-		vmove usr/lib/*.so.*
+		vmove "usr/lib/*.so.*"
 	}
 }
 
 libqmobipocket-devel_package() {
 	short_desc+=" - development files"
-	depends="libq${sourcepkg#kdegraphics-}>=${version}_${revision}"
+	depends="libqmobipocket>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }
-
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake"
-fi

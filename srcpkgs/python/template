@@ -1,22 +1,22 @@
-# Template build file for 'python'.
+# Template file for 'python'
 #
 # THIS PKG MUST BE SYNCHRONIZED WITH "srcpkgs/python-tkinter".
 #
 pkgname=python
-version=2.7.14
+version=2.7.18
 revision=1
 wrksrc="Python-${version}"
+pycompile_dirs="usr/lib/python2.7"
 hostmakedepends="pkg-config"
 makedepends="libffi-devel readline-devel gdbm-devel libressl-devel expat-devel
  sqlite-devel bzip2-devel zlib-devel"
 depends="ca-certificates"
-pycompile_dirs="usr/lib/python2.7"
 short_desc="Interpreted, interactive, object-oriented programming language"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="Python-2.0"
 homepage="https://www.python.org"
-license="PSF"
 distfiles="https://www.python.org/ftp/python/${version}/Python-${version}.tar.xz"
-checksum=71ffb26e09e78650e424929b2b457b9c912ac216576e6bd9e7d204ed03296a66
+checksum=b62c0e7937551d0cc02b8fd5cb0f544f9405bafc9a54d3808ed4594812edef43
 
 alternatives="
  python:idle:/usr/bin/idle2.7
@@ -31,7 +31,7 @@ pre_configure() {
 	rm -r Modules/_ctypes/libffi*
 	rm -r Modules/zlib
 	# Enable loading sqlite extensions.
-	sed -i '/SQLITE_OMIT_LOAD_EXTENSION/d' setup.py
+	vsed -i '/SQLITE_OMIT_LOAD_EXTENSION/d' setup.py
 }
 
 do_configure() {
@@ -40,8 +40,8 @@ do_configure() {
 	if [ "$CROSS_BUILD" ]; then
 		mkdir -p host-build
 		cd host-build
-		env -i PATH=$PATH ../configure
-		env -i PATH=$PATH make ${makejobs} python
+		env -i PATH=$PATH XBPS_ARCH=$XBPS_ARCH ../configure
+		env -i PATH=$PATH XBPS_ARCH=$XBPS_ARCH make ${makejobs} python
 		mkdir -p ../hostpython
 		mv python ../hostpython
 		cd ..
@@ -83,17 +83,13 @@ post_install() {
 	# Remove test module and tests that fail to be byte-compiled.
 	rm -r ${DESTDIR}/usr/lib/python2.7/test
 	rm -r ${DESTDIR}/usr/lib/python2.7/lib2to3/tests
-	# Remove references to hardening -specs.
-	sed -e 's|\(-specs=.*hardened-ld\)||g' -e 's|\(-specs=.*hardened-cc1\)||g' -i \
-		${DESTDIR}/usr/lib/python${version%.*}/_sysconfigdata.py \
-		${DESTDIR}/usr/lib/python${version%.*}/config/Makefile
 	# Remove references to the install(1) wrapper.
-	sed -e "s,${XBPS_WRAPPERDIR},/usr/bin,g" -i \
+	vsed -e "s,${XBPS_WRAPPERDIR},/usr/bin,g" -i \
 		${DESTDIR}/usr/lib/python${version%.*}/_sysconfigdata.py \
 		${DESTDIR}/usr/lib/python${version%.*}/config/Makefile
 	if [ "$CROSS_BUILD" ]; then
 		# Remove references to cross toolchain.
-		sed -i "s/$XBPS_CROSS_TRIPLET-//g" \
+		vsed -i "s/$XBPS_CROSS_TRIPLET-//g" \
 			${DESTDIR}/usr/lib/python${version%.*}/_sysconfigdata.py \
 			${DESTDIR}/usr/lib/python${version%.*}/config/Makefile
 	fi

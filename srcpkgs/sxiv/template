@@ -1,18 +1,22 @@
 # Template file for 'sxiv'
 pkgname=sxiv
-version=24
-revision=2
+version=26
+revision=1
 build_style=gnu-makefile
 makedepends="libX11-devel imlib2-devel giflib-devel libexif-devel libXft-devel"
 short_desc="Simple X Image Viewer"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/muennich/sxiv"
-license="GPL-2"
 distfiles="https://github.com/muennich/sxiv/archive/v${version}.tar.gz"
-checksum=511dc45d12962af9c31c3068ce6bca4b832a6263946b27befea49a48cf019110
+checksum=a382ad57734243818e828ba161fc0357b48d8f3a7f8c29cac183492b46b58949
 
 pre_build() {
-	cp ${FILESDIR}/config.h config.h
+	[ -e ${FILESDIR}/config.h ] && cp ${FILESDIR}/config.h config.h ||:
+}
+
+post_install() {
+	vinstall sxiv.desktop 644 usr/share/applications
 }
 
 if [ "$CROSS_BUILD" ]; then

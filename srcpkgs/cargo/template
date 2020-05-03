@@ -1,58 +1,137 @@
 # Template file for 'cargo'
 pkgname=cargo
-version=0.24.0
-revision=1
-_githash_installer=4f994850808a572e2cc8d43f968893c8e942e9bf
+version=0.42.0
+revision=2
+wrksrc="cargo-${version}"
+build_helper=rust
 hostmakedepends="rust python curl cmake pkg-config"
 makedepends="libcurl-devel libgit2-devel"
 depends="rust"
 short_desc="Rust package manager"
-maintainer="Leah Neukirchen <leah@vuxu.org>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MIT, Apache-2.0"
 homepage="https://crates.io/"
-distfiles="https://github.com/rust-lang/cargo/archive/${version}.tar.gz"
-checksum=a9d4291254a1d622d3c3cb942aaa56ab4059b8d04915c3af234f0362f14722e8
-nocross=yes
+_libgit2_ver=0.9.2
+_git2_ver=0.10.2
+distfiles="https://github.com/rust-lang/cargo/archive/${version}.tar.gz
+ https://github.com/rust-lang/git2-rs/archive/libgit2-sys-${_libgit2_ver}.tar.gz"
+checksum="22e60eca84d0f146ef45534e592b1c829a0cdf23452c2a23d2cde40d6c793b8a
+ 61e1329785a2957721b28ec7d13c22749553f67179d7dde8e5793c4872eec48a"
+_cargo_dist_version=0.41.0
+build_options="static"
 
-case "$XBPS_MACHINE" in
-x86_64-musl)
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" cargo"
+	makedepends+=" rust"
+else
+	_bootstrap_url="https://static.rust-lang.org/dist"
+
+	case "$XBPS_MACHINE" in
+		x86_64*|i686|ppc64le|ppc) ;;
+		ppc*) _bootstrap_url="https://alpha.de.repo.voidlinux.org/distfiles" ;;
+		*) broken="unsupported host: ${XBPS_MACHINE}" ;;
+	esac
+
 	distfiles+="
-	 https://repo.voidlinux.eu/distfiles/cargo-0.18.0-x86_64-unknown-linux-musl.tar.gz"
-	checksum+="
-	 28f2ee839f14f8b3edf3f4e4cc8600ac99ea50905ee8fb91116bba676728c2e9"
-	;;
-x86_64)
-	distfiles+="
-	 https://static.rust-lang.org/dist/cargo-0.20.0-x86_64-unknown-linux-gnu.tar.gz"
-	checksum+="
-	 a677d13b01d00ad13edf75c7d1b484421c7fc09338bf9ed6d456b4685bb42ed1"
-	;;
-i686)
-	distfiles+="
-	 https://static.rust-lang.org/dist/cargo-0.20.0-i686-unknown-linux-gnu.tar.gz"
-	checksum+="
-	 1a6b45f04d63d54c5d265e8bf1d647df171c1624ca1c081d75971eb8bb741d53"
-	;;
-esac
+	 ${_bootstrap_url}/cargo-${_cargo_dist_version}-${RUST_BUILD}.tar.xz"
+
+	case "$XBPS_MACHINE" in
+		i686)
+			checksum+="
+			 c48bc132f4025ff39b1b6dc52aef9d406c3f926ce05fe92d943ceab7a5fd6058"
+			;;
+		x86_64)
+			checksum+="
+			 9b6ae643fa240c5ecbc1dc390f4020b6a683f25bac6f7437ebd4b9d32a8d0b6c"
+			;;
+		x86_64-musl)
+			checksum+="
+			 848646326474392bdac70a5bfa06efda4c36e2bbbf088f07456f98c7575844e1"
+			;;
+		ppc64le)
+			checksum+="
+			 7705f21d938a72ba6f01818661b2dea29183209940a335f18d1761e1e03d3710"
+			;;
+		ppc64le-musl)
+			checksum+="
+			 0fbe481d284a14b84cc63ccb50caeb248200f238d2c3e449c2b8a8bf49c951ce"
+			;;
+		ppc64)
+			checksum+="
+			 23a7967b0c1c762cdbea4f850cacbb462e386977203c0d5ff060275c526d80d7"
+			;;
+		ppc64-musl)
+			checksum+="
+			 d5a808fdb50068a14d6578f052c9e21ae7881d4ecdcf9e098c5e2c2b1ae65786"
+			;;
+		ppc)
+			checksum+="
+			 295030192cf5b7e1fce75845a1961619a5f701185400ad816cf950d4e18f0646"
+			;;
+		ppc-musl)
+			checksum+="
+			 91cc5d6f0192f68d5053fb460dd8347b28cb29b4a63a6e648d6b754795b5c4e8"
+			;;
+	esac
+fi
 
 post_extract() {
-	mkdir -p target/snapshot
-	cp ../cargo-*/cargo/bin/cargo cargo
+	if [ -z "$CROSS_BUILD" ]; then
+		mkdir -p target/snapshot
+		cp ../cargo-${_cargo_dist_version}-${RUST_TARGET}/cargo/bin/cargo cargo
+	fi
+
+	mv ${XBPS_BUILDDIR}/git2-rs-libgit2-sys-${_libgit2_ver} .
+	mv git2-rs-libgit2-sys-${_libgit2_ver}/libgit2-sys .
 }
+
+post_patch() {
+	# but only use the patched libgit2 when not static; when static, bundled
+	# libgit2 is used and this would not work (libgit2 sources are not there)
+	if [ ! "$build_option_static" ]; then
+		cat >> Cargo.toml <<- EOF
+			[patch.crates-io]
+			libgit2-sys = { path = './libgit2-sys' }
+		EOF
+	fi
+}
+
 do_build() {
-	export LIBGIT2_SYS_USE_PKG_CONFIG=yes
-	export CARGO_HOME="${wrksrc}/.cargo"
-	export RUST_BACKTRACE=1
-	./cargo build --release
+	if [ "$build_option_static" ]; then
+		unset LIBGIT2_SYS_USE_PKG_CONFIG
+		unset LIBSSH2_SYS_USE_PKG_CONFIG
+		export OPENSSL_STATIC=1
+		# rust-openssl can not be linked static if pkg-config is used
+		export OPENSSL_NO_PKG_CONFIG
+		export OPENSSL_DIR="${XBPS_CROSS_BASE}/usr"
+	fi
+
+	if [ "$CROSS_BUILD" ]; then
+		cargo="cargo"
+	else
+		cargo="./cargo"
+	fi
+
+	# gotta pin out libgit2-sys at the version
+	$cargo update
+	$cargo update --package git2 --precise ${_git2_ver}
+	$cargo update --package libgit2-sys --precise ${_libgit2_ver}
+	$cargo build --release $(vopt_if static --features="all-static")
 }
+
 do_install() {
-	vbin target/release/cargo
+	if [ "$CROSS_BUILD" ]; then
+		vbin target/${RUST_TARGET}/release/cargo
+	else
+		vbin target/release/cargo
+	fi
 	for f in src/etc/man/*.?; do
 		vman $f
 	done
-	vinstall src/etc/cargo.bashcomp.sh 0644 usr/share/bash-completion/completions cargo
+	vinstall src/etc/cargo.bashcomp.sh 0644 \
+	 usr/share/bash-completion/completions cargo
 	vinstall src/etc/_cargo 0644 usr/share/zsh/site-functions
-	
+
 	vlicense LICENSE-APACHE
 	vlicense LICENSE-MIT
 	vlicense LICENSE-THIRD-PARTY

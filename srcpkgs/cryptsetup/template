@@ -1,34 +1,40 @@
 # Template file for 'cryptsetup'
 pkgname=cryptsetup
-version=2.0.1
+version=2.3.2
 revision=1
 build_style=gnu-configure
 configure_args="--with-crypto_backend=openssl $(vopt_enable pwquality)
- --enable-cryptsetup-reencrypt"
+ --enable-cryptsetup-reencrypt --enable-libargon2"
+make_check_args="-C tests"
 hostmakedepends="pkg-config"
-makedepends="popt-devel libuuid-devel device-mapper-devel libressl-devel
- $(vopt_if pwquality libpwquality-devel) json-c-devel"
+makedepends="device-mapper-devel json-c-devel libressl-devel popt-devel
+ libargon2-devel $(vopt_if pwquality 'libpwquality-devel')"
+checkdepends="util-linux procps-ng which jq tar xz xxd"
 short_desc="Setup virtual encryption devices under Linux dm-crypt"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Daniel Eyßer <daniel.eysser@gmail.com>"
+license="GPL-2.0-or-later"
 homepage="https://gitlab.com/cryptsetup/cryptsetup"
+changelog="https://gitlab.com/cryptsetup/cryptsetup/raw/master/docs/v${version}-ReleaseNotes"
 distfiles="${KERNEL_SITE}/utils/cryptsetup/v${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=41d188092c52e23d576af41cf0cfe0555d8f7efa21598d4c57c56ea1b6d9c975
+checksum=a89e13dff0798fd0280e801d5f0cc8cfdb2aa5b1929bec1b7322e13d3eca95fb
+subpackages="libcryptsetup cryptsetup-devel"
 
 build_options="pwquality"
 desc_option_pwquality="Enable support for checking password quality via libpwquality"
 
 case $XBPS_TARGET_MACHINE in
 	*-musl)
-	configure_args+=" --enable-static-cryptsetup"
-	cryptsetup-static_package() {
-		short_desc+=" - static cryptsetup"
-		pkg_install() {
-			vmove "usr/bin/*.static"
-		}
-	}
-	;;
+		configure_args+=" --enable-static-cryptsetup"
+		subpackages+=" cryptsetup-static"
+		;;
 esac
+
+cryptsetup-static_package() {
+	short_desc+=" - static cryptsetup"
+	pkg_install() {
+		vmove "usr/bin/*.static"
+	}
+}
 
 libcryptsetup_package() {
 	short_desc+=" - runtime libraries"
@@ -36,6 +42,7 @@ libcryptsetup_package() {
 		vmove "usr/lib/*.so.*"
 	}
 }
+
 cryptsetup-devel_package() {
 	depends="libcryptsetup>=${version}_${revision}"
 	short_desc+=" - development files"

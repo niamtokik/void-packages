@@ -1,21 +1,20 @@
-# Template file for 'libxcb'.
+# Template file for 'libxcb'
 pkgname=libxcb
-version=1.12
+version=1.14
 revision=1
 build_style=gnu-configure
 configure_args="--disable-build-docs --disable-static --enable-xinput --enable-xkb"
-hostmakedepends="automake libtool pkg-config xorg-util-macros xcb-proto"
+hostmakedepends="libtool pkg-config xorg-util-macros xcb-proto"
 makedepends="xcb-proto libXdmcp-devel libXau-devel"
 short_desc="X protocol C-language Binding"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://xcb.freedesktop.org"
-distfiles="$homepage/dist/$pkgname-$version.tar.bz2"
-checksum=4adfb1b7c67e99bc9c2ccb110b2f175686576d2f792c8a71b9c8b19014057b5b
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="MIT"
+homepage="https://xcb.freedesktop.org"
+distfiles="${homepage}/dist/${pkgname}-${version}.tar.xz"
+checksum=a55ed6db98d43469801262d81dc2572ed124edc3db31059d4e9916eb9f844c34
 
-pre_configure() {
-	sed "s|pthread-stubs ||" -i configure.ac
-	autoreconf -fi
+post_install() {
+	vlicense COPYING
 }
 
 libxcb-devel_package() {

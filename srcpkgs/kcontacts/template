@@ -1,16 +1,18 @@
 # Template file for 'kcontacts'
 pkgname=kcontacts
-version=17.12.1
+reverts="19.08.2_1 19.08.1_1 19.08.0_1 19.04.3_1"
+version=5.69.0
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python"
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3
+ gettext kcoreaddons"
 makedepends="qt5-devel kcoreaddons-devel ki18n-devel kconfig-devel kcodecs-devel"
 short_desc="Address book API for KDE"
-maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="LGPL-2.1"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/applications/kcontacts"
-distfiles="https://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=93ff27692120eff468d345f91f22897bdc2b46ea06bae6eb8b9928efe14a4a94
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=fcf59f7db66ec65fe27a3c6f04eb2426bd47d5c7048d19f9d2b2c3d94c75a3c8
 
 kcontacts-devel_package() {
 	short_desc+=" - development"
@@ -19,6 +21,6 @@ kcontacts-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

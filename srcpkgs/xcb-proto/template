@@ -1,19 +1,18 @@
-# Template build for 'xcb-proto'.
+# Template file for 'xcb-proto'
 pkgname=xcb-proto
-version=1.12
+version=1.14
 revision=1
+archs=noarch
 build_style=gnu-configure
-hostmakedepends="python"
+hostmakedepends="python3"
 makedepends="libxml2"
-depends="python"
-noarch="yes"
-pycompile_module="xcbgen"
+depends="python3"
 short_desc="XML-XCB (X C Bindings) protocol descriptions"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://xcb.freedesktop.org"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
-distfiles="http://xcb.freedesktop.org/dist/$pkgname-$version.tar.bz2"
-checksum=5922aba4c664ab7899a29d92ea91a87aa4c1fc7eb5ee550325c3216c480a4906
+homepage="http://xcb.freedesktop.org"
+distfiles="http://xcb.freedesktop.org/dist/$pkgname-$version.tar.xz"
+checksum=186a3ceb26f9b4a015f5a44dcc814c93033a5fc39684f36f1ecc79834416a605
 
 post_install() {
 	vlicense COPYING

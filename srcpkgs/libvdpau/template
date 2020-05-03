@@ -1,17 +1,17 @@
 # Template file for 'libvdpau'
 pkgname=libvdpau
-version=1.1.1
+version=1.3
 revision=1
-build_style=gnu-configure
+build_style=meson
 hostmakedepends="pkg-config"
-makedepends="dri2proto libXext-devel"
+makedepends="xorgproto libXext-devel"
 conf_files="/etc/vdpau_wrapper.cfg"
-short_desc="The Video Decode and Presentation API for UNIX"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://cgit.freedesktop.org/~aplattner/libvdpau"
+short_desc="Video Decode and Presentation API for UNIX"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
-distfiles="http://people.freedesktop.org/~aplattner/vdpau/${pkgname}-${version}.tar.gz"
-checksum=5fe093302432ef05086ca2ee429c789b7bf843e166d482d166e56859b08bef55
+homepage="https://freedesktop.org/wiki/Software/VDPAU/"
+distfiles="https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/${version}/libvdpau-${version}.tar.gz"
+checksum=ba5f34571e258fd916d9fef3904e8a72eedb935e3d9055a0e3ea512854fba27c
 
 post_install() {
 	vlicense COPYING

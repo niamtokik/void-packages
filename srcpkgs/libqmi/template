@@ -1,17 +1,17 @@
 # Template file for 'libqmi'
 pkgname=libqmi
-version=1.18.0
+version=1.24.8
 revision=1
 build_style=gnu-configure
-configure_args="--disable-static"
-hostmakedepends="pkg-config python glib-devel"
-makedepends="libglib-devel libgudev-devel"
+configure_args="--disable-static --enable-mbim-qmux"
+hostmakedepends="glib-devel pkg-config"
+makedepends="libglib-devel libgudev-devel libmbim-devel"
 short_desc="QMI modem protocol helper library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="http://www.freedesktop.org/wiki/Software/libqmi/"
-license="GPL-2"
-distfiles="${FREEDESKTOP_SITE}/$pkgname/$pkgname-$version.tar.xz"
-checksum=a0a42c55935e75a630208e2f70840bd4407f56fe1c5258f5b0f6c0aaedf88cec
+distfiles="${FREEDESKTOP_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
+checksum=c793db2c91d7928160341b357b26315d9c879ecb36699cb7a6b36054cba60893
 
 libqmi-devel_package() {
 	depends="${makedepends} ${sourcepkg}-${version}_${revision}"

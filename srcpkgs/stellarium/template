@@ -1,16 +1,23 @@
 # Template file for 'stellarium'
 pkgname=stellarium
-version=0.16.1
+version=0.20.0
 revision=1
 build_style=cmake
-hostmakedepends="perl"
-makedepends="qt5-tools-devel qt5-script-devel qt5-serialport-devel
- qt5-multimedia-devel qt5-location-devel MesaLib-devel zlib-devel"
-depends="desktop-file-utils"
-short_desc="An Open Source Planetarium"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://www.stellarium.org/"
-distfiles="${SOURCEFORGE_SITE}/stellarium/Stellarium-sources/${version}/stellarium-${version}.tar.gz"
-checksum=b001c252afddaa1c470fb444fcbb5595b7f7a7db028d884743d20bcb5635fd20
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+hostmakedepends="perl qt5-qmake qt5-host-tools"
+makedepends="qt5-location-devel qt5-multimedia-devel qt5-script-devel
+ qt5-serialport-devel qt5-tools-devel"
+depends="desktop-file-utils ${pkgname}-data"
+short_desc="Open Source Planetarium"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://stellarium.org/"
+distfiles="https://github.com/Stellarium/stellarium/releases/download/v${version}/stellarium-${version}.tar.gz"
+checksum=07ed1785d28f761511dc22f9b09ce70e96b5113fc7769fcdf4478f7a5a035370
+
+stellarium-data_package() {
+	short_desc+=" - data files"
+	archs=noarch
+	pkg_install() {
+		vmove usr/share/stellarium
+	}
+}

@@ -1,19 +1,20 @@
 # Template file for 'telepathy-mission-control'
 pkgname=telepathy-mission-control
-version=5:5.16.1
-revision=2
-wrksrc="${pkgname}-${version#*:}"
+reverts="5:5.16.4_1 5:5.16.1_2 5:5.16.1_1 5:5.16.0_2 5:5.16.0_1 5:5.15.1_1
+ 5:5.14.1_1 2:5.14.1_1 1:5.14.1_1"
+version=5.16.5
+revision=1
 build_style=gnu-configure
 configure_args="--disable-static --enable-gnome-keyring --disable-schemas-compile"
 hostmakedepends="pkg-config python-devel intltool libxslt glib-devel"
 makedepends="libglib-devel telepathy-glib-devel NetworkManager-devel libgnome-keyring-devel"
 depends="telepathy-glib>=0.22"
-short_desc="Telepathy component providing abstraction for details of connection managers"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
+short_desc="Account manager and channel dispatcher for the Telepathy framework"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
 homepage="http://telepathy.freedesktop.org"
-distfiles="$homepage/releases/$pkgname/$pkgname-${version#*:}.tar.gz"
-checksum=14ceb7d53535b43d44b8271ad11319d1d0fe6d193d154636b9e62b42799b9723
+distfiles="${homepage}/releases/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=4c6b433b8b9079fd7df3e29aefcad6755a2081a9a634ffb6b33936c7d0d8bd03
 
 telepathy-mission-control-devel_package() {
 	depends="telepathy-glib-devel>=0.22 ${sourcepkg}>=${version}"

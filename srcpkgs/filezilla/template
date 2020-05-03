@@ -1,28 +1,26 @@
 # Template file for 'filezilla'
 pkgname=filezilla
-version=3.30.0
+version=3.48.0
 revision=1
 build_style=gnu-configure
-configure_args="--disable-static --disable-manualupdatecheck --disable-autoupdatecheck"
-hostmakedepends="pkg-config"
+configure_args="--disable-static --disable-manualupdatecheck --disable-autoupdatecheck
+ --with-wx-config=wx-config-gtk3"
+hostmakedepends="gettext pkg-config"
 makedepends="gnutls-devel pugixml-devel dbus-devel libidn-devel sqlite-devel
- gtk+-devel wxWidgets-devel xdg-utils libfilezilla-devel"
+ gtk+3-devel wxWidgets-gtk3-devel xdg-utils libfilezilla-devel"
 depends="xdg-utils hicolor-icon-theme desktop-file-utils"
 short_desc="Fast and reliable FTP, FTPS and SFTP client"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://filezilla-project.org/"
-distfiles="${SOURCEFORGE_SITE}/${pkgname}/FileZilla_${version}_src.tar.bz2"
-checksum=910b676dd2b558a7c96cdbe77c2fb82df3cffd88a1b99b98b475e9c5d8c41ff0
+maintainer="Helmut Pozimski <helmut@pozimski.eu>"
+license="GPL-2.0-or-later"
+homepage="https://filezilla-project.org"
+changelog="https://svn.filezilla-project.org/filezilla/FileZilla3/trunk/NEWS?view=co"
+distfiles="https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2"
+checksum=056c7ebef70a349ff527336585e4615dd7ff02d508075ba1298df90523a25d57
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" wxWidgets-devel xdg-utils"
-	case "$XBPS_TARGET_MACHINE" in
-		armv6*) makedepends+=" libatomic-devel" ;;
-	esac
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" wxWidgets-gtk3-devel xdg-utils"
+fi
 
-	pre_configure() {
-		# set --host for sub-configure script else configure breaks
-		sed -i -e "s|\"\$ac_abs_confdir/src/fzshellext/configure\" --disable-shellext|& --host=${XBPS_TRIPLET}|" configure
-	}
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
 fi

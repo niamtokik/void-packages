@@ -1,17 +1,25 @@
 # Template file for 'nnn'
 pkgname=nnn
-version=1.6
+version=3.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="pkg-config"
 makedepends="ncurses-devel readline-devel"
-short_desc="A lightweight terminal file browser"
+short_desc="Missing terminal file browser for X"
 maintainer="Dennis Kraus <kraus@posteo.de>"
-license="BSD"
+license="BSD-2-Clause"
 homepage="https://github.com/jarun/nnn"
+changelog="https://raw.githubusercontent.com/jarun/nnn/master/CHANGELOG"
 distfiles="https://github.com/jarun/nnn/archive/v${version}.tar.gz"
-checksum=e8b10a3b9847ba7ad3317f608691aaebcdaf2b67219d732f7a5d468221d3e83e
+checksum=d70c21b4afa30fa733ab17bb8b45291e8651f2b823fad748ffbdb3b5c3fb0489
 
 post_install() {
+	vinstall misc/auto-completion/bash/nnn-completion.bash 644 \
+		usr/share/bash-completion/completions nnn
+	vinstall misc/auto-completion/zsh/_nnn 644 \
+		usr/share/zsh/site-functions
+	vinstall misc/auto-completion/fish/nnn.fish 644 \
+		usr/share/fish/vendor_completions.d
+
 	vlicense LICENSE
 }

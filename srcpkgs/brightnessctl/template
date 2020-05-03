@@ -1,16 +1,17 @@
 # Template file for 'brightnessctl'
 pkgname=brightnessctl
-version=0.3.1
+version=0.5.1
 revision=1
 build_style=gnu-makefile
 make_use_env=yes
+make_install_args="UDEVDIR=/usr/lib/udev/rules.d"
 hostmakedepends="pkg-config"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Read and control device brightness"
-homepage="https://github.com/Hummer12007/brightnessctl"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
+homepage="https://github.com/Hummer12007/brightnessctl"
 distfiles="https://github.com/Hummer12007/brightnessctl/archive/${version}.tar.gz"
-checksum=3e81dfa7c5faba29df88a7c4569c7ebaf511c3de4d489a8c8e305ab51b9e3059
+checksum=a68869e23f56ac4f2e28f1783002810ddbf10f95e1af9b48b2912fb169f46994
 
 post_install() {
 	vlicense LICENSE

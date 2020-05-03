@@ -1,18 +1,18 @@
 # Template file for 'luaposix'
 pkgname=luaposix
-version=34.0.1
+version=34.1.1
 revision=1
-lib32disabled=yes
 wrksrc="luaposix-release-v${version}"
 hostmakedepends="lua51-devel lua52-devel lua-devel"
 makedepends="lua51-devel lua52-devel lua-devel"
-depends="lua"
-short_desc="A POSIX library for Lua programming language"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+depends="lua lua-stdlib-normalize"
+short_desc="POSIX library for Lua programming language"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="http://luaforge.net/projects/luaposix/"
 distfiles="https://github.com/luaposix/luaposix/archive/release-v${version}.tar.gz"
-checksum=ba0bc343783fc33958cd02a68cdbfd65430152d9f297f7ed92678b1a305bd5d7
+checksum=273df2dbd9581a2f22e4265f14d0d759c487c0c9830f94395d7d690474382810
+lib32disabled=yes
 
 post_extract() {
 	cd "${wrksrc}"
@@ -47,8 +47,8 @@ post_install() {
 }
 
 luaposix51_package() {
-	depends="lua51 lua51-bitlib"
-	short_desc="${_desc} - Lua 5.1"
+	depends="lua51 lua51-stdlib-normalize lua51-bitlib"
+	short_desc="${short_desc} - Lua 5.1"
 	pkg_install() {
 		vlicense "${wrksrc}/lua5.1/LICENSE"
 		vmove usr/lib/lua/5.1
@@ -59,8 +59,8 @@ luaposix51_package() {
 }
 
 luaposix52_package() {
-	short_desc="${_desc} - Lua 5.2"
-	depends="lua52"
+	short_desc="${short_desc} - Lua 5.2"
+	depends="lua52 lua52-stdlib-normalize"
 	pkg_install() {
 		vlicense "${wrksrc}/lua5.2/LICENSE"
 		vmove usr/lib/lua/5.2

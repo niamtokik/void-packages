@@ -1,16 +1,17 @@
 # Template file for 'perl-strictures'
 pkgname=perl-strictures
-version=2.000003
+version=2.000006
 revision=1
+archs=noarch
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
 makedepends="perl"
-depends="${makedepends}"
+depends="$makedepends"
 short_desc="Turn on strict and make most warnings fatal"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
-license="Artistic, GPL-1"
-homepage="http://search.cpan.org/dist/strictures"
-distfiles="https://cpan.org/authors/id/H/HA/HAARG/strictures-${version}.tar.gz"
-checksum=27f8ea096a521e9754d36ea32889c2cda28346d04e3e399e7ea118d182dbaf22
-noarch=yes
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/strictures"
+distfiles="https4.1://cpan.org/authors/id/E/ET/ETHER/strictures-${version}.tar.gz"
+distfiles="${CPAN_SITE}/lib/HAARG/${pkgname/perl-/}-${version}.tar.gz"
+checksum=09d57974a6d1b2380c802870fed471108f51170da81458e2751859f2714f8d57

@@ -1,0 +1,31 @@
+# Template file for 'anydesk'
+pkgname=anydesk
+version=5.5.4
+revision=1
+archs="i686 x86_64"
+wrksrc=${pkgname}-${version}
+short_desc="Fast remote desktop application"
+maintainer="mobinmob <mobinmob@disroot.org>"
+license="custom:Proprietary"
+#Free for personal use. Terms and conditions:https://anydesk.com/en/terms
+homepage="https://anydesk.com/remote-desktop"
+nopie=yes
+restricted=yes
+
+if [ "${XBPS_TARGET_MACHINE}" = "x86_64" ] ; then
+	distfiles="https://download.anydesk.com/linux/anydesk-${version}-amd64.tar.gz"
+	checksum=7a96be4d607b4115999610d324913d57bd7c2fad7137d465276ac157f80fc2e7
+elif [ "${XBPS_TARGET_MACHINE}" = "i686" ]; then
+	distfiles="https://download.anydesk.com/linux/anydesk-${version}-i386.tar.gz"
+	checksum=79be3846fc51088bc5461752a6f66dae4bb5b9772c84fdd2cb8ece1b8965ba27
+fi
+
+do_install() {
+	vinstall icons/hicolor/256x256/apps/anydesk.png 644 /usr/share/pixmaps
+	vmkdir usr/share/applications
+	vinstall anydesk.desktop 644 usr/share/applications
+	vmkdir usr/share/polkit-1/actions
+	vcopy "polkit-1/*.policy" usr/share/polkit-1/actions
+	vbin anydesk
+	vlicense copyright
+}

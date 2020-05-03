@@ -1,32 +1,20 @@
 # Template file for 'python-pandas'
 pkgname=python-pandas
-version=0.22.0
-revision=1
+version=0.24.2
+revision=2
 wrksrc="pandas-${version}"
-build_style=python-module
-hostmakedepends="python-setuptools python3-setuptools"
-makedepends="python-devel python3-devel python-numpy python3-numpy
- python-dateutil python3-dateutil python-pytz python3-pytz
- python-Cython python3-Cython"
-depends="python-numpy python-dateutil python-pytz"
+build_style=python2-module
 pycompile_module="pandas"
+hostmakedepends="python-setuptools python-Cython"
+makedepends="python-devel python-numpy python-dateutil python-pytz"
+depends="python-numpy python-dateutil python-pytz"
 short_desc="Python2 data analysis library"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
+license="BSD-3-Clause"
 homepage="https://pandas.pydata.org/"
-license="3-clause-BSD"
 distfiles="https://github.com/pandas-dev/pandas/archive/v${version}.tar.gz"
-checksum=15b358650d6f7f432e31fe85cc508b3eba09069bc00b64b4ec3d698e0887c5f3
+checksum=286787f06ac1b7bd322d04f9cf20e14ec3e0bd6b0ec9951456d8c53375545aa1
 
 post_install() {
 	vlicense LICENSE
-}
-
-python3-pandas_package() {
-	depends="python3-numpy python3-dateutil python3-pytz"
-	pycompile_module="pandas"
-	short_desc="${short_desc/Python2/Python3}"
-	pkg_install() {
-		vmove usr/lib/python3*
-		vlicense LICENSE
-	}
 }

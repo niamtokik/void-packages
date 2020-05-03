@@ -1,14 +1,14 @@
 # Template file for 'kimageformats'
 pkgname=kimageformats
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-qmake qt5-host-tools"
 makedepends="karchive-devel libopenexr-devel pkg-config"
 short_desc="KDE Plugins to allow QImage to support extra file formats"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kimageformats"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=46a1d3a4b2b3992bc4abcd34d2e1a321a5bf6acce89097bffceaf4af6bf6c7cc
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=1604d680b7ea6f1095b979098a5b4e8fd7a09d4070e80fbd75aca7b3820a7768

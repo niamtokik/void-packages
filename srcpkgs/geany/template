@@ -1,28 +1,31 @@
 # Template file for 'geany'
 pkgname=geany
-version=1.32
+version=1.36
 revision=1
 build_style=gnu-configure
-hostmakedepends="automake gettext-devel glib-devel libtool pkg-config intltool python"
-makedepends="gtk+-devel vte-devel"
+configure_args="--enable-vte --enable-gtk3"
+hostmakedepends="automake gettext-devel glib-devel libtool pkg-config intltool
+ python"
+makedepends="gtk+3-devel"
 depends="hicolor-icon-theme desktop-file-utils"
 short_desc="Fast and lightweight IDE"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://www.geany.org"
-distfiles="http://download.${pkgname}.org/${pkgname}-${version}.tar.bz2"
-checksum=8b7be10b95d0614eb07f845ba2280f7c026eacd5739d8fac4d5d26606f8c3c2d
+maintainer="Benjamín Albiñana <benalb@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.geany.org"
+distfiles="https://download.${pkgname}.org/${pkgname}-${version}.tar.bz2"
+checksum=9184dd3dd40b7b84fca70083284bb9dbf2ee8022bf2be066bdc36592d909d53e
+python_version=2 #unverified
 
 pre_configure() {
 	autoreconf -fi
 }
 
 geany-devel_package() {
-	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	depends="libglib-devel gtk+3-devel ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - Development files"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

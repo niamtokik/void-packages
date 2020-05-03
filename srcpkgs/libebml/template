@@ -1,27 +1,23 @@
 # Template file for 'libebml'
 pkgname=libebml
-version=1.3.5
+version=1.3.10
 revision=1
-build_style=gnu-configure
-hostmakedepends="automake libtool pkg-config"
+build_style=cmake
+configure_args="-DBUILD_SHARED_LIBS=ON"
 short_desc="Extensible Binary Meta Language library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://dl.matroska.org/downloads/libebml/"
-license="LGPL-2.1"
-distfiles="http://dl.matroska.org/downloads/libebml/libebml-${version}.tar.xz"
-checksum=d818413f60742c2f036ba6f582c5e0320d12bffec1b0fc0fc17a398b6f04aa00
-
-pre_configure() {
-	autoreconf -if
-}
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://dl.matroska.org/downloads/libebml/"
+distfiles="https://dl.matroska.org/downloads/libebml/libebml-${version}.tar.xz"
+checksum=c6a792f4127b8059bc446fb32391e6633811f45748d7d7ba873d7028362f5e3e
 
 libebml-devel_package() {
 	depends="libebml>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
+		vmove usr/lib/cmake
 		vmove usr/lib/pkgconfig
 	}
 }

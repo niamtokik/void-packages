@@ -1,15 +1,16 @@
 # Template file for 'global'
 pkgname=global
-version=6.6.2
+version=6.6.4
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --with-exuberant-ctags=/usr/bin/ctags
  ac_cv_posix1_2008_realpath=yes"
-depends="ctags"
 makedepends="ncurses-devel"
+depends="ctags"
 short_desc="Source code tagging system that works across diverse environments"
-maintainer="Renato Aguiar <contact@renatoaguiar.org>"
-license="GPL-3"
-homepage="http://www.gnu.org/software/global/"
+maintainer="Renato Aguiar <renato@renatoaguiar.net>"
+license="GPL-3.0-or-later"
+homepage="https://www.gnu.org/software/global/"
 distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=ca1dc15e9f320983e4d53ccb947ce58729952728273fdf415ab309ea2c0cd7fa
+checksum=987e8cb956c53f8ebe4453b778a8fde2037b982613aba7f3e8e74bcd05312594
+python_version=2 #unverified

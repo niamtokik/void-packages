@@ -1,21 +1,22 @@
 # Template file for 'kxmlrpcclient'
 pkgname=kxmlrpcclient
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="kcoreaddons extra-cmake-modules gettext
+ qt5-host-tools qt5-qmake python3"
 makedepends="kio-devel"
 short_desc="KDE XML-RPC client"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later, BSD-2-Clause"
 homepage="https://projects.kde.org/projects/frameworks/kxmlrpcclient"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=9659806fd7558d3f8893e2455657bbd144b40d88eb52fd864ed3691a8fb83132
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=bce2dcf7a8290168c6057343e82ea0b1d0cce4f51cf8f161dc99e951c5d7c74e
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python"
-fi
+post_install() {
+	vlicense COPYING.BSD
+}
 
 kxmlrpcclient-devel_package() {
 	short_desc+=" - development"
@@ -24,6 +25,6 @@ kxmlrpcclient-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,20 +1,20 @@
 # Template file for 'kcrash'
 pkgname=kcrash
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="kcoreaddons extra-cmake-modules"
 makedepends="kcoreaddons-devel kwindowsystem-devel"
 short_desc="KDE Graceful handling of application crashes"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kcrash"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=da46566c45d1c6381583f44894f82bdabbaf91a477b4d12206fe0cee5b073e11
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=b6bc671e47a4cdb31c14965a1a68c7ac1a7e362c27e759ff41bd4c89e90cca40
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools kwindowsystem-devel"
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools kwindowsystem-devel kcoreaddons"
 fi
 
 kcrash-devel_package() {
@@ -24,6 +24,6 @@ kcrash-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

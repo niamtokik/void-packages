@@ -1,22 +1,25 @@
 # Template file for 'mednafen'
 pkgname=mednafen
-version=0.9.48
+version=1.24.2
 revision=1
 wrksrc="$pkgname"
 build_style=gnu-configure
-configure_args="--with-libcdio --with-libsndfile --enable-alsa"
-hostmakedepends="pkg-config"
-makedepends="libcdio-devel libsndfile-devel glu-devel SDL_net-devel zlib-devel"
+configure_args="--with-libsndfile --enable-alsa $(vopt_enable altivec)
+ ac_cv_sizeof_off_t=8"
+hostmakedepends="pkg-config libtool gettext-devel"
+makedepends="libsndfile-devel glu-devel SDL2-devel zlib-devel"
 short_desc="Portable, argument(command-line)-driven multi-system emulator"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://mednafen.sourceforge.net/"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://mednafen.github.io/"
 distfiles="https://mednafen.github.io/releases/files/mednafen-${version}.tar.xz"
-checksum=d3cc0c838f496511946d6ea18fda5965d2b71577c610acc811835cc87d152102
-
+checksum=1169ded285bb56d359973d3d332f28e5d2e9e41768a9932383d1a0ef63057c6c
 nopie=yes
 
-pre_build() {
-	# XXX not sure what's going on with those asserts.
-	sed -i '/assert/d' src/hash/sha{1,256}.cpp
-}
+build_options="altivec"
+desc_option_altivec="Enable AltiVec support on PowerPC"
+
+case "$XBPS_TARGET_MACHINE" in
+	ppc64*) build_options_default="altivec";;
+	*) ;;
+esac

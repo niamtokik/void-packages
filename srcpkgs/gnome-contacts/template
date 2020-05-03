@@ -1,21 +1,16 @@
 # Template file for 'gnome-contacts'
 pkgname=gnome-contacts
-version=3.26.1
-revision=1
-build_style=gnu-configure
-hostmakedepends="pkg-config intltool $(vopt_if gir gobject-introspection)"
-makedepends="vala-devel telepathy-glib-devel
- gnome-desktop-devel folks-devel libnotify-devel
- cheese-devel libchamplain-devel geocode-glib-devel"
+version=3.34.0
+revision=2
+wrksrc="gnome-contacts-${version%.*}"
+build_style=meson
+hostmakedepends="docbook-xsl gettext glib-devel libxslt pkg-config vala"
+makedepends="cheese-devel folks-devel geocode-glib-devel gnome-desktop-devel
+ libchamplain-devel libnotify-devel vala-devel libhandy-devel"
 depends="desktop-file-utils"
 short_desc="GNOME contacts manager"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://www.gnome.org"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=068919017825b1adfc169fac310e915a87baefc56771604846b8b08c16d95fcb
-
-build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default+=" gir"
-fi
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://wiki.gnome.org/Apps/Contacts"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version%.*}.tar.xz"
+checksum=99602ec8d660c1f3c92cae6356f64f72fb6db58e55bce27a599330bf7b622f12

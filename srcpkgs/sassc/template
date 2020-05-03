@@ -1,7 +1,7 @@
 # Template file for 'sassc'
 pkgname=sassc
-version=3.4.8
-revision=1
+version=3.6.1
+revision=2
 build_style=gnu-configure
 hostmakedepends="automake libtool"
 makedepends="libsass-devel"
@@ -10,7 +10,7 @@ maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="MIT"
 homepage="https://github.com/sass/$pkgname"
 distfiles="$homepage/archive/$version.tar.gz"
-checksum=611da54f9d8892bc6cab65bb960c5d192cd1c06d2b80bfe1fcec7d43f38a960a
+checksum=8cee391c49a102b4464f86fc40c4ceac3a2ada52a89c4c933d8348e3e4542a60
 
 pre_configure() {
 	autoreconf -i

@@ -1,17 +1,17 @@
 # Template file for 'btrbk'
 pkgname=btrbk
-version=0.26.0
+version=0.29.1
 revision=1
 build_style=gnu-makefile
-hostmakedepends="asciidoc"
+make_install_args="BINDIR=/usr/bin"
+hostmakedepends="ruby-asciidoctor"
 depends="perl btrfs-progs openssh pv"
-short_desc="backup tool for btrfs subvolumes"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-3"
+short_desc="Backup tool for btrfs subvolumes"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="http://digint.ch/btrbk"
 distfiles="http://digint.ch/download/btrbk/releases/${pkgname}-${version}.tar.xz"
-checksum=608c49fa0cdb204d8ef818924d49f520a68a80557bfc8cf6902135377a8136af
-make_install_args="BINDIR=/usr/bin"
+checksum=966f671e17b1ae728ecc5e54d5a657f66f05073a4adbc103862750bbb7b77194
 conf_files="/etc/btrbk/*"
 
 post_install() {

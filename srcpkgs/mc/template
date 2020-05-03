@@ -1,24 +1,26 @@
 # Template file for 'mc'
 pkgname=mc
-version=4.8.20
+version=4.8.24
 revision=1
 build_style=gnu-configure
-configure_args="--with-screen=ncurses --without-x"
-hostmakedepends="pkg-config perl"
-makedepends="libglib-devel e2fsprogs-devel ncurses-devel libssh2-devel gpm-devel"
-conf_files="
-	/etc/mc/filehighlight.ini
-	/etc/mc/mc.default.keymap
-	/etc/mc/mc.emacs.keymap
-	/etc/mc/mc.ext
-	/etc/mc/mc.keymap
-	/etc/mc/mc.menu
-	/etc/mc/mcedit.menu
-	/etc/mc/sfs.ini"
+configure_args="--with-screen=slang --without-x"
+hostmakedepends="perl pkg-config"
+makedepends="e2fsprogs-devel gpm-devel libglib-devel libssh2-devel slang-devel"
 short_desc="User-friendly file manager and visual shell"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-3"
+maintainer="Lugubris <lugubris@disroot.org>"
+license="GPL-3.0-or-later"
 homepage="http://www.ibiblio.org/mc/"
 distfiles="http://www.midnight-commander.org/downloads/mc-${version}.tar.xz"
 #distfiles="http://fossies.org/linux/misc/mc-${version}.tar.gz"
-checksum=017ee7f4f8ae420a04f4d6fcebaabe5b494661075c75442c76e9c8b1923d501c
+checksum=859f1cc070450bf6eb4d319ffcb6a5ac29deb0ac0d81559fb2e71242b1176d46
+python_version=2 #unverified
+
+conf_files="
+ /etc/mc/filehighlight.ini
+ /etc/mc/mc.default.keymap
+ /etc/mc/mc.emacs.keymap
+ /etc/mc/mc.ext
+ /etc/mc/mc.keymap
+ /etc/mc/mc.menu
+ /etc/mc/mcedit.menu
+ /etc/mc/sfs.ini"

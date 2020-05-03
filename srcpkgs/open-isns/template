@@ -1,6 +1,6 @@
 # Template file for 'open-isns'
 pkgname=open-isns
-version=0.98
+version=0.100
 revision=1
 build_style=gnu-configure
 configure_args="--enable-shared"
@@ -12,11 +12,10 @@ maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="LGPL-2.1"
 homepage="https://github.com/open-iscsi/open-isns"
 distfiles="https://github.com/open-iscsi/open-isns/archive/v${version}.tar.gz"
-checksum=c5cbd161e51fb993728c04e56d3da693b73eb3f4e81d17f66eb5b7653c29e8eb
+checksum=b011edbb0f31690aaca902a8ecf4e1f17b01d6c9e9afc51909d26b0993b4328f
 
 post_extract() {
-	sed -i '1i#include <sys/time.h>' include/libisns/isns.h
-	sed -i 's,<sys/endian.h>,<endian.h>,g' include/libisns/util.h
+	sed -i 's/ -Werror / /' configure
 }
 
 libisns_package() {

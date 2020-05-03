@@ -1,0 +1,17 @@
+# Template file for 'perl-PPR'
+pkgname=perl-PPR
+version=0.000026
+revision=1
+archs=noarch
+wrksrc="${pkgname/perl-/}-${version}"
+build_style=perl-module
+hostmakedepends="perl perl-B-Hooks-EndOfScope"
+makedepends="$hostmakedepends"
+depends="$makedepends"
+checkdepends="perl-Test-Pod"
+short_desc="PPR - Pattern-based Perl Recognizer"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/PPR"
+distfiles="${CPAN_SITE}/Sub/DCONWAY/PPR-${version}.tar.gz"
+checksum=bdd4d6d7e9d8b687f66ac119419ee4f1ad5f4bb8cb6a4a02c7d319dcfff41c98

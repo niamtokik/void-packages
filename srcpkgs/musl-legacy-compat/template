@@ -1,17 +1,22 @@
 # Template file for 'musl-legacy-compat'
 pkgname=musl-legacy-compat
 version=0.3
-revision=1
-noarch=yes
+revision=3
+archs="*-musl"
 bootstrap=yes
-only_for_archs="i686-musl x86_64-musl armv5tel-musl armv6l-musl armv7l-musl aarch64-musl mips-musl mipshf-musl mipsel-musl mipselhf-musl"
 short_desc="Legacy compatibility headers for the musl libc"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="BSD"
-homepage="http://www.voidlinux.eu"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="BSD-2-Clause, BSD-3-Clause"
+homepage="http://www.voidlinux.org"
 
 do_install() {
 	for f in ${FILESDIR}/*.h; do
 		vinstall ${f} 644 usr/include/sys
 	done
+
+	sed -n '3,32p' < ${FILESDIR}/queue.h > LICENSE.BSD-3-Clause
+	sed -n '2,26p' < ${FILESDIR}/tree.h > LICENSE.BSD-2-Clause
+
+	vlicense LICENSE.BSD-3-Clause
+	vlicense LICENSE.BSD-2-Clause
 }

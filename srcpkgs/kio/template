@@ -1,23 +1,23 @@
 # Template file for 'kio'
 pkgname=kio
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
-makedepends="kdoctools-devel ksolid-devel kbookmarks-devel kjobwidgets-devel kwallet-devel acl-devel mit-krb5-devel libxslt-devel libxml2-devel"
+configure_args="-DBUILD_TESTING=OFF
+ -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
+hostmakedepends="kcoreaddons extra-cmake-modules kauth gettext
+ qt5-host-tools qt5-qmake python kdoctools libxml2 kcoreaddons"
+makedepends="kdoctools-devel ksolid-devel kbookmarks-devel kjobwidgets-devel
+ kwallet-devel acl-devel mit-krb5-devel libxslt-devel libxml2-devel"
 depends="desktop-file-utils"
 short_desc="KDE Network transparent access to files and data"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kio"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=ec1d0ef9523661614f347e3c99efe98813d0fab92e8fdb4a995685d013524694
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=09e4d37058bb5b5993536ea6b010c605b9d2f732e141e9903e2d5f64fea20de6
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools libxml2 kcoreaddons"
-	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
-fi
+CXXFLAGS+=" -fpermissive"
 
 kio-devel_package() {
 	short_desc+=" - development"
@@ -25,7 +25,8 @@ kio-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
+		vmove usr/lib/qt5/plugins/designer
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

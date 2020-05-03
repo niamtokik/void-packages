@@ -1,16 +1,20 @@
 # Template file for 'libzip'
 pkgname=libzip
-version=1.4.0
+version=1.6.1
 revision=1
 build_style=cmake
-hostmakedepends="perl"
-makedepends="zlib-devel"
+hostmakedepends="perl groff"
+makedepends="bzip2-devel libressl-devel zlib-devel liblzma-devel"
 short_desc="C library for reading, creating, and modifying zip archives"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="https://libzip.org/"
 distfiles="https://libzip.org/download/libzip-${version}.tar.gz"
-checksum=759a89690e155ca52247638b9f97e16e48fbb6077abb7ce2d921dd5b81259940
+checksum=06eb8e9141fd19e2788cabaea9c9c2fd4d488d9e1484eb474bbfcac78e7b1d88
+
+post_install() {
+	vlicense LICENSE
+}
 
 libzip-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

@@ -1,19 +1,18 @@
 # Template file for 'neovim-remote'
 pkgname=neovim-remote
-version=1.9.1
+version=2.4.0
 revision=1
-noarch=yes
+archs=noarch
 build_style=python3-module
-pycompile_module="nvr"
 hostmakedepends="python3-setuptools"
-checkdepends="python3-psutil python3-neovim python3-pytest"
 depends="python3-neovim python3-psutil"
+checkdepends="python3-neovim python3-psutil python3-pytest"
 short_desc="Control nvim processes using 'nvr' commandline tool"
-maintainer="dleeram <dleeram@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/mhinz/neovim-remote"
-distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=cb1991f43cf713a51b90a5641623853b9ec5b90ce6dd499285a9e9247c94b636
+distfiles="https://github.com/mhinz/neovim-remote/archive/v${version}.tar.gz"
+checksum=4213b6eaad638aa20d8687362764843beb626e6e1a03bc3c8b3399bbfc11fbf7
 
 do_check() {
 	python3 -m pytest

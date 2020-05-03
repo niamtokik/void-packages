@@ -1,19 +1,21 @@
 # Template file for 'mutagen'
 pkgname=mutagen
-version=1.39
+version=1.43.0
 revision=2
-noarch=yes
+archs=noarch
 build_style=python-module
-hostmakedepends="python-devel python3-devel"
-makedepends="${hostmakedepends}"
-depends="python"
 pycompile_module="mutagen"
+hostmakedepends="python-devel python-setuptools python3-devel
+ python3-setuptools"
+makedepends="$hostmakedepends"
+depends="python"
 short_desc="Python2 multimedia tagging library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/quodlibet/mutagen"
-license="GPL-2"
+changelog="https://raw.githubusercontent.com/quodlibet/mutagen/master/NEWS"
 distfiles="${PYPI_SITE}/m/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=9da92566458ffe5618ffd26167abaa8fd81f02a7397b8734ec14dfe14e8a19e4
+checksum=3a982d39f1b800520a32afdebe3543f972e83a6ddd0c0198739a161ee705b588
 
 alternatives="
  mutagen:mid3cp:/usr/bin/mid3cp2
@@ -37,7 +39,7 @@ python3-mutagen_package() {
 	 mutagen:moggsplit:/usr/bin/moggsplit3
 	 mutagen:mutagen-inspect:/usr/bin/mutagen-inspect3
 	 mutagen:mutagen-pony:/usr/bin/mutagen-pony3"
-	noarch=yes
+	archs=noarch
 	depends="python3"
 	pycompile_module="mutagen"
 	short_desc="${short_desc/Python2/Python3}"

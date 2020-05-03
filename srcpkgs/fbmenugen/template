@@ -1,15 +1,15 @@
 # Template file for 'fbmenugen'
 pkgname=fbmenugen
-version=0.82
+version=0.84
 revision=1
-noarch=yes
+archs=noarch
 depends="fluxbox perl-Data-Dump perl-Gtk2 perl-Linux-DesktopFiles"
 short_desc="Fluxbox menu generator (with support for icons)"
-maintainer="cr6git <quark6@protonmail.com>"
-license="GPL-3"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-only"
 homepage="https://github.com/trizen/fbmenugen"
 distfiles="https://github.com/trizen/fbmenugen/archive/${version}.tar.gz"
-checksum=3a57cefa932bb6de646b82277b24cc748360a29bb9fb40bb9fc25e0aaef01988
+checksum=cc57fa3cced4f959281497b4276052321d88046e358cea27e1cc4363c6f714d1
 
 do_install() {
 	vbin fbmenugen

@@ -1,16 +1,17 @@
 # Template file for 'xlockmore'
 pkgname=xlockmore
-version=5.55
-revision=2
+version=5.62
+revision=1
 build_style=gnu-configure
+configure_args="--with-xinerama"
 hostmakedepends="pkg-config"
-makedepends="freetype-devel libXt-devel libXext-devel"
+makedepends="freetype-devel libXt-devel libXext-devel libXinerama-devel"
 short_desc="Provides the 'xlock' X screen locker"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="BSD"
+maintainer="Andrew Benson <abenson+void@gmail.com>"
+license="MIT"
 homepage="http://sillycycle.com/xlockmore.html"
 distfiles="http://sillycycle.com/xlock/xlockmore-${version}.tar.xz"
-checksum=d4f1fa5b19efc20262d77207636aa54fc66ba40aa867119f03a15981b3396ef8
+checksum=11bff2ed134df693757535845bc8738d14121161a5ced320f15adf4ae4e3052c
 CFLAGS="-D_DEFAULT_SOURCE"
 
 pre_configure() {

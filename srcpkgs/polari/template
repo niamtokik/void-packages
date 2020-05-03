@@ -1,15 +1,17 @@
 # Template file for 'polari'
 pkgname=polari
-version=3.26.2
+version=3.36.1
 revision=1
 build_style=meson
-hostmakedepends="pkg-config itstool gobject-introspection"
-makedepends="gtk+3-devel telepathy-glib-devel gjs-devel gspell-devel libsecret-devel
- libsoup-gnome-devel telepathy-logger-devel"
-depends="telepathy-mission-control telepathy-idle telepathy-logger gspell"
-short_desc="The GNOME IRC client"
-maintainer="Sir_Boops <admin@boops.me>"
-license="GPL-2"
+hostmakedepends="pkg-config itstool gobject-introspection gettext"
+makedepends="gjs-devel gspell-devel gtk+3-devel libsecret-devel
+ libsoup-gnome-devel telepathy-glib-devel telepathy-logger-devel"
+depends="gspell telepathy-idle telepathy-logger telepathy-mission-control"
+checkdepends="appstream-glib desktop-file-utils mozjs60"
+short_desc="GNOME IRC client"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Polari"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=2f36361dacf5d924d134f231fdb36ec4539f7495fce325d9b2f2728bd17cc190
+checksum=c4c2aaa66b202eec3ab7dbfe08b8bb730e40cafc77cb0a9eae190bf1c8c1b5e6
+nocross="telepathy-idle:   File '../tools/glib-ginterface-gen.py', line 791 SyntaxError: invalid syntax"

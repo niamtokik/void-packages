@@ -1,24 +1,25 @@
 # Template file for 'cppcheck'
 pkgname=cppcheck
-version=1.82
+version=1.90
 revision=1
-hostmakedepends="libxslt docbook-xsl"
+build_style=gnu-makefile
+make_build_args="
+ FILESDIR=/usr/share/cppcheck
+ MATCHCOMPILER=yes
+ DB2MAN=/usr/share/xsl/docbook/manpages/docbook.xsl"
+make_install_args="
+ FILESDIR=/usr/share/cppcheck"
+make_build_target="cppcheck man"
+python_version="3"
+hostmakedepends="libxslt docbook-xsl python3 which"
+depends="python3"
 short_desc="Static analysis of C/C++ code"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Duncaen <duncaen@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="http://cppcheck.sourceforge.net"
-distfiles="https://github.com/danmar/cppcheck/archive/$version.tar.gz"
-checksum=524444a678e63dee247fd8d2fe3194317c07f2aa65de31a41aa2eb0553bbdc7f
+distfiles="https://github.com/danmar/cppcheck/archive/${version}.tar.gz"
+checksum=c4864d3e09359214efdd503b52e241f4f56ba7ce26f8c11939fd9dcfac1fd105
 
-CXXFLAGS="-std=c++11"
-
-do_build() {
-	make ${makejobs} CFGDIR=/usr/share/cppcheck/cfg
-	make ${makejobs} DB2MAN=/usr/share/xsl/docbook/manpages/docbook.xsl all man
-}
-do_install() {
-	make DESTDIR=${DESTDIR} CFGDIR=/usr/share/cppcheck/cfg install
+post_install() {
 	vman cppcheck.1
-	vmkdir usr/share/${pkgname}
-	vcopy cfg/ usr/share/${pkgname}/cfg
 }

@@ -1,21 +1,24 @@
-# Template build file for 'liberation-fonts-ttf'.
+# Template file for 'liberation-fonts-ttf'
 pkgname=liberation-fonts-ttf
-version=2.00.1
+version=2.1.0
 revision=1
-makedepends="font-util xbps-triggers"
-depends="${makedepends}"
-noarch="yes"
-font_dirs="/usr/share/fonts/TTF"
+archs=noarch
+wrksrc=${pkgname%-*}-${version}
+build_style=gnu-makefile
+hostmakedepends="fontforge fonttools"
+depends="font-util"
 short_desc="TrueType fonts from RedHat"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2, ${pkgname}"
-homepage="https://pagure.io/liberation-fonts"
-distfiles="https://releases.pagure.org/liberation-fonts/liberation-fonts-ttf-${version}.tar.gz"
-checksum=7890278a6cd17873c57d9cd785c2d230d9abdea837e96516019c5885dd271504
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="OFL-1.1"
+homepage="https://github.com/liberationfonts/liberation-fonts"
+changelog="https://raw.githubusercontent.com/liberationfonts/liberation-fonts/devel/ChangeLog"
+distfiles="https://github.com/liberationfonts/liberation-fonts/archive/${version}.tar.gz"
+checksum=a7761e42b43dfd0b4580f411829062ef98a6de6c2bafe0bfaf3041eb057d9107
+font_dirs="/usr/share/fonts/TTF"
 
 do_install() {
 	vmkdir usr/share/fonts/TTF
-	install -m644 *.ttf ${DESTDIR}/usr/share/fonts/TTF
+	install -m644 ${pkgname}-${version}/*.ttf ${DESTDIR}/usr/share/fonts/TTF
 
 	# install fontconfig files
 	vinstall ${FILESDIR}/30-0-liberation-mono.conf 644 \
@@ -24,6 +27,4 @@ do_install() {
 		etc/fonts/conf.avail 30-${pkgname}-sans.conf
 	vinstall ${FILESDIR}/30-0-liberation-serif.conf 644 \
 		etc/fonts/conf.avail 30-${pkgname}-serif.conf
-
-	vlicense LICENSE
 }

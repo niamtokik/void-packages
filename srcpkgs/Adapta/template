@@ -1,20 +1,20 @@
 # Template file for 'Adapta'
 pkgname=Adapta
-version=3.93.0.129
-revision=1
-build_style=gnu-configure
+version=3.95.0.11
+revision=2
+archs=noarch
 wrksrc="adapta-gtk-theme-$version"
-makedepends="gdk-pixbuf-devel glib-devel librsvg-devel gnome-shell"
-hostmakedepends="automake inkscape parallel pkg-config sassc glib-devel procps-ng"
-short_desc="An adaptive Gtk+ theme based on Material Design Guidelines"
+build_style=gnu-configure
+hostmakedepends="automake glib-devel inkscape parallel pkg-config
+ procps-ng sassc"
+makedepends="glib-devel librsvg-devel"
+short_desc="Adaptive Gtk+ theme based on Material Design Guidelines"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="GPL-2"
+license="GPL-2.0-or-later, CC-BY-SA-4.0"
 homepage=https://github.com/adapta-project/adapta-gtk-theme
 distfiles="https://github.com/adapta-project/adapta-gtk-theme/archive/$version.tar.gz"
-checksum=822df0a906ea70cfec910d2d6f1cd8632d2dd82d85372340050bdc72026e8e90
-
-noarch=y
+checksum=fb8fc11b770be59e1673b8f2d917704fc34e53aee5fb02fed70d83909d3309bd
 
 pre_configure() {
-	./autogen.sh
+	NOCONFIGURE=1 ./autogen.sh
 }

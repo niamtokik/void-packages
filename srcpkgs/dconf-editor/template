@@ -1,13 +1,13 @@
 # Template file for 'dconf-editor'
 pkgname=dconf-editor
-version=3.26.2
+version=3.36.0
 revision=1
-build_style=gnu-configure
-hostmakedepends="pkg-config intltool libxslt docbook-xsl glib-devel"
-makedepends="dconf-devel gtk+3-devel libxml2-devel"
-short_desc="A low-level configuration system - GTK+ editor"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-3"
-homepage="http://live.gnome.org/dconf"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=28b453fe49c49d7dfaf07c85c01d7495913f93ab64a0b223c117eb17d1cb8ad1
+build_style=meson
+hostmakedepends="docbook-xsl glib-devel libxslt pkg-config vala"
+makedepends="dconf-devel gtk+3-devel"
+short_desc="Low-level configuration system - GTK+ editor"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="https://wiki.gnome.org/Projects/dconf"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=72eed05670917f8e43200e40ccc6be60211f0a87b017534eac1fd6c7173a0693

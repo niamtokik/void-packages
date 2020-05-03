@@ -1,18 +1,33 @@
 # Template file for 'geary'
 pkgname=geary
-version=0.12.1
+version=3.36.1
 revision=1
-build_style=cmake
-configure_args="-DNO_FATAL_WARNINGS=ON"
-hostmakedepends="pkg-config intltool desktop-file-utils gnome-doc-utils iso-codes"
-makedepends="
- vala-devel webkit2gtk-devel libgee08-devel libcanberra-devel libsecret-devel
- gmime-devel libunique-devel sqlite-devel libnotify-devel libgirepository-devel
- gcr-devel glib-devel enchant-devel"
-depends="gir-freedesktop hicolor-icon-theme desktop-file-utils gnome-keyring"
-short_desc="A lightweight email program for the GNOME desktop"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
+build_helper="gir"
+build_style=meson
+configure_args="-Dcontractor=true"
+hostmakedepends="desktop-file-utils iso-codes pkg-config itstool
+ gobject-introspection vala glib-devel gettext"
+makedepends="enchant2-devel gcr-devel gmime3-devel libsoup-devel libglib-devel
+ libgee08-devel libsecret-devel webkit2gtk-devel libxml2-devel
+ gnome-online-accounts-devel json-glib-devel libunwind-devel libcanberra-devel
+ folks-devel appstream-glib-devel gspell-devel ytnef-devel libhandy-devel
+ libpeas-devel"
+depends="gir-freedesktop gnome-keyring"
+short_desc="Lightweight email program for the GNOME desktop"
+maintainer="Cameron Nemo <cnemo@tutanota.com>"
+license="LGPL-2.1-or-later"
 homepage="https://wiki.gnome.org/Apps/Geary"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/geary-${version}.tar.xz"
-checksum=065a9cd9692d6c120cd5d582aa27a05da01ec6d3af629dad1061e5214bbb0b8a
+checksum=03d04a44b60c874c66eee5cc5ffbf19f95b6fc7576d7f54ad78a2867ffaf301f
+
+post_patch() {
+	case "$XBPS_TARGET_MACHINE" in
+		i686-musl|ppc*-musl) ;;
+		*)
+			vsed -i meson.build -e 's;@UCONTEXT_LIB@;;'
+			return 0
+			;;
+	esac
+	vsed -i meson.build -e \
+		"s;@UCONTEXT_LIB@;cc.find_library('libucontext', dirs: unwind_lib);"
+}

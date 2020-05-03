@@ -1,40 +1,50 @@
-# Template file for 'rpi-firmware'
-_githash="c9d823d0c3e54d94cd65990350eb1ae3be7e9915"
+# Template file for 'rpi-userland'
+_githash="06bc6daa02137ca72b7a2104afad81e82a44de17"
 _gitshort="${_githash:0:7}"
 
 pkgname=rpi-userland
-version=20180103
+version=20191218
 revision=1
 wrksrc="userland-${_githash}"
 build_style=cmake
+hostmakedepends="pkg-config"
 configure_args="-DCMAKE_INSTALL_RPATH=/opt/vc/lib"
 short_desc="Raspberry Pi GPU userland libraries and utilities (git ${_gitshort})"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="3-clause-BSD"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="https://github.com/raspberrypi/userland"
 distfiles="https://github.com/raspberrypi/userland/archive/${_githash}.tar.gz"
-checksum=d65d03d1fcb9a05816c5a894f345d3de703a2aa2f6948291f13908512f64754c
+checksum=cf4dff40a2f4ec38bc7e42a80b989df1bf88e12d714f7e681f83c4e5a588f5c9
 
 LDFLAGS="-Wl,--no-as-needed"
-only_for_archs="armv6l armv6l-musl armv7l armv7l-musl"
+archs="armv6l* armv7l* aarch64*"
 
 shlib_provides="
- libvcsm.so
- libvcos.so
- libvchiq_arm.so
- libopenmaxil.so
- libmmal_vc_client.so
- libmmal_util.so
- libmmal_core.so
- libmmal_components.so
- libmmal.so
- libdebug_sym.so
- libcontainers.so
- libbcm_host.so
- libWFC.so
- libOpenVG.so
+ libEGL.so
  libGLESv2.so
- libEGL.so"
+ libOpenVG.so
+ libWFC.so
+ libbcm_host.so
+ libbrcmEGL.so
+ libbrcmGLESv2.so
+ libbrcmOpenVG.so
+ libbrcmWFC.so
+ libcontainers.so
+ libdebug_sym.so
+ libdtovl.so
+ libmmal.so
+ libmmal_components.so
+ libmmal_core.so
+ libmmal_util.so
+ libmmal_vc_client.so
+ libopenmaxil.so
+ libvchiq_arm.so
+ libvcos.so
+ libvcsm.so"
+
+case "$XBPS_TARGET_MACHINE" in
+aarch64*) configure_args+=" -DARM64=on" ;;
+esac
 
 pre_configure() {
 	for f in $(find ${wrksrc} -type f -name CMakeLists.txt); do
@@ -42,10 +52,20 @@ pre_configure() {
 	done
 }
 post_install() {
-	vmkdir usr/lib/pkgconfig
-	vcopy ${FILESDIR}/*.pc usr/lib/pkgconfig
+	vlicense LICENCE
 	rm -rf ${DESTDIR}/etc
 	rm -rf ${DESTDIR}/opt/vc/share
+
+	case "$XBPS_TARGET_MACHINE" in
+		*-musl)
+			vmkdir etc
+			echo /lib:/usr/local/lib:/usr/lib:/opt/vc/lib > ${DESTDIR}/etc/ld-musl-armhf.path
+			;;
+		*)
+			vmkdir etc/ld.so.conf.d
+			echo /opt/vc/lib > ${DESTDIR}/etc/ld.so.conf.d/rpi-userland.conf
+			;;
+	esac
 }
 
 rpi-userland-devel_package() {
@@ -57,6 +77,6 @@ rpi-userland-devel_package() {
 		vmove opt/vc/include
 		vmove opt/vc/src
 		vmove opt/vc/lib/*.a
-		vmove usr/lib/pkgconfig
+		vmove opt/vc/lib/pkgconfig
 	}
 }

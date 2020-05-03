@@ -1,27 +1,34 @@
 # Template file for 'rspamd'
 pkgname=rspamd
-version=1.5.6
+version=1.9.4
 revision=2
+archs="x86_64* i686* aarch64* armv[67]* ppc64*"
 build_style=cmake
-configure_args="
- -DRSPAMD_USER=rspamd
- -DCONFDIR=/etc/rspamd
+configure_args="-DRSPAMD_USER=rspamd -DCONFDIR=/etc/rspamd
  -DDBDIR=/var/lib/rspamd"
-hostmakedepends="pkg-config perl ragel"
-makedepends="LuaJIT-devel libressl-devel gmime-devel libevent-devel sqlite-devel
- hiredis-devel file-devel icu-devel fann-devel gd-devel"
+hostmakedepends="perl pkg-config ragel"
+makedepends="LuaJIT-devel fann-devel file-devel gd-devel gmime-devel
+ hiredis-devel icu-devel libevent-devel sqlite-devel"
 short_desc="Fast, free and open-source spam filtering system"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="BSD"
-homepage="http://rspamd.com/"
-distfiles="http://rspamd.com/downloads/rspamd-${version}.tar.xz"
-checksum=cda2a5b93f0e57b890767514ce00a2660baf9d48627f7367a36fe938ade14f31
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="Apache-2.0"
+homepage="https://rspamd.com/"
+changelog="https://raw.githubusercontent.com/vstakhov/rspamd/master/ChangeLog"
+distfiles="https://github.com/vstakhov/rspamd/archive/${version}.tar.gz"
+checksum=e4720c1f45defd07dd17b9563d0ddc480c70beadbc1a833235c077960092e030
 system_accounts="rspamd"
-rspamd_homedir="/var/lib/rspamd"
+rspamd_homedir=/var/lib/rspamd
 conf_files="/etc/rspamd/*.conf /etc/rspamd/*.inc /etc/rspamd/modules.d/*.conf"
 
+case "$XBPS_TARGET_MACHINE" in
+	aarch64*|arm*) configure_args+=" -DHAS_C11_ATOMICS_EXITCODE=0
+	 -DHAS_C11_ATOMICS_EXITCODE__TRYRUN_OUTPUT=0
+	 -DHAVE_ATOMIC_BUILTINS_EXITCODE=0
+	 -DHAVE_ATOMIC_BUILTINS_EXITCODE__TRYRUN_OUTPUT=0"
+esac
+
 if [ "$CROSS_BUILD" ]; then
-	hostmakedepends+=" $makedepends"
+	hostmakedepends+=" ${makedepends}"
 
 	pre_build() {
 		make -C build_native/contrib/snowball
@@ -36,14 +43,13 @@ pre_configure() {
 			sed -i CMakeLists.txt -e "/LIST(APPEND CMAKE_REQUIRED_LIBRARIES nsl)/d"
 	esac
 	if [ "$CROSS_BUILD" ]; then
-		configure_args+=" -C $FILESDIR/TryRunResults.cmake"
+		configure_args+=" -C ${FILESDIR}/TryRunResults.cmake"
 		mkdir -p build_native
 		( cd build_native; LD= CC= CFLAGS= LDFLAGS= cmake .. )
 	fi
 }
 
-
 post_install() {
 	vsv rspamd
-	vlicense LICENSE
+	vlicense LICENSE.md
 }

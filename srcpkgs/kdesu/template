@@ -1,21 +1,18 @@
 # Template file for 'kdesu'
 pkgname=kdesu
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules"
+hostmakedepends="kcoreaddons extra-cmake-modules gettext
+ qt5-host-tools qt5-qmake python3"
 makedepends="kservice-devel kpty-devel"
 short_desc="KDE User interface for running shell commands with root privileges"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-only"
 homepage="https://projects.kde.org/projects/frameworks/kdesu"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=1d9e6b497aa5e0eb8fecfa1519185c944af7014f8a9d77af36d3457e60b80210
-
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python"
-fi
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=5b8d257ff72005bde3b4e817baade1591313820f0bbe37430bd0ff0dcde53185
 
 kdesu-devel_package() {
 	short_desc+=" - development"
@@ -24,6 +21,6 @@ kdesu-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

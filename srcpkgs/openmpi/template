@@ -1,28 +1,29 @@
 # Template file for 'openmpi'
 pkgname=openmpi
-version=3.0.0
+version=4.0.3
 revision=1
-lib32disabled=yes
 build_style=gnu-configure
 configure_args="--enable-ipv6 --with-hwloc=${XBPS_CROSS_BASE}/usr"
-hostmakedepends="libgomp-devel perl"
-makedepends="libgomp-devel libhwloc-devel zlib-devel"
+hostmakedepends="gcc-fortran libgomp-devel perl"
+makedepends="libgfortran-devel libgomp-devel libhwloc-devel zlib-devel"
 conf_files="
  /etc/openmpi-default-hostfile
  /etc/openmpi-mca-params.conf
  /etc/openmpi-totalview.tcl"
-short_desc="A High Performance Message Passing Library"
+short_desc="High Performance Message Passing Library"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="https://www.open-mpi.org/"
-license="3-clause-BSD"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
 distfiles="${homepage}/software/ompi/v${version%.*}/downloads/${pkgname}-${version}.tar.bz2"
-checksum=f699bff21db0125d8cccfe79518b77641cd83628725a1e1ed3e45633496a82d7
+checksum=1402feced8c3847b3ab8252165b90f7d1fa28c23b6b2ca4632b6e4971267fd03
 nocross=yes  # libtool -rpath /usr/lib issue
+lib32disabled=yes
 
 post_extract() {
-	sed -i 's,sys/unistd.h,unistd.h,g' opal/include/opal/sys/cma.h
-	sed -i '1i#include <unistd.h>' opal/mca/pmix/pmix2x/pmix/include/pmix_server.h
+	vsed -e 's,sys/unistd.h,unistd.h,g' -i opal/include/opal/sys/cma.h
+	vsed -e '1i#include <unistd.h>' -i opal/mca/pmix/pmix3x/pmix/include/pmix_server.h
 }
+
 pre_configure() {
 	# used wrongly upstream? but nocross anyway
 	export CFLAGS="$CFLAGS $LDFLAGS"
@@ -37,9 +38,8 @@ pre_configure() {
 	export LDFLAGS_FOR_BUILD="$LDFLAGS"
 	export LIBS_FOR_BUILD="$LDFLAGS"
 	export LIBS="$LDFLAGS"
-
-	unset FC FC_FOR_BUILD
 }
+
 post_install() {
 	vlicense LICENSE
 }
@@ -52,11 +52,12 @@ libopenmpi_package() {
 }
 
 openmpi-devel_package() {
-	depends="libstdc++-devel zlib-devel lib${sourcepkg}>=${version}_${revision}"
+	depends="libopenmpi-${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
 		vmove usr/share/man/man3
+		vmove "usr/lib/*.so"
 	}
 }

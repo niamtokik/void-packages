@@ -1,18 +1,18 @@
 # Template file for 'plantuml'
-pkgname="plantuml"
+pkgname=plantuml
 reverts="8047_1 8053_1 8059_1"
-version=1.2017.19
+version=1.2020.8
 revision=1
-depends="virtual?java-environment graphviz"
+archs=noarch
+create_wrksrc=yes
 hostmakedepends="unzip"
+depends="virtual?java-environment graphviz"
 short_desc="Create UML diagrams from a plain text language"
 maintainer="Julien Dehos <dehos@lisic.univ-littoral.fr>"
+license="GPL-2.0-or-later"
 homepage="http://plantuml.com/"
-license="GPL-2"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-jar-gplv2-${version}.zip"
-checksum=f0dbe5759c369fb86bc15ffe51f3544e37dca1d35635b7eb0565ed17a973259f
-noarch="yes"
-create_wrksrc="yes"
+checksum=79d9422b66b80bd6c2cf3bdb30cccb0d11d9993cb2f25eef2cfc6f517e8dfcda
 
 do_build() {
 	mv ${pkgname}.jar ${pkgname}-${version}.jar
@@ -25,4 +25,3 @@ do_install() {
 	vbin plantuml
 	vinstall ${pkgname}-${version}.jar 644 usr/share/java ${pkgname}-${version}.jar
 }
-

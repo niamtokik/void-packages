@@ -1,13 +1,14 @@
 # Template file for 'kfind'
 pkgname=kfind
-version=17.12.1
+version=20.04.0
 revision=1
+build_style=cmake
+hostmakedepends="extra-cmake-modules gettext kcoreaddons qt5-host-tools qt5-qmake
+ kdoctools"
+makedepends="kfilemetadata5-devel kparts-devel"
 short_desc="Find files and folders"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
-build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-qmake"
-makedepends="kdelibs4support-devel kparts-devel qt5-devel"
+license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/utilities/kfind/"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=b3bb4749609125e55a0f926d57966814840c94bbf0361170b3937a832ee1277d
-license="GPL-2"
+distfiles="${KDE_SITE}/release-service/${version}/src/kfind-${version}.tar.xz"
+checksum=bf3e3934a3355c31c7fc19e47e48f9a78bc03918b69866d571164deb11ddc108

@@ -1,25 +1,16 @@
 # Template file for 'mdBook'
 pkgname=mdBook
-version=0.0.28
+version=0.3.7
 revision=1
-hostmakedepends="cargo"
+build_style=cargo
 short_desc="Create book from markdown files. Like Gitbook but implemented in Rust"
 maintainer="Huidong Hwang <hwangh95@gmail.com>"
 license="MPL-2.0"
-homepage="https://github.com/rust-lang-nursery/${pkgname}"
-distfiles="https://github.com/rust-lang-nursery/${pkgname}/archive/${version}.tar.gz"
-checksum=3cac914a99967e3db11e0a7cc32d47f814f7fced2ba48066efde0ca2340f69bf
-nocross="This cannot be cross compiled due to limitations in cargo."
+homepage="https://github.com/rust-lang/mdBook"
+changelog="https://raw.githubusercontent.com/rust-lang/mdBook/master/CHANGELOG.md"
+distfiles="https://github.com/rust-lang/mdBook/archive/v${version}.tar.gz"
+checksum=b450d6f1c07624b4c31fd9bc7cb4390ca53e2c318136c62a86aaeea222437919
 
-do_build() {
-	cargo build --release
-}
-
-do_check() {
-	cargo test --release
-}
-
-do_install() {
-	vbin target/release/mdbook
+post_install() {
 	vlicense LICENSE
 }

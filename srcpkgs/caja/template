@@ -1,27 +1,27 @@
 # Template file for 'caja'
 pkgname=caja
-version=1.18.5
+version=1.24.0
 revision=1
 build_style=gnu-configure
+build_helper="gir"
+# self-check only check for eel in make check, requires Xorg server
 configure_args="--disable-static --disable-packagekit --disable-schemas-compile
- --disable-update-mimedb $(vopt_enable gir introspection)"
-hostmakedepends="automake libtool gettext-devel pkg-config
- intltool itstool glib-devel gobject-introspection"
-makedepends="gtk+3-devel dbus-devel exempi-devel libexif-devel libXt-devel
- mate-desktop-devel startup-notification-devel gvfs-devel libxml2-devel
- libnotify-devel"
-depends="dbus desktop-file-utils gvfs mate-desktop mate-icon-theme"
-short_desc="The MATE shell and file manager"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2"
+ --disable-update-mimedb --disable-self-check $(vopt_enable gir introspection)
+ ac_cv_lib_selinux_is_selinux_enabled=no ac_cv_strftime_extensions=yes"
+hostmakedepends="automake gettext-devel glib-devel gobject-introspection
+ intltool itstool libtool pkg-config"
+makedepends="exempi-devel gvfs-devel libXt-devel libexif-devel libnotify-devel
+ mate-desktop-devel"
+depends="dbus gvfs mate-desktop mate-icon-theme"
+short_desc="MATE shell and file manager"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://mate-desktop.org"
 distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=a0dc034d60d503993b5f83eb4930c99e86bf90d28175810bdd7ddb4df5128dc6
+checksum=80e17a55739561b213197f547cc1b30ca977206980cfa1e2d892331810f1ceb2
 
 build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
+build_options_default="gir"
 
 pre_configure() {
 	autoreconf -fi
@@ -30,18 +30,19 @@ pre_configure() {
 libcaja_package() {
 	short_desc+=" - runtime library"
 	pkg_install() {
-		vmove usr/lib/*.so.*
+		vmove "usr/lib/*.so.*"
 		if [ "$build_option_gir" ]; then
 			vmove usr/lib/girepository-1.0
 		fi
 	}
 }
+
 libcaja-devel_package() {
 	short_desc+=" - development files"
 	depends="lib${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
 		vmove usr/share/gtk-doc
 		if [ "$build_option_gir" ]; then

@@ -1,18 +1,23 @@
 # Template file for 'kcoreaddons'
 pkgname=kcoreaddons
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools qt5-tools-devel"
-makedepends="qt5-devel qt5-tools-devel gamin-devel"
+makedepends="qt5-devel qt5-tools-devel"
 depends="shared-mime-info"
 short_desc="Qt5 addon library with a collection of non-GUI utilities"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kcoreaddons"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=4967aba9f0175025a1c076cf15487d10ce08d27cad740f814ab58af34d3e1b9f
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=e9cc3bc95dd2e3382d0221fbb6ebe8eb8afe5d14fbd2ce8d375eace9e4e74856
+
+post_install() {
+	vsed -e 's;${_IMPORT_PREFIX};/usr;g' \
+		-i ${DESTDIR}/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsToolingTargets-*.cmake
+}
 
 kcoreaddons-devel_package() {
 	short_desc+=" - development"
@@ -21,6 +26,6 @@ kcoreaddons-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

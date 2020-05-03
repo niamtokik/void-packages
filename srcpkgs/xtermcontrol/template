@@ -1,11 +1,11 @@
 # Template file for 'xtermcontrol'
 pkgname=xtermcontrol
-version=3.3
+version=3.7
 revision=1
 build_style=gnu-configure
 short_desc="Enables dynamic control of xterm properties"
-maintainer="Michael Gehring <mg@ebfe.org>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
 homepage="http://thrysoee.dk/xtermcontrol"
-distfiles="http://thrysoee.dk/xtermcontrol/xtermcontrol-3.3.tar.gz"
-checksum=45f69a307580a8e650ddc60b048bff70355ba0d62c1ef5aeae570dd22d0b4cec
+distfiles="http://thrysoee.dk/xtermcontrol/xtermcontrol-${version}.tar.gz"
+checksum=c2396cea504fd338f3ececbfa27c811bc580203577f2b9f16abae8ab5a13a112

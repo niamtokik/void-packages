@@ -21,8 +21,8 @@
 
 awk gawk
 emacs emacs
-java-environment openjdk
-java-runtime openjdk-jre
+java-environment openjdk8
+java-runtime openjdk8-jre
 libudev eudev-libudev
 nodejs-runtime nodejs
 ntp-daemon chrony
@@ -33,3 +33,6 @@ smtp-server opensmtpd
 texlive texlive-bin
 xserver-abi-input xorg-server
 xserver-abi-video xorg-server
+libGL libglvnd
+libEGL libglvnd
+libGLES libglvnd

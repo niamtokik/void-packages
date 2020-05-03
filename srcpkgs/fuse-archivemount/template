@@ -1,19 +1,14 @@
 # Template file for 'fuse-archivemount'
 pkgname=fuse-archivemount
-version=0.8.7
+version=0.9.1
 revision=1
 wrksrc="${pkgname/fuse-/}-${version}"
 build_style=gnu-configure
-hostmakedepends="automake libtool pkg-config"
+hostmakedepends="pkg-config"
 makedepends="fuse-devel libarchive-devel"
 short_desc="Mounts an archive for access as a file system"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2"
-homepage="http://www.cybernoia.de/software/archivemount/"
-distfiles="${homepage}/${pkgname/fuse-/}-${version}.tar.gz"
-checksum=47045ca8d4d62fbe0b4248574c65cf90a6d29b488d166aec8c365b6aafe131b6
-
-pre_configure() {
-	sed -i '/CFLAGS=/d' configure.ac
-	autoreconf -fi
-}
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.0-or-later"
+homepage="https://www.cybernoia.de/software/archivemount.html"
+distfiles="${homepage/.html/}/${pkgname/fuse-/}-${version}.tar.gz"
+checksum=c529b981cacb19541b48ddafdafb2ede47a40fcaf16c677c1e2cd198b159c5b3

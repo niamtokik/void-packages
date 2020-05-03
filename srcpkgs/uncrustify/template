@@ -1,16 +1,16 @@
 # Template file for 'uncrustify'
 pkgname=uncrustify
-version=0.66.1
+version=0.70.1
 revision=1
-build_style=cmake
 create_wrksrc=yes
-hostmakedepends="python"
+build_style=cmake
+hostmakedepends="python3"
 short_desc="Source Code Beautifier for multiple languages"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://uncrustify.sourceforge.net/"
-distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.gz"
-checksum=4b36dabcb33cfc286d79ea8fcb5babadf1d0a25eb5eb7ea9da650414325063e4
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=f419f2748db77bc91c9f5f153b11affbdf6da5199d385b60e2a88e0cbe6da2bf
 
 do_check() {
 	make -C build test

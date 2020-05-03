@@ -1,14 +1,14 @@
 # Template file for 'fsarchiver'
 pkgname=fsarchiver
-version=0.8.3
+version=0.8.5
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="zlib-devel bzip2-devel lzo-devel liblzma-devel libgcrypt-devel
- e2fsprogs-devel libuuid-devel attr-devel lz4-devel"
+makedepends="attr-devel bzip2-devel e2fsprogs-devel libgcrypt-devel liblz4-devel
+ liblzma-devel libzstd-devel lzo-devel"
 short_desc="Safe and flexible file-system backup and deployment tool"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://www.fsarchiver.org/"
 distfiles="https://github.com/fdupoux/fsarchiver/releases/download/${version}/fsarchiver-${version}.tar.gz"
-checksum=fff7a99240cea4b9e6750b2c01a339855ea699ef9e9f7a69393196fc147ef62e
+checksum=c694f52e42703d7e8c4d56f2db97a8ff5616df1d723429126de97c22217c88fe

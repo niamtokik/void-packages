@@ -1,0 +1,14 @@
+# Template file for 'kturtle'
+pkgname=kturtle
+version=20.04.0
+revision=1
+build_style=cmake
+hostmakedepends="extra-cmake-modules gettext kcoreaddons kdoctools
+ pkg-config qt5-host-tools qt5-qmake"
+makedepends="kparts-devel knewstuff-devel knotifyconfig-devel"
+short_desc="Educational Programming Environment"
+maintainer="Piotr Wójcik <chocimier@tlen.pl>"
+license="GPL-2.0-or-later, GFDL-1.2-only"
+homepage="https://www.kde.org/applications/education/kturtle/"
+distfiles="${KDE_SITE}/release-service/${version}/src/kturtle-${version}.tar.xz"
+checksum=eaeaef07ba1b0665345ccefbc5588a792b0aa32855106b405bdfeaadff46b282

@@ -1,14 +1,25 @@
 # Template file for 'yad'
 pkgname=yad
-version=0.40.0
+version=6.0
 revision=1
 build_style=gnu-configure
-configure_args="--enable-html --enable-icon-browser"
-hostmakedepends="intltool pkg-config"
-makedepends="webkitgtk2-devel"
+configure_args="--enable-icon-browser"
+hostmakedepends="automake gettext-devel glib-devel intltool pkg-config"
+makedepends="gtk+3-devel webkit2gtk-devel gtksourceview-devel gspell-devel"
 short_desc="Yet Another Dialog"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-3"
-homepage="http://sourceforge.net/projects/yad-dialog/"
-distfiles="${SOURCEFORGE_SITE}/$pkgname-dialog/$pkgname-$version.tar.xz"
-checksum=c2d0b7d1b6d3a0877299faa00db75d58c974f81fce72d520a3a84e67d1d60ef4
+maintainer="Benjamin Slade <slade@lambda-y.net>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/v1cont/yad"
+distfiles="https://github.com/v1cont/yad/releases/download/v${version}/yad-${version}.tar.xz"
+checksum=bcbf0a298a0b6c069b1f7ac6c7914af09fea9932914787faad7e7fe4eebe9051
+
+pre_configure() {
+	autoreconf -ivf
+	intltoolize
+}
+
+post_install() {
+	# Avoid conflict with disputils
+	mv "${DESTDIR}"/usr/bin/{,yad-}pfd
+	mv "${DESTDIR}"/usr/share/man/man1/{,yad-}pfd.1
+}

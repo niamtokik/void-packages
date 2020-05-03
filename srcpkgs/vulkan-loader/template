@@ -1,51 +1,17 @@
 # Template file for 'vulkan-loader'
 pkgname=vulkan-loader
-_pkgname=Vulkan-LoaderAndValidationLayers
-version=1.0.65.2
+_pkgname=Vulkan-Loader
+version=1.2.137
 revision=1
+wrksrc="${_pkgname}-${version}"
 build_style=cmake
-configure_args="-DBUILD_TESTS=Off"
-wrksrc=${_pkgname}-sdk-${version}
-hostmakedepends="git python3 bison pkg-config"
-makedepends="libxcb-devel libxkbcommon-devel libwayland-egl wayland-devel
+configure_args="-DVULKAN_HEADERS_INSTALL_DIR=${XBPS_CROSS_BASE}/usr -DBUILD_TESTS=OFF"
+hostmakedepends="python3 pkg-config"
+makedepends="Vulkan-Headers libxcb-devel libxkbcommon-devel wayland-devel
  libXrandr-devel"
 short_desc="Vulkan Installable Client Driver (ICD) loader"
 maintainer="Arvin Ignaci <arvin.ignaci@gmail.com>"
 license="Apache-2.0"
 homepage="https://www.khronos.org/vulkan/"
-distfiles="https://github.com/KhronosGroup/${_pkgname}/archive/sdk-${version}.tar.gz"
-checksum=88eaf0362031d726b285a165ce72afc3fbbca9833eebb14bba5dd873d2aa7bc7
-
-nocross="https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/issues/1962"
-nopie=yes
-
-pre_configure() {
-	./update_external_sources.sh
-}
-
-do_install() {
-	for file in build/loader/libvulkan.*; do
-		vinstall ${file} 755 /usr/lib
-	done
-
-	vbin build/demos/vulkaninfo
-
-	vinstall include/vulkan/vk_icd.h 644 /usr/include/vulkan
-	vlicense LICENSE.txt
-}
-
-vulkan-validation-layers_package() {
-	short_desc="Vulkan validation layers"
-	depends="${sourcepkg}>=${version}_${revision}"
-	pkg_install() {
-		cd build
-
-		for file in layers/*.so; do
-			vinstall ${file} 755 /usr/lib
-		done
-
-		for file in layers/*.json; do
-			vinstall ${file} 644 /etc/vulkan/explicit_layer.d
-		done
-	}
-}
+distfiles="https://github.com/KhronosGroup/${_pkgname}/archive/v${version}.tar.gz"
+checksum=098a59996fcb32daeda6423fa3fb8a74cff532ec37b33235601ac06f0df00485

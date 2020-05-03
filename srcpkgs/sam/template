@@ -1,17 +1,17 @@
 # Template file for 'sam'
 pkgname=sam
-version=20170627
+version=20200206
 revision=1
-_githash=20e0ad8abcc61009fcf089968d84f7a277078437
+_githash=4d35598ce980dc4056901a843c0a628fb348cc1a
 wrksrc="${pkgname}-${_githash}"
-disable_parallel_build=yes
 makedepends="libXft-devel libXi-devel libXt-devel"
 short_desc="Screen editor with structural regular expressions"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="MIT-like"
+license="custom:MIT-like"
 homepage="http://www.deadpixi.com/an-updated-version-of-sam"
 distfiles="https://github.com/deadpixi/${pkgname}/archive/${_githash}.tar.gz"
-checksum=013446b178e470a24653dd3d82bc71b77a8faa9a67cd5ed74367d777fb5f6378
+checksum=51c4bf2124ae0f51a4f484efa60acb6e8d746bec62482050396cd489baa00b02
+disable_parallel_build=yes
 CFLAGS="-std=c99"
 
 post_extract() {
@@ -19,15 +19,14 @@ post_extract() {
 	sed -i '/Straddc/s/int/wchar_t/g' sam/sam.h
 }
 do_build() {
-	case "$XBPS_TARGET_MACHINE" in
-		i686*|armv*) USE64BITS=0;;
-		x86_64*|aarch64*) USE64BITS=1;;
-		*) msg_error "Unknown word length for $XBPS_TARGET_MACHINE";;
-	esac
+	local use64bits=0
+	if [ "$XBPS_TARGET_WORDSIZE" = "64" ]; then
+		use64bits=1
+	fi
 
 	make ${makejobs} CC="${CC} ${CFLAGS}" DESTDIR=/usr LDFLAGS="$LDFLAGS" \
 		INCLUDES=-I${XBPS_CROSS_BASE}/usr/include/freetype2 \
-		RXSAMNAME=rsam TERMNAME=/usr/bin/samterm USE64BITS=${USE64BITS}
+		RXSAMNAME=rsam TERMNAME=/usr/bin/samterm USE64BITS=${use64bits}
 }
 
 do_install() {

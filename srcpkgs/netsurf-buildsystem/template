@@ -1,15 +1,15 @@
-# Template build file for 'netsurf-buildsystem'.
+# Template file for 'netsurf-buildsystem'
 pkgname=netsurf-buildsystem
-version=1.6
+version=1.8
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="${pkgname#netsurf-}-${version}"
-short_desc="The Netsurf buildsystem"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.netsurf-browser.org"
+short_desc="Netsurf buildsystem"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
+homepage="http://www.netsurf-browser.org"
 distfiles="http://download.netsurf-browser.org/libs/releases/${pkgname#netsurf-}-${version}.tar.gz"
-checksum=3d9c8a2f60dab6add712a2e67ba35f592e31688566b2ded38d0d61461138b35c
+checksum=e6a324e7c5965ca032d3196adddd6fd986b5f47c0e6340a646d0d23e3597cd39
 
 do_build() {
 	make COMPONENT_TYPE=lib-shared PREFIX=/usr

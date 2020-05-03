@@ -1,25 +1,33 @@
 # Template file for 'python-py'
 pkgname=python-py
-version=1.5.2
-revision=1
-wrksrc="${pkgname/python-//}-${version}"
+version=1.8.0
+revision=2
+archs=noarch
+wrksrc="py-${version}"
 build_style=python-module
 pycompile_module="py"
 hostmakedepends="python-setuptools python3-setuptools"
+depends="python"
+checkdepends="python3-pytest"
 short_desc="Python2 development support library"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/pytest-dev/py"
-distfiles="https://github.com/pytest-dev/py/archive/${version}.tar.gz"
-checksum=c1a23fb4c6cc181dbb207117190adefcad757e742c2a25ba8fed63bd55712634
-noarch=yes
+changelog="https://github.com/pytest-dev/py/raw/master/CHANGELOG"
+distfiles="${PYPI_SITE}/p/py/py-${version}.tar.gz"
+checksum=dc639b046a6e2cff5bbe40194ad65936d6ba360b52b3c3fe1d08a82dd50b5e53
+
+do_check() {
+	python3 -m pytest
+}
 
 post_install() {
 	vlicense LICENSE
 }
 
 python3-py_package() {
-	noarch=yes
+	archs=noarch
+	depends="python3"
 	pycompile_module="py"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {

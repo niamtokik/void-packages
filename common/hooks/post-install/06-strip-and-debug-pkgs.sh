@@ -7,7 +7,7 @@ make_debug() {
 
 	[ -n "$nodebug" ] && return 0
 
-	dname=$(echo "$(dirname $1)"|sed -e "s|${PKGDESTDIR}||g")
+	dname=${1%/*}/ ; dname=${dname#$PKGDESTDIR}
 	fname="${1##*/}"
 	dbgfile="${dname}/${fname}"
 
@@ -26,7 +26,7 @@ attach_debug() {
 
 	[ -n "$nodebug" ] && return 0
 
-	dname=$(echo "$(dirname $1)"|sed -e "s|${PKGDESTDIR}||g")
+	dname=${1%/*}/ ; dname=${dname#$PKGDESTDIR}
 	fname="${1##*/}"
 	dbgfile="${dname}/${fname}"
 
@@ -51,6 +51,7 @@ create_debug_pkg() {
 		msg_red "$pkgver: failed to create debug pkg\n"
 		return 1
 	fi
+	printf "${pkgver} " >> ${_destdir}/rdeps
 	rmdir --ignore-fail-on-non-empty "${PKGDESTDIR}/usr/lib" 2>/dev/null
 	return 0
 }
@@ -58,7 +59,7 @@ create_debug_pkg() {
 hook() {
 	local fname= x= f= _soname= STRIPCMD=
 
-	if [ -n "$nostrip" -o -n "$noarch" ]; then
+	if [ -n "$nostrip" -o "${archs// /}" = "noarch" ]; then
 		return 0
 	fi
 
@@ -66,6 +67,10 @@ hook() {
 
 	find ${PKGDESTDIR} -type f | while read f; do
 		if [[ $f =~ ^${PKGDESTDIR}/usr/lib/debug/ ]]; then
+			continue
+		fi
+
+		if [[ $(file -b "$f") =~ "no machine" ]]; then
 			continue
 		fi
 
@@ -83,7 +88,7 @@ hook() {
 		case "$(file -bi "$f")" in
 		application/x-executable*)
 			chmod +w "$f"
-			if echo "$(file $f)" | grep -q "statically linked"; then
+			if [[ $(file $f) =~ "statically linked" ]]; then
 				# static binary
 				$STRIPCMD "$f"
 				if [ $? -ne 0 ]; then
@@ -113,7 +118,7 @@ hook() {
 				attach_debug "$f"
 			fi
 			;;
-		application/x-sharedlib*)
+		application/x-sharedlib*|application/x-pie-executable*)
 			chmod +w "$f"
 			# shared library
 			make_debug "$f"
@@ -122,7 +127,7 @@ hook() {
 				msg_red "$pkgver: failed to strip ${f#$PKGDESTDIR}\n"
 				return 1
 			fi
-			if file $f | grep -q "interpreter "; then
+			if [[ $(file $f) =~ "interpreter " ]]; then
 				echo "   Stripped position-independent executable: ${f#$PKGDESTDIR}"
 			else
 				echo "   Stripped library: ${f#$PKGDESTDIR}"

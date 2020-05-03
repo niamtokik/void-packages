@@ -1,17 +1,17 @@
 # Template file for 'kguiaddons'
 pkgname=kguiaddons
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="pkg-config extra-cmake-modules qt5-host-tools qt5-tools-devel"
+hostmakedepends="kcoreaddons pkg-config extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-tools-devel qt5-x11extras-devel xcb-util-devel"
 short_desc="KDE frameworks - Addons to QtGui"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-only, LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kguiaddons"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c77213c07ba790a162fff156ab2b3e1d36103f4ff38e8ad07db38de0c84271a4
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=ff183277808d8884cdd30843d534ff554724efda688a6b26fbc58fc28c18cfc0
 
 kguiaddons-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kguiaddons-devel_package() {
 		vmove usr/include
 		vmove usr/lib/cmake
 		vmove usr/lib/qt5/mkspecs
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

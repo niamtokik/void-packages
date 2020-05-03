@@ -1,28 +1,27 @@
 # Template file for 'python-parsing'
 pkgname=python-parsing
-version=2.2.0
-revision=2
-noarch=yes
-wrksrc="pyparsing-${version}"
+version=2.4.6
+revision=1
+archs=noarch
+wrksrc="pyparsing-pyparsing_${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
-pycompile_module="pyparsing.py"
 short_desc="Python parsing module (Python2)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="MIT"
-homepage="http://pyparsing.wikispaces.com/"
-distfiles="${PYPI_SITE}/p/pyparsing/pyparsing-${version}.tar.gz"
-checksum=0832bcf47acd283788593e7a0f542407bd9550a55a8a8435214a1960e04bcb04
+homepage="https://github.com/pyparsing/pyparsing"
+changelog="https://github.com/pyparsing/pyparsing/raw/master/CHANGES"
+distfiles="https://github.com/pyparsing/pyparsing/archive/pyparsing_${version}.tar.gz"
+checksum=1cfe911bf73d6a03d38c1c7808096ef848d03f4c5df6e4aee69fc7348c89e4f0
 
 post_install() {
 	vlicense LICENSE
 }
 
 python3-parsing_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3"
-	pycompile_module="pyparsing.py"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*

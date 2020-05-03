@@ -1,17 +1,18 @@
 # Template file for 'yank'
 pkgname=yank
-version=0.8.3
+version=1.2.0
 revision=1
 build_style=gnu-makefile
+make_use_env=yes
 depends="xsel"
 short_desc="Yank terminal output to clipboard"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
-homepage="https://github.com/mptre/yank"
 license="MIT"
-distfiles="https://github.com/mptre/yank/archive/v${version}.tar.gz"
-checksum=39a3ccf6d2b0cb803b6d133c477030236660ef5349c7f0556b5a6644cc7588b0
+homepage="https://github.com/mptre/yank"
+changelog="https://raw.githubusercontent.com/mptre/yank/master/CHANGELOG.md"
+distfiles="https://github.com/mptre/yank/releases/download/v${version}/yank-${version}.tar.gz"
+checksum=b500d1a71378e69a2a348032107e6d8db728b8f6af280a9bb4cb446c1d26e43a
 
-do_install() {
-	make PREFIX=${DESTDIR}/usr install
+post_install() {
 	vlicense LICENSE
 }

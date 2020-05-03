@@ -1,33 +1,38 @@
-# Template build file for "chroot-git".
+# Template file for 'chroot-git'
 pkgname=chroot-git
-version=2.16.0
+version=2.26.2
 revision=1
 bootstrap=yes
-wrksrc="git-$version"
+wrksrc="git-${version}"
 build_style=gnu-configure
 configure_args="--without-curl --without-openssl
  --without-python --without-expat --without-tcltk
- ac_cv_lib_curl_curl_global_init=no ac_cv_lib_expat_XML_ParserCreate=no
- ac_cv_fread_reads_directories=no ac_cv_snprintf_returns_bogus=no"
+ ac_cv_lib_curl_curl_global_init=no ac_cv_lib_expat_XML_ParserCreate=no"
 makedepends="zlib-devel"
-make_build_args="CC_LD_DYNPATH=-L"
-make_install_args="NO_INSTALL_HARDLINKS=1"
 short_desc="GIT Tree History Storage Tool -- for xbps-src use"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://git-scm.com/"
-license="GPL-2"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="https://git-scm.com/"
 distfiles="https://www.kernel.org/pub/software/scm/git/git-${version}.tar.xz"
-checksum=0d10764e66b3d650dee0d99a1c77afa4aaae5e739c0973fcc1c5b9e6516e30f8
+checksum=6d65132471df9e531807cb2746f8be317e22a343b9385bbe11c9ce7f0d2fc848
 
 if [ "$CHROOT_READY" ]; then
-	hostmakedepends="perl"
+	hostmakedepends="perl tar"
 else
 	configure_args+=" --with-zlib=${XBPS_MASTERDIR}/usr"
 fi
 
+post_configure() {
+	cat <<-EOF >config.mak
+	CC_LD_DYNPATH=-L
+	NO_INSTALL_HARDLINKS=Yes
+	NO_GETTEXT=Yes
+	EOF
+}
+
 do_install() {
 	# remove unneeded stuff.
 	make DESTDIR=${wrksrc}/build-tmp install
-	vmkdir usr/bin
+
 	vbin ${wrksrc}/build-tmp/usr/bin/git chroot-git
 }

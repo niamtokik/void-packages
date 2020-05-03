@@ -1,15 +1,18 @@
 # Template file for 'cozy'
 pkgname=cozy
-version=0.4.9
+version=0.6.15
 revision=1
+archs=noarch
 build_style=meson
-noarch=yes
-hostmakedepends="pkg-config glib-devel"
-makedepends="glib-devel"
-depends="python3 python3-peewee gst-libav gst-plugins-good1 gst1-python3 python3-mutagen"
+hostmakedepends="pkg-config glib-devel python3 python3-distro python3-peewee
+ python3-mutagen python3-gobject-devel"
+makedepends="glib-devel python3-distro python3-peewee python3-mutagen
+ python3-gobject-devel"
+depends="python3 python3-peewee gst-libav gst-plugins-good1 gst1-python3
+ python3-mutagen python3-distro"
 short_desc="Audio book player"
 maintainer="johannes <johannes.brechtmann@gmail.com>"
-license="GPL-3"
+license="GPL-3.0-only, LGPL-3.0-only"
 homepage="https://github.com/geigi/cozy"
 distfiles="https://github.com/geigi/cozy/archive/${version}.tar.gz"
-checksum=b1fbe97abe0946eb9ae720b865251e72aac3dbadc1100a5e6df12e90d4f6b1be
+checksum=b8bad69651399ab0ea07918694eb87821b50b90f68410874c78b669feeda88ae

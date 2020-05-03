@@ -1,19 +1,20 @@
 # Template file for 'khelpcenter'
 pkgname=khelpcenter
-version=17.12.1
+version=20.04.0
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules pkg-config"
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="extra-cmake-modules kcoreaddons pkg-config gettext"
 makedepends="kinit-devel khtml-devel grantlee5-devel xapian-core-devel"
 short_desc="KDE Help center"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/applications/khelpcenter"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=32c710ee68279ffdc4dd77e9ea5f2d09aebb4cd4cc1a56b4d2a2adea70ebea78
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=7ab684e6d176124002989b02a868f1dcc42fbc836066207053af41a6651a96c4
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" kconfig kdoctools python qt5-host-tools qt5-qmake"
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" kconfig kdoctools python3 qt5-host-tools qt5-qmake"
 	configure_args+=" -DXAPIAN_LIBRARIES=${XBPS_CROSS_BASE}/usr/lib/libxapian.so
 	 -DXAPIAN_INCLUDE_DIR=${XBPS_CROSS_BASE}/usr/include -DXAPIAN_FOUND=TRUE"
 fi

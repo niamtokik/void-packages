@@ -1,0 +1,24 @@
+# Template file for 'bctoolbox'
+pkgname=bctoolbox
+version=4.3.1
+revision=1
+build_style=cmake
+configure_args="-DENABLE_TESTS=OFF -DENABLE_TESTS_COMPONENT=OFF"
+makedepends="bcunit-devel mbedtls-devel"
+short_desc="Library to create and run audio and video streams"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="https://github.com/BelledonneCommunications/bctoolbox"
+distfiles="https://github.com/BelledonneCommunications/bctoolbox/archive/${version}.tar.gz"
+checksum=d8501e3793c10abbf913759d7a0e5f6eb3140af6bacf5e2bdcd532049bde69c0
+
+bctoolbox-devel_package() {
+	depends="bctoolbox-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/share/bctoolbox/cmake
+		vmove "usr/lib/*.so"
+	}
+}

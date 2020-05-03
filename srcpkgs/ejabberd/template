@@ -1,21 +1,21 @@
 # Template file for 'ejabberd'
 pkgname=ejabberd
-version=18.01
-revision=1
+version=20.02
+revision=2
 build_style=gnu-configure
 configure_args="--enable-odbc --enable-mysql --enable-pgsql --enable-pam
  --enable-redis --enable-elixir $(vopt_enable sqlite)"
 conf_files="/etc/ejabberd/*"
-hostmakedepends="automake erlang git"
+hostmakedepends="automake erlang git elixir"
 makedepends="libressl-devel libyaml-devel expat-devel zlib-devel pam-devel
  $(vopt_if sqlite sqlite-devel) gd-devel"
 depends="erlang"
 short_desc="Robust and massively scalable XMPP platform"
-maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="GPL-2"
 homepage="https://www.process-one.net/en/ejabberd/"
 distfiles="https://github.com/processone/ejabberd/archive/${version}.tar.gz"
-checksum=33784adcd96d552c0a982eeb7ee976ba02f1b181e39cd9381785819a0b271d79
+checksum=2e7f2fd0d137099de6d137794881200a70c2e4be7de8221fc6389b886fc16519
 
 build_options="sqlite"
 build_options_default="sqlite"

@@ -1,29 +1,29 @@
 # Template file for 'elogind'
 pkgname=elogind
-version=235.2
-revision=3
+reverts="243.7_1"
+version=243.4
+revision=2
 build_style=meson
-hostmakedepends="intltool pkg-config gperf docbook-xsl gettext-devel shadow m4 libxslt git"
-makedepends="libcap-devel libmount-devel libseccomp-devel libblkid-devel pam-devel gettext-devel eudev-libudev-devel acl-devel glib-devel"
+configure_args="-Dcgroup-controller=elogind -Dhalt-path=/usr/bin/halt
+ -Drootlibexecdir=/usr/libexec/elogind -Dreboot-path=/usr/bin/reboot
+ -Dkexec-path=/usr/bin/kexec -Ddefault-hierarchy=legacy
+ -Ddefault-kill-user-processes=false -Dman=true"
+hostmakedepends="docbook-xsl gettext-devel gperf intltool libxslt m4
+ pkg-config shadow glib-devel"
+makedepends="acl-devel eudev-libudev-devel gettext-devel libglib-devel libcap-devel
+ libseccomp-devel pam-devel"
 depends="dbus"
 short_desc="Standalone logind fork"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2, LGPL-2"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://github.com/elogind/elogind"
-distfiles="https://github.com/$pkgname/$pkgname/archive/v$version.tar.gz"
-checksum=db5d7362ab7fd74a1ea863247f90f3b821cdb3e4433ba049a2fdcf5bf62b0fb9
-conf_files="/etc/elogind/logind.conf"
-configure_args+="
- -Drootlibexecdir=/usr/libexec/elogind
- -Dhalt-path=/usr/bin/halt
- -Dreboot-path=/usr/bin/reboot
- -Dkexec-path=/usr/bin/kexec"
+distfiles="https://github.com/${pkgname}/${pkgname}/archive/v${version}.tar.gz"
+checksum=f1098745863138e6270ea22e78a39baef9a0356b48246c5a53b34211992dc7db
+conf_files="/etc/elogind/*.conf"
 
-pre_build() {
-	case "$XBPS_TARGET_MACHINE" in
-		*-musl) cp build/config.h src/shared;;
-	esac
-}
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	configure_args+=" -Dutmp=false"
+fi
 
 pre_check() {
 	# test-fs-util checks for /etc/machine-id/foo and expects ENOTDIR
@@ -50,15 +50,25 @@ post_install() {
 	vinstall ./src/systemd/sd-id128.h 644 usr/include
 	vinstall ./src/systemd/_sd-common.h 644 usr/include
 	vinstall $FILESDIR/elogind.wrapper 755 usr/libexec/elogind
+	vmkdir usr/lib/dracut/dracut.conf.d
+	echo "install_items+=\" /usr/libexec/elogind/elogind-uaccess-command \"" >> ${DESTDIR}/usr/lib/dracut/dracut.conf.d/elogind.conf
+	vsv elogind
 }
 
 elogind-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
+	depends="libelogind-${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 		vmove usr/share/man/man3
 		vmove usr/lib/pkgconfig
+	}
+}
+
+libelogind_package() {
+	short_desc+=" - elogind library"
+	pkg_install() {
+		 vmove "usr/lib/libelogind.so.*"
 	}
 }

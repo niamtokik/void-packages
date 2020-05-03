@@ -1,22 +1,23 @@
 # Template file for 'opencolorio'
 pkgname=opencolorio
-version=1.0.9
+version=1.1.1
 revision=1
-wrksrc=OpenColorIO-${version}
+wrksrc="OpenColorIO-${version}"
 build_style=cmake
 configure_args="-DUSE_EXTERNAL_TINYXML=ON -DUSE_EXTERNAL_LCMS=ON"
 case "$XBPS_TARGET_MACHINE" in
 	i686*|x86_64*) ;;
 	 *) configure_args+=" -DOCIO_USE_SSE=OFF" ;;
 esac
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config git"
 makedepends="tinyxml-devel lcms2-devel"
 short_desc="A complete color management solution"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="openimageio"
 homepage="http://opencolorio.org"
+changelog="https://raw.githubusercontent.com/imageworks/OpenColorIO/master/ChangeLog"
 distfiles="https://github.com/imageworks/OpenColorIO/archive/v${version}.tar.gz"
-checksum=27c81e691c15753cd2b560c2ca4bd5679a60c2350eedd43c99d44ca25d65ea7f
+checksum=c9b5b9def907e1dafb29e37336b702fff22cc6306d445a13b1621b8a754c14c8
 
 post_install() {
 	vlicense LICENSE
@@ -27,8 +28,8 @@ opencolorio-devel_package() {
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/lib/pkgconfig
+		vmove usr/lib/cmake
 		vmove usr/include
 		vmove "usr/lib/*.so"
-		vmove "usr/lib/*.a"
 	}
 }

@@ -1,31 +1,32 @@
 --- SWIG/_bio.i.orig
 +++ SWIG/_bio.i
-@@ -63,14 +63,14 @@ extern BIO *BIO_pop(BIO *);
- static PyObject *_bio_err;
- 
- 
--#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-+#if OPENSSL_VERSION_NUMBER >= 0x10100000L && !defined(LIBRESSL_VERSION_NUMBER)
- void pyfd_init(void);
- #endif
- 
- void bio_init(PyObject *bio_err) {
-     Py_INCREF(bio_err);
-     _bio_err = bio_err;
--#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-+#if OPENSSL_VERSION_NUMBER >= 0x10100000L && !defined(LIBRESSL_VERSION_NUMBER)
-     pyfd_init();
- #endif
- }
-@@ -299,7 +299,7 @@ int bio_should_write(BIO* a) {
-     return BIO_should_write(a);
+@@ -293,8 +293,12 @@ int bio_should_write(BIO* a) {
  }
  
--#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-+#if OPENSSL_VERSION_NUMBER >= 0x10100000L && !defined(LIBRESSL_VERSION_NUMBER)
- /* implment custom BIO_s_pyfd */
+ /* Macros for things not defined before 1.1.0 */
+-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+-static BIO_METHOD *
++#if OPENSSL_VERSION_NUMBER < 0x10100000L || defined(LIBRESSL_VERSION_NUMBER)
++
++#if !defined(LIBRESSL_VERSION_NUMBER)
++static
++#endif
++BIO_METHOD *
+ BIO_meth_new( int type, const char *name )
+ {
+     BIO_METHOD *method = malloc( sizeof(BIO_METHOD) );
+@@ -306,7 +310,10 @@ BIO_meth_new( int type, const char *name )
+     return method;
+ }
  
- #ifdef WIN32
+-static void
++#if !defined(LIBRESSL_VERSION_NUMBER)
++static
++#endif
++void
+ BIO_meth_free( BIO_METHOD *meth )
+ {
+     if ( meth == NULL ) {
 --- SWIG/_evp.i.orig
 +++ SWIG/_evp.i
 @@ -19,7 +19,7 @@ Copyright (c) 2009-2010 Heikki Toivonen. All rights re
@@ -50,7 +51,7 @@
  #include <openssl/engine.h>
 --- SWIG/_lib.i.orig
 +++ SWIG/_lib.i
-@@ -18,7 +18,7 @@
+@@ -21,7 +21,7 @@
  
  %{
  /* OpenSSL 1.0.2 copmatbility shim */
@@ -59,7 +60,7 @@
  typedef void (*OPENSSL_sk_freefunc)(void *);
  typedef void *(*OPENSSL_sk_copyfunc)(const void *);
  typedef struct stack_st OPENSSL_STACK;
-@@ -501,7 +501,7 @@ int passphrase_callback(char *buf, int num, int v, voi
+@@ -499,7 +499,7 @@ int passphrase_callback(char *buf, int num, int v, voi
  %inline %{
  
  void lib_init() {
@@ -70,16 +71,7 @@
  #endif
 --- SWIG/_ssl.i.orig
 +++ SWIG/_ssl.i
-@@ -268,7 +268,7 @@ void ssl_init(PyObject *ssl_err, PyObject *ssl_timeout
- 
- #ifndef OPENSSL_NO_SSL3
- const SSL_METHOD *sslv3_method(void) {
--#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-+#if OPENSSL_VERSION_NUMBER >= 0x10100000L && !defined(LIBRESSL_VERSION_NUMBER)
-     PyErr_WarnEx(PyExc_DeprecationWarning,
-                  "Function SSLv3_method has been deprecated.", 1);
- #endif
-@@ -277,7 +277,7 @@ const SSL_METHOD *sslv3_method(void) {
+@@ -275,7 +275,7 @@ const SSL_METHOD *sslv3_method(void) {
  #endif
  
  const SSL_METHOD *tlsv1_method(void) {

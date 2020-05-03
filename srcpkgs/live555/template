@@ -1,0 +1,41 @@
+# Template file for 'live555'
+pkgname=live555
+version=2020.04.12
+revision=1
+wrksrc=live
+build_style=gnu-makefile
+makedepends="libressl-devel"
+short_desc="Set of C++ libraries for multimedia streaming"
+maintainer="Denis Revin <denis.revin@gmail.com>"
+license="LGPL-3.0-or-later"
+homepage="http://www.live555.com/liveMedia/"
+distfiles="http://www.live555.com/liveMedia/public/live.$version.tar.gz"
+checksum=3242622f606eb821435983a5e5065b0746d8d8c41f34bbf3552031858de0789a
+
+if [ "$CROSS_BUILD" ]; then
+	CXXFLAGS="-I. -Iinclude -I../UsageEnvironment/include\
+		-I../BasicUsageEnvironment/include\
+		-I../groupsock/include -I../liveMedia/include\
+		-DSOCKLEN_T=socklen_t -D_LARGEFILE_SOURCE=1\
+		-D_FILE_OFFSET_BITS=64 -fPIC"
+fi
+
+pre_build() {
+	./genMakefiles linux-with-shared-libraries
+}
+
+live555-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+	}
+}
+
+live555-progs_package() {
+	short_desc+=" - utilities"
+	pkg_install() {
+		vmove usr/bin
+	}
+}

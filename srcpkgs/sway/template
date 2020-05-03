@@ -1,21 +1,32 @@
 # Template file for 'sway'
 pkgname=sway
-version=0.15.1
-revision=1
-build_style=cmake
-configure_args="-DCMAKE_INSTALL_SYSCONFDIR=/etc"
-hostmakedepends="asciidoc pkg-config wayland-devel"
-makedepends="libcap-devel wlc-devel gdk-pixbuf-devel json-c-devel pango-devel pam-devel"
-conf_files="/etc/sway/config /etc/pam.d/swaylock"
-short_desc="An i3-compatible window manager for Wayland"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+version=1.4
+revision=3
+build_style=meson
+conf_files="/etc/sway/config"
+hostmakedepends="pkg-config wayland-devel scdoc git"
+makedepends="xcb-util-wm-devel xcb-util-errors-devel wlroots-devel
+ wayland-devel wayland-protocols pcre-devel
+ json-c-devel pango-devel cairo-devel gdk-pixbuf-devel"
+depends="swaybg xorg-server-xwayland $(vopt_if elogind elogind)"
+short_desc="Tiling Wayland compositor compatible with i3"
+maintainer="Érico Nogueira <ericonr@disroot.org>"
 license="MIT"
-homepage="http://swaywm.org"
-distfiles="https://github.com/SirCmpwn/sway/archive/${version}.tar.gz"
-checksum=b4305581587b1072f5cb61387230aaf731ea9ea0d01fdf198856a757e2195149
+homepage="https://swaywm.org"
+distfiles="https://github.com/swaywm/${pkgname}/archive/${version}.tar.gz"
+checksum=e2805291fc01d49e21dda4b273e38170d1fff4e1757215439729edbed880dfbe
+
+build_options="elogind"
+desc_option_elogind="Uses elogind instead of setuid for privilege escalation"
+
+post_patch() {
+	vsed -e 's/werror=true/werror=false/g' -i meson.build
+}
 
 post_install() {
 	vlicense LICENSE
-	# must be setuid without logind!
-	chmod u+s ${DESTDIR}/usr/bin/sway
+	if [ -z "$build_option_elogind" ]; then
+		# must be setuid without logind!
+		chmod u+s ${DESTDIR}/usr/bin/sway
+	fi
 }

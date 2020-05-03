@@ -1,0 +1,25 @@
+# Template file for 'qownnotes'
+pkgname=qownnotes
+version=20.3.0
+revision=2
+build_style=qmake
+hostmakedepends="pkg-config qt5-qmake"
+makedepends="botan-devel qt5-declarative-devel qt5-svg-devel
+ qt5-xmlpatterns-devel qt5-websockets-devel"
+depends="qt5-plugin-sqlite"
+short_desc="Plain-text file notepad and todo-list manager with markdown support"
+maintainer="travankor <travankor@tuta.io>"
+license="GPL-2.0-only"
+homepage="https://www.qownnotes.org"
+changelog="https://www.qownnotes.org/changelog/QOwnNotes"
+distfiles="https://download.tuxfamily.org/${pkgname}/src/${pkgname}-${version}.tar.xz"
+checksum=8178da9e59f7d6013bdef78d61243a98927858b99e405be013081b5f5440e497
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools qt5-declarative-devel
+	 qt5-svg-devel qt5-xmlpatterns-devel qt5-websockets-devel"
+fi
+
+pre_build() {
+	sed -i '5i USE_SYSTEM_BOTAN = 1' libraries/botan/botan.pri
+}

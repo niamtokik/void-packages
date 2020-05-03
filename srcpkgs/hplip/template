@@ -1,8 +1,9 @@
 # Template file for 'hplip'
 pkgname=hplip
-version=3.17.11
-revision=2
+version=3.20.3
+revision=1
 build_style=gnu-configure
+pycompile_dirs="usr/share/hplip"
 configure_args="
  --enable-gui-build
  --disable-qt4
@@ -17,25 +18,26 @@ configure_args="
  --enable-foomatic-drv-install
  --enable-pp-build
  --with-mimedir=/usr/share/cups/mime"
-hostmakedepends="pkg-config automake libtool python"
-makedepends="libressl-devel python-devel libxml2-python cups-devel sane-devel
- ghostscript-devel net-snmp-devel libusb-devel libjpeg-turbo-devel dbus-devel"
-depends="python-gobject2 python-dbus desktop-file-utils
- foomatic-db foomatic-db-engine"
 conf_files="/etc/hp/hplip.conf"
-make_dirs="/var/lib/hp 0755 root root"
-pycompile_dirs="usr/share/hplip"
+make_dirs="/var/lib/hp 0755 root root
+ /usr/share/cups/model 0755 root root"
+hostmakedepends="pkg-config automake libtool python3"
+makedepends="libressl-devel python3-devel libxml2-python3 cups-devel sane-devel
+ ghostscript-devel net-snmp-devel libusb-devel libjpeg-turbo-devel dbus-devel"
+depends="python3-gobject python3-dbus desktop-file-utils
+ foomatic-db foomatic-db-engine python3-distro"
 short_desc="HP Linux Imaging and Printing"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only, BSD-3-Clause, MIT"
 homepage="https://developers.hp.com/hp-linux-imaging-and-printing"
-license="GPL-2"
 distfiles="${SOURCEFORGE_SITE}/hplip/hplip/${version}/hplip-${version}.tar.gz"
-checksum=2f91be9489a50e4c929b2b9d3c72c09905c1195f9b360568b07fcbde4f3faa75
+checksum=41097ec52af5cce51ec7b0200d9f9ec82649b58ae7105259e82130e9cf63066a
 conflicts="hplip-gui"
 
-CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/libusb-1.0 -I${XBPS_CROSS_BASE}/usr/include/python2.7"
+CFLAGS="-I${XBPS_CROSS_BASE}/usr/include/libusb-1.0 -I${XBPS_CROSS_BASE}/${py3_inc}"
 
 pre_configure() {
+	export AUTOMAKE='automake --foreign'
 	libtoolize -f
 	autoreconf -fi || true
 }
@@ -43,7 +45,8 @@ pre_configure() {
 do_install() {
 	# remove wildcard install of ppd files to avoid errors when overwriting
 	sed -i Makefile -e "s;ppd/hpcups/\\*.ppd.gz;;g"
-	make rulesdir=/usr/lib/udev/rules.d DESTDIR=${DESTDIR} install
+	make locatedriverdir=/usr/libexec/hplip dat2drvdir=/usr/libexec/hplip \
+		rulesdir=/usr/lib/udev/rules.d DESTDIR=${DESTDIR} install
 	# remove config provided by sane and autostart of hp-daemon
 	rm -rf ${DESTDIR}/etc/{sane.d,xdg}
 	# remove unwanted files
@@ -60,11 +63,14 @@ do_install() {
 	 -e "s/\(gui-build=\).*/\1no/" \
 	 -e "s/\(ui-toolkit=\).*/\1no/" \
 	 -e "s/\(qt5=\).*/\1no/"
+	# licenses
+	vlicense COPYING
+	vlicense copyright
 }
 
 hplip-gui_package() {
-	depends="python-gobject2 python-dbus desktop-file-utils
-	 foomatic-db foomatic-db-engine python-PyQt5-dbus"
+	depends="python3-gobject python3-dbus desktop-file-utils
+	 foomatic-db foomatic-db-engine python3-distro python3-PyQt5-dbus"
 	short_desc+=" (with GUI)"
 	conflicts="hplip"
 	pkg_install() {

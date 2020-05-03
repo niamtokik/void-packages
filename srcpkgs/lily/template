@@ -1,14 +1,15 @@
 # Template file for 'lily'
 pkgname=lily
-version=1.3
+version=1.11
 revision=1
+wrksrc="lily-v${version}"
 build_style=cmake
-short_desc="An interpreted language with a focus on expressiveness and type safety"
+short_desc="Interpreted language with a focus on expressiveness and type safety"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="MIT"
-homepage="http://lily-lang.org"
-distfiles="https://github.com/FascinatedBox/lily/archive/v${version}.tar.gz"
-checksum=4764c5c6b9c4974135bf4e6d5f4a7ee175f214a5f1572ad5ae86b4bdb79d1db1
+homepage="https://gitlab.com/FascinatedBox/lily"
+distfiles="https://gitlab.com/FascinatedBox/lily/-/archive/v${version}/lily-v${version}.tar.bz2"
+checksum=29a57da43d590982cf5b83437ae1a495e3d66f8e07e5abc748ededc7b6962fcb
 
 post_install() {
 	vlicense license.txt
@@ -19,6 +20,6 @@ lily-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

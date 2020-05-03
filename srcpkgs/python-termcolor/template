@@ -1,8 +1,8 @@
 # Template file for 'python-termcolor'
 pkgname=python-termcolor
 version=1.1.0
-revision=5
-noarch=yes
+revision=6
+archs=noarch
 wrksrc="termcolor-${version}"
 build_style=python-module
 hostmakedepends="python-devel python3-devel"
@@ -10,8 +10,8 @@ makedepends="${hostmakedepends}"
 depends="python"
 pycompile_module="termcolor.py"
 short_desc="Python2 ANSII Color formatting for output in terminal"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://pypi.python.org/pypi/termcolor"
+maintainer="Orphaned <orphan@voidlinux.org>"
+homepage="https://pypi.org/project/termcolor/"
 license="MIT"
 distfiles="${PYPI_SITE}/t/termcolor/termcolor-${version}.tar.gz"
 checksum=1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b
@@ -21,7 +21,7 @@ post_install() {
 }
 
 python3-termcolor_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3"
 	pycompile_module="termcolor.py"
 	short_desc="${short_desc/Python2/Python3}"

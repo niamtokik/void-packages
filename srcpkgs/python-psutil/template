@@ -1,25 +1,23 @@
 # Template file for 'python-psutil'
 pkgname=python-psutil
-version=5.4.3
+version=5.7.0
 revision=1
 wrksrc="psutil-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
-pycompile_module="psutil"
 short_desc="Cross-platform process and system utilities module for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
+license="BSD-3-Clause"
 homepage="https://github.com/giampaolo/psutil"
-license="3-clause-BSD"
 distfiles="${PYPI_SITE}/p/psutil/psutil-${version}.tar.gz"
-checksum=e2467e9312c2fa191687b89ff4bc2ad8843be4af6fb4dc95a7cc5f7d7a327b18
+checksum=685ec16ca14d079455892f25bd124df26ff9137664af445563c1bd36629b5e0e
 
 post_install() {
 	vlicense LICENSE
 }
 
 python3-psutil_package() {
-	pycompile_module="psutil"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*

@@ -1,19 +1,20 @@
 # Template file for 'libkcddb'
 pkgname=libkcddb
-version=17.12.0
+version=20.04.0
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python kdoctools kconfig"
-makedepends="kcodecs-devel kdoctools-devel kio-devel kwidgetsaddons-devel libmusicbrainz5-devel qt5-devel"
+hostmakedepends="extra-cmake-modules gettext kconfig kcoreaddons kdoctools
+ qt5-host-tools qt5-qmake"
+makedepends="kio-devel libmusicbrainz5-devel"
 short_desc="KDE CDDB library"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2, LGPL-2, BSD, GFDL"
+maintainer="Piotr Wójcik <chocimier@tlen.pl>"
+license="GPL-2.0-or-later, LGPL-2.0-or-later, BSD-3-Clause, GFDL-1.2-only"
 homepage="https://projects.kde.org/projects/kde/kdemultimedia/libkcddb"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=e5c1c0cfc45794c76f4e4680bad8096fea13c31d729c4ce1f2545a882b3c2977
+distfiles="${KDE_SITE}/release-service/${version}/src/libkcddb-${version}.tar.xz"
+checksum=cbe9669c8ef92c64119ed134b56c50dcdd6d1df4d724c7def886c464fcd48d2c
 
-post_install() {
-	vlicense COPYING
+pre_check() {
+	export QT_QPA_PLATFORM=offscreen
 }
 
 libkcddb-devel_package() {
@@ -24,5 +25,7 @@ libkcddb-devel_package() {
 		vmove usr/share/doc
 		vmove usr/include
 		vmove "usr/lib/*.so"
+		vmove usr/lib/qt5/mkspecs
+		vlicense cmake/COPYING-CMAKE-SCRIPTS
 	}
 }

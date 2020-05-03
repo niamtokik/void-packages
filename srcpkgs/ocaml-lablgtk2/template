@@ -1,19 +1,19 @@
 # Template file for 'ocaml-lablgtk2'
 pkgname=ocaml-lablgtk2
-version=2.18.6
+version=2.18.10
 revision=1
 wrksrc="lablgtk-${version}"
 build_style=gnu-configure
 configure_args="--without-glade --without-gnomeui --without-gtksourceview"
 make_build_args="world opt"
-maintainer="Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>"
-hostmakedepends="ocaml ocaml-findlib m4 camlp4 pkg-config"
+hostmakedepends="ocaml ocaml-findlib m4 pkg-config"
 makedepends="gtk+-devel gtksourceview2-devel libgnomecanvas-devel gtkspell-devel"
 short_desc="OCaml interface to GTK2"
-license="LGPL-2.1"
+maintainer="Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>"
+license="LGPL-2.0-or-later"
 homepage="http://lablgtk.forge.ocamlcore.org/"
-distfiles="https://forge.ocamlcore.org/frs/download.php/1726/lablgtk-${version}.tar.gz"
-checksum=4ddca243066418e2a88ac49ebf2d846fac4b667b1b1753efadd078ae777368f8
+distfiles="https://github.com/garrigue/lablgtk/archive/${version}.tar.gz"
+checksum=6f00f6b3114b468eb9e743d27511a6063936f6798f890e44b494f71a5cf95470
 nocross=yes
 nopie=yes
 disable_parallel_build=yes

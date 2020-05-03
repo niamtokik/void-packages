@@ -1,22 +1,20 @@
 # Template file for 'kfilemetadata5'
 pkgname=kfilemetadata5
-version=5.42.0
+version=5.69.0
 revision=1
+wrksrc="${pkgname%5}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-wrksrc="${pkgname%5}-${version}"
-hostmakedepends="extra-cmake-modules pkg-config"
-makedepends="karchive-devel ki18n-devel poppler-qt5-devel taglib-devel exiv2-devel ffmpeg-devel attr-devel ebook-tools-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules pkg-config qt5-host-tools qt5-qmake
+ gettext kcoreaddons python3"
+makedepends="karchive-devel ki18n-devel poppler-qt5-devel kcoreaddons-devel
+ taglib-devel exiv2-devel ffmpeg-devel attr-devel ebook-tools-devel"
 short_desc="Simple library for extracting the text and metadata"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
-homepage="https://projects.kde.org/projects/frameworks/kfilemetadata5"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
-checksum=9f57998a1a781993efeed0749f49728d8e63a77f8bb7f4a72765603d301a930f
-
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python"
-fi
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
+homepage="https://projects.kde.org/projects/frameworks/kfilemetadata"
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname%5}-${version}.tar.xz"
+checksum=9b24cac0b224e80658cf60a8df0ac40c08a229e850e98581bf872bf895c400cd
 
 kfilemetadata5-devel_package() {
 	short_desc+=" - development"
@@ -24,6 +22,7 @@ kfilemetadata5-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove usr/lib/qt5/mkspecs
+		vmove "usr/lib/*.so"
 	}
 }

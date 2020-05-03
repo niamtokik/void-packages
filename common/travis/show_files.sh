@@ -2,16 +2,13 @@
 #
 # show_files.sh
 
-[ "$XLINT" ] && exit 0 
+export XBPS_TARGET_ARCH="$2" XBPS_DISTDIR=/hostrepo
 
-if [ "$1" != "$2" ]; then
-	arch="-a $2"
-fi
-
-for pkg in $(cat /tmp/templates); do
+while read -r pkg; do
 	for subpkg in $(xsubpkg $pkg); do
 		/bin/echo -e "\x1b[32mFiles of $subpkg:\x1b[0m"
-		./xbps-src -H $HOME/hostdir $arch show-files "$subpkg"
+		xbps-query --repository=$HOME/hostdir/binpkgs \
+				   --repository=$HOME/hostdir/binpkgs/nonfree \
+				   -f "$subpkg"
 	done
-done
-
+done < /tmp/templates

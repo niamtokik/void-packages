@@ -1,26 +1,24 @@
 # Template file for 'mate-desktop'
 pkgname=mate-desktop
-version=1.18.0
+version=1.24.0
 revision=1
 build_style=gnu-configure
+build_helper="gir"
 configure_args="--disable-static --enable-mpaste
  --disable-schemas-compile $(vopt_enable gir introspection)"
-hostmakedepends="pkg-config intltool itstool glib-devel gobject-introspection"
+hostmakedepends="pkg-config intltool itstool glib-devel librsvg-utils"
 makedepends="gtk+3-devel dconf-devel libXrandr-devel startup-notification-devel"
 depends="dconf hicolor-icon-theme dejavu-fonts-ttf"
 short_desc="Library with common API for various MATE modules"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-3"
-homepage="http://mate-desktop.org"
-distfiles="http://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=6f2dd9fc60bacd0ff27b8328c7addceb9e73a75c7dce7db4132659d588173b8a
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://mate-desktop.org"
+distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=afa93116ad5bdf55091341ae5426e4418ff8980c5c17dc6cd1258c6f8d5c8b50
 
 # Package build options
 build_options="gir"
-
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
+build_options_default="gir"
 
 mate-desktop-devel_package() {
 	short_desc+=" - development files"
@@ -30,5 +28,8 @@ mate-desktop-devel_package() {
 		vmove usr/lib/*.so
 		vmove usr/lib/pkgconfig
 		vmove usr/share/gtk-doc
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
 	}
 }

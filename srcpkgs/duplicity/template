@@ -1,27 +1,30 @@
 # Template file for 'duplicity'
 pkgname=duplicity
-version=0.7.16
+version=0.8.11.1596
 revision=2
-build_style=python2-module
-hostmakedepends="python-setuptools"
-makedepends="python-devel librsync-devel"
-checkdepends="python-pexpect python-mock python-fasteners gnupg par2cmdline"
-depends="python-fasteners python-b2"
+build_style=python3-module
 pycompile_module="duplicity"
+hostmakedepends="gettext python3-setuptools"
+makedepends="python3-devel librsync-devel"
+depends="python3-fasteners gnupg python3-future python3-urllib3"
 short_desc="Encrypted bandwidth-efficient backup using the rsync algorithm"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://duplicity.nongnu.org/"
-_changelog="http://duplicity.nongnu.org/CHANGELOG"
-license="GPL-2"
-maintainer="Leah Neukirchen <leah@vuxu.org>"
-distfiles="http://code.launchpad.net/duplicity/${version%.*}-series/${version}/+download/duplicity-${version}.tar.gz"
-checksum=a8f5e1e77dcc5e03a7d206086b8ef89fa574c59de582ed15db5987c40b842718
+changelog="http://duplicity.nongnu.org/vers8/CHANGELOG"
+distfiles="http://code.launchpad.net/duplicity/${version%.*.*}-series/${version%.*}/+download/duplicity-${version}.tar.gz"
+checksum=09826a6e5706db1fc9a2c5624fc7f13c0ec1289111676eb9b323b0c69757aae1
 
 post_extract() {
 	chmod 0644 bin/*.1
 }
+
 do_check() {
-	PYTHONPATH="${PWD}/build/lib.linux-${XBPS_TARGET_MACHINE}-2.7" python2 setup.py test
+	# Disable as tests don't work
+	# tests look for pytest,instead of pytest{2,3}
+	:
 }
+
 post_install() {
 	# drop doc
 	rm -rf ${DESTDIR}/usr/share/doc

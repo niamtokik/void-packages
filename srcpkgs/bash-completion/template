@@ -1,20 +1,14 @@
 # Template file for 'bash-completion'
 pkgname=bash-completion
-version=2.7
-revision=2
-noarch=yes
+version=2.10
+revision=1
+archs=noarch
 build_style=gnu-configure
 make_install_args="profiledir=/etc/bash/bashrc.d"
-makedepends="bash"
-depends="${makedepends}"
+depends="bash"
 short_desc="Programmable completion for the GNU Bash shell"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/scop/bash-completion"
-distfiles="${homepage}/releases/download/${version}/bash-completion-${version}.tar.xz"
-checksum=41ba892d3f427d4a686de32673f35401bc947a7801f684127120cdb13641441e
-
-post_install() {
-	# remove completions provided by util-linux.
-	rm -f ${DESTDIR}/usr/share/bash-completion/completions/{{u,}mount*,rfkill}
-}
+distfiles="https://github.com/scop/bash-completion/releases/download/${version}/bash-completion-${version}.tar.xz"
+checksum=123c17998e34b937ce57bb1b111cd817bc369309e9a8047c0bcf06ead4a3ec92

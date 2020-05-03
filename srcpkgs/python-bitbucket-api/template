@@ -1,8 +1,8 @@
 # Template file for 'python-bitbucket-api'
 pkgname=python-bitbucket-api
 version=0.5.0
-revision=3
-noarch=yes
+revision=4
+archs=noarch
 wrksrc="bitbucket-api-${version}"
 build_style=python-module
 pycompile_module="bitbucket"
@@ -20,7 +20,7 @@ post_install() {
 }
 
 python3-bitbucket-api_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3-requests-oauthlib python3-sh"
 	pycompile_module="bitbucket"
 	short_desc="${short_desc/Python2/Python3}"

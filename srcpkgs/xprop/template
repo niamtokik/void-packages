@@ -1,16 +1,16 @@
-# Template build file for 'xprop'.
+# Template file for 'xprop'
 pkgname=xprop
-version=1.2.2
+version=1.2.4
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
 makedepends="libX11-devel libXmu-devel"
 short_desc="Property displayer for X"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="${XORG_HOME}"
+maintainer="Frank Steinborn <steinex@nognu.de>"
 license="MIT"
-distfiles="${XORG_SITE}/app/$pkgname-$version.tar.bz2"
-checksum=9bee88b1025865ad121f72d32576dd3027af1446774aa8300cce3c261d869bc6
+homepage="$XORG_HOME"
+distfiles="${XORG_SITE}/app/${pkgname}-${version}.tar.bz2"
+checksum=8c77fb096e46c60032b7e2bde9492c3ffcc18734f50b395085a5f10bfd3cf753
 
 post_install() {
 	vlicense COPYING

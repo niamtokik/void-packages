@@ -1,23 +1,26 @@
 # Template file for 'moosefs'
 pkgname=moosefs
-version=3.0.80
+version=3.0.112
 revision=1
 build_style=gnu-configure
-configure_args="--localstatedir=/var/lib --with-default-user=_mfs --with-default-group=_mfs"
+configure_args="--localstatedir=/var/lib --with-default-user=_mfs
+ --with-default-group=_mfs"
 hostmakedepends="automake libtool pkg-config"
 makedepends="zlib-devel libpcap-devel fuse-devel"
-system_accounts="_mfs"
-short_desc="A fault tolerant, network distributed file system"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+short_desc="Fault tolerant, network distributed file system"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
 homepage="http://moosefs.org/"
 distfiles="http://ppa.moosefs.com/src/moosefs-${version}-1.tar.gz"
-checksum=f1a7fea882d44af71f4b09e04df4683cd4ee064e9b0a2ad32116263e60c7b4e7
+checksum=68aa5dbcc837ea8f187a2baefa54cd00b2bafd58eb2745c0de98fa10c90c587a
+python_version=2 #unverified
+system_accounts="_mfs"
 
 pre_configure() {
 	sed -i 's,AC_RUN_IFELSE,AC_LINK_IFELSE,g' configure.ac
 	autoreconf -fi
 }
+
 post_install() {
 	mv ${DESTDIR}/sbin/* ${DESTDIR}/usr/bin
 	for f in chunkserver master metalogger; do

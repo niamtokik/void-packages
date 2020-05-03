@@ -1,20 +1,17 @@
-# Template file for 'emerald' of Compiz Reloaded
+# Template file for 'emerald'
 pkgname=emerald
-version=0.8.14
+version=0.8.18
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static"
-
 hostmakedepends="automake intltool libtool pkg-config libxslt glib-devel gettext-devel"
 makedepends="compiz-core-devel gettext-devel libwnck-devel"
-
 short_desc="Compiz Reloaded native window decorator"
 maintainer="CoolOhm <micvlas@gmail.com>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/compiz-reloaded"
-license="GPL-2"
-
 distfiles="https://github.com/compiz-reloaded/emerald/archive/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=08cf6c867edd58f1eaf47fd99036abc79d78074f76187408c4db310983b5b861
+checksum=53112b557c0d726ad75450b69df1649412ab5fcdf6c0827e383889f58bf437b1
 
 pre_configure() {
 	mkdir -p m4

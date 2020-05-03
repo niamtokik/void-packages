@@ -1,13 +1,13 @@
 # Template file for 'five-or-more'
 pkgname=five-or-more
-version=3.26.0
+version=3.32.2
 revision=1
-build_style=gnu-configure
-hostmakedepends="glib intltool itstool pkg-config"
-makedepends="gtk+3-devel librsvg-devel"
+build_style=meson
+hostmakedepends="gettext glib-devel itstool pkg-config vala"
+makedepends="gtk+3-devel librsvg-devel libgee08-devel libgnome-games-support-devel"
 short_desc="GNOME align five or more objects game"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Five%20or%20more"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=7c24f7f2603df99299d38b40b14c005aaad88820113ed71e4b3765ac3b027772
+checksum=311a2693dd04226d32b6d7a02e4c739341bf5bd3492e3285c3910db73e47eea6

@@ -1,0 +1,34 @@
+# Template file for 'tagparser'
+pkgname=tagparser
+version=9.1.3
+revision=1
+build_style=cmake
+configure_args="-DBUILD_SHARED_LIBS:BOOL=ON"
+makedepends="cpp-utilities-devel zlib-devel"
+short_desc="C++ library for handling AAC, ID3, Vorbis, Opus, FLAC and Matroska tags"
+maintainer="Andrew J. Hesford <ajh@sideband.org>"
+license="GPL-2.0-only"
+homepage="https://github.com/Martchus/tagparser"
+distfiles="https://github.com/Martchus/${pkgname}/archive/v${version}.tar.gz"
+checksum=76c6c943a64150bb858a5c8cf483e4812914ce0bdfaa8d79781d19a4d0900a99
+
+tagparser-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision} cpp-utilities-devel"
+
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+
+		# Rename cmake modules to fit with the rest of the system
+		vmkdir usr/lib/cmake
+		cmake_source="${DESTDIR}/usr/share/${sourcepkg}/cmake"
+		cmake_dest="${PKGDESTDIR}/usr/lib/cmake/${sourcepkg}"
+		mv "$cmake_source" "$cmake_dest"
+
+		# Update cmake configuration to point to new location
+		vsed -i "${cmake_dest}/${sourcepkg}Config.cmake" \
+			-e "s@share/${sourcepkg}/cmake@lib/cmake/${sourcepkg}@g"
+	}
+}

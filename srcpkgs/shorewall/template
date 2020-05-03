@@ -1,25 +1,25 @@
 # Template file for 'shorewall'
 pkgname=shorewall
-version=5.1.9
+version=5.2.3.4
 revision=1
+archs=noarch
+create_wrksrc=yes
+depends="shorewall-core perl"
+short_desc="Iptables-based firewall for Linux systems"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="http://www.shorewall.net/"
 _disturl="http://www.shorewall.net/pub/${pkgname}/${version:0:3}/${pkgname}-${version:0:5}"
-distfiles="
- ${_disturl}/${pkgname}-${version}.tar.bz2
+changelog="${_disturl}/releasenotes.txt"
+distfiles="${_disturl}/${pkgname}-${version}.tar.bz2
  ${_disturl}/${pkgname}6-${version}.tar.bz2
  ${_disturl}/${pkgname}-core-${version}.tar.bz2"
-checksum="e6375b360e370d4f3f0e161431ff93c6b7a3aa8799f5e8be8dee48b409c35007
- bb07e55944800b4cc541b9ba51274110387e3e25694a24965aada7d91a4510a6
- a7735b31305678e1c4d21fabb026fbd37bdb8b3e0f5d8887f60ab2969a485e46"
-depends="shorewall-core perl"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.shorewall.net/"
-license="GPL-2"
-short_desc="An iptables-based firewall for Linux systems"
+checksum="a6e1a1a6b20ea37695fe12d36233dacd461548ac67665664c8de3a99cf7aa23b
+ c1fc1244bd68710aecd504841965ac7fbbb05fa7fb1b857b1ad43659bd81877b
+ 8fdc6e326d0c07df2a636634c510630e99f7a3ab70bb60fb735dd92a0d33d500"
 
-noarch=yes
-create_wrksrc=yes
 make_dirs="/var/lib/${pkgname} 0755 0 0"
-conf_files="/etc/$pkgname/*"
+conf_files="/etc/${pkgname}/*"
 
 do_build() {
 	for product in ${pkgname}{-core,6,}-${version}; do
@@ -37,7 +37,7 @@ do_install() {
 }
 
 shorewall-core_package() {
-	noarch=yes
+	archs=noarch
 	depends="iptables iproute2"
 	short_desc+=" - Core Shorewall files"
 	pkg_install() {
@@ -45,8 +45,9 @@ shorewall-core_package() {
 		DESTDIR="${PKGDESTDIR}" ./install.sh
 	}
 }
+
 shorewall6_package() {
-	noarch=yes
+	archs=noarch
 	depends="shorewall"
 	conf_files="/etc/$pkgname/*"
 	short_desc+=" - IPv6 support"

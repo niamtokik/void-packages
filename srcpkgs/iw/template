@@ -1,15 +1,15 @@
 # Template file for 'iw'
 pkgname=iw
-version=4.14
+version=5.4
 revision=1
 hostmakedepends="pkg-config libnl3-devel"
 makedepends="libnl3-devel"
 short_desc="nl80211 based CLI configuration utility for wireless devices"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="ISC"
 homepage="http://wireless.kernel.org/en/users/Documentation/iw"
 distfiles="http://www.kernel.org/pub/software/network/iw/iw-${version}.tar.xz"
-checksum=f01671c0074bfdec082a884057edba1b9efd35c89eda554638496f03b769ad89
+checksum=a2469f677088d7b1070a7fbb28f3c747041697e8f6ec70783339cb1bc27a395f
 
 do_build() {
 	make V=1 CC=$CC ${makejobs}

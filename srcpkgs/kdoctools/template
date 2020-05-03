@@ -1,20 +1,20 @@
 # Template file for 'kdoctools'
 pkgname=kdoctools
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules perl perl-URI"
+hostmakedepends="gettext kcoreaddons extra-cmake-modules perl perl-URI"
 makedepends="ki18n-devel karchive-devel libxml2-devel libxslt-devel docbook-xml docbook-xsl"
 depends="docbook-xml docbook-xsl"
 short_desc="KDE Create documentation from DocBook"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdoctools"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=bf4e03e90b7b324e8b96979b0854c9d1178c7a64bf5710650d9051dab61a7ead
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=173a7f38c6bd77fc51e1a5f6d7053cc54e7f281f7ea6d9c6f356b12882c0d522
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kdoctools-devel"
 	configure_args+=" -DMEINPROC5_EXECUTABLE=/usr/bin/meinproc5"
 	configure_args+=" -DCHECKXML5_EXECUTABLE=/usr/bin/checkXML5"
@@ -26,6 +26,8 @@ kdoctools-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/lib/cmake
+		vmove usr/include
+		vmove "usr/lib/*.so"
 		vbin build/bin/docbookl10nhelper
 	}
 }

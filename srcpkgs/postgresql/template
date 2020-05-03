@@ -1,28 +1,29 @@
 # Template file for 'postgresql'
 pkgname=postgresql
-version=9.6.6
-revision=1
+version=9.6.17
+revision=3
 build_style=gnu-configure
-make_build_target="world"
+make_build_target=world
 configure_args="--with-openssl --with-python
  --with-pam --datadir=/usr/share/postgresql --enable-thread-safety
  --with-perl --with-tcl --without-ldap --without-gssapi --without-krb5
  --without-bonjour --with-libxml --with-libxslt --disable-rpath
  --with-system-tzdata=/usr/share/zoneinfo --enable-nls --with-uuid=e2fs"
+hostmakedepends="docbook2x flex gettext openjade"
+makedepends="libfl-devel libressl-devel libuuid-devel libxslt-devel pam-devel perl
+ python-devel readline-devel tcl-devel"
 short_desc="Sophisticated open-source Object-Relational DBMS"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.postgresql.org"
-license="BSD"
+maintainer="Johannes <johannes.brechtmann@gmail.com>"
+license="PostgreSQL"
+homepage="https://www.postgresql.org"
 distfiles="https://ftp.postgresql.org/pub/source/v${version}/${pkgname}-${version}.tar.bz2"
-checksum=399cdffcb872f785ba67e25d275463d74521566318cfef8fe219050d063c8154
+checksum=f6e1e32d32545f97c066f3c19f4d58dfab1205c01252cf85c5c92294ace1a0c2
 
-hostmakedepends="flex docbook docbook2x openjade"
-makedepends="libfl-devel readline-devel libressl-devel perl
- tcl-devel python-devel libxml2-devel libxslt-devel pam-devel libuuid-devel"
 conf_files="
 	/etc/default/${pkgname}
 	/etc/pam.d/${pkgname}
 	/etc/${pkgname}/${pkgname}.conf"
+
 # Create 'postgres' user for the server.
 system_accounts="postgres"
 postgres_homedir="/var/lib/${pkgname}"
@@ -34,13 +35,21 @@ if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --without-perl --without-python --without-tcl"
 fi
 
+post_patch() {
+	sed -e "s/@VERSION@/$version/" \
+		"$FILESDIR"/pg_config.sh.in >src/common/pg_config.sh.in
+	vsed -i -e "s,@XBPS_SYSROOT@,${XBPS_CROSS_BASE%/}," src/common/Makefile
+}
+
 pre_build() {
 	# http://www.postgresql.org/docs/9.3/static/docguide-toolsets.html
 	export SGML_CATALOG_FILES="/usr/share/sgml/openjade/catalog:/usr/share/sgml/iso8879/catalog:/usr/share/sgml/docbook/dsssl/modular/catalog:/usr/share/sgml/docbook/4.2/catalog"
 }
+
 post_build() {
 	make -C contrib ${makejobs}
 }
+
 post_install() {
 	make -C contrib install
 
@@ -55,6 +64,7 @@ post_install() {
 	vinstall ${FILESDIR}/${pkgname}.pam 644 etc/pam.d ${pkgname}
 	vinstall ${DESTDIR}/usr/share/${pkgname}/${pkgname}.conf.sample \
 		644 etc/${pkgname} ${pkgname}.conf
+	vbin src/common/pg_config.sh
 
 	sed -i 's/install_bin = .*/install_bin = install/g' \
 		${DESTDIR}/usr/lib/postgresql/pgxs/src/Makefile.global
@@ -62,11 +72,12 @@ post_install() {
 
 postgresql-doc_package() {
 	short_desc="PostgreSQL documentation"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmove usr/share/doc
 	}
 }
+
 postgresql-libs_package() {
 	short_desc="PostgreSQL shared libraries"
 	pkg_install() {
@@ -78,6 +89,7 @@ postgresql-libs_package() {
 		done
 	}
 }
+
 postgresql-libs-devel_package() {
 	depends="postgresql-libs>=$version"
 	short_desc="PostgreSQL shared libraries (development files)"
@@ -86,6 +98,7 @@ postgresql-libs-devel_package() {
 			vmove usr/bin/${f}
 			vmove "usr/share/man/man1/$(basename ${f})*"
 		done
+		vmove usr/bin/pg_config.sh
 		vmove usr/include
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/pkgconfig/*"
@@ -114,6 +127,7 @@ postgresql-plperl_package() {
 		done
 	}
 }
+
 postgresql-plpython_package() {
 	depends="postgresql>=$version"
 	short_desc="PL/Python procedural language for PostgreSQL"
@@ -126,6 +140,7 @@ postgresql-plpython_package() {
 		done
 	}
 }
+
 postgresql-pltcl_package() {
 	depends="postgresql>=$version"
 	short_desc="PL/Tcl procedural language for PostgreSQL"
@@ -165,10 +180,10 @@ postgresql-client_package() {
 			${PKGDESTDIR}/usr/share/postgresql
 	}
 }
+
 postgresql-contrib_package() {
 	short_desc="PostgreSQL contributed programs and extensions"
 	pkg_install() {
 		make -C contrib install DESTDIR=${PKGDESTDIR}
 	}
 }
-

@@ -1,21 +1,23 @@
 # Template file for 'claws-mail'
-
 pkgname=claws-mail
-version=3.16.0
+version=3.17.5
 revision=1
 build_style=gnu-configure
-configure_args="--disable-static --disable-python-plugin --disable-perl-plugin"
-hostmakedepends="pkg-config python-devel"
+configure_args="--disable-static --disable-python-plugin --disable-perl-plugin
+ --enable-enchant --enable-gnutls"
+hostmakedepends="pkg-config python-devel automake libtool gettext-devel"
 makedepends="poppler-glib-devel libarchive-devel libSM-devel
  libnotify-devel libcanberra-devel gpgme-devel gnutls-devel
- enchant-devel dbus-devel libetpan-devel libldap-devel
- libsoup-gnome-devel startup-notification-devel"
-short_desc="The user-friendly, lightweight, and fast email client"
+ enchant2-devel dbus-devel libetpan-devel libldap-devel
+ libsoup-gnome-devel startup-notification-devel libical-devel
+ librsvg-devel libgdata-devel NetworkManager-devel libxml2-devel
+ libcurl-devel"
+short_desc="GTK+ based, user-friendly, lightweight, and fast email client"
 maintainer="Jakub Skrzypnik <jot.skrzyp@gmail.com>"
-license="GPL-3"
-homepage="http://claws-mail.org"
-distfiles="http://www.claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz"
-checksum=c212133d3d962129d8c7995c1c7d973faef2a8914481c0c74578217bf4c897ab
+license="GPL-3.0-or-later"
+homepage="https://claws-mail.org"
+distfiles="https://www.claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz"
+checksum=daced25bfc2ab5b3f9ac2762b091ca3aede50da23e694d338dff1f066bab59be
 nocross=yes
 
 # TODO(dominikh): claws-mail is a mess. If we don't have python

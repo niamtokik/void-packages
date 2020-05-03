@@ -1,16 +1,16 @@
 # Template file for 'gist'
 pkgname=gist
-version=4.6.2
+version=5.1.0
 revision=1
-homepage="http://defunkt.io/gist/"
-distfiles="https://github.com/defunkt/$pkgname/archive/v${version}.tar.gz"
-depends="ruby"
+archs=noarch
 hostmakedepends="ruby"
+depends="ruby"
 short_desc="Uploads content to gist.github.com"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MIT"
-checksum=149a57ba7e8a8751d6a55dc652ce3cf0af28580f142f2adb97d1ceeccb8df3ad
-noarch=yes
+homepage="http://defunkt.io/gist/"
+distfiles="https://github.com/defunkt/gist/archive/v${version}.tar.gz"
+checksum=843cea035c137d23d786965688afc9ee70610ac6c3d6f6615cb958d6c792fbb2
 
 do_build() {
 	rake standalone

@@ -1,19 +1,19 @@
 # Template file for 'elfutils'
 pkgname=elfutils
-version=0.170
+version=0.179
 revision=1
 build_style=gnu-configure
-configure_args="--program-prefix=eu-"
-hostmakedepends="automake libtool"
-makedepends="zlib-devel bzip2-devel liblzma-devel"
+configure_args="--program-prefix=eu- --disable-debuginfod"
+hostmakedepends="automake libtool pkg-config"
+makedepends="bzip2-devel liblzma-devel zlib-devel"
 short_desc="Utilities to handle ELF object files"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-3"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="https://sourceware.org/elfutils/"
 distfiles="https://sourceware.org/${pkgname}/ftp/${version}/${pkgname}-${version}.tar.bz2"
-checksum=1f844775576b79bdc9f9c717a50058d08620323c1e935458223a12f249c9e066
+checksum=25a545566cbacaa37ae6222e58f1c48ea4570f53ba991886e2f5ce96e22a23a2
 
-CFLAGS="-Wno-error"
+CFLAGS="-Wno-error -Wno-error=null-dereference"
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) makedepends+=" argp-standalone musl-fts-devel musl-obstack" ;;
@@ -39,14 +39,15 @@ libelf_package() {
 	short_desc+=" - runtime library"
 	pkg_install() {
 		vmove "usr/lib/*.so*"
-		vmove usr/lib/elfutils
 	}
 }
+
 elfutils-devel_package() {
 	depends="libelf>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
+		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.a"
 	}
 }

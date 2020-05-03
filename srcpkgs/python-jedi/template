@@ -1,36 +1,30 @@
 # Template file for 'python-jedi'
 pkgname=python-jedi
-version=0.11.1
+version=0.15.2
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="jedi-${version}"
 build_style=python-module
-pycompile_module="jedi"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-parso"
-short_desc="Autocompletion/static analysis library for Python2"
+checkdepends="python-parso python3-parso python-pytest python3-pytest"
+short_desc="Autocompletion/static analysis library for Python 2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
-homepage="https://jedi.readthedocs.io/"
 license="MIT"
+homepage="https://jedi.readthedocs.io/"
 distfiles="${PYPI_SITE}/j/jedi/jedi-${version}.tar.gz"
-checksum=d6e799d04d1ade9459ed0f20de47c32f2285438956a677d083d3c98def59fa97
+checksum=e909527104a903606dd63bea6e8e888833f0ef087057829b89a18364a856f807
 
-pre_build() {
-	sed -i 's/parso.*/parso/' requirements.txt
-}
 post_install() {
-	vlicense LICENSE.txt LICENSE
-	# remove test directory polluting site-packages
-	rm -rf ${DESTDIR}/usr/lib/python*/site-packages/test
+	vlicense LICENSE.txt
 }
 
 python3-jedi_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3-parso"
-	pycompile_module="jedi"
-	short_desc="${short_desc/Python2/Python3}"
+	short_desc="${short_desc/2/3}"
 	pkg_install() {
-		vmove usr/lib/python3*
-		vlicense LICENSE.txt LICENSE
+		vmove "usr/lib/python3*"
+		vlicense LICENSE.txt
 	}
 }

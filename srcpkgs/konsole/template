@@ -1,27 +1,27 @@
 # Template file for 'konsole'
 pkgname=konsole
-version=17.12.1
+version=20.04.0
 revision=1
 build_style=cmake
-replaces="konsole5>=0 Konsole5>=0"
-configure_args="-Wno-dev -DKDE4_BUILD_TESTS=OFF -DSYSCONF_INSTALL_DIR=/etc"
-hostmakedepends="pkg-config extra-cmake-modules kcoreaddons qt5-devel qt5-qmake kdoctools kconfig"
-makedepends="qt5-devel kbookmarks-devel kinit-devel knotifyconfig-devel
- kparts-devel kpty-devel"
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="pkg-config extra-cmake-modules kcoreaddons qt5-devel
+ gettext qt5-qmake kdoctools kconfig"
+makedepends="kinit-devel knewstuff-devel knotifyconfig-devel kparts-devel
+ kpty-devel"
 short_desc="KDE's Terminal Emulator"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://www.kde.org"
-distfiles="https://download.kde.org/stable/applications/${version}/src/konsole-${version}.tar.xz"
-checksum=806008fb4337e6dd1041057609cbabe151ee1c31c12e27000fb72c4caa2a0d4d
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later, LGPL-2.0-or-later, GFDL-1.2-or-later"
+homepage="https://www.kde.org/applications/system/konsole/"
+distfiles="${KDE_SITE}/release-service/${version}/src/konsole-${version}.tar.xz"
+checksum=179b2bb442e13c22032e56457986c68074b31a5c2da67e0e6e854658a37e24de
+replaces="konsole5>=0"
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
 fi
 
 konsole5_package() {
-	noarch=yes
 	build_style=meta
-	short_desc="${short_desc} (transitional dummy package)"
+	short_desc+=" (transitional dummy package)"
 	depends="konsole>=${version}_${revision}"
 }

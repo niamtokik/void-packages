@@ -1,16 +1,18 @@
 # Template file for 's6-dns'
 pkgname=s6-dns
-version=2.3.0.0
+version=2.3.2.0
 revision=1
-build_style=gnu-configure
+build_style=configure
+configure_args="--prefix=/usr --libdir=/usr/lib
+ --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps
+ --with-lib=${XBPS_CROSS_BASE}/usr/lib"
 makedepends="execline-devel skalibs-devel"
-configure_args="--libdir=/usr/lib --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps --with-lib=${XBPS_CROSS_BASE}/usr/lib"
 short_desc="Suite of DNS client programs and libraries for Unix systems"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="ISC"
-homepage="http://skarnet.org/software/${pkgname}/"
-distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=a828583e48741927c88de3822283c317c792ffc15d5e9043f29625b87ba38740
+homepage="https://skarnet.org/software/${pkgname}/"
+distfiles="https://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=27b6129eaaea31ab907eea8a52369fe864ba7984c8f3e33dc098beb47b581e26
 
 post_install() {
 	vlicense COPYING
@@ -19,7 +21,7 @@ post_install() {
 }
 
 s6-dns-doc_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - documentation"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {

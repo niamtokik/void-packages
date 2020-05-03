@@ -1,16 +1,17 @@
 # Template file for 'google-chrome'
-_chromeVersion=64.0.3282.119
+_chromeVersion=81.0.4044.129
 _chromeRevision=1
 _channel=stable
 
 pkgname=google-chrome
-version=${_chromeVersion}.${_chromeRevision}
+version="${_chromeVersion}.${_chromeRevision}"
 revision=1
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
-homepage="http://www.google.com/chrome/"
-license="chrome"
-short_desc="An attempt at creating a safer, faster, and more stable browser"
-only_for_archs="x86_64"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
+homepage="https://www.google.com/chrome/"
+license="custom:chrome"
+short_desc="Attempt at creating a safer, faster, and more stable browser"
+archs="x86_64"
+hostmakedepends="curl tar xz python3 python3-html2text python3-setuptools"
 repository=nonfree
 restricted=yes
 nostrip=yes
@@ -18,9 +19,10 @@ nostrip=yes
 _baseUrl="https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable"
 _filename="google-chrome-${_channel}_${_chromeVersion}-${_chromeRevision}_amd64.deb"
 _chromeUrl="${_baseUrl}/${_filename}"
+_licenseUrl="https://www.google.com/intl/en/chrome/privacy/eula_text.html"
 
-distfiles="${_chromeUrl}"
-checksum=a52e7eedf89153b9a284de0a6a59d2144c147f684aca937f9a99f2117d0d46a1
+distfiles="$_chromeUrl"
+checksum=fe140112304b243240a5f6b287105fd5b7d6e48c6ff682194a62c8d08fd0ed5b
 
 do_extract() {
 	mkdir -p ${DESTDIR}
@@ -31,7 +33,7 @@ do_install() {
 	tar xf data.tar.xz -C ${DESTDIR}
 
 	# Install the icons
-	for size in 16 22 24 32 48 64 128 256; do
+	for size in 16 24 32 48 64 128 256; do
 		# Create the google chrome xdg directory
 		mkdir -p ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps
 
@@ -46,4 +48,9 @@ do_install() {
 	# Remove the Debian/Ubuntu crontab
 	rm -rf ${DESTDIR}/etc
 	rm -rf ${DESTDIR}/opt/google/chrome/cron
+}
+
+post_install() {
+	curl ${_licenseUrl} | html2text >> google-chrome-eula.md
+	vlicense google-chrome-eula.md
 }

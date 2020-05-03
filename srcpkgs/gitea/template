@@ -1,9 +1,9 @@
 # Template file for 'gitea'
 pkgname=gitea
-version=1.3.2
-revision=1
+version=1.10.6
+revision=3
 build_style=go
-go_import_path="code.gitea.io/gitea"
+go_import_path=code.gitea.io/gitea
 # This could be done with build options, but these are built in with the
 # following justification.
 #   * bindata: running with things not all in the binary is not a
@@ -21,29 +21,52 @@ go_import_path="code.gitea.io/gitea"
 #     rather not use SQLite3 for some reason.  It is also potentially
 #     more resiliant to corrupted writes.
 go_build_tags="bindata sqlite pam tidb"
-hostmakedepends="go-bindata"
+go_ldflags=" -X main.Version=${version}"
+hostmakedepends="go-bindata git"
 makedepends="sqlite-devel pam-devel"
+depends="git bash"
 short_desc="Git with a cup of Tea"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 license="MIT"
-homepage="http://gitea.io"
+homepage="https://gitea.io"
+changelog="https://github.com/go-gitea/gitea/blob/master/CHANGELOG.md"
 distfiles="https://github.com/go-gitea/gitea/archive/v${version}.tar.gz"
-checksum=9a351e41aabc0870d435caf2f09d2a76652e67c901ca0156e29e4b87eccc15ff
+checksum=d7fad3b0257c13037e0770d722e07da9bf2d356997c060a75d149e605a421f22
+nocross="https://api.travis-ci.org/v3/job/616733825/log.txt"
 
 system_accounts="_gitea"
 _gitea_homedir="/var/lib/gitea"
+_gitea_shell="/bin/bash" # Proper shell needed for ssh support
 make_dirs="/var/lib/gitea 0755 _gitea _gitea
  /var/log/gitea 0755 _gitea root"
 conf_files="/etc/gitea.conf"
 
 pre_build() {
-	cd $GOSRCPATH
 	make generate
-	cd $wrksrc
+}
+
+pre_install() {
+	sed -i \
+		'/RUN_USER/s:git:_gitea:
+		s:666:660:
+		/RUN_MODE/s:dev:prod:
+		/DB_TYPE/s:mysql:sqlite3:
+		s:ROOT =:& /var/lib/gitea/repositories:
+		s:tmp/local-repo:/var/lib/gitea/&:
+		s:tmp/local-wiki:/var/lib/gitea/&:
+		/TEMP_PATH/s:data/tmp/uploads:/var/lib/gitea/tmp/uploads:
+		/LFS_CONTENT/s:data/lfs:/var/lib/gitea/lfs:
+		s:data/gitea.db:/var/lib/gitea/&:
+		s:indexers/issues.bleve:/var/lib/gitea/&:
+		s:data/avatars:/var/lib/gitea/&:
+		s:SSH_ROOT_PATH =:& /var/lib/gitea:
+		s:STATIC_ROOT_PATH =:& /var/lib/gitea:
+		s:^ROOT_PATH =:& /var/log/gitea:' custom/conf/app.ini.sample
 }
 
 post_install() {
 	vlicense LICENSE
 	vsv gitea
-	vinstall conf/app.ini 0640 /etc gitea.conf
+	sed -e '/^\[U2F\]$/,/^$/d' -i custom/conf/app.ini.sample
+	vinstall custom/conf/app.ini.sample 0640 /etc gitea.conf
 }

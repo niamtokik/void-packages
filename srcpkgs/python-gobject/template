@@ -1,57 +1,25 @@
 # Template file for 'python-gobject'
 pkgname=python-gobject
-version=3.26.1
+version=3.36.0
 revision=1
 wrksrc="pygobject-${version}"
-hostmakedepends="pkg-config gobject-introspection"
-makedepends="libglib-devel python-cairo-devel python3-cairo-devel"
+build_style=meson
+build_helper="gir"
+configure_args="-Dpython=python2.7"
+hostmakedepends="pkg-config python"
+makedepends="libglib-devel python-cairo-devel python-devel"
 depends="gir-freedesktop python-cairo"
-pycompile_module="gi pygtkcompat"
 short_desc="Python2 bindings for GObject"
-homepage="https://live.gnome.org/PyGObject"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="LGPL-2.1"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://pygobject.readthedocs.io/"
 distfiles="${GNOME_SITE}/pygobject/${version%.*}/pygobject-${version}.tar.xz"
-checksum=f5577b9b9c70cabb9a60d81b855d488b767c66f867432e7fb64aa7269b04d1a9
+checksum=8683d2dfb5baa9e501a9a64eeba5c2c1117eadb781ab1cd7a9d255834af6daef
 
-nocross="http://build.voidlinux.eu/builders/armv7l_builder/builds/8676/steps/shell_3/logs/stdio"
-
-pre_configure() {
-	mkdir -p gi-${py2_ver}
-	mv * gi-${py2_ver} || true
-	cp -a gi-${py2_ver} gi-${py3_ver}
-}
-do_configure() {
-	for pyver in $py2_ver $py3_ver; do
-		cd ${wrksrc}/gi-${pyver}
-		./configure ${configure_args} --with-python=/usr/bin/python${pyver}
-	done
-}
-do_build() {
-	for pyver in $py2_ver $py3_ver; do
-		cd ${wrksrc}/gi-${pyver}
-		make ${makejobs}
-	done
-}
-do_install() {
-	for pyver in $py2_ver $py3_ver; do
-		cd ${wrksrc}/gi-${pyver}
-		make DESTDIR=${DESTDIR} install
-	done
-}
-
-python3-gobject_package() {
-	pycompile_module="gi pygtkcompat"
-	depends="gir-freedesktop python3-cairo"
-	short_desc="${short_desc/Python2/Python3}"
-	pkg_install() {
-		vmove ${py3_sitelib}
-	}
-}
 python-gobject-devel_package() {
-	depends="libgirepository-devel python-cairo-devel python3-cairo-devel
-		 python-gobject>=${version}_${revision}
-		 python3-gobject>=${version}_${revision}"
+	depends="libgirepository-devel python-cairo-devel
+	 libglib-devel libffi-devel
+	 python-gobject>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

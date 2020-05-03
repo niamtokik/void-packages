@@ -1,19 +1,18 @@
 # Template file for 'bijiben'
 pkgname=bijiben
-version=3.26.2
+version=3.34.2
 revision=1
-build_style=gnu-configure
-configure_args="--disable-update-mimedb"
-hostmakedepends="pkg-config intltool itstool gobject-introspection automake"
-makedepends="libuuid-devel webkit2gtk-devel gnome-desktop-devel
- gnome-online-accounts-devel tracker-devel
- clutter-gtk-devel zeitgeist-devel
- evolution-data-server-devel evolution-devel
- enchant-devel gtkhtml-devel"
-depends="zeitgeist>=0.9.14 desktop-file-utils tracker"
+build_helper="gir"
+build_style=meson
+hostmakedepends="itstool pkg-config gettext"
+makedepends="clutter-gtk-devel evolution-devel tracker-devel webkit2gtk-devel
+ zeitgeist-devel"
+depends="desktop-file-utils tracker zeitgeist"
 short_desc="Intuitive note editor with strong GNOME desktop integration"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://live.gnome.org/Apps/Bijiben"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=7e574484b2fdc39d56ac589aff560669691054bd01a126836f365916ebed4305
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="https://wiki.gnome.org/Apps/Notes"
+changelog="https://raw.githubusercontent.com/GNOME/bijiben/gnome-${version%.*}/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=fbe2c4ea1336f888626e5c402ef330e668e214a93c733fcb9c62dbaade8eb04e
+nocross="evolution-data-server cross"

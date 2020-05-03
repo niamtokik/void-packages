@@ -1,0 +1,14 @@
+# Template file for 'knights'
+pkgname=knights
+version=20.04.0
+revision=1
+build_style=cmake
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3
+ gettext kcoreaddons kconfig kdoctools"
+makedepends="libkdegames-devel kplotting-devel plasma-framework-devel"
+short_desc="Chess board program for KDE"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
+homepage="https://www.kde.org/applications/games/knights/"
+distfiles="${KDE_SITE}/release-service/${version}/src/knights-${version}.tar.xz"
+checksum=ba33bed98018250caf8fb7a2183ce812bef98e0c2ac81f8466d731f4bcc5b39e

@@ -1,17 +1,17 @@
 # Template file for 'ampache'
 pkgname=ampache
-version=3.8.4
+version=3.9.0
 revision=1
+archs=noarch
 create_wrksrc=yes
-noarch=yes
 hostmakedepends="unzip"
 depends="php mysql"
 short_desc="Web-based tool for managing your audio/video files"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
-license="AGPL-3"
+license="AGPL-3.0-or-later"
 homepage="http://ampache.org"
 distfiles="https://github.com/ampache/ampache/releases/download/${version}/${pkgname}-${version}_all.zip"
-checksum=baffbcd38a2b7c3d53f2de2969e0284ac74880a1ae2901e6445df31e0ebaf29c
+checksum=2c232e080eb9ea6c77cea7b078b89e94079f5629cfe7b1de578de92c1240b892
 
 do_install() {
 	vmkdir usr/share/webapps/${pkgname}

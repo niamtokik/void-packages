@@ -1,19 +1,25 @@
 # Template file for 'fmit'
 pkgname=fmit
-version=1.1.13
+version=1.2.13
 revision=1
 build_style=qmake
-configure_args="CONFIG+=acs_qt CONFIG+=acs_alsa CONFIG+=acs_jack CONFIG+=acs_portaudio"
-hostmakedepends="pkg-config qt5-tools"
-makedepends="alsa-lib-devel fftw-devel jack-devel portaudio-devel
- pulseaudio-devel qt5-multimedia-devel qt5-svg-devel"
+configure_args="CONFIG+=acs_qt CONFIG+=$(vopt_if alsa acs_alsa)
+ CONFIG+=$(vopt_if jack acs_jack) CONFIG+=$(vopt_if portaudio acs_portaudio)"
+hostmakedepends="itstool pkg-config qt5-tools gettext"
+makedepends="$(vopt_if alsa alsa-lib-devel) fftw-devel $(vopt_if jack jack-devel)
+ $(vopt_if portaudio portaudio-devel) pulseaudio-devel qt5-multimedia-devel
+ qt5-svg-devel"
 depends="desktop-file-utils hicolor-icon-theme"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Graphical utility for tuning your musical instruments"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="http://gillesdegottex.github.io/fmit/"
-license="GPL-2, LGPL-2.1"
 distfiles="https://github.com/gillesdegottex/fmit/archive/v${version}.tar.gz"
-checksum=915ea41d935346d1a5540bb5e2caaab6b4e3b15181331094a7044fe5e20ead60
+checksum=ce36e612c936ce12a586a4bf37e921789f73715eebb124d7c30dbda87bc76296
+
+build_options="alsa jack portaudio"
+build_options_default="alsa jack portaudio"
+desc_option_portaudio="Cross-platform audio API"
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-multimedia-devel qt5-svg-devel"

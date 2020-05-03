@@ -1,18 +1,19 @@
 # Template file for 'tzutils'
 pkgname=tzutils
-version=2018c
+version=2019c
 revision=1
 wrksrc="tz-${version}"
-homepage="http://www.iana.org/time-zones"
 short_desc="Time zone and daylight-saving time utilities"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="Public Domain"
+maintainer="Anthony Iliopoulos <ailiop@altatus.com>"
+license="Public Domain, BSD-3-Clause"
+homepage="https://www.iana.org/time-zones"
 distfiles="https://github.com/eggert/tz/archive/${version}.tar.gz"
-checksum=9c653d7b7b127d81f7db07920d1c3f7a0a7f1e5bc042d7907e01427593954e15
+checksum=38b1f7c7a050daa14fb07f6b72cdde1fc895fece40758d4d55736847041ad9e2
 
 do_build() {
 	make TZDIR=/usr/share/zoneinfo CC=$CC CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
 }
+
 do_install() {
 	vbin zic
 	vbin zdump
@@ -20,4 +21,8 @@ do_install() {
 	vman zic.8
 	vman zdump.8
 	vman tzselect.8
+}
+
+post_install() {
+	vlicense LICENSE
 }

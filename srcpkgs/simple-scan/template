@@ -1,15 +1,15 @@
 # Template file for 'simple-scan'
 pkgname=simple-scan
-version=3.26.2
-revision=2
+_gnome_version=3.36
+version=3.36.1
+revision=1
 build_style=meson
-hostmakedepends="pkg-config itstool intltool glib-devel vala colord-devel libgusb-devel"
-makedepends="colord-devel gtk+3-devel sqlite-devel dconf-devel sane-devel
- libgudev-devel libgusb-devel"
+hostmakedepends="gettext glib-devel itstool pkg-config vala"
+makedepends="gtk+3-devel libgusb-devel libwebp-devel sane-devel "
 depends="hicolor-icon-theme sane"
-short_desc="A GTK Simple scanning utility"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-3"
-homepage="http://launchpad.net/simple-scan"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=d172825b1b77e2e32c21fc847fd670c4711a504b09688f8567a98ac9516fe212
+short_desc="GTK Simple scanning utility"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="https://gitlab.gnome.org/GNOME/simple-scan"
+distfiles="${GNOME_SITE}/${pkgname}/${_gnome_version}/${pkgname}-${version}.tar.xz"
+checksum=7427f0902253e01383941243f56ef987609943c537f92dd1043a53eb5eaaf92e

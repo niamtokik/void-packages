@@ -1,31 +1,28 @@
 # Template file for 'syntax-highlighting'
 pkgname=syntax-highlighting
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules perl"
+hostmakedepends="kcoreaddons extra-cmake-modules perl"
 makedepends="qt5-devel qt5-tools-devel qt5-xmlpatterns-devel"
 short_desc="Syntax highlighting engine for structured text and code"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/syntax-highlighting"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c034d9a43d81fb29af21af419169c15192d0566d2e07d2499c3215044af591c7
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=3cf6b66e240a5a537b6479f18da989a75132eb184987c8c5a57d421d07d706f9
 
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake qt5-tools syntax-highlighting"
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools qt5-qmake qt5-tools syntax-highlighting qt5-devel qt5-tools-devel"
+	configure_args+=" -DKATEHIGHLIGHTINGINDEXER_EXECUTABLE=/usr/lib/libexec/${pkgname}/katehighlightingindexer"
 fi
 
-pre_configure() {
-	if [ -n "$CROSS_BUILD" ]; then
-		sed -i -e "s,COMMAND katehighlightingindexer,COMMAND /usr/lib/libexec/${pkgname}/katehighlightingindexer,g" data/CMakeLists.txt
-	fi
-}
-
 post_install() {
+if [ -z "$CROSS_BUILD" ]; then
 	# internal tool needed for cross-building
 	vinstall build/bin/katehighlightingindexer 0755 usr/lib/libexec/${pkgname}
+fi
 }
 
 syntax-highlighting-devel_package() {
@@ -35,6 +32,6 @@ syntax-highlighting-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,23 +1,24 @@
 # Template file for 'collectd'
 pkgname=collectd
-version=5.6.2
-revision=3
+version=5.11.0
+revision=1
 build_style=gnu-configure
 configure_args="$(vopt_enable rrdtool rrdtool) $(vopt_enable perl perl)
  $(vopt_enable notify notify_desktop) --with-libiptc --enable-virt
- --sysconfdir=/etc --disable-static --with-fp-layout=nothing --disable-werror"
+ --sysconfdir=/etc --disable-static --with-fp-layout=nothing
+ --with-python=/bin/python3 --disable-werror"
+conf_files="/etc/collectd.conf"
 hostmakedepends="automake pkg-config libtool libltdl-devel glib-devel"
 makedepends="libcurl-devel iptables-devel libressl-devel libsensors-devel
- libesmtp-devel zlib-devel yajl-devel python-devel libxml2-devel net-snmp-devel
- libgcrypt-devel libmysqlclient-devel libvirt-devel
+ libesmtp-devel zlib-devel yajl-devel python3-devel libxml2-devel net-snmp-devel
+ libgcrypt-devel libmysqlclient-devel libltdl-devel libvirt-devel
  $(vopt_if notify libnotify-devel) $(vopt_if rrdtool rrdtool-devel)"
-conf_files="/etc/collectd.conf"
 short_desc="Daemon which collects system performance statistics periodically"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
-license="GPL-2, MIT"
-homepage="http://collectd.org"
-distfiles="http://collectd.org/files/${pkgname}-${version}.tar.bz2"
-checksum=cc0b4118a91e5369409ced22d1d8a85c1a400098419414160c1839268ecad0c6
+license="GPL-2.0-only, MIT"
+homepage="https://collectd.org"
+distfiles="https://collectd.org/files/${pkgname}-${version}.tar.bz2"
+checksum=37b10a806e34aa8570c1cafa6006c604796fae13cc2e1b3e630d33dcba9e5db2
 LDFLAGS="-lgcrypt"
 
 build_options="rrdtool perl notify"
@@ -57,7 +58,7 @@ libcollectdclient-devel_package() {
 	short_desc+=" - development files"
 	depends="libcollectdclient>=${version}_${revision}"
 	pkg_install() {
-		vmove usr/include/
+		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove usr/lib/*.so
 	}

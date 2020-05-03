@@ -1,36 +1,35 @@
 # Template file for 'gdk-pixbuf'
 pkgname=gdk-pixbuf
-version=2.36.11
-revision=1
-build_style=gnu-configure
-configure_args="$(vopt_enable gir introspection) --without-libjasper
- --with-included-loaders=png --with-x11 gio_can_sniff=yes"
-hostmakedepends="automake libtool perl pkg-config gettext-devel
- glib-devel $(vopt_if gir gobject-introspection)"
-makedepends="libglib-devel libpng-devel libjpeg-turbo-devel tiff-devel libX11-devel"
-triggers="gtk-pixbuf-loaders"
+version=2.40.0
+revision=2
+build_style=meson
+build_helper="gir"
+configure_args="-Dgir=$(vopt_if gir true false) -Djasper=false
+ -Dpng=true -Dx11=true -Dinstalled_tests=false"
+hostmakedepends="gettext-devel glib-devel pkg-config libxslt docbook-xsl"
+makedepends="libX11-devel libglib-devel libpng-devel tiff-devel
+ shared-mime-info"
+depends="shared-mime-info"
 short_desc="Image loading library for The GTK+ toolkit (v2)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Projects/GdkPixbuf"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=ae62ab87250413156ed72ef756347b10208c00e76b222d82d9ed361ed9dde2f3
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=1582595099537ca8ff3b99c6804350b4c058bb8ad67411bbaae024ee7cead4e6
 
 # Package build options
 build_options="gir"
+build_options_default="gir"
 
-# Disable gir for cross builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" gdk-pixbuf-devel"
 fi
 
 pre_configure() {
-	sed -i '/SUBDIRS/s/tests//' Makefile.am
-	autoreconf -fi
-	# Can't create loaders.cache with cross compiled modules
-	if [ -n "$CROSS_BUILD" ]; then
+	if [ "$CROSS_BUILD" ]; then
 		touch gdk-pixbuf/loaders.cache
 	fi
+	sed -i "s|subdir('tests')||g" -i meson.build
 }
 
 gdk-pixbuf-xlib_package() {
@@ -39,6 +38,7 @@ gdk-pixbuf-xlib_package() {
 		vmove usr/lib/libgdk_pixbuf_xlib*.so.*
 	}
 }
+
 gdk-pixbuf-devel_package() {
 	depends="${makedepends} ${sourcepkg}-xlib>=${version}_${revision} ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
@@ -51,6 +51,5 @@ gdk-pixbuf-devel_package() {
 		if [ "$build_option_gir" ]; then
 			vmove usr/share/gir-1.0
 		fi
-		vmove usr/share/gtk-doc
 	}
 }

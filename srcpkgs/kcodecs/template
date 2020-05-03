@@ -1,17 +1,17 @@
 # Template file for 'kcodecs'
 pkgname=kcodecs
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-tools-devel gperf"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel gperf"
 makedepends="qt5-devel qt5-tools-devel"
 short_desc="A collection of methods to manipulate strings using various encodings"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-only, LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kcodecs"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=8c574d9c1140089767c6c46fd93cf4c9a4972b83cef16da7f4b6a52c06f9292c
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=57b990379ed7149fb984ab554839131e83337263f8896c16826dec269b3c334d
 
 kcodecs-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
@@ -19,6 +19,6 @@ kcodecs-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

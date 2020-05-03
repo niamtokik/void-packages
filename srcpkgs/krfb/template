@@ -1,17 +1,17 @@
 # Template file for 'krfb'
 pkgname=krfb
-version=17.12.1
+version=20.04.0
 revision=1
 build_style=cmake
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python kdoctools
- kconfig pkg-config"
+hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python3 kdoctools
+ kconfig pkg-config kcoreaddons gettext"
 makedepends="qt5-devel qt5-x11extras-devel ki18n-devel kcompletion-devel
  kconfig-devel kcoreaddons-devel kcrash-devel kdbusaddons-devel kdnssd-devel
  kdoctools-devel knotifications-devel kwallet-devel kwidgetsaddons-devel
  kxmlgui-devel libvncserver-devel libXtst-devel xcb-util-image-devel"
 short_desc="KDE Desktop Sharing"
-maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="GPL-2, GFDL-2.1, LGPL-2.1"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, GFDL-1.2-only, LGPL-2.1-or-later"
 homepage="https://www.kde.org/applications/system/krfb"
-distfiles="https://download.kde.org/stable/applications/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=e31f686065c414cc0a1978343cc82728306b3413c30d7ee57a6ecc8d5c193080
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=fb3deab607611ae2e2c525c01abc6b8b52b579d30143866d4c50827b1521bf5b

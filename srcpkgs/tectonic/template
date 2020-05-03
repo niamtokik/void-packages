@@ -1,28 +1,17 @@
-#template file for 'tectonic'
+# Template file for 'tectonic'
 pkgname=tectonic
-version=0.1.7
+version=0.1.12
 revision=1
-hostmakedepends="rust cargo pkg-config"
-makedepends="fontconfig-devel freetype-devel harfbuzz-devel graphite-devel libressl-devel libpng-devel zlib-devel icu-devel icu-libs"
-short_desc="A modernized, complete, self-contained TeX/LaTeX engine"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="harfbuzz-devel libressl-devel"
+short_desc="Modernized, complete, self-contained TeX/LaTeX engine"
 maintainer="Chinmay Pai <chinmaydpai@gmail.com>"
 license="MIT"
 homepage="https://tectonic-typesetting.github.io"
+changelog="https://raw.githubusercontent.com/tectonic-typesetting/tectonic/master/CHANGELOG.md"
 distfiles="https://github.com/tectonic-typesetting/${pkgname}/archive/v${version}.tar.gz"
-checksum=c39acc8a4e2e102245037fd2ea3e77b058d25e29bbab0dcc53a3167c5d3fee2a
-nocross=yes
-
-do_build() {
-	cargo build --release
-}
-
-do_check() {
-	cargo test --release
-}
-
-do_install() {
-	vbin target/release/${pkgname}
-}
+checksum=30d2e0fe31145a10097368f11a00540ba201be43d28e7ad580699f47bfa70bf4
 
 post_install() {
 	vlicense LICENSE

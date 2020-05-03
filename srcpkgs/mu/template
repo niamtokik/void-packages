@@ -1,16 +1,27 @@
-# Template build file for 'mu'.
+# Template file for 'mu'
 pkgname=mu
-version=1.0
+version=1.4.3
 revision=1
 build_style=gnu-configure
-hostmakedepends="automake libtool pkg-config emacs texinfo"
-makedepends="xapian-core-devel gmime-devel libuuid-devel"
-short_desc="A tool for dealing with e-mail messages stored in the Maildir-format"
+hostmakedepends="automake libtool pkg-config texinfo glib-devel"
+makedepends="xapian-core-devel gmime3-devel libuuid-devel"
+checkdepends="tzdata"
+short_desc="Emacs-based tool for dealing with e-mail stored in the Maildir-format"
 maintainer="Benjamin Slade <slade@jnanam.net>"
-homepage="http://www.djcbsoftware.nl/code/mu/"
-license="GPL-3"
-distfiles="https://github.com/djcb/mu/archive/v${version}.tar.gz"
-checksum=533149abab967e2809f72e9fe62c6deb71d45b6ad2a5846247733a1dd2de69a0
+license="GPL-3.0-or-later"
+homepage="https://www.djcbsoftware.nl/code/mu/"
+distfiles="https://github.com/djcb/mu/archive/${version}.tar.gz"
+checksum=0f32552165b96d8edbc467e1ef3e2dd521e1d2adbba3462b90ced2dc2930d721
+
+if [ ! "$CROSS_BUILD" ]; then
+	subpackages="mu4e"
+	hostmakedepends+=" emacs"
+else
+	# force subpackages to non-empty value,
+	# else xbps-src will generate it.
+	subpackages=" "
+	configure_args+=" --disable-mu4e"
+fi
 
 pre_configure() {
 	sed -i 's,-I${prefix}/include,,' contrib/Makefile.am
@@ -18,10 +29,12 @@ pre_configure() {
 }
 
 mu4e_package() {
+	archs=noarch
 	short_desc+=" - Emacs frontend"
 	depends="${sourcepkg}>=${version}_${revision} emacs"
 	pkg_install() {
 		vmove usr/share/emacs
 		vmove usr/share/info
+		vmove usr/share/doc/mu/mu4e*
 	}
 }

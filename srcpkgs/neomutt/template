@@ -1,33 +1,36 @@
 # Template file for 'neomutt'
 pkgname=neomutt
-version=20171215
+version=20200501
 revision=1
-wrksrc="${pkgname}-${pkgname}-${version}"
-build_style=gnu-configure
-configure_args="--ssl --gpgme --notmuch --gdbm --lua --sasl"
-hostmakedepends="libxslt docbook-xsl w3m tcl"
-makedepends="ncurses-devel gpgme-devel libidn-devel libressl-devel libsasl-devel
- gdbm-devel aspell-devel libnotmuch-devel gettext-devel lua-devel"
-depends="mime-types"
+wrksrc="neomutt-${version}"
+create_wrksrc=true
+build_wrksrc="$wrksrc"
+build_style=configure
+configure_args="--ssl --gpgme --notmuch --gdbm --lua --sasl --zlib --tdb
+ --rocksdb --testing"
+make_check_target=test
 conf_files="/etc/neomuttrc"
+# neomutt needs either w3m/lynx/elinks to build manual.html
+hostmakedepends="docbook-xsl gettext libxslt perl tcl w3m"
+makedepends="aspell-devel gdbm-devel gettext-devel gpgme-devel libidn-devel
+ rocksdb-devel tdb-devel
+ libnotmuch-devel libressl-devel libsasl-devel lua-devel zlib-devel"
+depends="mime-types"
 short_desc="Mutt with misc fixes and feature patches"
-maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
-license="GPL-2"
-homepage="http://www.neomutt.org"
-distfiles="https://github.com/neomutt/neomutt/archive/neomutt-${version}.tar.gz"
-checksum=7fb76e99a9f23715ad772ad8f7008c6e2db05eed344817055176c76dbd60c1b5
-nocross="https://build.voidlinux.eu/builders/armv7l_builder/builds/5375 no longer gnu-configure, but needs /etc set correctly and also to know how to cross build documentation"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://neomutt.org/"
+distfiles="https://github.com/neomutt/neomutt/archive/${version}.tar.gz
+ https://github.com/neomutt/neomutt-test-files/archive/1ee274e9ae1330fb901eb7b8275b3079d7869222.tar.gz"
+checksum="9d0a0da14448ebb60f2585532fc4cd903c10146903c8639cd0a3d51fe620430f
+ f7aeb9a70b213b1bbcdba629745fd345bde825c467453912f5cfd7f1d75418f5"
+python_version=3
 
 # fix:
-if [ -n "${XBPS_CROSS_BASE}" ]; then
+if [ "${XBPS_CROSS_BASE}" ]; then
 	configure_args="${configure_args} --host=$XBPS_CROSS_TRIPLET"
 	configure_args="${configure_args} --build=$XBPS_TRIPLET"
-	configure_args="${configure_args} --with-lua=$XBPS_CROSS_BASE/"
-	configure_args="${configure_args} --with-ncurses=$XBPS_CROSS_BASE/"
-	configure_args="${configure_args} --with-notmuch=$XBPS_CROSS_BASE/"
-	configure_args="${configure_args} --with-ssl=$XBPS_CROSS_BASE/"
-	configure_args="${configure_args} --with-gdbm=$XBPS_CROSS_BASE/"
-	configure_args="${configure_args} --with-gpgme=$XBPS_CROSS_BASE/"
+	configure_args="${configure_args} --with-sysroot=$XBPS_CROSS_BASE"
 fi
 
 case "${XBPS_TARGET_MACHINE}" in
@@ -38,6 +41,19 @@ esac
 post_install() {
 	# move dist to examples dir
 	vsconf contrib/gpg.rc Muttrc.gpg.dist
+}
+
+pre_check() {
+	(
+	 cd ${wrksrc}/neomutt-test-files-1ee274e9ae1330fb901eb7b8275b3079d7869222/
+	 ./setup.sh
+	)
+	export NEOMUTT_TEST_DIR=${wrksrc}/neomutt-test-files-1ee274e9ae1330fb901eb7b8275b3079d7869222
+}
+
+post_check() {
+	# This is a file chmodded to 311 and can't be removed normally
+	chmod 777 ${wrksrc}/neomutt-test-files-1ee274e9ae1330fb901eb7b8275b3079d7869222/maildir/damson
 }
 
 # REMARKS:
@@ -54,3 +70,9 @@ post_install() {
 # "Mutt" anywhere in the codebase. https://www.neomutt.org/2017/10/13/release
 # /etc/neomuttrc now exists, and there are no conflicts with regular mutt.
 # Due to this, an install.msg was added and all alternatives were removed.
+# Cross compiling was fixed in 20180323
+# 20200417 had some build changes, none referenced explicitly by our templates.
+# It also added a need for a special directory for unit tests, refered here by
+# commit hash (due to a lack of versioning)
+# Currently a shebang for keybase is rewritten to python2. That should be
+# fixed. In fact, it turns out to be a py3 only file. Fixed as of 20200424.

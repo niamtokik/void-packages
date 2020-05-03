@@ -1,16 +1,20 @@
 # Template file for 's6-rc'
 pkgname=s6-rc
-version=0.4.0.0
+version=0.5.1.2
 revision=1
-build_style=gnu-configure
+build_style=configure
+configure_args="--prefix=/usr --libdir=/usr/lib --includedir=/usr/include
+ --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps
+ --with-lib=${XBPS_CROSS_BASE}/usr/lib"
 makedepends="execline-devel skalibs-devel s6-devel"
-configure_args="--libdir=/usr/lib --includedir=/usr/include --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps --with-lib=${XBPS_CROSS_BASE}/usr/lib"
+depends="s6>=2.9.0.0_1 execline>=2.5.2.0_1"
 short_desc="Service manager of the s6 init system"
-maintainer="<opsaaspo@yandex.ru>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="ISC"
-homepage="http://skarnet.org/software/${pkgname}/"
-distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=96b8e7f275d42113b9ba7ef1d8856f64183b9421c39702f8332e6f5686496fba
+homepage="https://skarnet.org/software/s6-rc/"
+changelog="https://skarnet.org/software/s6-rc/upgrade.html"
+distfiles="https://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=57da4c604922223485b2e0428b39b220ccc9dad696f36eae3145ce35ba96a8a2
 
 post_install() {
 	vlicense COPYING
@@ -20,8 +24,17 @@ post_install() {
 	vcopy "examples/source/*" usr/share/examples/${pkgname}/
 }
 
+s6-rc-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.a
+	}
+}
+
 s6-rc-doc_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - documentation"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {

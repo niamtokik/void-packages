@@ -1,22 +1,28 @@
+# Template file for 'coq'
 pkgname=coq
-version=8.7.1
+version=8.11.1
 revision=1
 hostmakedepends="ocaml ocaml-findlib ocaml-num camlp5"
 short_desc="Proof assistant written in OCaml"
-maintainer="Némo Fournier <nemo@epicea.xyz>"
-license="LGPL-2.1"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="LGPL-2.1-only"
 homepage="https://coq.inria.fr"
-distfiles="${homepage}/distrib/V${version}/files/${pkgname}-${version}.tar.gz"
-checksum=d381b38522cee0e73804ee3a763648f602eda942312c18d333f9567c56dbfd03
+distfiles="https://github.com/coq/coq/archive/V${version}.tar.gz"
+checksum=994c9f5e0b1493c1682946f6154ef8853c9ddeb614902a7fa8403a3650d5377a
 nopie=yes
 nocross=yes
+
+case "$XBPS_TARGET_MACHINE" in
+	ppc64*) ;;
+	ppc*) broken="R_PPC_REL24 relocation out of range";;
+esac
 
 do_configure() {
 	./configure -prefix ${DESTDIR}/usr -coqide no
 }
 
 do_build() {
-	make
+	make PR_O=
 }
 
 do_install() {

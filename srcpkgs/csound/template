@@ -1,26 +1,31 @@
 # Template file for 'csound'
 pkgname=csound
-version=6.10.0
+version=6.14.0
 revision=1
 build_style=cmake
 configure_args="
- -DLUA_MODULE_INSTALL_DIR=/usr/lib/lua/5.1
- -DDPD_MODULE_INSTALL_DIR=/usr/lib/pd/extra"
-hostmakedepends="python flex"
-makedepends="pd-devel fltk-devel fluidsynth-devel liblo-devel portaudio-devel
- portmidi-devel tk-devel libcurl-devel LuaJIT-devel boost-devel libgomp-devel
- libsndfile-devel"
-depends="pd"
-short_desc="A programming language for sound rendering and signal processing"
+ -DLUA_MODULE_INSTALL_DIR=${XBPS_CROSS_BASE}/usr/lib/lua/5.1
+ -DDPD_MODULE_INSTALL_DIR=${XBPS_CROSS_BASE}/usr/lib/pd/extra
+ -DPORTAUDIO_V19=yes"
+hostmakedepends="flex python"
+makedepends="LuaJIT-devel boost-devel fltk-devel fluidsynth-devel libcurl-devel
+ libgomp-devel liblo-devel libsndfile-devel libstk-devel pd-devel portaudio-devel
+ portmidi-devel tk-devel"
+depends="pd stk-data"
+short_desc="Programming language for sound rendering and signal processing"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="LGPL-3"
-homepage="http://csound.github.io"
-distfiles="https://github.com/$pkgname/$pkgname/archive/$version.tar.gz"
-checksum=a241043521572d00ae3a926611ac52fd6a7e3fe6bafdbe707867aafe32f6d8a3
-nocross=yes
+license="LGPL-2.1-or-later"
+homepage="https://csound.com/"
+distfiles="https://github.com/${pkgname}/${pkgname}/archive/${version}.tar.gz"
+checksum=bef349c5304b2d3431ef417933b4c9e9469c0a408a4fa4a98acf0070af360a22
+
+CXXFLAGS="-Wno-error"
+
+case $XBPS_TARGET_MACHINE in
+	*-musl) makedepends+=" libexecinfo-devel";;
+esac
 
 post_install() {
-	rm -r $DESTDIR/tmp
 	vinstall ${FILESDIR}/csound.sh 755 etc/profile.d
 	# Avoid conflict with libextractor
 	mv ${DESTDIR}/usr/bin/extract  ${DESTDIR}/usr/bin/csextract

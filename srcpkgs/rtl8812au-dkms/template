@@ -1,36 +1,28 @@
 # Template file for 'rtl8812au-dkms'
-
 pkgname=rtl8812au-dkms
-version=20170910
+version=20200318
 revision=1
-short_desc="Realtek 8812AU/8821AU USB WiFi driver (DKMS)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
-homepage="http://www.dlink.com"
-
-triggers="dkms"
-dkms_modules="rtl8812au 4.3.14"
-hostmakedepends="git"
+_modver=5.6.4.2
+_gitrev=49e98ff9bfdbe2ddce843808713de383132002e0
+archs=noarch
+wrksrc="rtl8812au-${_modver}-${_gitrev}"
 depends="dkms"
-noarch=yes
+short_desc="Realtek 8812AU/8821AU USB WiFi driver (DKMS)"
+maintainer="Renato Aguiar <renato@renag.me>"
+license="GPL-2.0-only"
+homepage="http://www.dlink.com"
+distfiles="https://github.com/gordboy/rtl8812au-${_modver}/archive/${_gitrev}.tar.gz"
+checksum=75c8ba004b405f8bf8542c0e29f2ee5451ce572fecac41cb2ba01da5e0312952
+dkms_modules="rtl8812au ${_modver}"
 
-do_fetch() {
-	git clone https://github.com/abperiasamy/rtl8812AU_8821AU_linux ${pkgname}-${version}
-	cd ${pkgname}-${version}
-	git reset --hard 0292aa694
-}
 do_install() {
-	local modname=rtl8812au
-	local modver=4.3.14
-	local dest=/usr/src/${modname}-${modver}
+	local dest=/usr/src/rtl8812au-${_modver}
 
 	vmkdir ${dest}
-	cp -r dkms.conf Kconfig Makefile.dkms Makefile platform core hal include os_dep ${DESTDIR}/${dest}
-	cp Makefile ${DESTDIR}/${dest}/Makefile
-	sed "s/#MODULE_VERSION#/${modver}/" dkms.conf > ${DESTDIR}/${dest}/dkms.conf
+	cp -r dkms.conf Kconfig Makefile platform core hal include os_dep ${DESTDIR}/${dest}
 
 	# modules-load.d(5) file.
 	vmkdir usr/lib/modules-load.d
-	echo "rtl8812au" > ${DESTDIR}/usr/lib/modules-load.d/${pkgname}.conf
+	echo "8812au" > ${DESTDIR}/usr/lib/modules-load.d/${pkgname}.conf
 	chmod 644 ${DESTDIR}/usr/lib/modules-load.d/${pkgname}.conf
 }

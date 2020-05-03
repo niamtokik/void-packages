@@ -1,23 +1,15 @@
 # Template file for 'edb-debugger'
 pkgname=edb-debugger
-version=0.9.21
-revision=2
+version=1.2.0
+revision=1
+archs="x86_64* i686*"
+wrksrc="edb-debugger"
 build_style=cmake
-configure_args="-DCMAKE_INSTALL_PREFIX=/usr/ -DDEFAULT_PLUGIN_PATH=/usr/lib/edb/"
 hostmakedepends='pkg-config'
-makedepends="capstone-devel graphviz-devel boost-devel qt-devel"
+makedepends="capstone-devel graphviz-devel boost-devel qt5-devel qt5-xmlpatterns-devel qt5-svg-devel"
 short_desc="Cross platform x86/x86-64 debugger"
 maintainer="DirectorX <void.directorx@protonmail.com>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://github.com/eteran/edb-debugger"
 distfiles="${homepage}/releases/download/${version}/${pkgname}-${version}.tgz"
-checksum=2686619e1288152033d4c9c9a2568cb12841d3854bba8815c37ce77d3bd11706
-
-case "${XBPS_TARGET_MACHINE}" in
-	arm*|aarch64*)
-		broken="${XBPS_TARGET_MACHINE} not supported yet"
-	;;
-	mips*)
-		broken="${XBPS_TARGET_MACHINE} unsuported target"
-	;;
-esac
+checksum=96f8ee00c5983e6a4e108a0d738464e8b74da187018229334b498c80e7fe4917

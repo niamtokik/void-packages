@@ -1,22 +1,27 @@
 # Template file for 'nss-pam-ldapd'
 pkgname=nss-pam-ldapd
-version=0.9.8
-revision=2
+version=0.9.11
+revision=1
 build_style=gnu-configure
 configure_args="--enable-sasl --enable-kerberos --with-pam-seclib-dir=/usr/lib/security/"
 conf_files="/etc/nslcd.conf"
+hostmakedepends="autoconf automake"
 makedepends="pam-devel libldap-devel libsasl-devel mit-krb5-devel"
-system_accounts="nslcd"
 short_desc="LDAP identity management via nsswitch"
-maintainer="Michael Aldridge <maldridge@VoidLinux.eu>"
-license="LGPL-2.1"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
+license="LGPL-2.1-or-later"
 homepage="https://arthurdejong.org/nss-pam-ldapd/"
-distfiles="https://arthurdejong.org/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=ef7362e7f2003da8c7beb7bcc03c30494acf712625aaac8badc6e7eb16f3453f
+distfiles="https://github.com/arthurdejong/nss-pam-ldapd/archive/$version.tar.gz"
+checksum=00c2f82a1d58b4bbee58d34b8f27e98aeab04d25445f95b06e2969fe27ab2c9c
+system_accounts="nslcd"
 
 case "$XBPS_TARGET_MACHINE" in
 	*musl) configure_args+=" --disable-nss";;
 esac
+
+pre_configure() {
+	./autogen.sh
+}
 
 post_install() {
 	vsv nslcd

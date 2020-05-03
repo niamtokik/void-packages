@@ -1,16 +1,20 @@
-# Template build file for 'perl-DateTime'.
+# Template file for 'perl-DateTime'
 pkgname=perl-DateTime
-version=1.46
+version=1.52
 revision=1
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
-makedepends="${hostmakedepends} perl-DateTime-Locale perl-DateTime-TimeZone perl-Try-Tiny"
-checkdepends="perl-Test-Fatal perl-Test-Warnings perl-CPAN-Meta-Check"
-depends="${makedepends}"
-short_desc="A date and time object for Perl"
+makedepends="perl-DateTime-Locale perl-DateTime-TimeZone"
+depends="$makedepends"
+checkdepends="perl-CPAN-Meta-Check perl-Test-Fatal perl-Test-Warnings"
+short_desc="Date and time object for Perl"
 maintainer="John Regan <john@jrjrtech.com>"
-homepage="http://search.cpan.org/dist/DateTime"
-license="Artistic, GPL-1"
-distfiles="${CPAN_SITE}/DateTime/${pkgname/perl-/}-$version.tar.gz"
-checksum=e9fcf859103e9a8067d5e11b7b14e956c8fd4ad6402124fb1221d527b0688788
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/DateTime"
+distfiles="${CPAN_SITE}/DateTime/${pkgname/perl-/}-${version}.tar.gz"
+checksum=67828b6172b23d9534b8f2a593b05caa6240737a3b2246f3e1fe4e015dbc3dfc
+
+# This isn't a direct dependency but when soname bumping perl it will
+# cause build failures
+hostmakedepends+=" perl-Package-Stash-XS perl-Sub-Identify perl-Variable-Magic perl-Params-Util perl-Sub-Name"

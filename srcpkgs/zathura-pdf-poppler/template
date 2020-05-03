@@ -1,23 +1,19 @@
 # Template file for 'zathura-pdf-poppler'
 pkgname=zathura-pdf-poppler
-version=0.2.8
+version=0.3.0
 revision=1
-build_style=gnu-makefile
-maintainer="lemmi <lemmi@nerd2nerd.org>"
+build_style=meson
 hostmakedepends="pkg-config"
 makedepends="poppler-devel poppler-glib-devel zathura-devel"
 depends="zathura"
-conflicts="zathura-pdf-mupdf>=0"
-license="zlib"
-homepage="http://pwmt.org/projects/zathura-pdf-poppler/"
 short_desc="PDF support for zathura (using poppler)"
-distfiles="http://pwmt.org/projects/${pkgname}/download/${pkgname}-${version}.tar.gz"
-checksum=421d57a398d97c8264baced8743799fdec5f2cf989b34a8f42cf2277f4a9a5d4
+maintainer="lemmi <lemmi@nerd2nerd.org>"
+license="Zlib"
+homepage="http://pwmt.org/projects/zathura-pdf-poppler/"
+distfiles="https://pwmt.org/projects/zathura-pdf-poppler/download/zathura-pdf-poppler-${version}.tar.xz"
+checksum=d5cc3a7dae49471b85b503bbb9049c6f8d10903f4a611d721a2e0fefe726d4ed
 
-pre_build() {
-	sed -i 's/^\(CFLAGS *+=\)/override \1/' config.mk
-	sed -i 's/^\(LDFLAGS *+=\)/override \1/' config.mk
-}
+conflicts="zathura-pdf-mupdf>=0"
 
 post_install() {
 	vlicense LICENSE

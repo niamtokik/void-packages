@@ -1,17 +1,17 @@
 # Template file for 'lilv'
 pkgname=lilv
-version=0.24.2
+version=0.24.6
 revision=1
 build_style=waf
 configure_args="--dyn-manifest"
 hostmakedepends="pkg-config python"
 makedepends="python-devel serd-devel sord-devel sratom-devel lv2"
-short_desc="A simple yet powerful C API for using LV2 plugins"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+short_desc="Simple yet powerful C API for using LV2 plugins"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="ISC"
 homepage="http://drobilla.net/software/lilv/"
 distfiles="http://download.drobilla.net/${pkgname}-${version}.tar.bz2"
-checksum=f7ec65b1c1f1734ded3a6c051bbaf50f996a0b8b77e814a33a34e42bce50a522
+checksum=5f544cf79656e0782a03a2cc7ab1d31a93f36d71d4187bd427ade8d7b55370dc
 
 post_install() {
 	vmkdir usr/share/bash-completion/completions
@@ -36,7 +36,7 @@ lilv-bash-completion_package() {
 }
 
 lilv-devel_package() {
-	depends="sord-devel liblilv>=${version}_${revision}"
+	depends="serd-devel sord-devel sratom-devel lv2 liblilv>=${version}_${revision}"
 	short_desc+=" - Development files"
 	pkg_install() {
 		vmove usr/include

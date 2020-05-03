@@ -1,21 +1,31 @@
 # Template file for 'krita'
 pkgname=krita
-version=3.3.3
-revision=1
-nocross=yes
+version=4.2.9
+revision=2
 build_style=cmake
-replaces="calligra-krita>=0"
 configure_args="-Wno-dev -DBUILD_TESTING=OFF"
-short_desc="Painting and image editing program"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-hostmakedepends="extra-cmake-modules pkg-config"
+hostmakedepends="extra-cmake-modules gettext pkg-config python3
+ qt5-qmake qt5-host-tools kcoreaddons"
 makedepends="karchive-devel kconfig-devel kwidgetsaddons-devel kcompletion-devel
  kcoreaddons-devel kguiaddons-devel ki18n-devel kitemmodels-devel kitemviews-devel
  kwindowsystem-devel kio-devel kcrash-devel qt5-svg-devel qt5-multimedia-devel
  boost-devel gsl-devel tiff-devel libjpeg-turbo-devel libraw-devel fftw-devel
- opencolorio-devel eigen vc exiv2-devel libXi-devel libopenexr-devel libgomp-devel
- poppler-qt5-devel"
-license="GPL-2"
+ opencolorio-devel eigen exiv2-devel libXi-devel libopenexr-devel libgomp-devel
+ poppler-qt5-devel giflib-devel python3-devel python3-sip-devel python3-PyQt5
+ python-PyQt5-devel quazip-devel libheif-devel"
+short_desc="Painting and image editing program"
+maintainer="John <johnz@posteo.net>"
+license="GPL-3.0-only"
 homepage="https://krita.org/"
-distfiles="https://download.kde.org/stable/krita/${version}/krita-${version}.tar.gz"
-checksum=bec04e3392e9b311477c5c6a50e2201b43a3afda91d9b24a0fc8e3399585865d
+distfiles="${KDE_SITE}/krita/${version}/krita-${version}.tar.gz"
+checksum=9f85bb81eaf4976af57352a482af1fdb86f338051a991f6f43976e0b65956da8
+python_version=2 #unverified
+replaces="calligra-krita>=0"
+
+case "$XBPS_TARGET_MACHINE" in
+	i686*|x86_64*) makedepends+=" vc";;
+esac
+
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+fi

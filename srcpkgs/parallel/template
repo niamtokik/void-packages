@@ -1,16 +1,17 @@
 # Template file for 'parallel'
 pkgname=parallel
-version=20180122
+version=20200422
 revision=1
-noarch=yes
+archs="noarch"
 build_style=gnu-configure
 depends="perl"
+checkdepends="perl"
 short_desc="Shell tool for executing jobs in parallel"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-homepage="http://www.gnu.org/software/parallel/"
-license="GPL-3"
-distfiles="${GNU_SITE}/$pkgname/$pkgname-${version}.tar.bz2"
-checksum=e906c271dfa0e973a9ea151fe7caaba742e0f400e86a69687ea6b04ad6bd6bf2
+license="GPL-3.0-or-later"
+homepage="https://www.gnu.org/software/parallel/"
+distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
+checksum=4bdebf91cc39ea54dec384ad475463cb7c2758fda2ae4a30111e7cfdb3c85530
 
 pre_configure() {
 	# no html and pdf doc

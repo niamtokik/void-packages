@@ -1,35 +1,20 @@
-# Template build file 'freetype'.
+# Template file for 'freetype'
 pkgname=freetype
-version=2.9
-revision=2
+version=2.10.1
+revision=3
 build_style=gnu-configure
+configure_args="--enable-freetype-config"
 hostmakedepends="pkg-config"
-makedepends="zlib-devel bzip2-devel libpng-devel"
+makedepends="bzip2-devel libpng-devel"
 short_desc="Font rendering engine and library API"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.freetype.org/"
-license="GPL-2"
-distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.bz2"
-checksum=e6ffba3c8cef93f557d1f767d7bc3dee860ac7a3aaff588a521e081bc36f4c8a
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, FTL"
+homepage="https://www.freetype.org/"
+distfiles="${NONGNU_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
+checksum=16dbfa488a21fe827dc27eaf708f42f7aa3bb997d745d31a19781628c36ba26f
 
-build_options="v35 v38 v40"
-build_options_default="v40"
-desc_option_v35="Use default interpreter version 35 (Classic mode)"
-desc_option_v38="Use default interpreter version 38 (Infinality mode)"
-desc_option_v40="Use default interpreter version 40 (Minimal mode)"
-vopt_conflict v35 v38
-vopt_conflict v35 v40
-vopt_conflict v38 v40
-
-pre_configure() {
-	CFLAGS+=" -DDEFAULT_TT_INTERPRETER_VERSION=TT_INTERPRETER_VERSION_"
-	if [ "$build_option_v35" ]; then
-		CFLAGS+="35"
-	elif [ "$build_option_v38" ]; then
-		CFLAGS+="38"
-	elif [ "$build_option_v40" ]; then
-		CFLAGS+="40"
-	fi
+post_install() {
+	vlicense docs/LICENSE.TXT docs/FTL.TXT
 }
 
 freetype-devel_package() {
@@ -39,8 +24,8 @@ freetype-devel_package() {
 		for f in bin include share; do
 			vmove usr/${f}
 		done
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
 	}
 }

@@ -1,0 +1,27 @@
+# Template file for 'sqlmap'
+pkgname=sqlmap
+version=1.4.4
+revision=1
+archs=noarch
+pycompile_dirs="usr/share/sqlmap"
+depends="python3"
+short_desc="Automatic SQL injection and database takeover tool"
+maintainer="Andrew Benson <abenson+void@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="http://sqlmap.org"
+distfiles="https://github.com/sqlmapproject/sqlmap/archive/${version}.tar.gz"
+checksum=3c3e89163c7506b4c09e8c0ee9227db007a4708f3a69a838e8a6b751379ffc49
+python_version=3
+
+do_install() {
+	vmkdir usr/share/${pkgname}
+	for dir in data extra lib plugins tamper thirdparty sqlmap.py sqlmapapi.py; do
+		vcopy $dir usr/share/${pkgname}
+	done
+
+	vmkdir usr/bin
+	ln -sf /usr/share/${pkgname}/sqlmap.py ${DESTDIR}/usr/bin/
+	ln -sf /usr/share/${pkgname}/sqlmapapi.py ${DESTDIR}/usr/bin/
+
+	vsconf sqlmap.conf
+}

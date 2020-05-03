@@ -1,19 +1,16 @@
 # Template file for 'gnome-characters'
 pkgname=gnome-characters
-version=3.26.2
-revision=1
-lib32disabled=yes
-build_style=gnu-configure
-hostmakedepends="pkg-config intltool itstool glib-devel $(vopt_if gir gobject-introspection)"
-makedepends="gjs-devel gtk+3-devel libunistring-devel glib-devel"
+version=3.34.0
+revision=2
+build_style=meson
+build_helper="gir"
+hostmakedepends="gettext gjs glib-devel itstool pkg-config"
+makedepends="gjs-devel libglib-devel gtk+3-devel libunistring-devel"
+depends="gnome-desktop gjs"
 short_desc="Utility to find and insert unusual characters for GNOME"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="https://wiki.gnome.org/Apps/Characters"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=69d0218b4ce16451bef0e6ee9f9f18f5b7851aa3a758b13315d592b077374f7b
-
-build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default+=" gir"
-fi
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://wiki.gnome.org/Design/Apps/CharacterMap"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=14438572ee2a99305a5d514d83237c01e873a7bb7dfff5478bbb327894ee0a57
+lib32disabled=yes

@@ -1,24 +1,25 @@
 # Template file for 'libkdcraw5'
 pkgname=libkdcraw5
-version=17.12.1
+version=20.04.0
 revision=1
 wrksrc="libkdcraw-${version}"
 build_style=cmake
-hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools"
+hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools
+ gettext"
 makedepends="qt5-devel libraw-devel"
 short_desc="C++ interface around LibRaw library used to decode RAW"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/graphics/"
-distfiles="https://download.kde.org/stable/applications/${version}/src/libkdcraw-${version}.tar.xz"
-checksum=b2afdd51b85e871e08e36639bd51fd86f689126fe7ee587fdeace9728f0e5116
+distfiles="${KDE_SITE}/release-service/${version}/src/libkdcraw-${version}.tar.xz"
+checksum=a8abe962fc739abcc2efeb97472a366c6c3c47b7398e61660e71febe9aedfe5a
 
 libkdcraw5-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 		vmove usr/lib/cmake
 	}
 }

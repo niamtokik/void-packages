@@ -1,15 +1,15 @@
 # Template file for 'gphoto2'
 pkgname=gphoto2
-version=2.5.15
+version=2.5.23
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --disable-rpath udevscriptdir=/usr/lib/udev
  POPT_CFLAGS=-I${XBPS_CROSS_BASE}/usr/include POPT_LIBS=-lpopt"
-hostmakedepends="automake libtool pkg-config gettext-devel"
-makedepends="libgphoto2-devel libjpeg-turbo-devel readline-devel popt-devel"
+hostmakedepends="automake gettext-devel libtool pkg-config"
+makedepends="libgphoto2-devel libjpeg-turbo-devel popt-devel readline-devel"
 short_desc="Digital camera CLI iinterface to libgphoto"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://www.gphoto.org"
-distfiles="${SOURCEFORGE_SITE}/gphoto/$pkgname-$version.tar.bz2"
-checksum=ae571a227983dc9997876702a73af5431d41f287ea0f483cda897c57a6084a77
+distfiles="${SOURCEFORGE_SITE}/gphoto/gphoto2-${version}.tar.bz2"
+checksum=df87092100e7766c9d0a4323217c91908a9c891c0d3670ebf40b76903be458d1

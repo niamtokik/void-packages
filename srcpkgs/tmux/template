@@ -1,15 +1,21 @@
 # Template file for 'tmux'
 pkgname=tmux
-version=2.6
+version=3.1
 revision=1
 build_style=gnu-configure
-makedepends="ncurses-devel libevent-devel"
+hostmakedepends="byacc"
+makedepends="libevent-devel ncurses-devel"
 short_desc="Terminal Multiplexer"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://tmux.github.io"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="ISC"
+homepage="https://tmux.github.io"
+changelog="https://raw.githubusercontent.com/tmux/tmux/master/CHANGES"
 distfiles="https://github.com/tmux/tmux/releases/download/${version}/tmux-${version}.tar.gz"
-checksum=b17cd170a94d7b58c0698752e1f4f263ab6dc47425230df7e53a6435cc7cd7e8
+checksum=979bf38db2c36193de49149aaea5c540d18e01ccc27cf76e2aff5606bd186722
+
+if [ "$XBPS_TARGET_LIBC" = musl ]; then
+	makedepends+=" musl-legacy-compat"
+fi
 
 post_install() {
 	vlicense COPYING

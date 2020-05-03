@@ -1,16 +1,16 @@
 # Template file for 'hunspell-en_US'
 pkgname=hunspell-en_US
-version=2017.08.24
+version=2019.10.06
 revision=1
-maintainer="Leah Neukirchen <leah@vuxu.org>"
-homepage="http://wordlist.aspell.net/dicts"
-license="SCOWL"
-noarch=yes
+archs=noarch
+create_wrksrc=yes
 hostmakedepends="unzip"
 short_desc="American English en_US dictionary for hunspell"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="SCOWL" # not in SPDX
+homepage="http://wordlist.aspell.net/dicts"
 distfiles="${SOURCEFORGE_SITE}/wordlist/speller/${version}/${pkgname}-${version}.zip"
-checksum=c59ae3f0a597358f7c613ada2875a8d8313a5a80496077ab7ed6a030bf1702b1
-create_wrksrc=yes
+checksum=e0f9c8bbc20da9998ea9daaa8b221f4b1bbaba4211e116318a838354cc856ba5
 
 do_install() {
 	sed -i 's/SET UTF8/SET UTF-8/g' en_US.aff

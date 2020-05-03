@@ -7,23 +7,98 @@ The included `xbps-src` script will fetch and compile the sources, and install i
 files into a `fake destdir` to generate XBPS binary packages that can be installed
 or queried through the `xbps-install(1)` and `xbps-query(1)` utilities, respectively.
 
+See [Contributing](https://github.com/void-linux/void-packages/blob/master/CONTRIBUTING.md)
+for a general overview of how to contribute and the
+[Manual](https://github.com/void-linux/void-packages/blob/master/Manual.md)
+for details of how to create source packages.
+
+### Table of Contents
+
+- [Requirements](#requirements)
+- [Quick start](#quick-start)
+- [chroot methods](#chroot-methods)
+- [Install the bootstrap packages](#install-bootstrap)
+- [Configuration](#configuration)
+- [Directory hierarchy](#directory-hierarchy)
+- [Building packages](#building-packages)
+- [Package build options](#build-options)
+- [Sharing and signing your local repositories](#sharing-and-signing)
+- [Rebuilding and overwriting existing local packages](#rebuilding)
+- [Enabling distcc for distributed compilation](#distcc)
+- [Distfiles mirrors](#distfiles-mirrors)
+- [Cross compiling packages for a target architecture](#cross-compiling)
+- [Using xbps-src in a foreign Linux distribution](#foreign)
+- [Remaking the masterdir](#remaking-masterdir)
+- [Keeping your masterdir uptodate](#updating-masterdir)
+- [Building 32bit packages on x86_64](#building-32bit)
+- [Building packages natively for the musl C library](#building-for-musl)
+- [Building void base-system from scratch](#building-base-system)
+
 ### Requirements
 
 - GNU bash
-- xbps >= 0.46
+- xbps >= 0.56
+- curl(1) - required by `xbps-src update-check`
+- flock(1) - util-linux
+- bsdtar or GNU tar (in that order of preference)
+- install(1) - GNU coreutils
+- objcopy(1), objdump(1), strip(1): binutils
+- other common POSIX utilities included by default in almost all UNIX systems.
 
-`xbps-src` requires an utility to chroot and bind mount existing directories
+`xbps-src` requires a utility to chroot and bind mount existing directories
 into a `masterdir` that is used as its main `chroot` directory. `xbps-src` supports
 multiple utilities to accomplish this task:
 
+ - `bwrap` - bubblewrap, see https://github.com/projectatomic/bubblewrap.
+ - `ethereal` - only useful for one-shot containers, i.e docker (used with travis).
  - `xbps-uunshare(1)` - XBPS utility that uses `user_namespaces(7)` (part of xbps, default).
  - `xbps-uchroot(1)` - XBPS utility that uses `namespaces` and must be `setgid` (part of xbps).
  - `proot(1)` - utility that implements chroot/bind mounts in user space, see https://proot-me.github.io/.
 
-> NOTE: you don't need to be `root` to use `xbps-src`, use your preferred chroot style as explained
-below.
+> NOTE: `xbps-src` does not allow building as root anymore. Use one of the chroot
+methods shown above.
 
-#### xbps-uunshare(1)
+<a name="quick-start"></a>
+### Quick start
+
+Clone the `void-packages` git repository and install the bootstrap packages:
+
+```
+$ git clone git://github.com/void-linux/void-packages.git
+$ cd void-packages
+$ ./xbps-src binary-bootstrap
+```
+
+Build a package by specifying the `pkg` target and the package name:
+
+```
+$ ./xbps-src pkg <package_name>
+```
+
+Use `./xbps-src -h` to list all available targets and options.
+
+To build packages marked as 'restricted', modify `etc/conf`:
+
+```
+$ echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf
+```
+
+Once built, the package will be available in `hostdir/binpkgs` or an appropriate subdirectory (e.g. `hostdir/binpkgs/nonfree`). To install the package:
+
+```
+# xbps-install --repository hostdir/binpkgs <package_name>
+```
+
+Alternatively, packages can be installed with the `xi` utility, from the `xtools` package. `xi` takes the repository of the current working directory into account.
+
+```
+# xi <package_name>
+```
+
+<a name="chroot-methods"></a>
+### chroot methods
+
+#### xbps-uunshare(1) (default)
 
 This utility requires these Linux kernel options:
 
@@ -74,23 +149,7 @@ To enable it:
     $ cd void-packages
     $ echo XBPS_CHROOT_CMD=proot >> etc/conf
 
-### Quick setup in Void
-
-Clone the `void-packages` git repository, install the bootstrap packages:
-
-```
-$ git clone git://github.com/voidlinux/void-packages.git
-$ cd void-packages
-$ ./xbps-src binary-bootstrap
-```
-
-Type:
-
-     $ ./xbps-src -h
-
-to see all available targets/options and start building any available package
-in the `srcpkgs` directory.
-
+<a name="install-bootstrap"></a>
 ### Install the bootstrap packages
 
 The `bootstrap` packages are a set of packages required to build any available source package in a container. There are two methods to install the `bootstrap`:
@@ -126,6 +185,7 @@ used as dependencies in the source packages tree.
 If you want to customize those replacements, copy `etc/defaults.virtual` to `etc/virtual`
 and edit it accordingly to your needs.
 
+<a name="directory-hierarchy"></a>
 ### Directory hierarchy
 
 The following directory hierarchy is used with a default configuration file:
@@ -139,7 +199,7 @@ The following directory hierarchy is used with a default configuration file:
             |
             |- hostdir
             |  |- binpkgs ...
-            |  |- ccache-<arch> ...
+            |  |- ccache ...
             |  |- distcc-<arch> ...
             |  |- repocache ...
             |  |- sources ...
@@ -162,6 +222,7 @@ The description of these directories is as follows:
  - `hostdir/sources`: to store package sources.
  - `hostdir/binpkgs`: local repository to store generated binary packages.
 
+<a name="building-packages"></a>
 ### Building packages
 
 The simplest form of building package is accomplished by running the `pkg` target in `xbps-src`:
@@ -172,7 +233,7 @@ $ ./xbps-src pkg <pkgname>
 ```
 
 When the package and its required dependencies are built, the binary packages will be created
-and registered in the default local repository at `hostdir/binpkgs`; the path to this local repository can be added to 
+and registered in the default local repository at `hostdir/binpkgs`; the path to this local repository can be added to
 any xbps configuration file (see xbps.d(5)) or by explicitly appending them via cmdline, i.e:
 
     $ xbps-install --repository=hostdir/binpkgs ...
@@ -180,14 +241,15 @@ any xbps configuration file (see xbps.d(5)) or by explicitly appending them via 
 
 By default **xbps-src** will try to resolve package dependencies in this order:
 
- - If dependency exists in the local repository, use it (`hostdir/binpkgs`).
- - If dependency exists in a remote repository, use it.
- - If dependency exists in a source package, use it.
+ - If a dependency exists in the local repository, use it (`hostdir/binpkgs`).
+ - If a dependency exists in a remote repository, use it.
+ - If a dependency exists in a source package, use it.
 
 It is possible to avoid using remote repositories completely by using the `-N` flag.
 
 > The default local repository may contain multiple *sub-repositories*: `debug`, `multilib`, etc.
 
+<a name="build-options"></a>
 ### Package build options
 
 The supported build options for a source package can be shown with `xbps-src show-options`:
@@ -227,6 +289,7 @@ i.e `XBPS_PKG_OPTIONS_xorg_server=opt`.
 The list of supported package build options and its description is defined in the
 `common/options.description` file or in the `template` file.
 
+<a name="sharing-and-signing"></a>
 ### Sharing and signing your local repositories
 
 To share a local repository remotely it's mandatory to sign it and the binary packages
@@ -238,7 +301,7 @@ First a RSA key must be created with `openssl(1)` or `ssh-keygen(1)`:
 
 or
 
-	$ ssh-keygen -t rsa -b 4096 -f privkey.pem
+	$ ssh-keygen -t rsa -b 4096 -m PEM -f privkey.pem
 
 > Only RSA keys in PEM format are currently accepted by xbps.
 
@@ -264,6 +327,7 @@ Each time a binary package is created, a package signature must be created with 
 
 > It is not possible to sign a repository with multiple RSA keys.
 
+<a name="rebuilding"></a>
 ### Rebuilding and overwriting existing local packages
 
 If for whatever reason a package has been built and it is available in your local repository
@@ -279,6 +343,7 @@ Reinstalling this package in your target `rootdir` can be easily done too:
 > Please note that the `package expression` must be properly defined to explicitly pick up
 the package from the desired repository.
 
+<a name="distcc"></a>
 ### Enabling distcc for distributed compilation
 
 Setup the slaves (machines that will compile the code):
@@ -309,6 +374,7 @@ The slave 192.168.2.101 has a CPU with 8 cores and the /9 for the number of jobs
 The slave 192.168.2.102 is set to run at most 2 compile jobs to keep its load low, even if its CPU has 4 cores.
 The XBPS_MAKEJOBS setting is increased to 16 to account for the possible parallelism (2 + 9 + 2 + some slack).
 
+<a name="distfiles-mirrors"></a>
 ### Distfiles mirror(s)
 
 In etc/conf you may optionally define a mirror or a list of mirrors to search for distfiles.
@@ -333,6 +399,7 @@ using the `file://` prefix or simply an absolute path on your build host (e.g. /
 Mirror locations specified this way are bind mounted inside the chroot environment
 under $XBPS_MASTERDIR and searched for distfiles just the same as remote locations.
 
+<a name="cross-compiling"></a>
 ### Cross compiling packages for a target architecture
 
 Currently `xbps-src` can cross build packages for some target architectures with a cross compiler.
@@ -344,13 +411,14 @@ If a source package has been adapted to be **cross buildable** `xbps-src` will a
 
 If the build for whatever reason fails, might be a new build issue or simply because it hasn't been adapted to be **cross compiled**.
 
+<a name="foreign"></a>
 ### Using xbps-src in a foreign Linux distribution
 
 xbps-src can be used in any recent Linux distribution matching the CPU architecture.
 
 To use xbps-src in your Linux distribution use the following instructions. Let's start downloading the xbps static binaries:
 
-    $ wget http://repo.voidlinux.eu/static/xbps-static-latest.<arch>-musl.tar.xz
+    $ wget http://alpha.de.repo.voidlinux.org/static/xbps-static-latest.<arch>-musl.tar.xz
     $ mkdir ~/XBPS
     $ tar xvf xbps-static-latest.<arch>.tar.xz -C ~/XBPS
     $ export PATH=~/XBPS/usr/bin:$PATH
@@ -363,7 +431,7 @@ If your system does not support `user namespaces`, a privileged group is require
 
 Clone the `void-packages` git repository:
 
-    $ git clone git://github.com/voidlinux/void-packages
+    $ git clone git://github.com/void-linux/void-packages
 
 and `xbps-src` should be fully functional; just start the `bootstrap` process, i.e:
 
@@ -371,7 +439,7 @@ and `xbps-src` should be fully functional; just start the `bootstrap` process, i
 
 The default masterdir is created in the current working directory, i.e `void-packages/masterdir`.
 
-
+<a name="remaking-masterdir"></a>
 ### Remaking the masterdir
 
 If for some reason you must update xbps-src and the `bootstrap-update` target is not enough, it's possible to recreate a masterdir with two simple commands (please note that `zap` keeps your `ccache/distcc/host` directories intact):
@@ -379,12 +447,14 @@ If for some reason you must update xbps-src and the `bootstrap-update` target is
     $ ./xbps-src zap
     $ ./xbps-src binary-bootstrap
 
+<a name="updating-masterdir"></a>
 ### Keeping your masterdir uptodate
 
 Sometimes the bootstrap packages must be updated to the latest available version in repositories, this is accomplished with the `bootstrap-update` target:
 
     $ ./xbps-src bootstrap-update
 
+<a name="building-32bit"></a>
 ### Building 32bit packages on x86_64
 
 Two ways are available to build 32bit packages on x86\_64:
@@ -401,6 +471,7 @@ The second mode (native) needs a new x86 `masterdir`:
     $ ./xbps-src -m masterdir-x86 binary-bootstrap i686
     $ ./xbps-src -m masterdir-x86 ...
 
+<a name="building-for-musl"></a>
 ### Building packages natively for the musl C library
 
 A native build environment is required to be able to cross compile the bootstrap packages for the musl C library; this is accomplished by installing them via `binary-bootstrap`:
@@ -415,13 +486,14 @@ Wait until all packages are built and when ready, prepare a new masterdir with t
 
     $ ./xbps-src -m masterdir-x86_64-musl binary-bootstrap x86_64-musl
 
-Your new masterdir is now ready to build natively packages for the musl C library. Try:
+Your new masterdir is now ready to build packages natively for the musl C library. Try:
 
     $ ./xbps-src -m masterdir-x86_64-musl chroot
     $ ldd
 
 To see if the musl C dynamic linker is working as expected.
 
+<a name="building-base-system"></a>
 ### Building void base-system from scratch
 
 To rebuild all packages in `base-system` for your native architecture:
@@ -437,39 +509,3 @@ Once the build has finished, you can specify the path to the local repository to
     # cd void-mklive
     # make
     # ./mklive.sh ... -r /path/to/hostdir/binpkgs
-
-### Breaking out of a dependency loop
-
-The package gtk+3 can not be built using *-N* with its default options because
-there is a dependency loop: colord depends on gtk+3 and gtk+3 depends on colord.
-
-The following steps are required to build a temporary gtk+3 without colord and
-later on rebuild gtk+3 with colord enabled, once all dependencies are available:
-
-    $ ./xbps-src -N pkg gtk+3
-
-Break this build with Ctrl+C once you see vala, colord, gtk+3 being looped over.
-
-    $ ./xbps-src -o ~gir,~colord -N pkg gtk+3
-
-Now you have a gtk+3 without colord registered and can build the other dependencies.
-
-    $ ./xbps-src -N pkg gtk+3
-
-Here gtk+3 will not be updated because the package already exists. In the
-next step we force a re-registration of gtk+3 with colord enabled.
-
-    $ ./xbps-src -f pkg gtk+3
-
-Be careful with -f (force) building packages, if your repository contains
-multiple architectures. Force registering noarch packages will break them
-for architectures which already had them registered in their repodata file.
-
-Now you can continue to build packages and their dependencies with *-N*.
-
-### Contributing
-
-See [Contributing](https://github.com/voidlinux/xbps-packages/blob/master/CONTRIBUTING.md)
-for a general overview of how to contribute and the
-[Manual](https://github.com/voidlinux/xbps-packages/blob/master/Manual.md)
-for details of how to create source packages.

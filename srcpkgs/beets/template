@@ -1,19 +1,19 @@
 # Template file for 'beets'
 pkgname=beets
-version=1.4.6
-revision=1
-noarch=yes
-build_style=python2-module
-hostmakedepends="python-setuptools"
-depends="mutagen python-enum34 python-munkres python-musicbrainzngs python-Unidecode
- python-yaml python-jellyfish python-setuptools python-six"
+version=1.4.9
+revision=2
+archs=noarch
+build_style=python3-module
 pycompile_module="beets beetsplug"
+hostmakedepends="python3-setuptools"
+depends="python3-setuptools python3-munkres python3-musicbrainzngs
+ python3-Unidecode python3-yaml python3-jellyfish python3-six python3-mutagen"
 short_desc="Media library management system for obsessive-compulsive music geeks"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://beets.radbox.org/"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
+homepage="http://beets.radbox.org/"
 distfiles="${PYPI_SITE}/b/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=62079b2338799a64e7816096c5fae3b8909fb139e4d481ec3255336e67765b50
+checksum=d29b432cab0c80947b5229f548762948c4dd4a430e5d02760bfeb95da3cc8054
 
 post_install() {
 	vman man/beet.1

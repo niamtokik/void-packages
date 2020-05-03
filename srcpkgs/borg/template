@@ -1,33 +1,32 @@
 # Template file for 'borg'
 pkgname=borg
-version=1.1.4
-revision=4
+version=1.1.11
+revision=1
 wrksrc="borgbackup-${version}"
 build_style=python3-module
-hostmakedepends="python3-setuptools python3-devel libressl-devel python3-Sphinx"
-makedepends="${hostmakedepends/python3-setuptools/} acl-devel lz4-devel"
-depends="python3-llfuse python3-msgpack python3-setuptools"
-pycompile_module="borg"
+hostmakedepends="python3-setuptools python3-devel libressl-devel"
+makedepends="${hostmakedepends/python3-setuptools/} acl-devel liblz4-devel libzstd-devel"
+depends="python3-llfuse python3-setuptools"
 short_desc="Deduplicating backup program with compression and encryption"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="3-clause-BSD"
+license="BSD-3-Clause"
 homepage="https://borgbackup.github.io/"
-_changelog="https://borgbackup.readthedocs.io/en/stable/changes.html#changelog"
+changelog="https://borgbackup.readthedocs.io/en/stable/changes.html#changelog"
 distfiles="${PYPI_SITE}/b/borgbackup/borgbackup-${version}.tar.gz"
-checksum=22a4a53840886180e87de5636356f29e491209365861007c31d7f18220c72cb2
+checksum=36090992ba795a5a5091fcd407b67be9bf26d0e88020892d31d7ac81fa970fa4
 
-export BORG_LZ4_PREFIX="${XBPS_CROSS_BASE}/usr"
 export BORG_OPENSSL_PREFIX="${XBPS_CROSS_BASE}/usr"
+export BORG_LIBLZ4_PREFIX="${XBPS_CROSS_BASE}/usr"
+export BORG_LIBZSTD_PREFIX="${XBPS_CROSS_BASE}/usr"
 
 pre_build() {
-	sed -i '/guzzle/d' docs/conf.py
-	# python-msgpack had a name transition from python-msgpack to msgpack
-	# adapt.
-	sed -i 's|msgpack-python|msgpack|g' setup.py
+	vsed -i setup.py \
+		-e '/setup_requires=/d' \
+		-e '/use_scm_version=/,+2d' \
+		-e "/name=/ a\
+		version='${version}',"
 }
-post_build() {
-	PYTHONPATH=.. make -C docs man SPHINXBUILD=sphinx-build3
-}
+
 post_install() {
 	vlicense LICENSE
 
@@ -37,7 +36,6 @@ post_install() {
 
 	cd scripts/shell_completions
 	vinstall bash/${pkgname} 644 usr/share/bash-completion/completions ${pkgname}
-	vinstall fish/${pkgname}.fish 644 usr/share/fish/completions ${pkgname}.fish
+	vinstall fish/${pkgname}.fish 644 usr/share/fish/vendor_completions.d
 	vinstall zsh/_${pkgname} 644 usr/share/zsh/site-functions _${pkgname}
-	cd ../..
 }

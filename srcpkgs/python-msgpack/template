@@ -1,21 +1,25 @@
 # Template file for 'python-msgpack'
 pkgname=python-msgpack
-version=0.5.1
-revision=1
-wrksrc="msgpack-$version"
+version=1.0.0
+revision=2
+wrksrc="msgpack-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
-pycompile_module="msgpack"
+checkdepends="python-pytest python3-pytest"
 short_desc="Python module for Msgpack serializer (Python2)"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
-homepage="https://github.com/msgpack/msgpack-python"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
+homepage="https://msgpack.org/"
 distfiles="${PYPI_SITE}/m/msgpack/msgpack-${version}.tar.gz"
-checksum=f5ebef2049f25da6d7ea53c3f95b4ba175ea9d96fadb60add80fc501a522bcc9
+checksum=9534d5cc480d4aff720233411a1f765be90885750b07df772380b34c10ecb5c0
+
+do_check() {
+	PYTHONPATH=$(pwd)/build-$py2_ver/lib python2 -m pytest
+	PYTHONPATH=$(pwd)/build-$py3_ver/lib python3 -m pytest
+}
 
 python3-msgpack_package() {
-	pycompile_module="msgpack"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*

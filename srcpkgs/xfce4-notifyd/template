@@ -1,19 +1,19 @@
 # Template file for 'xfce4-notifyd'
 pkgname=xfce4-notifyd
-version=0.3.6
+version=0.6.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config intltool glib-devel dbus-glib-devel"
-makedepends="libnotify-devel libxfce4ui-devel"
+makedepends="libnotify-devel xfce4-panel-devel"
 depends="hicolor-icon-theme desktop-file-utils"
+short_desc="Simple, visually-appealing notification daemon for Xfce"
+maintainer="Frank Steinborn <steinex@nognu.de>"
+license="GPL-2.0-or-later"
+homepage="https://goodies.xfce.org/projects/applications/xfce4-notifyd"
+distfiles="https://archive.xfce.org/src/apps/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
+checksum=c1d126a81604ff967e4655f06427763bf559c338ba629c95cb9aa7f5d6dc8ba6
 provides="notification-daemon-${version}_${revision}"
 replaces="notification-daemon>=0"
-short_desc="Simple, visually-appealing notification daemon for Xfce"
-homepage="http://goodies.xfce.org/projects/applications/xfce4-notifyd"
-license="GPL-2"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-distfiles="http://archive.xfce.org/src/apps/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=f4ca7c0dadd3d4cdf8cd3c8ae60ccea77b8cf409f8517161796364eb1d766cf9
 
 post_install() {
 	rm -rf ${DESTDIR}/usr/lib/systemd

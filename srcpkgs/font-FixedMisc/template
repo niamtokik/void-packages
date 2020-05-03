@@ -1,18 +1,19 @@
 # Template file for 'font-FixedMisc'
 pkgname=font-FixedMisc
-version=20151206
-revision=3
-wrksrc="FixedMisc"
+version=20200214
+revision=1
+archs=noarch
+wrksrc=FixedMisc
 hostmakedepends="bdftopcf"
-depends="font-util"
-noarch="yes"
-font_dirs="/usr/share/fonts/X11/misc"
+depends="font-util xbps-triggers"
 short_desc="MirOS FixedMisc font (9x18)"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="Public Domain"
 homepage="https://www.mirbsd.org/cvs.cgi/contrib/fonts/fixed/"
 distfiles="https://www.mirbsd.org/MirOS/dist/mir/Foundry/FixedMisc-${version}.tgz"
-checksum=fc042421281d4c143f7dc1d0e3c31daa8f1475f4eec582b311903f9de8bed051
+checksum=92cd16d302741be9314014960f2c57866b7e31f720b47df8efebfec7c6c35319
+
+font_dirs="/usr/share/fonts/X11/misc"
 
 do_install() {
 	vmkdir usr/share/fonts/X11/misc

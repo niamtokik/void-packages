@@ -1,19 +1,19 @@
 # Template file for 'iverilog'
 pkgname=iverilog
-version=10.1
-revision=2
+version=10.3
+revision=1
 wrksrc="${pkgname}-${version/./_}"
 build_style=gnu-configure
 hostmakedepends="automake flex gperf"
-makedepends="readline-devel"
+makedepends="readline-devel zlib-devel"
 short_desc="Verilog simulation and synthesis tool"
-maintainer="Michael Gehring <mg@ebfe.org>"
-license="GPL-2, LGPL-2.1"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="http://iverilog.icarus.com/"
 distfiles="https://github.com/steveicarus/iverilog/archive/v${version/./_}.tar.gz"
-checksum=f4ff7990ae9ed87fad0b486586b03f6902de0dfb9de5ecb07ef32c20487c7dc6
+checksum=4b884261645a73b37467242d6ae69264fdde2e7c4c15b245d902531efaaeb234
 
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+nocross="draw_tt.exe: cannot execute binary file: Exec format error"
 
 CXXFLAGS='-Wimplicit-fallthrough=0'
 

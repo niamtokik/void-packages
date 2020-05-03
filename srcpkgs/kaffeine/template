@@ -1,19 +1,24 @@
 # Template file for 'kaffeine'
 pkgname=kaffeine
-version=2.0.13
-revision=1
+version=2.0.18
+revision=2
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules pkg-config"
-makedepends="kidletime-devel kio-devel vlc-devel
+hostmakedepends="extra-cmake-modules pkg-config kcoreaddons"
+makedepends="kidletime-devel kio-devel ksolid-devel vlc-devel
  qt5-plugin-mysql qt5-plugin-odbc qt5-plugin-pgsql
- qt5-plugin-sqlite qt5-plugin-tds"
-maintainer="cr6git <quark6@protonmail.com>"
+ qt5-plugin-sqlite qt5-plugin-tds
+ $(vopt_if dvb 'v4l-utils-devel eudev-libudev-devel')"
 short_desc="KDE media player"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://www.kde.org/applications/multimedia/kaffeine/"
-license="GPL-2"
-distfiles="https://download.kde.org/stable/kaffeine/kaffeine-${version}.tar.xz"
-checksum=1ac52ac811a9c9e88fcd466a7df13860fcd749cd125e7d533f589e6a6ee176fd
+distfiles="${KDE_SITE}/kaffeine/kaffeine-${version}.tar.xz"
+checksum=d9799a5b7b94a55963f94938b36b8fcb1be3e753b2be110989934ab15386b681
+
+build_options="dvb"
+build_options_default="dvb"
+desc_option_dvb="Enable DVB Support"
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kdoctools python qt5-host-tools qt5-qmake"

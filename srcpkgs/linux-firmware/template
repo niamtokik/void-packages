@@ -1,17 +1,16 @@
 # Template file for 'linux-firmware'
 pkgname=linux-firmware
-version=20180120
+version=20200421
 revision=1
-_githash=2a713be25a44bd6cec90d8affc54b246a2ca9c7b
-noarch=yes
-short_desc="Binary firmware blobs for the Linux kernel"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://www.kernel.org/"
-license="See /usr/share/licenses/${pkgname}"
+archs=noarch
 depends="${pkgname}-amd-${version}_${revision} ${pkgname}-network-${version}_${revision}"
-distfiles="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/${pkgname}-${_githash}.tar.gz"
-checksum=3707fa3023f8c134c10b67041ed0126ec62a011a3eec43aa8dd73ece21955e63
-wrksrc="${pkgname}-${_githash}"
+short_desc="Binary firmware blobs for the Linux kernel"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="See /usr/share/licenses/${pkgname}"
+homepage="https://www.kernel.org/"
+distfiles="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/${pkgname}-${version}.tar.gz"
+checksum=556fecb36ee3b956a81c2cf03ce5fb4c9c6a2e39072594812481e65a12fff7bc
+python_version=3
 
 do_install() {
 	vmkdir usr/lib/firmware
@@ -24,7 +23,7 @@ do_install() {
 
 linux-firmware-amd_package() {
 	short_desc+=" - AMD CPU/GPU microcode"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmove usr/lib/firmware/amd*
 		vmove usr/lib/firmware/radeon
@@ -36,7 +35,7 @@ linux-firmware-amd_package() {
 
 linux-firmware-intel_package() {
 	short_desc+=" - Intel CPU/GPU microcode"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmove usr/lib/firmware/i915
 		vmove usr/share/licenses/linux-firmware/LICENSE.i915
@@ -45,7 +44,7 @@ linux-firmware-intel_package() {
 
 linux-firmware-nvidia_package() {
 	short_desc+=" NVIDIA GPU microcode"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmove usr/lib/firmware/nvidia
 		vmove usr/share/licenses/linux-firmware/LICENCE.nvidia*
@@ -54,7 +53,7 @@ linux-firmware-nvidia_package() {
 
 linux-firmware-network_package() {
 	short_desc+=" - network"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmove usr/lib/firmware/3com
 		vmove usr/lib/firmware/RTL8192E
@@ -70,7 +69,9 @@ linux-firmware-network_package() {
 		vmove usr/lib/firmware/kaweth
 		vmove usr/lib/firmware/libertas
 		vmove usr/lib/firmware/mrvl
+		vmove "usr/lib/firmware/mt*.bin"
 		vmove usr/lib/firmware/ueagle-atm
 		vmove usr/lib/firmware/ti-connectivity
+		vmove usr/lib/firmware/dpaa2
 	}
 }

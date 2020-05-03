@@ -1,7 +1,8 @@
 # Template file for 'gradio'
 pkgname=gradio
-version=7.0
+version=7.2
 revision=1
+wrksrc="Gradio-${version}"
 build_style=meson
 hostmakedepends="automake intltool itstool yelp-tools glib-devel
  pkg-config gettext gettext-devel vala"
@@ -12,7 +13,7 @@ depends="desktop-file-utils gst-plugins-bad1 gst-plugins-good1
  gst-plugins-ugly1"
 short_desc="GTK3 app for finding and listening to internet radio stations"
 maintainer="Logen Kain <logen@sudotask.com>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://github.com/haecker-felix/gradio"
 distfiles="https://github.com/haecker-felix/${pkgname}/archive/v${version}.tar.gz"
-checksum=d5cee5749491b2fcad893f1856d6f8ff90345c35e51f5ae2692c14f3de6decef
+checksum=5a85d7d4afb1424e46c935114b268e4a65de2629d60f48eccd75d67ff4b113d2

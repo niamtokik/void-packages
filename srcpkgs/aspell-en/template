@@ -1,21 +1,21 @@
 # Template file for 'aspell-en'
 pkgname=aspell-en
-version=2017.08.24
+version=2019.10.06
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="aspell6-en-${version}-0"
 build_style=configure
-hostmakedepends="aspell-devel"
+hostmakedepends="aspell-devel which"
 short_desc="English dictionary for aspell"
-homepage="http://aspell.net/"
-license="LGPL-2.1"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="LGPL-2.1-or-later"
+homepage="http://aspell.net/"
 distfiles="${GNU_SITE}/aspell/dict/en/aspell6-en-${version}-0.tar.bz2"
-checksum=09b562b02195e7facd31d65241050be7ac6f78654128ab41650511bf42dd5b7c
+checksum=24334b4daac6890a679084f4089e1ce7edbe33c442ace776fa693d8e334f51fd
 
 words-en_package() {
 	short_desc="English dictionary word list"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmkdir usr/share/dict
 		precat en-common.cwl en_US-wo_accents-only.cwl |
@@ -29,4 +29,3 @@ words-en_package() {
 		ln -s american-english ${PKGDESTDIR}/usr/share/dict/words
 	}
 }
-

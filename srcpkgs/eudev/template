@@ -1,26 +1,28 @@
 # Template file for 'eudev'
 
-_UDEV_VERSION="220" # compatible udev version provided
+_UDEV_VERSION="243" # compatible udev version provided
 
 pkgname=eudev
-version=3.2.5
+version=3.2.9
 revision=1
-conf_files="/etc/udev/udev.conf"
 build_style=gnu-configure
 configure_args="--enable-hwdb --enable-manpages --disable-introspection"
 hostmakedepends="automake libtool pkg-config gperf libxslt docbook-xsl"
 makedepends="libblkid-devel libkmod-devel"
 short_desc="Gentoo's fork of systemd-udev (enhanced userland device daemon)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/gentoo/eudev"
-distfiles="http://dev.gentoo.org/~blueness/eudev/eudev-${version}.tar.gz"
-checksum=49c2d04105cad2526302627e040fa24b1916a9a3e059539bc8bb919b973890af
+distfiles="https://github.com/gentoo/eudev/archive/v${version}.tar.gz"
+checksum=7d281276b480da3935d1acb239748c2c9db01a8043aad7e918ce57a223d8cd24
+conf_files="/etc/udev/udev.conf"
 
 pre_configure() {
 	autoreconf -fi
 }
+
 post_install() {
+	mv "${DESTDIR}/etc/udev/hwdb.d" "${DESTDIR}/usr/lib/udev"
 	vsv udevd
 }
 
@@ -36,6 +38,7 @@ eudev-libudev-devel_package() {
 		vmove usr/share/pkgconfig
 	}
 }
+
 eudev-libudev_package() {
 	provides="libudev-${_UDEV_VERSION}_${revision}"
 	short_desc+=" - runtime library"

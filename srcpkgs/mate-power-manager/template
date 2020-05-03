@@ -1,22 +1,17 @@
 # Template file for 'mate-power-manager'
 pkgname=mate-power-manager
-version=1.18.1
+version=1.24.1
 revision=1
 build_style=gnu-configure
-configure_args="--sbindir=/usr/bin --disable-schemas-compile"
+configure_args="--disable-schemas-compile"
 hostmakedepends="pkg-config intltool itstool libtool glib-devel dbus-glib-devel
- mate-common mate-desktop-devel"
-makedepends="gtk+3-devel dbus-glib-devel libnotify-devel libunique-devel
- upower0-devel libcanberra-devel libgnome-keyring-devel libmate-panel-devel
- mate-desktop-devel"
-depends="dconf upower0"
+ polkit"
+makedepends="libcanberra-devel libgnome-keyring-devel libmate-panel-devel
+ libnotify-devel upower-devel"
+depends="dconf upower"
 short_desc="Power management tool for the MATE desktop"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://mate-desktop.org"
-distfiles="http://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=25dbd47c063d9aa2ed4be6401f6650aec11e0baa6bdd5dbb12cbb6952461cbeb
-
-pre_configure() {
-	NOCONFIGURE=1 ./autogen.sh
-}
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://mate-desktop.org"
+distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=0a08795a67cd7f523487ab0e9fb3b2bcf4f514f01a231c10248d68583a20598d

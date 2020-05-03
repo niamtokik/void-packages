@@ -1,8 +1,8 @@
 # Template file for 'python3-minidb'
 pkgname=python3-minidb
 version=2.0.2
-revision=2
-noarch=yes
+revision=3
+archs=noarch
 wrksrc="minidb-${version}"
 build_style=python3-module
 pycompile_module="minidb.py"

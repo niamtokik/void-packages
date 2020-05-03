@@ -1,25 +1,28 @@
 # Template file for 'libdbusmenu-glib'
 pkgname=libdbusmenu-glib
 version=16.04.0
-revision=1
+revision=4
 wrksrc="libdbusmenu-${version}"
 build_style=gnu-configure
+build_helper="gir"
 configure_args="--disable-dumper --disable-static --disable-tests
  $(vopt_enable gir vala) $(vopt_enable gir introspection) HAVE_VALGRIND_FALSE=''"
 hostmakedepends="automake gettext-devel glib-devel intltool libtool pkg-config
  $(vopt_if gir 'gobject-introspection vala-devel')"
-makedepends="libglib-devel gtk+3-devel gnome-doc-utils"
+makedepends="gtk+3-devel"
 short_desc="Library for passing menus over DBus"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="GPL-3, LGPL-2.1, LGPL-3"
 homepage="https://launchpad.net/libdbusmenu"
 distfiles="${homepage}/${version%.*}/${version}/+download/libdbusmenu-${version}.tar.gz"
 checksum=b9cc4a2acd74509435892823607d966d424bd9ad5d0b00938f27240a1bfa878a
+python_version=2 #unverified
 
 build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
+build_options_default="gir"
+
+# Avoid errors for macros deprecated since glib-2.58 */
+CFLAGS="-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_56"
 
 pre_configure() {
 	autoreconf -fi
@@ -51,7 +54,8 @@ libdbusmenu-gtk3_package() {
 }
 
 libdbusmenu-gtk3-devel_package() {
-	depends="gtk+3-devel libdbusmenu-gtk3>=${version}_${revision}"
+	depends="gtk+3-devel gdk-pixbuf-devel libdbusmenu-gtk3>=${version}_${revision}
+	 libdbusmenu-glib-devel"
 	short_desc+=" (GTK+3) - development files"
 	pkg_install() {
 		vmove usr/include/libdbusmenu-gtk3-*

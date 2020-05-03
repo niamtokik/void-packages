@@ -1,33 +1,34 @@
 # Template file for 'gcr'
 pkgname=gcr
-version=3.20.0
+version=3.36.0
 revision=1
-build_style=gnu-configure
-configure_args="$(vopt_enable gir introspection) --disable-update-mime
- --disable-update-icon-cache --disable-schemas-compile"
-hostmakedepends="automake libtool pkg-config intltool gnome-doc-utils
- libtasn1-tools gettext-devel gnupg perl-XML-Parser glib-devel
- libgcrypt-devel gobject-introspection vala-devel"
-makedepends="gtk+3-devel p11-kit-devel libgcrypt-devel"
-depends="hicolor-icon-theme desktop-file-utils"
+build_style=meson
+build_helper="gir"
+hostmakedepends="gettext glib-devel gnupg2 gtk-doc intltool pkg-config
+ libxslt $(vopt_if vala vala)"
+makedepends="gtk+3-devel libgcrypt-devel p11-kit-devel libxslt-devel
+ $(vopt_if vala vala)"
+depends="desktop-file-utils hicolor-icon-theme gnupg2"
 short_desc="GNOME crypto package"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2, LGPL-2.1"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later, GPL-2.0-or-later"
 homepage="http://www.gnome.org"
 distfiles="${GNOME_SITE}/gcr/${version%.*}/gcr-${version}.tar.xz"
-checksum=90572c626d8a708225560c42b4421f7941315247fa1679d4ef569bde7f4bb379
+checksum=aaf9bed017a2263c6145c89a1a84178f9f40f238426463e4ae486694ef5f6601
 
-# Package build options
-build_options="gir"
-
-# Disable gir for cross builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
+if [ "$CROSS_BUILD" ]; then
+	configure_args="-Dgtk_doc=false"
 fi
 
-pre_configure() {
-	autoreconf -fi
+# Package build options
+build_options="gir vala"
+build_options_default="gir vala"
+
+do_check() {
+	# requires X11 server
+	:
 }
+
 post_install() {
 	vinstall ${FILESDIR}/10-gcr-memlock.conf 644 etc/security/limits.d
 }
@@ -39,9 +40,13 @@ gcr-devel_package() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"
-		vmove usr/share/gtk-doc
+		if [ -z "$CROSS_BUILD" ]; then
+			vmove usr/share/gtk-doc
+		fi
 		if [ "$build_option_gir" ]; then
 			vmove usr/share/gir-1.0
+		fi
+		if [ "$build_option_vala" ]; then
 			vmove usr/share/vala
 		fi
 	}

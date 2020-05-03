@@ -1,15 +1,32 @@
 # Template file for 'meson'
 pkgname=meson
-version=0.44.0
+version=0.54.1
 revision=1
-noarch=yes
+archs=noarch
 build_style=python3-module
-pycompile_module="mesonbuild"
-hostmakedepends="python3-devel"
-depends="python3 ninja"
+hostmakedepends="python3-devel python3-setuptools"
+depends="ninja python3-setuptools"
+checkdepends="glib-devel gobject-introspection libsanitizer-devel ninja
+ pkg-config vala python-devel"
 short_desc="Super fast build system"
+maintainer="John <johnz@posteo.net>"
 license="Apache-2.0"
-maintainer="Dylan Katz <muddmaker.97@gmail.com>"
-homepage="http://mesonbuild.com"
-distfiles="https://github.com/mesonbuild/meson/archive/${version}.tar.gz"
-checksum=5cdbc68c63b5b4a8ee862ab3b6393a2633487ebc9b3e1c3da1091b9c912d1d95
+homepage="https://mesonbuild.com"
+changelog="https://github.com/mesonbuild/$pkgname/blob/master/docs/markdown/Release-notes-for-${version%.*}.0.md"
+distfiles="https://github.com/mesonbuild/$pkgname/releases/download/$version/$pkgname-$version.tar.gz"
+checksum=2f76fb4572762be13ee479292610091b4509af5788bcceb391fe222bcd0296dc
+
+do_check() {
+	# meson depends on trillion of things to perform actual tests
+	# see checkdepends=() on arch
+	# 1 test still fails
+	( CC=gcc ./run_unittests.py )
+}
+
+post_install() {
+	vmkdir usr/share/vim/vimfiles
+	cp -rt ${DESTDIR}/usr/share/vim/vimfiles data/syntax-highlighting/vim/*/
+
+	vinstall data/syntax-highlighting/emacs/meson.el 644 usr/share/emacs/site-lisp
+	vinstall data/shell-completions/zsh/_meson 644 usr/share/zsh/site-functions
+}

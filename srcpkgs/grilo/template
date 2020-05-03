@@ -1,30 +1,24 @@
 # Template file for 'grilo'
 pkgname=grilo
-version=0.3.4
+version=0.3.12
 revision=1
-build_style=gnu-configure
-configure_args="--disable-static --disable-vala $(vopt_enable gir introspection)"
-hostmakedepends="automake libtool pkg-config gettext-devel intltool gnome-common
- vala-devel gobject-introspection gtk-doc"
-makedepends="gtk+3-devel libxml2-devel libsoup-devel liboauth-devel totem-pl-parser-devel"
+build_style=meson
+build_helper="gir"
+configure_args="-Denable-introspection=$(vopt_if gir true false)
+ -Denable-vala=$(vopt_if gir true false) -Denable-gtk-doc=false"
+hostmakedepends="gettext pkg-config glib-devel $(vopt_if vala vala)"
+makedepends="gtk+3-devel libxml2-devel libsoup-devel liboauth-devel
+ totem-pl-parser-devel"
 short_desc="Framework focused on making media discovery and browsing easy"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="LGPL-2.1"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-or-later"
 homepage="http://live.gnome.org/Grilo"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=7c6964053b42574c2f14715d2392a02ea5cbace955eb73e067c77aa3e43b066e
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=dbfbd6082103288592af97568180b9cc81a336a274ed5160412f87675ec11a71
 
 # Package build options
-build_options="gir"
-
-# Disable gir for cross builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
-
-pre_configure() {
-	autoreconf -if
-}
+build_options="gir vala"
+build_options_default="gir vala"
 
 grilo-devel_package() {
 	depends="${makedepends} grilo>=${version}_${revision}"
@@ -32,8 +26,10 @@ grilo-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		if [ "$build_option_gir" ]; then
-			#vmove "usr/share/vala*/*"
 			vmove usr/share/gir-1.0
+		fi
+		if [ "$build_option_vala" ]; then
+			vmove usr/share/vala
 		fi
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"

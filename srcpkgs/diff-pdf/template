@@ -1,18 +1,17 @@
 # Template file for 'diff-pdf'
 pkgname=diff-pdf
-version=0.2.20160602
-revision=4
-_commit=ccf96982fa8a35d64a377779cfd80c921f66cefc
+version=0.4.1
+revision=1
 build_style=gnu-configure
-wrksrc="$pkgname-$_commit"
+configure_args="--with-wx-config=wx-config-gtk3"
 hostmakedepends="automake pkg-config"
-makedepends="wxWidgets-devel cairo-devel poppler-devel poppler-glib-devel"
+makedepends="wxWidgets-gtk3-devel cairo-devel poppler-devel poppler-glib-devel"
 short_desc="A simple tool for visually comparing two PDF files"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="GPL-2"
 homepage="http://vslavik.github.io/diff-pdf/"
-distfiles="https://github.com/vslavik/diff-pdf/archive/$_commit.tar.gz"
-checksum=b22f38770fd12a3b14a743643e6cdbbc07e824c5bf80f7099790b2f36ee1b2ca
+distfiles="https://github.com/vslavik/diff-pdf/archive/v$version.tar.gz"
+checksum=7d4a7f07edc767943edc7f5ea85d1dbaeb75a7760f9f585aba43e4e59aa29bd5
 
 pre_configure() {
 	./bootstrap

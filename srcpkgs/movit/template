@@ -1,6 +1,6 @@
 # Template file for 'movit'
 pkgname=movit
-version=1.6.0
+version=1.6.3
 revision=1
 build_style=gnu-configure
 make_build_args="libmovit.la"
@@ -8,10 +8,10 @@ hostmakedepends="pkg-config"
 makedepends="eigen fftw-devel libepoxy-devel SDL2_image-devel"
 short_desc="High-quality, high-performance library for video filters"
 maintainer="newbluemoon <blaumolch@mailbox.org>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://movit.sesse.net/"
 distfiles="https://${pkgname}.sesse.net/${pkgname}-${version}.tar.gz"
-checksum=65dda436570ecfb6df9627e6101c9d792e929ce9abe9afaaa85c513401583538
+checksum=eb19f109ec99d6050de5267d059c7b351d3d5e39c77d43ca348a95f474a99498
 
 movit-devel_package() {
 	short_desc+=" - development files"

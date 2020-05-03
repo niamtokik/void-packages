@@ -1,20 +1,20 @@
 # Template file for 'neovim'
 pkgname=neovim
-version=0.2.2
+version=0.4.3
 revision=1
 build_style=cmake
-configure_args="-DENABLE_JEMALLOC=0 -DUSE_BUNDLED_LIBTERMKEY=OFF"
-hostmakedepends="pkg-config gperf LuaJIT-devel lua51-lpeg lua51-mpack"
-makedepends="libtermkey-devel libuv-devel libvterm-devel msgpack-devel"
+build_helper="qemu"
+hostmakedepends="pkg-config gettext gperf LuaJIT lua51-lpeg lua51-mpack"
+makedepends="libtermkey-devel libuv-devel libvterm-devel msgpack-devel LuaJIT-devel
+ libluv-devel"
+depends="libvterm>=0.1.0"
 short_desc="Fork of Vim aiming to improve user experience, plugins and GUIs"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
-license="Apache-2.0, GPL-2"
-homepage="http://neovim.io"
-distfiles="https://github.com/${pkgname}/${pkgname}/archive/v${version}.tar.gz"
-checksum=a838ee07cc9a2ef8ade1b31a2a4f2d5e9339e244ade68e64556c1f4b40ccc5ed
-
-# XXX: neovim needs host bin to generate helptags at build time.
-nocross=yes
+license="Apache-2.0, custom:Vim"
+homepage="https://neovim.io"
+distfiles="https://github.com/neovim/neovim/archive/v${version}.tar.gz"
+checksum=91a0b5d32204a821bf414690e6b48cf69224d1961d37158c2b383f6a6cf854d2
+python_version=2 #unverified
 
 alternatives="
  vi:vi:/usr/bin/nvim
@@ -23,3 +23,12 @@ alternatives="
  vi:view.1:/usr/share/man/man1/nvim.1
  vim:vim:/usr/bin/nvim
  vim:vim.1:/usr/share/man/man1/nvim.1"
+
+pre_configure() {
+	vsed -i runtime/CMakeLists.txt \
+		-e "s|\".*/bin/nvim|\${CMAKE_CROSSCOMPILING_EMULATOR} &|g"
+}
+
+post_install() {
+	vlicense LICENSE
+}

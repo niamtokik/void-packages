@@ -1,28 +1,57 @@
 # Template file for 'evolution'
 pkgname=evolution
-version=3.26.4
+version=3.36.1
 revision=1
 build_style=cmake
 configure_args="-DENABLE_AUTOAR=OFF -DENABLE_LIBCRYPTUI=OFF -DENABLE_GTKSPELL=OFF
- -DENABLE_TEXT_HIGHLIGHT=OFF -DENABLE_PST_IMPORT=OFF"
-hostmakedepends="pkg-config intltool itstool gnome-doc-utils gobject-introspection"
-makedepends="
- libgdata-devel webkit2gtk-devel evolution-data-server-devel
- GConf-devel clutter-gtk-devel libcanberra-devel
- gtkhtml-devel libsoup-gnome-devel gnome-desktop-devel
- libnotify-devel gstreamer1-devel libgweather-devel
- NetworkManager-devel enchant-devel iso-codes ytnef-devel"
-depends="gtkhtml>=4.6 gnome-keyring gnome-icon-theme hicolor-icon-theme desktop-file-utils iso-codes"
+ -DENABLE_TEXT_HIGHLIGHT=OFF -DENABLE_PST_IMPORT=OFF
+ -DENABLE_WEATHER=$(vopt_if gir ON OFF)"
+hostmakedepends="gnome-doc-utils gobject-introspection intltool itstool
+ pkg-config"
+makedepends="NetworkManager-devel clutter-gtk-devel enchant2-devel
+ evolution-data-server-devel gspell-devel gtkhtml-devel libcanberra-devel
+ $(vopt_if gir libgweather-devel) libnotify-devel webkit2gtk-devel ytnef-devel
+ gnome-desktop-devel"
+depends="gnome-keyring"
 short_desc="Integrated mail, addressbook and calendaring for GNOME"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="GPL-2"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-or-later, LGPL-3.0-or-later, GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Evolution"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=78580edaf3f5c8d87d5ddda770c6536e6db9a6a189189d8c5e2f62c1ecc2b991
+changelog="https://raw.githubusercontent.com/GNOME/evolution/gnome-3-36/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=873acf1dbec38e67e169064645ac3a9b9a944bd2b633161df6e5f05700e36cb8
+shlib_provides="libevolution-calendar.so libevolution-util.so libemail-engine.so
+ libevolution-mail.so libevolution-shell.so"
+
+build_options="gir"
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default="gir"
+else
+	hostmakedepends+=" glib-devel"
+fi
+
+# cmake perfomrms 2 checks using binary runtime, about iconv and sfrtime.
+# musl (1.1.16) does not support "ISO-2022-JP" encoding (see its roadmap),
+# although evolution-data-server is fine with musl.
+# If crossbuild, cmake let disabling runtime checks via specific directives.
+# test iconv-detect.c also generates iconv-detect.h that is required for build.
+# So completly disable test from iconv-detect.c (cmake.patch file) and
+# use a cmake cache file on crossbuild to disable sfrtime running test.
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" -C disableRuntimeTests.cmake"
+fi
+
+pre_configure() {
+	mkdir -p build
+	cp ${FILESDIR}/iconv-detect.h ${wrksrc}/build/.
+	if [ "$CROSS_BUILD" ]; then
+		cp ${FILESDIR}/disableRuntimeTests.cmake ${wrksrc}/build/.
+	fi
+}
 
 evolution-devel_package() {
-	depends="GConf-devel gtkhtml-devel>=4.6.0 evolution-data-server-devel
-	 gnome-desktop-devel ${sourcepkg}>=${version}_${revision}"
+	depends="webkit2gtk-devel gtk+3-devel libglib-devel evolution-data-server-devel
+	 gtkhtml-devel ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include

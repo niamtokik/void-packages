@@ -1,15 +1,15 @@
-# Template file for gcdemu'
+# Template file for 'gcdemu'
 pkgname=gcdemu
-version=3.1.0
+version=3.2.4
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="gcdemu-${version}"
 build_style=cmake
-hostmakedepends="python intltool"
-depends="cdemu-daemon python-gobject libnotify gtk+3"
-short_desc="A GTK application for controlling CDEmu daemon"
+hostmakedepends="python3 intltool"
+depends="cdemu-daemon python3-gobject libnotify gtk+3"
+short_desc="GTK application for controlling CDEmu daemon"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="http://cdemu.sourceforge.net"
-distfiles="${SOURCEFORGE_SITE}/cdemu/gcdemu-3.1.0.tar.bz2"
-checksum=025c801300aa6ef13b9da484d8bd1ec2774c53e898942d44a43b4d27c0e0b666
+distfiles="${SOURCEFORGE_SITE}/cdemu/gcdemu-${version}.tar.bz2"
+checksum=05f11ea40f65ed338cb274c30f4b4a04434a731ea2125785a56b071bd3954783

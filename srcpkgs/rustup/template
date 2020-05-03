@@ -1,28 +1,38 @@
 # Template file for 'rustup'
 pkgname=rustup
-version=1.9.0
-revision=1
-wrksrc="${pkgname}.rs-${version}"
-conflicts="cargo rust"
-hostmakedepends="cargo perl pkg-config"
-makedepends="libressl-devel zlib-devel"
-short_desc="The Rust toolchain installer"
-maintainer="Daniel Lee Ramírez <dleeram@protonmail.com>"
+version=1.21.1
+revision=3
+build_style=cargo
+configure_args="--features no-self-update --bin rustup-init"
+hostmakedepends="perl pkg-config"
+makedepends="libressl-devel zlib-devel libcurl-devel"
+short_desc="Rust toolchain installer"
+maintainer="Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license="Apache-2.0, MIT"
 homepage="https://www.rustup.rs"
-distfiles="https://github.com/rust-lang-nursery/${pkgname}.rs/archive/${version}.tar.gz"
-checksum=24a6ed09553c8ec6d1c683eed0d34f40af779ae8439e7f7e821eec9ea4e5fdb6
-nocross=yes
+distfiles="https://github.com/rust-lang/${pkgname}/archive/${version}.tar.gz"
+checksum=3dd54cb15313ff01c930ad4e36326f7d60caadd2d6707790d83bea26fbb8bbe1
 
-do_build() {
-	cargo build --release --features no-self-update --bin rustup-init
+pre_build() {
+	cargo update --package openssl-sys --precise 0.9.53
+	cargo update --package openssl --precise 0.10.26
 }
 
 do_install() {
-	vbin target/release/rustup-init rustup
-	for cmd in cargo rust-gdb rust-lldb rustc rustdoc; do
-		ln -s rustup ${DESTDIR}/usr/bin/${cmd}
-	done
+	vbin target/${RUST_TARGET}/release/rustup-init
+
+	if ! [ "$CROSS_BUILD" ]; then
+		# generate shell completions
+		ln -s target/${RUST_TARGET}/release/rustup-init rustup
+		./rustup completions zsh > rustup.zsh
+		./rustup completions bash > rustup.bash
+		./rustup completions fish > rustup.fish
+
+		vinstall rustup.zsh 0644 usr/share/zsh/site-functions/ _rustup
+		vinstall rustup.bash 0644 usr/share/bash-completion/completions/ rustup
+		vinstall rustup.fish 0644 usr/share/fish/vendor_completions.d/
+	fi
+
 	vdoc README.md
 	vlicense LICENSE-APACHE
 	vlicense LICENSE-MIT

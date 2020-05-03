@@ -1,22 +1,36 @@
 # Template file for 'suricata'
 pkgname=suricata
-version=4.0.4
+version=4.1.5
 revision=1
 build_style=gnu-configure
-configure_args="--disable-gccmarch-native"
-hostmakedepends="pkg-config"
-makedepends="libnet-devel libpcap-devel pcre-devel libyaml-devel libcap-ng-devel file-devel"
-short_desc="Next Generation Intrusion Detection and Prevention Engine"
-maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="GPL-2"
+build_helper="$(vopt_if rust rust)"
+configure_args="--disable-gccmarch-native $(vopt_enable rust)
+ $(vopt_enable lua) $(vopt_enable hiredis) --disable-suricata-update
+ --disable-static --enable-non-bundled-htp"
+hostmakedepends="pkg-config $(vopt_if rust cargo)"
+makedepends="libnet-devel libpcap-devel pcre-devel libyaml-devel libcap-ng-devel
+ liblz4-devel liblzma-devel file-devel jansson-devel nss-devel libhtp-devel
+ $(vopt_if rust rust-std) $(vopt_if lua lua-devel)
+ $(vopt_if hiredis hiredis-devel)"
+short_desc="Suricata is a network IDS, IPS and NSM engine"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only"
 homepage="https://suricata-ids.org/"
-distfiles="https://www.openinfosecfoundation.org/download/$pkgname-$version.tar.gz
-https://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz"
-checksum="617e83b6e20b03aa7d5e05a980d3cb6d2810ec18a6f15a36bf66c81c9c0a2abb
- c5d5b5eef1326a5be52bb487f3706d12e1f70aaee060ce4b8d807aa9f5e77207"
+distfiles="https://www.openinfosecfoundation.org/download/${pkgname}-${version}.tar.gz"
+checksum=cee5f6535cd7fe63fddceab62eb3bc66a63fc464466c88ec7a41b7a1331ac74b
+
+build_options="lua rust hiredis"
+build_options_default="hiredis"
+desc_option_hiredis="Enable hiredis support"
+desc_option_lua="Enable lua support"
+desc_option_rust="Enable rust protocol parsers"
+
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default+=" rust lua"
+fi
 
 system_accounts="$pkgname"
-conf_files="/etc/$pkgname/*.* /etc/$pkgname/rules/*"
+conf_files="/etc/${pkgname}/*.* /etc/${pkgname}/rules/*"
 
 post_build() {
 	sed -i 's|#run-as:|run-as:|g' $pkgname.yaml
@@ -33,6 +47,4 @@ post_install() {
 	vinstall threshold.config 644 etc/$pkgname
 	vmkdir etc/$pkgname/rules
 	vcopy rules/*.rules etc/$pkgname/rules
-	vcopy ../rules/*.rules etc/$pkgname/rules
-	vlicense ../rules/LICENSE  emerging-rules.LICENSE
 }

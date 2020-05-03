@@ -1,20 +1,27 @@
 # Template file for 'audacious-plugins'
 pkgname=audacious-plugins
-version=3.9
-revision=3
+version=4.0.3
+revision=1
 build_style=gnu-configure
-hostmakedepends="pkg-config"
+configure_args="$(vopt_enable gtk) $(vopt_enable qt)"
+hostmakedepends="gettext pkg-config"
 makedepends="audacious-devel alsa-lib-devel pulseaudio-devel jack-devel
  lame-devel libvorbis-devel libflac-devel mpg123-devel faad2-devel ffmpeg-devel
  libmodplug-devel fluidsynth-devel libcdio-paranoia-devel wavpack-devel libnotify-devel
- libcurl-devel libmtp-devel neon-devel libmms-devel gtk+-devel libxml2-devel
- libbs2b-devel libsoxr-devel"
+ libcurl-devel libmtp-devel neon-devel libmms-devel libxml2-devel
+ libbs2b-devel libsoxr-devel libsidplayfp-devel libcue-devel
+ $(vopt_if gtk gtk+-devel) $(vopt_if qt 'qt5-devel qt5-multimedia-devel')"
 short_desc="Plugins for the Audacious media player"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="BSD"
-homepage="http://audacious-media-player.org/"
-distfiles="http://distfiles.audacious-media-player.org/${pkgname}-${version}.tar.bz2"
-checksum=8bf7f21089cb3406968cc9c71307774aee7100ec4607f28f63cf5690d5c927b8
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-2-Clause"
+homepage="https://audacious-media-player.org/"
+distfiles="https://distfiles.audacious-media-player.org/${pkgname}-${version}.tar.bz2"
+checksum=e2a88f5cac3efe03eedbb8d320ca1bb9300788ce66056d2ceba60eb00f8aef97
+
+build_options="gtk qt"
+build_options_default="qt"
+desc_option_gtk="Enable support for the GTK+2 GUI toolkit"
+vopt_conflict gtk qt
 
 post_install() {
 	vlicense COPYING

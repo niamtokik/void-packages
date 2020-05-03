@@ -1,22 +1,28 @@
 # Template file for 'python-gitlab'
 pkgname=python-gitlab
-version=1.2.0
-revision=1
-noarch=yes
+version=1.12.1
+revision=2
+archs=noarch
 build_style=python-module
 pycompile_module="gitlab"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-setuptools python-requests python-six"
+checkdepends="${depends} python-httmock python-mock"
 short_desc="Wrapper for GitLab's API (Python2)"
 maintainer="Joseph LaFreniere <joseph@lafreniere.xyz>"
+license="LGPL-3.0-or-later"
 homepage="https://github.com/gpocentek/python-gitlab"
-license="LGPL-3"
+changelog="https://raw.githubusercontent.com/python-gitlab/python-gitlab/master/ChangeLog.rst"
 distfiles="${PYPI_SITE}/p/python-gitlab/python-gitlab-${version}.tar.gz"
-checksum=899aa3f01cc6216d6a9514339df04a0405174fbf4b3f8466f7cbc555b4286066
+checksum=984e110c1f76fd939652c30ce3101267a7064e34417cbfc4687e6106d4db54ec
 alternatives="python-gitlab:gitlab:/usr/bin/gitlab2"
 
+do_check() {
+	python2 setup.py test
+}
+
 python3-gitlab_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3-setuptools python3-requests python3-six"
 	pycompile_module="gitlab"
 	short_desc="${short_desc/Python2/Python3}"

@@ -1,10 +1,10 @@
---- a/configure.ac
-+++ b/configure.ac
+--- configure.ac.orig	2020-04-02 12:05:25.019234433 +0200
++++ configure.ac	2020-04-02 12:06:27.138863342 +0200
 @@ -42,7 +42,7 @@ DAV_CHECK_NEON
  # Checks for header files.
  AC_HEADER_DIRENT
  AC_HEADER_STDC
--AC_CHECK_HEADERS([fcntl.h libintl.h langinfo.h limits.h locale.h mntent.h stddef.h stdint.h stdlib.h string.h sys/file.h sys/mount.h sys/time.h syslog.h termios.h unistd.h utime.h])
+-AC_CHECK_HEADERS([fcntl.h iconv.h libintl.h langinfo.h limits.h locale.h mntent.h stddef.h stdint.h stdlib.h string.h sys/file.h sys/mount.h sys/time.h syslog.h termios.h unistd.h utime.h])
 +AC_CHECK_HEADERS([error.h fcntl.h iconv.h libintl.h langinfo.h limits.h locale.h mntent.h stddef.h stdint.h stdlib.h string.h sys/file.h sys/mount.h sys/time.h sys/select.h sys/types.h syslog.h termios.h unistd.h utime.h])
  
  # Checks for typedefs, structures, and compiler characteristics.
@@ -13,13 +13,13 @@
  AC_FUNC_STRFTIME
  AC_FUNC_STAT
  AC_FUNC_UTIME_NULL
--AC_CHECK_FUNCS([endpwent ftruncate getmntent memset mkdir nl_langinfo rpmatch select setlocale strcasecmp strchr strdup strerror strpbrk strrchr strstr strtol strtoull utime])
+-AC_CHECK_FUNCS([endpwent ftruncate getmntent iconv memset mkdir nl_langinfo rpmatch select setlocale strcasecmp strchr strdup strerror strpbrk strrchr strstr strtol strtoull utime])
 +AC_CHECK_FUNCS([endpwent ftruncate getmntent memset mkdir nl_langinfo rpmatch select setlocale strcasecmp strchr strdup strerror strpbrk strrchr strstr strtol strtoull utime canonicalize_file_name fopencookie])
  
  # Misc.
  DAV_DEFAULTS
---- a/src/cache.c
-+++ b/src/cache.c
+--- src/cache.c
++++ src/cache.c
 @@ -19,12 +19,12 @@
  
  
@@ -34,8 +34,8 @@
  #ifdef HAVE_FCNTL_H
  #include <fcntl.h>
  #endif
---- a/src/dav_fuse.c
-+++ b/src/dav_fuse.c
+--- src/dav_fuse.c
++++ src/dav_fuse.c
 @@ -47,6 +47,9 @@
  #ifdef HAVE_SYS_STAT_H
  #include <sys/stat.h>
@@ -46,8 +46,8 @@
  
  #include "defaults.h"
  #include "mount_davfs.h"
---- a/src/kernel_interface.c
-+++ b/src/kernel_interface.c
+--- src/kernel_interface.c
++++ src/kernel_interface.c
 @@ -19,8 +19,8 @@
  
  
@@ -68,8 +68,8 @@
  #include <sys/wait.h>
  
  #include "defaults.h"
---- a/src/mount_davfs.c
-+++ b/src/mount_davfs.c
+--- src/mount_davfs.c
++++ src/mount_davfs.c
 @@ -19,10 +19,10 @@
  
  
@@ -82,8 +82,8 @@
  #ifdef HAVE_FCNTL_H
  #include <fcntl.h>
  #endif
---- a/src/umount_davfs.c
-+++ b/src/umount_davfs.c
+--- src/umount_davfs.c
++++ src/umount_davfs.c
 @@ -19,8 +19,8 @@
  
  
@@ -94,8 +94,8 @@
  #include <errno.h>
  #include <getopt.h>
  #ifdef HAVE_LIBINTL_H
---- a/src/webdav.c
-+++ b/src/webdav.c
+--- src/webdav.c
++++ src/webdav.c
 @@ -19,9 +19,9 @@
  
  
@@ -126,7 +126,7 @@
  
      session = ne_session_create(args->scheme, args->host, args->port);
 --- /dev/null
-+++ b/src/compat.h
++++ src/compat.h
 @@ -0,0 +1,64 @@
 +#ifndef _COMPAT_H
 +#define _COMPAT_H

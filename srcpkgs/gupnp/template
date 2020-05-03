@@ -1,32 +1,22 @@
 # Template file for 'gupnp'
 pkgname=gupnp
-version=1.0.2
+version=1.2.2
 revision=1
-build_style=gnu-configure
-configure_args="--disable-static"
-hostmakedepends="pkg-config"
+build_style=meson
+build_helper="gir"
+configure_args="-Dintrospection=$(vopt_if gir true false)
+ -Dvapi=$(vopt_if vala true false) -Dexamples=false"
+hostmakedepends="pkg-config glib-devel $(vopt_if vala vala)"
 makedepends="libglib-devel libxml2-devel libuuid-devel gssdp-devel"
 short_desc="GObject-based library for UPnP"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
-homepage="http://gupnp.org/"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://wiki.gnome.org/Projects/GUPnP"
 distfiles="${GNOME_SITE}/gupnp/${version%.*}/gupnp-${version}.tar.xz"
-checksum=5173fda779111c6b01cd4a5e41b594322be9d04f8c74d3361f0a0c2069c77610
+checksum=9a80bd953e5c8772ad26b72f8da01cbe7241a113edd6084903f413ce751c9989
 
-# Package build options
-build_options="gir"
-
-# Disable gir for cross builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
-
-if [ "$build_option_gir" ]; then
-	configure_args+=" --enable-introspection"
-	makedepends+=" gobject-introspection vala-devel"
-else
-	configure_args+=" --disable-introspection"
-fi
+build_options="gir vala"
+build_options_default="gir vala"
 
 gupnp-devel_package() {
 	depends="${makedepends} gupnp-${version}_${revision}"
@@ -34,8 +24,13 @@ gupnp-devel_package() {
 	pkg_install() {
 		vmove usr/bin
 		vmove usr/include
-		vmove usr/share
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
+		if [ "$build_option_vala" ]; then
+			vmove usr/share/vala
+		fi
 	}
 }

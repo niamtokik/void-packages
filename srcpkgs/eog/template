@@ -1,35 +1,36 @@
 # Template file for 'eog'
 pkgname=eog
-version=3.26.2
+version=3.36.1
 revision=1
-lib32disabled=yes
-build_style=gnu-configure
-build_options="gir"
-configure_args="$(vopt_enable gir introspection)"
-hostmakedepends="pkg-config gettext-devel intltool gnome-doc-utils
- itstool glib-devel $(vopt_if gir gobject-introspection)"
-makedepends="
- gnome-desktop-devel libpeas-devel lcms2-devel exempi-devel
- libexif-devel librsvg-devel"
-depends="hicolor-icon-theme desktop-file-utils shared-mime-info"
+build_helper="gir"
+build_style=meson
+configure_args="-Dintrospection=$(vopt_if gir true false)"
+hostmakedepends="gettext glib-devel itstool pkg-config"
+makedepends="exempi-devel gnome-desktop-devel libexif-devel libpeas-devel
+ librsvg-devel"
+depends="desktop-file-utils hicolor-icon-theme shared-mime-info"
 short_desc="Eye of GNOME graphics viewer program"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://www.gnome.org"
-license="GPL-2"
-distfiles="${GNOME_SITE}/eog/${version%.*}/eog-$version.tar.xz"
-checksum=b53e3d4dfa7d0085b829a5fb95f148a099803c00ef276be7685efd5ec38807ad
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://wiki.gnome.org/Apps/EyeOfGnome"
+distfiles="${GNOME_SITE}/eog/${version%.*}/eog-${version}.tar.xz"
+checksum=e454a1a7aa5e3a3321eab0116778110e5a7a7b63bcf21676eda1a7be187c9c95
+shlib_provides="libeog.so"
+lib32disabled=yes
 
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
+build_options="gir"
+build_options_default="gir"
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" libglib-devel"
 fi
 
 eog-devel_package() {
-	depends="gtk+3-devel"
+	depends="${sourcepkg}-${version}_${revision} gtk+3-devel"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/share/gtk-doc
 		if [ "$build_option_gir" ]; then
 			vmove usr/share/eog/gir-1.0
 		fi

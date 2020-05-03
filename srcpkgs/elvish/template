@@ -1,15 +1,15 @@
 # Template file for 'elvish'
 pkgname=elvish
-version=0.11
-revision=2
+version=0.13.1
+revision=1
 build_style=go
 go_import_path="github.com/elves/elvish"
-short_desc="A novel Unix shell"
+short_desc="Novel Unix shell"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="BSD"
-homepage="https://github.com/elves/elvish/"
-distfiles="https://github.com/elves/elvish/archive/${version}.tar.gz"
-checksum=711f67d8730990deed00c3e0c59198c8a51c8441371416faab5ef603c26010b6
+license="BSD-2-Clause"
+homepage="https://elv.sh/"
+distfiles="https://github.com/elves/elvish/archive/v${version}.tar.gz"
+checksum=83275a4c36f66b831ba4864d1f5ffdc823616ed0a8e41b2a9a3e9fcba9279e27
 register_shell="/bin/elvish"
 
 post_install() {

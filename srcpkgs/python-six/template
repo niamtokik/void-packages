@@ -1,28 +1,27 @@
 # Template file for 'python-six'
 pkgname=python-six
-version=1.10.0
-revision=3
-noarch=yes
+version=1.14.0
+revision=1
+archs=noarch
 wrksrc="six-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
-pycompile_module="six.py"
 short_desc="Python 2 and 3 compatibility utilities (Python2)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://pypi.python.org/pypi/six/"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="MIT"
+homepage="https://github.com/benjaminp/six"
+changelog="https://raw.githubusercontent.com/benjaminp/six/master/CHANGES"
 distfiles="${PYPI_SITE}/s/six/six-${version}.tar.gz"
-checksum=105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a
+checksum=236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a
 
 post_install() {
 	vlicense LICENSE
 }
 
 python3-six_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3"
-	pycompile_module="six.py"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*

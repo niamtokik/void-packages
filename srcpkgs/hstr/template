@@ -1,25 +1,21 @@
 # Template file for 'hstr'
 pkgname=hstr
-version=1.24
+version=2.2
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake pkg-config"
-makedepends="ncurses-devel readline-devel"
+makedepends="readline-devel"
 short_desc="Easily view, navigate, search and manage your command history"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="Apache"
+license="Apache-2.0"
 homepage="https://github.com/dvorka/hstr"
+changelog="https://raw.githubusercontent.com/dvorka/hstr/master/Changelog"
 distfiles="https://github.com/dvorka/hstr/archive/${version}.tar.gz"
-checksum=6c130afd8ca570ee1988a0c7d6a96efeeabd21be7e05ce1f3144bb3c86c74441
+checksum=886531ca9d8d1a5a93a3db96e9fc64154a03f6de428c74c722b41057bceca266
 
 pre_configure() {
-	sed -i -e "s#<ncursesw/curses.h>#<curses.h>#g" src/include/hstr_curses.h
-	sed -i -e "s#<ncursesw/curses.h>#<curses.h>#g" src/hstr.c
+	grep -rli '#include <ncursesw/curses.h>' src | xargs -i@ sed -i 's|ncursesw/curses.h|curses.h|g' @
 	aclocal
 	automake --force-missing --add-missing
 	autoconf
-}
-
-post_install() {
-	vlicense LICENSE
 }

@@ -1,17 +1,17 @@
 # Template file for 'kdbusaddons'
 pkgname=kdbusaddons
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-tools-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel qt5-x11extras-devel"
 short_desc="KDE Convenience classes for DBus"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdbusaddons"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=6dc19471c9dc53ae13c642b3cd2512fdb2aadb6ab287caeffe56829307bb2398
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=c80e78f93fc627342f801ac3b636bb63b3e0478bdc0e915efba89ec23b5e4611
 
 kdbusaddons-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kdbusaddons-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,21 +1,19 @@
-# Template file for 'ccsm' of Compiz Reloaded
+# Template file for 'ccsm'
 pkgname=ccsm
-version=0.8.14
+version=0.8.18
 revision=1
-build_style=python2-module
-
-hostmakedepends="automake intltool libtool pkg-config python"
-makedepends="compiz-core-devel compizconfig-python python-cairo-devel pygtk-devel"
-depends="compizconfig-python python-cairo"
-
+archs=noarch
+build_style=python3-module
+hostmakedepends="automake intltool libtool pkg-config python3"
+makedepends="compiz-core-devel compizconfig-python python3-cairo-devel pygtk-devel"
+depends="compizconfig-python python3-cairo python3-gobject"
 short_desc="Compiz Configuration Seetings Manager for Compiz Reloaded"
 maintainer="CoolOhm <micvlas@gmail.com>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/compiz-reloaded"
-license="GPL-2"
 distfiles="https://github.com/compiz-reloaded/ccsm/archive/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=74f2e3ab0f7334e1c2fe1ad54244399475f4ab90f999f86655f39f852a94b365
+checksum=99192a021631cc5a82131fbc03d2f1b7e587892878902113d9bde57a6b00bfa4
 
 if [ -z "$CROSS_BUILD" ]; then
-	depends+=" python-gobject"
 	makedepends+=" python-gobject-devel"
 fi

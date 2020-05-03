@@ -1,15 +1,15 @@
 # Template file for 'runit-void'
 pkgname=runit-void
-version=20171102
-revision=1
+version=20190906
+revision=3
 wrksrc="void-runit-${version}"
 build_style=gnu-makefile
-homepage="http://www.voidlinux.eu"
 short_desc="Void Linux runit scripts"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="Public Domain"
-distfiles="https://github.com/voidlinux/void-runit/archive/${version}.tar.gz"
-checksum=689790985d36bdda75bca6f1382c99092247b9534c22b15a1ca4a94c674a7843
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="CC0-1.0"
+homepage="https://github.com/void-linux/void-runit"
+distfiles="https://github.com/void-linux/void-runit/archive/${version}.tar.gz"
+checksum=9e1027c07124ff4efad63bef74b9f1ae0659e43f9d4e7cfde996be271706570c
 
 depends="virtual?awk procps-ng runit"
 conf_files="
@@ -20,7 +20,9 @@ conf_files="
  /etc/rc.shutdown
  /etc/sv/agetty-console/conf
  /etc/sv/agetty-serial/conf
- /etc/sv/agetty-tty1/conf"
+ /etc/sv/agetty-tty1/conf
+ /etc/sv/agetty-hvc0/conf
+ /etc/sv/agetty-hvsi0/conf"
 
 make_dirs="
  /etc/zzz.d/suspend 0755 root root
@@ -32,9 +34,21 @@ post_install() {
 	vconf ${FILESDIR}/hostname
 	vconf ${FILESDIR}/os-release
 	vconf ${FILESDIR}/locale.conf
+	vinstall ${FILESDIR}/apparmor 644 /etc/default/
+	vinstall ${FILESDIR}/09-apparmor.sh 644 /etc/runit/core-services/
 	# Enable services at post-install time instead.
 	rm -f ${DESTDIR}/etc/runit/runsvdir/current
 	rm -rf ${DESTDIR}/etc/runit/runsvdir/default
 	rm -rf ${DESTDIR}/etc/runit/runsvdir/single
 	ln -s runit-init ${DESTDIR}/usr/bin/init
+}
+
+runit-void-apparmor_package() {
+	short_desc+=" - AppArmor initialization"
+	depends="${sourcepkg}-${version}_${revision}"
+	conf_files="/etc/default/apparmor"
+	pkg_install() {
+		vmove etc/default/apparmor
+		vmove etc/runit/core-services/09-apparmor.sh
+	}
 }

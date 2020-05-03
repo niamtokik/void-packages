@@ -1,30 +1,24 @@
 # Template file for 'gnome-shell'
 pkgname=gnome-shell
-version=3.26.2
+version=3.34.1
 revision=1
 build_style=meson
-configure_args="-Denable-systemd=no"
-hostmakedepends="
- pkg-config intltool gnome-doc-utils $(vopt_if gir gobject-introspection) python3
- meson"
-makedepends="
- evolution-data-server gnome-desktop-devel
- json-glib-devel startup-notification-devel network-manager-applet-devel
- clutter-devel gnome-bluetooth-devel mutter-devel
- gjs-devel telepathy-logger-devel libcanberra-devel polkit-devel libcroco-devel
- pulseaudio-devel libgudev-devel gst-plugins-base1-devel
- caribou-devel gir-freedesktop gnome-control-center-devel
- folks-devel gnome-menus-devel"
-depends="caribou>=0.4.12 pulseaudio glxinfo desktop-file-utils
- gir-freedesktop gnome-control-center>=3.16 elogind upower"
+build_helper=gir
+configure_args="-Dsystemd=false"
+hostmakedepends="gobject-introspection gtk-doc libxslt pkg-config python3 sassc
+ asciidoc perl glib-devel mutter-devel"
+makedepends="at-spi2-atk caribou-devel evolution-data-server-devel folks-devel
+ gcr-devel gjs-devel gnome-bluetooth-devel gnome-control-center-devel gnome-desktop-devel
+ gnome-menus-devel gsettings-desktop-schemas-devel gstreamer1-devel gtk+3-devel
+ ibus-devel json-glib-devel libcanberra-devel libcroco-devel libglib-devel
+ libsecret-devel libsoup-devel libX11-devel libxml2-devel mutter-devel
+ network-manager-applet-devel polkit-devel pulseaudio-devel
+ startup-notification-devel telepathy-logger-devel gnome-autoar-devel"
+depends="caribou elogind glxinfo gnome-control-center gsettings-desktop-schemas upower"
 short_desc="GNOME core user interface"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Projects/GnomeShell"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=e5a87f2f838d981db9823352b90b2ce2f40d24d31ed9f062dccfa41b820e0b1c
-
-build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default+=" gir"
-fi
+changelog="https://raw.githubusercontent.com/GNOME/gnome-shell/gnome-3-30/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=ccd86559b9c897c219d2d2ebfdb8413efa4c1bee846427c750cb8a301b3f6d1e

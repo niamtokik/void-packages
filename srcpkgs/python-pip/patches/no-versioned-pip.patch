@@ -1,11 +1,13 @@
 --- setup.py.orig
 +++ setup.py
-@@ -78,8 +78,6 @@ setup(
+@@ -75,10 +75,6 @@
      entry_points={
          "console_scripts": [
-             "pip=pip:main",
--            "pip%s=pip:main" % sys.version[:1],
--            "pip%s=pip:main" % sys.version[:3],
+             "pip=pip._internal.cli.main:main",
+-            "pip{}=pip._internal.cli.main:main".format(sys.version_info[0]),
+-            "pip{}.{}=pip._internal.cli.main:main".format(
+-                *sys.version_info[:2]
+-            ),
          ],
      },
-     tests_require=tests_require,
+ 

@@ -12,7 +12,7 @@ _add_trigger() {
 process_metadata_scripts() {
 	local action="$1"
 	local action_file="$2"
-	local tmpf=$(mktemp)
+	local tmpf=$(mktemp) || exit 1
 	local fpattern="s|${PKGDESTDIR}||g;s|^\./$||g;/^$/d"
 	local targets= f= _f= info_files= home= shell= descr= groups=
 	local found= triggers_found= _icondirs= _schemas= _mods= _tmpfiles=
@@ -148,7 +148,7 @@ _EOF
 	#
 	if [ -d "${PKGDESTDIR}/usr/lib/udev/hwdb.d" ]; then
 		_add_trigger hwdb.d-dir
-    fi
+	fi
 	#
 	# (Un)Register a shell in /etc/shells.
 	#
@@ -222,11 +222,32 @@ _EOF
 		_add_trigger gio-modules
 	fi
 	#
+	# Handle gtk immodules in /usr/lib/gtk-2.0/2.10.0/immodules with
+	# gtk-immodules
+	#
+	if [ -d ${PKGDESTDIR}/usr/lib/gtk-2.0/2.10.0/immodules ]; then
+		_add_trigger gtk-immodules
+	fi
+	#
+	# Handle gtk3 immodules in /usr/lib/gtk-3.0/3.0.0/immodules with
+	# gtk3-immodules
+	#
+	if [ -d ${PKGDESTDIR}/usr/lib/gtk-3.0/3.0.0/immodules ]; then
+		_add_trigger gtk3-immodules
+	fi
+	#
 	# Handle gsettings schemas in /usr/share/glib-2.0/schemas with
 	# gsettings-schemas.
 	#
 	if [ -d ${PKGDESTDIR}/usr/share/glib-2.0/schemas ]; then
 		_add_trigger gsettings-schemas
+	fi
+	#
+	# Handle gdk-pixbuf loadable modules in /usr/lib/gdk-pixbuf-2.0/2.10.0/loaders
+	# with gdk-pixbuf-loaders
+	#
+	if [ -d ${PKGDESTDIR}/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders ]; then
+		_add_trigger gdk-pixbuf-loaders
 	fi
 	#
 	# Handle mime database in /usr/share/mime with update-mime-database.
@@ -237,12 +258,27 @@ _EOF
 	#
 	# Handle python bytecode archives with pycompile trigger.
 	#
+	local pycompile_version
 	if [ -d ${PKGDESTDIR}/usr/lib/python* ]; then
 		pycompile_version="$(find ${PKGDESTDIR}/usr/lib/python* -prune -type d | grep -o '[[:digit:]]\.[[:digit:]]$')"
+		if [ -z "${pycompile_module}" ]; then
+			pycompile_module="$(find ${PKGDESTDIR}/usr/lib/python*/site-packages -mindepth 1 -maxdepth 1 '!' -name '*.egg-info' '!' -name '*.dist-info' '!' -name '*.so' '!' -name '*.pth' -printf '%f ')"
+		fi
+	fi
+
+	if [ -n "$python_version" ]; then
+		pycompile_version=${python_version}
+	fi
+
+	if [ "$pycompile_version" = 3 ]; then
+		pycompile_version=${py3_ver}
+	elif [ "$pycompile_version" = 2 ]; then
+		pycompile_version=${py2_ver}
 	fi
 
 	if [ -n "${pycompile_dirs}" -o -n "${pycompile_module}" ]; then
-		echo "export pycompile_version=\"${pycompile_version:=2.7}\"" >>$tmpf
+		[ -n "$pycompile_version" ] || msg_error "$pkgver: byte-compilation is required, but python_version is not set\n"
+		echo "export pycompile_version=\"${pycompile_version}\"" >>$tmpf
 		if [ -n "${pycompile_dirs}" ]; then
 			echo "export pycompile_dirs=\"${pycompile_dirs}\"" >>$tmpf
 		fi
@@ -251,6 +287,15 @@ _EOF
 		fi
 		_add_trigger pycompile
 	fi
+	#
+	# Handle appdata metadata with AppStream
+	#
+	for f in ${PKGDESTDIR}/usr/share/appdata/*.xml ${PKGDESTDIR}/usr/share/app-info/*.xml ${PKGDESTDIR}/var/lib/app-info/*.xml ${PKGDESTDIR}/var/cache/app-info/*.xml; do
+		if [ -f "${f}" ]; then
+			_add_trigger appstream-cache
+			break
+		fi
+	done
 
 	# End of trigger var exports.
 	echo >> $tmpf
@@ -272,7 +317,7 @@ _EOF
 		for f in ${triggers}; do
 			targets=$($XBPS_TRIGGERSDIR/$f targets)
 			for j in ${targets}; do
-				if ! $(echo $j|grep -q pre-${action}); then
+				if ! [[ $j =~ pre-${action} ]]; then
 					continue
 				fi
 				printf "\t\${TRIGGERSDIR}/$f run $j \${PKGNAME} \${VERSION} \${UPDATE} \${CONF_FILE}\n" >> $tmpf
@@ -284,7 +329,7 @@ _EOF
 		for f in ${triggers}; do
 			targets=$($XBPS_TRIGGERSDIR/$f targets)
 			for j in ${targets}; do
-				if ! $(echo $j|grep -q post-${action}); then
+				if ! [[ $j =~ post-${action} ]]; then
 					continue
 				fi
 				printf "\t\${TRIGGERSDIR}/$f run $j \${PKGNAME} \${VERSION} \${UPDATE} \${CONF_FILE}\n" >> $tmpf

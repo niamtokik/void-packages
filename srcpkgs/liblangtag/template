@@ -1,22 +1,23 @@
 # Template file for 'liblangtag'
 pkgname=liblangtag
-version=0.6.0
-revision=2
+version=0.6.3
+revision=3
 build_style=gnu-configure
+build_helper="gir"
+configure_args="$(vopt_enable gir introspection)"
+hostmakedepends="automake libtool pkg-config"
+makedepends="libxml2-devel"
 short_desc="Interface library to access tags for identifying languages"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="LGPL-2, MPL"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.0-or-later, MPL-2.0"
 homepage="http://tagoh.bitbucket.org/liblangtag"
 distfiles="https://bitbucket.org/tagoh/${pkgname}/downloads/${pkgname}-${version}.tar.bz2"
-makedepends="libxml2-devel"
-hostmakedepends="automake libtool pkg-config gobject-introspection"
-configure_args="$(vopt_enable gir introspection)"
-checksum=df84efd7e3e67cc8a38ece1e23f080c70ea29b26590ee324d03f1df37bf46576
+checksum=1f12a20a02ec3a8d22e54dedb8b683a43c9c160bda1ba337bf1060607ae733bd
 
 build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-else
+build_options_default="gir"
+
+if [ "$CROSS_BUILD" ]; then
 	# Avoid non-working tests for va_copy
 	configure_args+=" ac_cv_va_copy=C99"
 fi
@@ -28,7 +29,7 @@ liblangtag-devel_package() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.so"
-		if [ -z "$CROSS_BUILD" ]; then
+		if [ "$build_option_gir" ]; then
 			vmove usr/share/gir-1.0
 		fi
 	}

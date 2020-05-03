@@ -1,25 +1,35 @@
 # Template file for 'praat'
 pkgname=praat
-version=6.0.36
+version=6.1.13
 revision=1
+create_wrksrc=yes
 hostmakedepends="pkg-config"
-makedepends="gtk+-devel alsa-lib-devel $(vopt_if pulseaudio pulseaudio-devel)"
+makedepends="alsa-lib-devel gtk+-devel jack-devel
+ $(vopt_if pulseaudio pulseaudio-devel)"
 short_desc="Speech analysis, synthesis, and manipulation"
 maintainer="newbluemoon <blaumolch@mailbox.org>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="http://www.praat.org/"
-distfiles="https://github.com/praat/${pkgname}/archive/v${version}.tar.gz"
-checksum=1829eedf0c03780ce29c2b1a778b4065ff19d3959dbe919b25e721206f113c52
+changelog="http://www.fon.hum.uva.nl/praat/manual/What_s_new_.html"
+distfiles="https://github.com/praat/praat/archive/v${version}.tar.gz"
+checksum=986988da02091bd9fa011fcf7118a453c6b39b95bebaf44fc18b5a9bd134ec82
 
-build_options="pulseaudio"
+# there are a number of pre-defined Makefiles for certain configurations
+# build options are used to choose which one to use among a selected few
+# option 'alsa' is for ALSA only
+# 'pulseaudio' also includes ALSA
+# 'jack' is jack only
+# the options are mutually exclusive
+# for the Raspberry Pi only jack audio seems to be supported
+build_options="alsa jack pulseaudio"
+build_options_default="pulseaudio"
+vopt_conflict jack alsa
+vopt_conflict jack pulseaudio
+vopt_conflict alsa pulseaudio
 
 do_build() {
-	mkdir /tmp/original
-	mv * /tmp/original
-	mv /tmp/original .
-
-	for _variant in $(vopt_if pulseaudio pulse alsa) nogui; do
-		cp -rp original $_variant
+	for _variant in $(vopt_if alsa alsa) $(vopt_if jack jack) $(vopt_if pulseaudio pulse) nogui; do
+		cp -a "${pkgname}-${version}" $_variant
 		cd $_variant
 
 		cp makefiles/makefile.defs.linux.${_variant} ./makefile.defs
@@ -32,6 +42,12 @@ do_build() {
 		 -e 's/CFLAGS =/CFLAGS +=/' \
 		 -e 's/CXXFLAGS =/CXXFLAGS +=/' \
 		 makefile.defs
+
+		if [ $XBPS_TARGET_ENDIAN == "le" ]; then
+			CFLAGS+=" -DPA_LITTLE_ENDIAN"
+		else
+			CFLAGS+=" -DPA_BIG_ENDIAN"
+		fi
 
 		make ${makejobs} CC="$CC" CXX="$CXX" LD="$LD" AR="$AR"
 

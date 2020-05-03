@@ -1,27 +1,25 @@
 # Template file for 'libwebp'
 pkgname=libwebp
-version=0.6.1
+version=1.1.0
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --enable-libwebpmux
  --enable-libwebpdemux --enable-libwebpdecoder"
-hostmakedepends="automake libtool pkg-config"
-makedepends="libjpeg-turbo-devel libpng-devel tiff-devel giflib-devel libfreeglut-devel"
+hostmakedepends="pkg-config"
+makedepends="giflib-devel libpng-devel tiff-devel"
 short_desc="WebP image format"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="https://developers.google.com/speed/webp/"
-license="3-clause-BSD"
 distfiles="http://downloads.webmproject.org/releases/webp/${pkgname}-${version}.tar.gz"
-checksum=06503c782d9f151baa325591c3579c68ed700ffc62d4f5a32feead0ff017d8ab
+checksum=98a052268cc4d5ece27f76572a7f50293f439c17a98e67c4ea0c7ed6f50ef043
 
 case "$XBPS_TARGET_MACHINE" in
 	armv6*) configure_args+=" --disable-neon";;
 	armv7*) CFLAGS="-mfpu=neon";;
+	*) makedepends+=" libfreeglut-devel";;
 esac
 
-pre_configure() {
-	autoreconf -fi
-}
 post_install() {
 	vlicense COPYING LICENSE
 }
@@ -33,6 +31,7 @@ libwebp-tools_package() {
 		vmove usr/share/man
 	}
 }
+
 libwebp-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"

@@ -1,12 +1,12 @@
 # Template file for 'R-cran-nloptr'
 pkgname=R-cran-nloptr
-version=1.0.4
+version=1.2.2.1
 revision=1
 build_style=R-cran
 hostmakedepends="pkg-config"
 makedepends="nlopt-devel"
 short_desc="R interface to NLopt"
-maintainer="Michael Gehring <mg@ebfe.org>"
-license="LGPL-3"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-3.0-only"
 homepage="https://cran.r-project.org/package=nloptr"
-checksum=84225b993cb1ef7854edda9629858662cc8592b0d1344baadea4177486ece1eb
+checksum=d037bea484725cf6cbc069eee17db17f1bc8fc4edc1f1ca16cf6c34bc21610ae

@@ -1,20 +1,23 @@
 # Template file for 'ldc'
 pkgname=ldc
-version=1.7.0
+version=1.20.1
 revision=1
 wrksrc="ldc-${version}-src"
 build_style=cmake
-configure_args="-DINCLUDE_INSTALL_DIR=/usr/include/dlang/ldc -DBUILD_SHARED_LIBS=ON"
-hostmakedepends="dmd llvm perl pkg-config"
+configure_args="-DINCLUDE_INSTALL_DIR=/usr/include/dlang/ldc
+	-DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
+	-DBASH_COMPLETION_COMPLETIONSDIR=/usr/share/bash-completion"
+conf_files="/etc/ldc2.conf"
+hostmakedepends="dmd llvm9 perl pkg-config"
 makedepends="libcurl-devel libffi-devel ncurses-devel zlib-devel"
 depends="ldc-runtime"
-conf_files="/etc/ldc2.conf"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://wiki.dlang.org/LDC"
-license="3-clause-BSD, Boost Software License 1.0"
 short_desc="Portable D programming language compiler based on LLVM"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause, BSL-1.0"
+homepage="https://wiki.dlang.org/LDC"
+changelog="https://raw.githubusercontent.com/ldc-developers/ldc/master/CHANGELOG.md"
 distfiles="https://github.com/ldc-developers/ldc/releases/download/v${version}/ldc-${version}-src.tar.gz"
-checksum=7cd46140ca3e4ca0d52c352e5b694d4d5336898ed4f02c3e18e0eafd69dd18bd
+checksum=2b21dfffb6efd2c2158bc83422765335aae34b709ebdc406bb026c21967a1aaf
 nopie=yes
 nocross=yes
 
@@ -25,6 +28,6 @@ post_install() {
 ldc-runtime_package() {
 	short_desc+=" - D runtime"
 	pkg_install() {
-		vmove usr/lib/*.so*
+		vmove "usr/lib/*.so*"
 	}
 }

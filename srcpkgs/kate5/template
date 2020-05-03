@@ -1,17 +1,22 @@
 # Template file for 'kate5'
 pkgname=kate5
-version=17.12.1
+version=20.04.0
 revision=1
+wrksrc="${pkgname%5}-${version}"
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-wrksrc="${pkgname%5}-${version}"
-hostmakedepends="extra-cmake-modules pkg-config"
-makedepends="kactivities5-devel kitemmodels-devel knewstuff-devel ktexteditor-devel plasma-framework-devel threadweaver-devel"
+hostmakedepends="extra-cmake-modules pkg-config kcoreaddons gettext"
+makedepends="kitemmodels-devel knewstuff-devel ktexteditor-devel
+ plasma-framework-devel threadweaver-devel"
 depends="hicolor-icon-theme"
-conflicts="kate"
 short_desc="KDE Text editor"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="GPL-2"
+maintainer="John <johnz@posteo.net>"
+license="GPL-3.0-or-later, LGPL-2.0-or-later, GPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/applications/kate"
-distfiles="http://download.kde.org/stable/applications/${version}/src/${pkgname%5}-${version}.tar.xz"
-checksum=9bbd3f2ce7e856f2967c697a172d7405485c6d9881339d221cd8aa7c52b8d366
+distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname%5}-${version}.tar.xz"
+checksum=fe36f9a612c580d6e0067f9e83ad28722e88e99796ad971a0afe916907be2cd2
+
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" -DKF5_HOST_TOOLING=/usr/lib/cmake"
+	hostmakedepends+=" kauth-devel kconfig-devel kcoreaddons-devel kpackage-devel kdoctools python3 qt5-host-tools qt5-qmake"
+fi

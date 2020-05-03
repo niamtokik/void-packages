@@ -1,31 +1,29 @@
 flags:
   git-annex:
-    concurrentoutput: true
     production: true
     assistant: true
     pairing: true
-    network-uri: true
     s3: true
-    testsuite: true
     webdav: true
     torrentparser: true
     webapp: true
     magicmime: false
     dbus: false
-    android: false
-    androidsplice: false
+    debuglocks: false
+    benchmark: false
+    networkbsd: false
 packages:
 - '.'
 extra-deps:
-- aws-0.16
-- bloomfilter-2.0.1.0
-- torrent-10000.0.0
-- yesod-default-1.2.0
-- conduit-extra-1.1.17                  
-- time-1.6.0.1      
-- xml-conduit-1.5.1 
-- happy-1.19.8
-- alex-3.2.3
+ - IfElse-0.85
+ - aws-0.22
+ - bloomfilter-2.0.1.0
+ - filepath-bytestring-1.4.2.1.6
+ - sandi-0.5
+ - tasty-rerun-1.1.17
+ - torrent-10000.1.1
+ - bencode-0.6.1.1@sha256:55b2f5653738754182c124caa8ba2eb533dfaf24fa2c4c73438edee406188b22,1930
+ - network-multicast-0.3.2@sha256:521547635a6afae408ec25193b3e429082dc0442668dac7ad5cea76ccee39750,979
 explicit-setup-deps:
   git-annex: true
-resolver: lts-10.2
+resolver: lts-15.4

@@ -1,36 +1,43 @@
 # Template file for 'python-Cheroot'
 pkgname=python-Cheroot
-version=6.0.0
+version=8.3.0
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="cheroot-${version}"
 build_style=python-module
-pycompile_module="cheroot"
 hostmakedepends="python-setuptools python3-setuptools"
-depends="python-six"
-short_desc="High-performance, pure-Python HTTP server"
-maintainer="Andrea Brancaleoni <abc@pompel.me>"
-license="3-clause-BSD"
+depends="python-setuptools python-six python-more-itertools
+ python-backports.functools_lru_cache python-jaraco.functools"
+short_desc="High-performance, pure-Python HTTP server (Python2)"
+maintainer="bra1nwave <bra1nwave@protonmail.com>"
+license="BSD-3-Clause"
 homepage="https://github.com/cherrypy/cheroot"
+changelog="https://github.com/cherrypy/cheroot/blob/master/CHANGES.rst"
 distfiles="${PYPI_SITE}/c/cheroot/cheroot-${version}.tar.gz"
-checksum=ba474e5149b03fabc2bba2d0b490b4d95443894d45b1430b799dccea3b3f4683
+checksum=a0577e1f28661727d472671a7cc4e0c12ea0cbc5220265e70f00a8b8cb628931
+alternatives="cheroot:cheroot:/usr/bin/cheroot2"
 
 pre_build() {
-	sed -i setup.py \
+	vsed -i setup.cfg \
 		-e '/setuptools_scm/d' \
-		-e "s|use_scm_version=True|version='${version}'|"
+		-e '/use_scm_version/d' \
+		-e "/name = /a\
+		version = ${version}"
 }
+
 post_install() {
 	vlicense LICENSE.md
 }
 
 python3-Cheroot_package() {
-	noarch=yes
-	depends="python3-six"
-	pycompile_module="cheroot"
+	archs=noarch
+	depends="python3-setuptools python3-six python3-more-itertools
+	 python3-jaraco.functools"
+	alternatives="cheroot:cheroot:/usr/bin/cheroot3"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
-		vmove usr/lib/python3*
+		vmove "usr/bin/*3"
+		vmove "usr/lib/python3*"
 		vlicense LICENSE.md
 	}
 }

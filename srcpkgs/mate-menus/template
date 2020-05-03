@@ -1,22 +1,21 @@
 # Template file for 'mate-menus'
 pkgname=mate-menus
-version=1.18.1
+version=1.24.0
 revision=1
 build_style=gnu-configure
-configure_args="--disable-static $(vopt_enable python)"
+build_helper="gir"
+configure_args="--disable-static"
 hostmakedepends="pkg-config intltool itstool $(vopt_if gir gobject-introspection)"
-makedepends="libglib-devel $(vopt_if python python-devel)"
+makedepends="libglib-devel"
 short_desc="MATE menu specifications"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2"
-homepage="http://mate-desktop.org"
-distfiles="http://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=e62be81d1b72c3e5b14d9500a42c5628c9dba1e477b1bc5a6de380b71dd8dc0d
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later, LGPL-2.0-or-later"
+homepage="https://mate-desktop.org"
+distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=2d431934520cd17b26b458b4efc078adace3cd2f62a62475762bd703d19064ef
 
-build_options="gir python"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir python"
-fi
+build_options="gir"
+build_options_default="gir"
 
 mate-menus-devel_package() {
 	short_desc+=" - development files"

@@ -1,14 +1,15 @@
 # Template file for 'bmake'
 pkgname=bmake
-version=20171207
+version=20200402
 revision=1
 create_wrksrc=yes
 short_desc="Portable version of the NetBSD make build tool"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="BSD"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="BSD-3-Clause"
 homepage="http://www.crufty.net/help/sjg/bmake.html"
 distfiles="http://www.crufty.net/ftp/pub/sjg/bmake-${version}.tar.gz"
-checksum=1703667e53a0498c0903b20612ebcbb41b886a94b238624cfeadd91a4111d39a
+checksum=cf15f204ad8eea3396c2c7179b5ec0cffb06c9628b6f91050c6f2cbcaabb8928
+python_version=2 #unverified
 
 do_configure() {
 	cd bmake
@@ -23,6 +24,7 @@ do_configure() {
 		cp linux*-*/bmake .
 	fi
 }
+
 do_build() {
 	mkdir -p bmake/bmake-build
 	cd bmake/bmake-build

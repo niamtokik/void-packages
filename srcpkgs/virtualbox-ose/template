@@ -1,50 +1,46 @@
 # Template file for 'virtualbox-ose'
 pkgname=virtualbox-ose
-version=5.2.6
+version=6.1.6
 revision=1
 wrksrc="VirtualBox-${version%*a}"
 short_desc="General-purpose full virtualizer for x86 hardware"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://virtualbox.org"
-license="GPL-2, CDDL"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-only, CDDL-1.0"
+homepage="https://www.virtualbox.org"
+changelog="https://www.virtualbox.org/wiki/Changelog"
 distfiles="http://download.virtualbox.org/virtualbox/${version%*a}/VirtualBox-$version.tar.bz2"
-checksum=fe705288ee50efcce10ff4c80e461a1c7091e461a7b55f98842fa1c9772ca4e7
+checksum=b031c30d770f28c5f884071ad933e8c1f83e65b93aaba03a4012077c1d90a54f
 
 nopie=yes
 lib32disabled=yes
-only_for_archs="i686 x86_64"
+archs="x86_64"
 
-hostmakedepends="perl pkg-config dev86 yasm acpica-utils qt5-tools"
-makedepends="libressl-devel libcurl-devel libpng-devel libvpx-devel
- alsa-lib-devel pulseaudio-devel SDL-devel qt5-devel qt5-x11extras-devel
- libXcursor-devel libXinerama-devel libXcomposite-devel libIDL-devel
- libglib-devel pam-devel python-devel libxslt-devel libcap-devel
- xorg-server-devel device-mapper-devel docbook-xsl gsoap-devel"
+hostmakedepends="acpica-utils dev86 perl pkg-config qt5-tools tar yasm which"
+makedepends="device-mapper-devel docbook-xsl gsoap-devel libcap-devel libcurl-devel
+ libIDL-devel libvpx-devel libXcomposite-devel libXcursor-devel
+ libXinerama-devel libxslt-devel opus-devel pam-devel python-devel qt5-x11extras-devel
+ SDL-devel xorg-server-devel"
 
 if [ "$XBPS_MACHINE" = "x86_64" ]; then
 	makedepends+=" gcc-multilib"
-else
-	broken="https://build.voidlinux.eu/builders/i686_builder/builds/7205/steps/shell_3/logs/stdio"
 fi
 
 depends="virtualbox-ose-dkms-${version}_${revision} hicolor-icon-theme desktop-file-utils dbus"
 system_groups="vboxusers"
 
 pre_configure() {
-	# Use our path for dri drivers.
-	sed -e 's,/usr/lib64/dri:/usr/lib/dri:/usr/lib/x86_64-linux-gnu/dri,/usr/lib/xorg/modules/drivers,g' \
-		-i src/VBox/Additions/common/crOpenGL/fakedri_drv.c
-
 	cp ${FILESDIR}/LocalConfig.kmk .
 	ln -s /bin/echo makeself
 
 	echo 'VBOX_USE_SYSTEM_GL_HEADERS=true' >> LocalConfig.kmk
 	sed -i 's/^check_gcc$/#check_gcc/' configure
 }
+
 do_configure() {
 	./configure --disable-docs --disable-java --enable-vde \
 		--disable-python --disable-kmods --nofatal --enable-webservice
 }
+
 do_build() {
 	export USERNAME="$(whoami)"
 	sed -i -e "/webtest_LIBS/,/^webtest_/s/.*LIB_.*/\0 z/" \
@@ -52,6 +48,7 @@ do_build() {
 	source ./env.sh
 	kmk ${makejobs} KBUILD_VERBOSE=2 all
 }
+
 do_install() {
 	local f _osedir _guestdir
 
@@ -68,18 +65,19 @@ do_install() {
 		ln -sf VBox ${DESTDIR}/usr/bin/${f}
 	done
 	# components
+	rm components/VBoxREM.so
 	install -m0755 components/* -t ${DESTDIR}/usr/lib/virtualbox/components
 
 	# libs
 	install -m0755 *.so ${DESTDIR}/usr/lib/virtualbox
-	install -m0644 *.rc *.r0 *.fd ${DESTDIR}/usr/lib/virtualbox
+	install -m0644 *.r0 *.fd ${DESTDIR}/usr/lib/virtualbox
 
 	# setuid
-	install -m4755 VBoxHeadless VBoxSDL VBoxNetDHCP VBoxNetAdpCtl \
-		VirtualBox -t ${DESTDIR}/usr/lib/virtualbox
+	install -m4755 VBoxSDL VirtualBoxVM VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl \
+		VBoxNetNAT -t ${DESTDIR}/usr/lib/virtualbox
 
-	install -m0755 VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxXPCOMIPCD \
-		VBoxTestOGL VBoxBalloonCtrl vboxwebsrv webtest \
+	install -m0755 VirtualBox VBoxManage VBoxSVC VBoxExtPackHelperApp \
+		VBoxXPCOMIPCD VBoxTestOGL VBoxBalloonCtrl vboxwebsrv webtest \
 		-t ${DESTDIR}/usr/lib/virtualbox
 
 	# locales
@@ -123,7 +121,7 @@ virtualbox-ose-dkms_package() {
 	short_desc+=" - kernel module sources for dkms"
 	dkms_modules="virtualbox-ose ${version}"
 	depends="dkms"
-	noarch=yes
+	archs=noarch
 
 	pkg_install() {
 		source ${wrksrc}/env.sh
@@ -133,6 +131,7 @@ virtualbox-ose-dkms_package() {
 
 		install -d ${_osedir}
 		cp -a . ${_osedir}
+		cp -a ${wrksrc}/include ${_osedir}
 		rm -f ${_osedir}/do_dkms
 		install -m644 ${FILESDIR}/${sourcepkg}-dkms.dkms ${_osedir}/dkms.conf
 		vinstall ${FILESDIR}/${sourcepkg}-dkms.udev 644 \
@@ -141,8 +140,7 @@ virtualbox-ose-dkms_package() {
 }
 virtualbox-ose-guest_package() {
 	lib32disabled=yes
-	depends="virtualbox-ose-guest-dkms-${version}_${revision}"
-	conflicts="xserver-abi-video>23_1"
+	conflicts="xserver-abi-video>24_1"
 	short_desc+=" - guest utilities"
 
 	pkg_install() {
@@ -160,9 +158,6 @@ virtualbox-ose-guest_package() {
 
 		cd ${wrksrc}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions
 		install -d ${PKGDESTDIR}/usr/lib/xorg/modules/drivers
-		install -m755 VBoxOGL*.so ${PKGDESTDIR}/usr/lib
-		ln -sf /usr/lib/VBoxOGL.so \
-			${PKGDESTDIR}/usr/lib/xorg/modules/drivers/vboxvideo_dri.so
 		cd ${wrksrc}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions
 		install -Dm755 pam_vbox.so ${PKGDESTDIR}/usr/lib/security/pam_vbox.so
 
@@ -174,7 +169,7 @@ virtualbox-ose-guest-dkms_package() {
 	short_desc+=" - guest addition module source for dkms"
 	dkms_modules="virtualbox-ose-guest ${version}"
 	depends="dkms"
-	noarch=yes
+	archs=noarch
 
 	pkg_install() {
 		source ${wrksrc}/env.sh

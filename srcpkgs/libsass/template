@@ -1,18 +1,19 @@
 # Template file for 'libsass'
 pkgname=libsass
-version=3.4.8
-revision=1
+reverts="3.6.3_1 3.6.2_1"
+version=3.6.1
+revision=3
 build_style=gnu-configure
 hostmakedepends="automake libtool"
 short_desc="C implementation of Sass CSS preprocessor"
 maintainer="Gerardo Di Iorio <arete74@gmail.com>"
-homepage="http://libsass.org/"
 license="MIT"
+homepage="http://www.sass-lang.com/libsass"
 distfiles="https://github.com/sass/${pkgname}/archive/${version}.tar.gz"
-checksum=2344372fa613db1ef1401bea03abc23e824cb33b03ba2276ec56602dc8ab003f
+checksum=18d6e866ba2430cccae2551f384aca253a84592c692ce7146550f1d4f273b7d7
 
 pre_configure() {
-	autoreconf  -i
+	NOCONFIGURE=1 autoreconf -fi
 }
 
 post_install() {

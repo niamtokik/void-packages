@@ -1,29 +1,30 @@
 # Template file for 'fio'
 pkgname=fio
-version=3.4
+version=3.19
 revision=1
 wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=configure
+make_build_args="T_TEST_PROGS="
 make_install_args="mandir=/usr/share/man"
 makedepends="zlib-devel libaio-devel"
 depends="python"
 short_desc="Flexible I/O tester"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="GPL-2"
+license="GPL-2.0-only"
 homepage="https://github.com/axboe/fio"
 distfiles="https://github.com/axboe/${pkgname}/archive/${pkgname}-${version}.tar.gz"
-checksum=edde11621aefdfe4e18c7108d036c3338c5d12f584f823ea319ee895f1a0024e
+checksum=809963b1d023dbc9ac7065557af8129aee17b6895e0e8c5ca671b0b14285f404
+python_version=2 #unverified
 
 case "$XBPS_TARGET_MACHINE" in
-	i686*|x86_64*) makedepends+=" libnuma-devel"
+	i686*|x86_64*|ppc64*) makedepends+=" libnuma-devel"
 esac
 
 do_configure() {
-	./configure --prefix=/usr --extra-cflags="$CFLAGS"
+	./configure --prefix=/usr --extra-cflags="$CFLAGS" --disable-native
 }
 
 post_install() {
-	vlicense MORAL-LICENSE
 	vdoc HOWTO
 	for f in examples/*; do
 		vsconf "$f"

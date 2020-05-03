@@ -1,17 +1,17 @@
 # Template file for 'kdnssd'
 pkgname=kdnssd
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-host-tools qt5-tools-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules qt5-host-tools qt5-tools-devel"
 makedepends="qt5-devel qt5-tools-devel avahi-libs-devel"
 short_desc="Network service discovery using Zeroconf"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdnssd"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=946e1f9a609e55930c20127b6cb6d86599c21a4a13d83263a44ed50185f939cc
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=d7b2272c2c885749961ab046d97f2eb1c3b90b485ded774479b39827a7309a25
 
 kdnssd-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +20,6 @@ kdnssd-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

@@ -1,17 +1,18 @@
 # Template file for 'kxmlgui'
 pkgname=kxmlgui
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules qt5-qmake qt5-host-tools python"
-makedepends="kglobalaccel-devel ktextwidgets-devel attica-qt5-devel"
+hostmakedepends="kcoreaddons extra-cmake-modules kcoreaddons
+ gettext qt5-qmake qt5-host-tools python3"
+makedepends="kglobalaccel-devel ktextwidgets-devel attica-devel"
 short_desc="KDE Framework for managing menu and toolbar actions"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kxmlgui"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=c01715eb7ba54e10ef3754ac2fd2de580ad6b12568dbe657d17ec2cc5197dd4d
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=c6d6d5b05af21ebdca03f110a2563b0bad0f069078cb0d94a629624f29450657
 
 kxmlgui-devel_package() {
 	short_desc+=" - development"
@@ -20,6 +21,6 @@ kxmlgui-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

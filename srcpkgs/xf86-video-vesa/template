@@ -1,19 +1,19 @@
-# Template build file for 'xf86-video-vesa'.
+# Template file for 'xf86-video-vesa'
 pkgname=xf86-video-vesa
-reverts=2:2.3.3_5
-version=2.3.4
-revision=4
-lib32disabled=yes
+version=2.4.0
+revision=2
+archs="x86_64* i686*"
 build_style=gnu-configure
 hostmakedepends="pkg-config"
 makedepends="xorg-server-devel"
-depends="virtual?xserver-abi-video-23_1"
+depends="virtual?xserver-abi-video-24_1"
 short_desc="Xorg VESA video driver"
-homepage="http://xorg.freedesktop.org"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+homepage="http://xorg.freedesktop.org"
 distfiles="${XORG_SITE}/driver/${pkgname}-${version}.tar.bz2"
-checksum=7bddf4d879dd6f67088ecb203a31e12334aab980174bd0909930a21f32e251c1
+checksum=bf443c94d7bf6cd4e248f8a3147f4647be04dc4c80250d9405006263bbdee38c
+lib32disabled=yes
 
 CFLAGS="-I$XBPS_CROSS_BASE/usr/include/xorg"
 LDFLAGS="-Wl,-z,lazy"

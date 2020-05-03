@@ -1,13 +1,22 @@
 # Template file for 'etr'
 pkgname=etr
-version=0.7.4
+version=0.8.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
 makedepends="SFML-devel glu-devel"
+depends="${pkgname}-data"
 short_desc="High speed arctic racing game based on Tux Racer"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://sourceforge.net/projects/extremetuxracer/"
 distfiles="${SOURCEFORGE_SITE}/extremetuxracer/${pkgname}-${version}.tar.xz"
-checksum=da9ce3a1b1e56415285163b9ebc67fdb11fca07acd3ab18f793556d996275234
+checksum=4b2899314eda8d0826504ab274acb13ab0dab58b6d0641587749dfa77757da17
+
+etr-data_package() {
+ 	short_desc+=" - data files"
+ 	archs=noarch
+ 	pkg_install() {
+ 		vmove usr/share/etr
+ 	}
+}

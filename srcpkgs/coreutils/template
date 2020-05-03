@@ -1,32 +1,38 @@
 # Template file for 'coreutils'
 pkgname=coreutils
-version=8.29
-revision=1
+version=8.32
+revision=4
 bootstrap=yes
 makedepends="gmp-devel acl-devel libcap-devel"
-replaces="chroot-coreutils>=0 coreutils-doc>=0 b2sum>=0"
-short_desc="The GNU core utilities"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.gnu.org/software/coreutils"
-license="GPL-3"
+short_desc="GNU core utilities"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="https://www.gnu.org/software/coreutils"
+changelog="https://git.savannah.gnu.org/gitweb/?p=coreutils.git;a=blob_plain;f=NEWS;hb=HEAD"
 distfiles="${GNU_SITE}/coreutils/coreutils-${version}.tar.xz"
-checksum=92d0fa1c311cacefa89853bdb53c62f4110cdfda3820346b59cbd098f40f955e
-make_check_args="RUN_EXPENSIVE_TESTS=1"
+checksum=4458d8de7849df44ccab15e16b1548b285224dbba5f08fac070c1c0e0bcc4cfa
+
+replaces="chroot-coreutils>=0 coreutils-doc>=0 b2sum>=0"
 
 if [ "$CHROOT_READY" ]; then
-	hostmakedepends="perl"
+	hostmakedepends+=" perl"
+	# allow run ./configure by root in ethereal chroot
+	if [ "$XBPS_ALLOW_CHROOT_BREAKOUT" ]; then
+		_force_unsafe_configure="FORCE_UNSAFE_CONFIGURE=1"
+	fi
 fi
 
 alternatives="
  hostname:hostname:/usr/bin/hostname-coreutils
- hostname:hostname.1:/usr/share/man/man1/hostname-coreutils.1
-"
+ hostname:hostname.1:/usr/share/man/man1/hostname-coreutils.1"
 
 pre_configure() {
 	# Build natively all utils for the host, we need this to generate
 	# the manpages via help2man.
 	if [ "$CROSS_BUILD" ]; then
-		CC=cc LD=ld AR=ar RANLIB=ranlib CFLAGS=-Os CXXFLAGS=-Os LDFLAGS= \
+		env CC=cc LD=ld AR=ar RANLIB=ranlib \
+			CFLAGS=-Os CXXFLAGS=-Os LDFLAGS= \
+			$_force_unsafe_configure \
 			./configure --prefix=${wrksrc}/coreutils-${XBPS_MACHINE} \
 			--enable-install-program=arch,hostname \
 			--enable-no-install-program=kill,uptime
@@ -50,24 +56,28 @@ do_configure() {
 	# Do not install kill: provided by util-linux.
 	# Do not install uptime: provided by procps-ng.
 	#
-	./configure ${configure_args} \
+	env $_force_unsafe_configure ./configure ${configure_args} \
 		--enable-install-program=arch,hostname \
 		--enable-no-install-program=kill,uptime \
 		--disable-rpath
 	if [ "$CROSS_BUILD" ]; then
 		# Use install when cross compiling
-		sed -i Makefile -e 's;^\(cu_install_program =\).*;\1 install;'
+		cp Makefile Makefile.cfg.orig
+		sed -e 's;^\(cu_install_program =\).*;\1 install;' \
+			Makefile.cfg.orig >Makefile
 	fi
 }
+
 do_build() {
 	if [ "$CROSS_BUILD" ]; then
 		cp Makefile Makefile.orig
 		sed '/src_make_prime_list/d' Makefile.orig > Makefile
-		depbase=$(echo src/make-prime-list.o | sed 's|[^/]*$|.deps/&|;s|\.o$||');\
-			cc -std=gnu99  -I. -I./lib  -Ilib -I./lib -Isrc -I./src  \
+		depbase=$(echo src/make-prime-list.o | sed 's|[^/]*$|.deps/&|;s|\.o$||')
+		cc -std=gnu99  -I. -I./lib  -Ilib -I./lib -Isrc -I./src  \
 			-fdiagnostics-show-option -funit-at-a-time -g -O2 -MT \
-			src/make-prime-list.o -MD -MP -MF $depbase.Tpo -c -o src/make-prime-list.o \
-			src/make-prime-list.c &&
+			src/make-prime-list.o -MD -MP -MF $depbase.Tpo -c \
+			-o src/make-prime-list.o \
+			src/make-prime-list.c
 		mv -f $depbase.Tpo $depbase.Po
 		cc -std=gnu99 -fdiagnostics-show-option -funit-at-a-time -g -O2 \
 			-Wl,--as-needed  -o src/make-prime-list src/make-prime-list.o
@@ -77,28 +87,23 @@ do_build() {
 	make ${makejobs}
 }
 
-pre_check() {
+do_check() {
+	local exeext_tests
+
 	# chgrp tests fail inside a chroot
 	sed -i '/tests\/chgrp/d' Makefile
 
-	exeext_tests="fchownat chown lchown chdir canonizalize calloc-gnu"
-	sh_tests="c-strcase"
+	# Tests that fail due to being inside a chroot
+	exeext_tests="chown lchown fchownat"
 
-	case "$XBPS_TARGET_MACHINE" in
-		*-musl* )
-			# Disable locale tests that fail on musl
-			exeext_tests+=" localename getlogin getcwd"
-			sh_tests+=" mbrtowc5"
-			;;
-	esac
+	# Tests that depend on the tests reemoved
+	exeext_tests+=" fchmodat fchdir"
 
 	for test in $exeext_tests ; do
 		sed -i "/test-$test\$(EXEEXT)/d" gnulib-tests/Makefile
 	done
 
-	for test in $sh_tests ; do
-		sed -i "/test-$test.sh/d" gnulib-tests/Makefile
-	done
+	make check
 }
 
 do_install() {

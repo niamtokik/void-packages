@@ -1,16 +1,16 @@
 # Template file for 'perl-Devel-CheckLib'
 pkgname=perl-Devel-CheckLib
-version=1.11
+version=1.14
 revision=1
-noarch=yes
-build_style=perl-module
+archs=noarch
 wrksrc="Devel-CheckLib-${version}"
+build_style=perl-module
 hostmakedepends="perl-IO-CaptureOutput"
 makedepends="${hostmakedepends}"
 depends="perl"
 short_desc="Module to check for other perl modules"
-maintainer="Sir_Boops <admin@boops.me>"
-homepage="http://search.cpan.org/dist/Devel-CheckLib/"
-license="Artistic, GPL-1"
+maintainer="Zach Dykstra <dykstra.zachary@gmail.com>"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/Devel-CheckLib"
 distfiles="${CPAN_SITE}/Devel/Devel-CheckLib-${version}.tar.gz"
-checksum=bd6d1c187e80be6de1f0d37add441ba8f14950c7bc1f54e764770ed484b232c1
+checksum=f21c5e299ad3ce0fdc0cb0f41378dca85a70e8d6c9a7599f0e56a957200ec294

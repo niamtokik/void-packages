@@ -1,25 +1,23 @@
 # Template file for 'rebar3'
-
-pkgname="rebar3"
-version="3.3.5"
+pkgname=rebar3
+version=3.13.2
 revision=1
-# build_style="gnu-configure"
-short_desc="Erlang build tool"
-maintainer="Mathieu Kerjouan <void@steepath.eu>"
+archs=noarch
+hostmakedepends=erlang
+depends="erlang>=22"
+short_desc="Erlang build tool to compile, test, and release applications"
+maintainer="Noel Cower <ncower@nil.dev>"
 license="Apache-2.0"
-homepage="https://github.com/erlang/rebar3"
-distfiles="https://github.com/erlang/${pkgname}/archive/${version}.tar.gz"
-checksum="b17661bedaf2060179e0b7b2c4a64350b7a303d809397325ee4be38cc1dc9058"
-hostmakedepends="erlang"
-depends="erlang"
-
-do_build() {
-	./bootstrap
-}
+homepage="https://www.rebar3.org/"
+distfiles="https://github.com/erlang/rebar3/archive/${version}.tar.gz"
+checksum=e14cdc1f5b7d363a238a9f555f89e878bc4fc836c970571b41b90ee947f91505
 
 do_install() {
 	vmkdir usr/bin
 	vman manpages/rebar3.1
 	vcopy rebar3 usr/bin/rebar3
 	vlicense LICENSE
+	vbin rebar3
+	vsconf rebar.config.sample rebar.config
+	vman manpages/rebar3.1
 }

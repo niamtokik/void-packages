@@ -1,24 +1,22 @@
 # Template file for 'gpodder'
 pkgname=gpodder
-version=3.10.0
+version=3.10.15
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="gpodder-${version}"
-pycompile_module="gpodder"
-hostmakedepends="python3-devel intltool"
-makedepends="python3-devel"
-depends="python3-podcastparser python3-mygpoclient python3-dbus python3-html5lib eyeD3
- pygtk hicolor-icon-theme python3-gobject"
-checkdepends="${depends} python3-MiniMock"
+hostmakedepends="python3 intltool"
+depends="eyeD3 gtk+3 hicolor-icon-theme python3-dbus python3-gobject
+ python3-html5lib python3-mygpoclient python3-podcastparser"
+checkdepends="${depends} python3-MiniMock python3-coverage desktop-file-utils"
 short_desc="Podcast client"
-maintainer="bra1nwave <brainwave@openmailbox.org>"
-license="GPL-3"
+maintainer="bra1nwave <bra1nwave@protonmail.com>"
+license="GPL-3.0-or-later"
 homepage="https://github.com/gpodder/gpodder"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=c5cf0c1e530dedcb4e652d2350a07d515c155f34c6c76d0e98c918f8042baf54
+checksum=9a2a3ac0f62da7073d4450dc88923688eab7232c461a90fbc9bace477599fd4b
 
 do_check() {
-	make unittest
+	make releasetest
 }
 
 do_install() {

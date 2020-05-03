@@ -1,17 +1,17 @@
 # Template file for 'ipset'
 pkgname=ipset
-version=6.35
+version=7.6
 revision=1
 build_style=gnu-configure
-configure_args="--with-kmod=no --sbindir=/usr/bin PKG_CONFIG=pkg-config"
+configure_args="--with-kmod=no PKG_CONFIG=pkg-config"
 hostmakedepends="pkg-config"
 makedepends="libmnl-devel"
 short_desc="Administration tool for IP sets"
-maintainer="beefcurtains <beefcurtains@voidlinux.eu>"
-license="GPL-2"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-2.0-only"
 homepage="http://ipset.netfilter.org/"
 distfiles="${homepage}${pkgname}-${version}.tar.bz2"
-checksum=37071013e1f92e0ca2f5deac86e657db87290fe651f64f44ce662f3aa40bf4dc
+checksum=0e7d44caa9c153d96a9b5f12644fbe35a632537a5a7f653792b72e53d9d5c2db
 
 libipset_package() {
 	short_desc+=" - library files"
@@ -28,5 +28,6 @@ libipset-devel_package() {
 		vmove usr/lib/pkgconfig
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
+		vmove usr/share/man/man3
 	}
 }

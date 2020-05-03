@@ -1,17 +1,34 @@
 # Template file for 'kmymoney'
 pkgname=kmymoney
-version=4.8.1.1
+version=5.0.8
 revision=2
 build_style=cmake
-hostmakedepends="qt-qmake automoc4 perl doxygen pkg-config gwenhywfar-qt"
-makedepends="kdelibs-devel gpgme-devel aqbanking-devel gwenhywfar-devel libical-devel kactivities-devel gmp-devel libofx-devel qt-devel phonon-devel libalkimia-devel boost-devel kdepimlibs-devel gmpxx-devel"
+configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson
+ -DBUILD_TESTING=OFF"
+hostmakedepends="extra-cmake-modules kconfig kcoreaddons kdoctools pkg-config
+ python3 qt5-host-tools qt5-qmake gettext"
+makedepends="akonadi5-devel aqbanking-devel gmp-devel gmpxx-devel gpgmeqt-devel
+ gwenhywfar-devel gwenhywfar-qt5 kactivities5-devel kcmutils-devel
+ kcontacts-devel kdewebkit-devel kdiagram-devel kholidays-devel
+ kidentitymanagement-devel kross-devel libalkimia-devel libical-devel
+ libofx-devel"
 depends="shared-mime-info"
-homepage="https://kmymoney.org"
 short_desc="Personal finance manager"
 maintainer="Helmut Pozimski <helmut@pozimski.eu>"
-license="GPL-2"
-distfiles="http://download.kde.org/stable/kmymoney/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=2b1cbd141d51a3f4147c30c00c7d21022e761d8121f5a206092cf3548f805a34
+license="GPL-2.0-or-later"
+homepage="https://kmymoney.org"
+distfiles="${KDE_SITE}/kmymoney/${version}/src/${pkgname}-${version}.tar.xz"
+checksum=ac6bcef37def09ca2530276254eab5e9ae57f3a1cd5ed7c87c3d38045400d4c0
+
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" -DENABLE_LIBICAL=0"
+fi
+
+post_extract() {
+	if [ "$CROSS_BUILD" ]; then
+		vsed /find_package\(Libical\)/d -i CMakeLists.txt
+	fi
+}
 
 kmymoney-devel_package() {
 	short_desc+=" - development files"

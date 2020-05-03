@@ -1,38 +1,37 @@
 # Template file for 'clamav'
 pkgname=clamav
-version=0.99.3
-revision=2
+version=0.102.2
+revision=1
 build_style=gnu-configure
 # XXX: system llvm is too new (< 3.7 required)
 # Shipped llvm does not build with gcc6
-# --disable-zlib-vcheck because of broken zlib check
-configure_args="--sbindir=/usr/bin --libdir=/usr/lib --with-pcre=/usr --disable-llvm --disable-zlib-vcheck"
+configure_args="--sbindir=/usr/bin --libdir=/usr/lib
+ --with-openssl=${XBPS_CROSS_BASE}/usr --with-pcre=${XBPS_CROSS_BASE}/usr
+ --with-zlib=${XBPS_CROSS_BASE}/usr --with-libbz2-prefix=${XBPS_CROSS_BASE}/usr
+ --with-system-libmspack=${XBPS_CROSS_BASE}/usr --with-libcurl=${XBPS_CROSS_BASE}/usr
+ --enable-ipv6 --with-user=_clamav --with-group=_clamav"
 conf_files="/etc/clamd.conf /etc/freshclam.conf"
-system_accounts="clamav"
-clamav_homedir="/var/lib/${pkgname}"
-clamav_descr="ClamAV user"
-hostmakedepends="bison flex pkg-config zip"
-makedepends="libressl-devel libxml2-devel libcurl-devel ncurses-devel
- json-c-devel pcre-devel tcl-devel bzip2-devel zlib-devel"
+hostmakedepends="flex pkg-config zip"
+makedepends="json-c-devel libcurl-devel libmspack-devel libxml2-devel
+ ncurses-devel pcre-devel tcl-devel"
 short_desc="Clam Anti-Virus scanner"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-2"
+license="GPL-2.0-only"
 homepage="http://www.clamav.net/"
 distfiles="http://www.clamav.net/downloads/production/${pkgname}-${version}.tar.gz"
-checksum=00fa5292a6e00a3a4035b826267748965d5d2c4943d8ff417d740238263e8e84
+checksum=89fcdcc0eba329ca84d270df09d2bb89ae55f5024b0c3bddb817512fb2c907d3
+_clamav_homedir="/var/lib/_${pkgname}"
+_clamav_descr="ClamAV user"
+system_accounts="_clamav"
 
 CPPFLAGS="-Wno-unused-local-typedefs"
 if [ "$CROSS_BUILD" ]; then
-	configure_args+=" --with-openssl=${XBPS_CROSS_BASE}/usr"
-	configure_args+=" --with-pcre=${XBPS_CROSS_BASE}/usr"
-	configure_args+=" --with-zlib=${XBPS_CROSS_BASE}/usr"
 	configure_args+=" --disable-mempool"
 fi
-case "$XBPS_TARGET_MACHINE" in
-	*-musl)	makedepends+=" musl-fts-devel"
-		LDFLAGS="-lfts"
-		;;
-esac
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	makedepends+=" musl-fts-devel"
+	LDFLAGS="-lfts"
+fi
 
 do_configure() {
 	# Disable detection of sys/cdefs.h (it's obsolete)
@@ -47,14 +46,14 @@ post_install() {
 	vsconf etc/clamd.conf.sample
 	sed -i ${PKGDESTDIR}/etc/clamd.conf \
 		-e "s;^Example$;# Example;" \
-		-e "s;#DatabaseDirectory.*;DatabaseDirectory /var/lib/${pkgname};"
+		-e "s;#DatabaseDirectory.*;DatabaseDirectory /var/lib/_${pkgname};"
 
 	# Enable and patch freshclam configuration
 	mv -v ${PKGDESTDIR}/etc/freshclam.conf.sample ${PKGDESTDIR}/etc/freshclam.conf
 	vsconf etc/freshclam.conf.sample
 	sed -i ${PKGDESTDIR}/etc/freshclam.conf \
 		-e "s;^Example$;# Example;" \
-		-e "s;#DatabaseDirectory.*;DatabaseDirectory /var/lib/${pkgname};"
+		-e "s;#DatabaseDirectory.*;DatabaseDirectory /var/lib/_${pkgname};"
 }
 clamav-devel_package() {
 	depends="${sourcepkg}>=${version}_${revision}"

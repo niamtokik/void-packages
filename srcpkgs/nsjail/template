@@ -1,28 +1,35 @@
 # Template file for 'nsjail'
 pkgname=nsjail
-version=2.4
-revision=1
+version=2.9
+revision=3
 build_style=gnu-makefile
-hostmakedepends="libnl3-devel git pkg-config protobuf-c bison flex"
-makedepends="libnl3-devel libcap-devel protobuf-devel"
-short_desc="A light-weight process isolation tool"
+hostmakedepends="bison flex pkg-config protobuf which"
+makedepends="libnl3-devel protobuf-devel"
+short_desc="Light-weight process isolation tool"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache-2.0"
-homepage="https://github.com/google/nsjail"
+homepage="http://nsjail.com"
+distfiles="https://github.com/google/nsjail/archive/${version}.tar.gz
+https://github.com/google/kafel/archive/722b93a630e53ca472a4c69f61cb3dfc44ea5041.tar.gz"
+checksum="f8578a48330d3d089c9234a2b562be08043f8fe77453c322724acdf403d0afc3
+ 49d2327c794c90aca50a9933c00d453705534b16e5f42d8c8e19c3d274f5e5f8"
 
-only_for_archs="armv6l armv7l x86_64"
+archs="aarch64* armv5tel* armv6l* armv7l* x86_64*"
 
-CFLAGS="-Wno-error=format"
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	makedepends+=" musl-legacy-compat"
+fi
 
-do_fetch() {
-	git clone $homepage $wrksrc
-	cd $wrksrc
-	git checkout $version
+post_extract() {
+	rmdir kafel
+	ln -s ../kafel-* kafel
 }
-do_build() {
-	make CC=$CC
+
+pre_build() {
+	sed -i -e 's/-Werror\b//g' -e 's/\b\(\(C\(XX\)\?\|LD\)FLAGS\s*+=\)/override \1/g' Makefile kafel/build/Makefile.mk kafel/src/Makefile
 }
+
 do_install() {
 	vbin ${pkgname}
-	vlicense LICENSE
+	vman nsjail.1
 }

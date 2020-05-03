@@ -1,26 +1,26 @@
 # Template file for 'kea'
 pkgname=kea
-version=1.2.0
+version=1.7.6
 revision=1
 build_style=gnu-configure
 configure_args="--enable-generate-docs --with-openssl=${XBPS_CROSS_BASE}/usr
- $(vopt_if mysql --with-dhcp-mysql)
- $(vopt_if pgsql --with-dhcp-pgsql)"
-hostmakedepends="flex bison perl pkg-config
- doxygen elinks libxslt docbook-xsl"
+ $(vopt_if mysql --with-mysql)
+ $(vopt_if pgsql --with-pgsql=${XBPS_CROSS_BASE}/usr/bin/pg_config.sh)"
+hostmakedepends="flex bison perl pkg-config automake libtool
+ doxygen elinks libxslt docbook-xsl python3-Sphinx python3-sphinx_rtd_theme"
 makedepends="boost-devel log4cplus-devel python3-devel
  $(vopt_if botan botan-devel libressl-devel)
  $(vopt_if mysql libmysqlclient-devel)
  $(vopt_if pgsql postgresql-libs-devel)"
 depends="libkea>=0"
-conf_files="/etc/kea/kea.conf"
+checkdepends="procps-ng" #needs pgrep
+conf_files="/etc/kea/*.conf"
 short_desc="Next generation DHCPv4/v6 server"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="MPL-2, Apache-2.0"
-homepage="http://kea.isc.org/wiki"
-distfiles="http://ftp.isc.org/isc/kea/${version}/kea-${version}.tar.gz"
-checksum=22d15945b13600b56c37213797ca1f3ee9851e6119120aeae08033c4cc52d129
-nocross="Tools required for messages are not built for the host arch"
+license="MPL-2.0, Apache-2.0"
+homepage="https://kea.isc.org"
+distfiles="http://ftp.isc.org/isc/kea/${version/.P/-P}/kea-${version/.P/-P}.tar.gz"
+checksum=1da3d50e0c8e92e1aa6d66100b5afd7b93ba2c50b0a4ea114fd9dcb8be982ca9
 
 build_options="botan mysql pgsql"
 desc_option_botan="With Botan SSL support"
@@ -30,6 +30,12 @@ build_options_default="pgsql"
 
 # Reduce log spamming for deprecated auto_ptr
 CXXFLAGS="-Wno-deprecated-declarations -O2"
+
+make_dirs="/var/kea 755 root root"
+
+pre_configure() {
+	autoreconf -fi
+}
 
 post_install() {
 	vsv kea-dhcp4
@@ -43,16 +49,17 @@ post_install() {
 	# keactrl and its config file is useless for us
 	rm ${DESTDIR}/usr/bin/keactrl
 	rm ${DESTDIR}/etc/kea/keactrl.conf
+	rm ${DESTDIR}/usr/bin/kea-ctrl-agent
 
 	# Modify the logging output to stdout
-	sed -i ${DESTDIR}/etc/kea/kea.conf \
+	sed -i ${DESTDIR}/etc/kea/*.conf \
 		-e 's;"output": "/var/log/.*";"output": "stdout";'
 }
 
 libkea_package() {
 	short_desc+=" - libraries"
 	pkg_install() {
-		vmove usr/lib/*.so.*
+		vmove "usr/lib/*.so.*"
 	}
 }
 
@@ -61,8 +68,7 @@ libkea-devel_package() {
 	depends="${makedepends} libkea>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
-		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 	}
 }

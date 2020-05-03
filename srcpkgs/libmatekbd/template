@@ -1,23 +1,23 @@
 # Template file for 'libmatekbd'
 pkgname=libmatekbd
-version=1.18.2
+version=1.24.0
 revision=1
 build_style=gnu-configure
+build_helper="gir"
 configure_args="--disable-static $(vopt_enable gir introspection)"
-hostmakedepends="mate-common pkg-config intltool itstool glib-devel gobject-introspection"
+hostmakedepends="mate-common autoconf-archive pkg-config intltool itstool
+ glib-devel gobject-introspection"
 makedepends="libICE-devel gtk+3-devel libxklavier-devel iso-codes"
 depends="dconf iso-codes"
 short_desc="MATE keyboard library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-3"
-homepage="http://mate-desktop.org"
-distfiles="http://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=03df100cf931a1f6880a32b0b3eb90e82e81f6d17085bb44a2a7ca8551a00b0c
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://mate-desktop.org"
+distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=4b99809b47583d4e0db6dde39afc2a0e338c8cc2588cbe0126180e9c327f07eb
 
 build_options="gir"
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
+build_options_default="gir"
 
 pre_configure() {
 	autoreconf -fi
@@ -28,7 +28,10 @@ libmatekbd-devel_package() {
 	depends="gtk+3-devel libxklavier-devel ${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 		vmove usr/lib/pkgconfig
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
 	}
 }

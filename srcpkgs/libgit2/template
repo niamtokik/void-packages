@@ -1,17 +1,17 @@
 # Template file for 'libgit2'
 pkgname=libgit2
-version=0.26.0
-revision=2
+version=0.28.4
+revision=1
 build_style=cmake
-hostmakedepends="python git pkg-config"
-makedepends="zlib-devel libressl-devel http-parser-devel libssh2-devel"
-short_desc="The Git linkable library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://libgit2.github.com/"
-license="GPL-2 with Linking Exception"
-distfiles="https://github.com/libgit2/libgit2/archive/v${version}.tar.gz"
-checksum=6a62393e0ceb37d02fe0d5707713f504e7acac9006ef33da1e88960bd78b6eac
 configure_args="-DTHREADSAFE=ON"
+hostmakedepends="python3 git pkg-config"
+makedepends="zlib-devel libressl-devel http-parser-devel libssh2-devel libuv-devel"
+short_desc="Git linkable library"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="custom:GPL-2.0-or-later WITH GCC-exception-2.0"
+homepage="https://libgit2.org"
+distfiles="https://github.com/libgit2/libgit2/archive/v${version}.tar.gz"
+checksum=30f3877469d09f2e4a21be933b4e2800560d16646028dd800744dc5f7fb0c749
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl)
@@ -19,6 +19,10 @@ case "$XBPS_TARGET_MACHINE" in
 		CFLAGS="-D__ANDROID_API__"
 		;;
 esac
+
+post_install() {
+	vlicense COPYING
+}
 
 libgit2-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"

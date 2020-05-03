@@ -1,22 +1,26 @@
 # Template file for 'qtractor'
 pkgname=qtractor
-version=0.8.5
+version=0.9.12
 revision=1
+wrksrc="qtractor-qtractor_${version//./_}"
 build_style=gnu-configure
 configure_args="--enable-debug"
-hostmakedepends="pkg-config qt5-qmake"
-makedepends="lv2 jack-devel libsndfile-devel
- libmad-devel libsamplerate-devel qt5-tools-devel qt5-x11extras-devel
- liblo-devel rubberband-devel vamp-plugin-sdk-devel ladspa-sdk dssi-devel
- lilv-devel suil-devel sratom-devel"
-depends="jack dssi lv2 desktop-file-utils hicolor-icon-theme"
+hostmakedepends="automake pkg-config"
+makedepends="dssi-devel jack-devel ladspa-sdk liblo-devel libmad-devel
+ libsamplerate-devel lilv-devel qt5-tools-devel qt5-x11extras-devel
+ rubberband-devel sratom-devel suil-devel vamp-plugin-sdk-devel"
+depends="desktop-file-utils dssi hicolor-icon-theme jack lv2"
 short_desc="Audio/MIDI multi-track sequencer application written in C++/Qt"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://qtractor.org"
-distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=0ae3ff97fb02fb91e68f8d9eb6715f8bf9145c8d55d81a865b9da1f746d3d02a
+changelog="https://raw.githubusercontent.com/rncbc/qtractor/master/ChangeLog"
+distfiles="https://github.com/rncbc/qtractor/archive/qtractor_${version//./_}.tar.gz"
+checksum=b13c4823add7d4989c579e3771d50f133006936a973cae0bc1b6d3c88b689da6
 
 # configure fails to find qt5 headers
-nocross="https://build.voidlinux.eu/builders/armv7l-musl_builder/builds/3458/steps/shell_3/logs/stdio"
+nocross="https://build.voidlinux.org/builders/armv7l-musl_builder/builds/3458/steps/shell_3/logs/stdio"
 
+pre_configure() {
+	autoreconf -if
+}

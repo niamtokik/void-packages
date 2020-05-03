@@ -1,16 +1,17 @@
 # Template file for 'gnome-calculator'
 pkgname=gnome-calculator
-version=3.26.0
+version=3.36.0
 revision=2
-build_style=gnu-configure
-hostmakedepends="pkg-config intltool itstool glib-devel gnome-doc-utils"
-makedepends="
- libxml2-devel gtk+3-devel gsettings-desktop-schemas-devel
- gtksourceview-devel mpfr-devel libsoup-devel libmpc-devel"
-depends="gsettings-desktop-schemas>=3.12 hicolor-icon-theme desktop-file-utils"
-short_desc="The GNOME calculator"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.gnome.org"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=62215b37fcd73a6bbb106ebd0f25051c81ff0cf6ad84fd4a3ea176bceb5863c7
+build_style=meson
+build_helper="gir"
+hostmakedepends="cmake gettext glib-devel itstool pkg-config vala"
+makedepends="gsettings-desktop-schemas-devel gtksourceview4-devel libgee08-devel
+ libmpc-devel libsoup-devel"
+depends="desktop-file-utils gsettings-desktop-schemas hicolor-icon-theme"
+short_desc="GNOME calculator"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://wiki.gnome.org/Apps/Calculator"
+changelog="https://raw.githubusercontent.com/GNOME/gnome-calculator/gnome-3-32/NEWS"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=a2e830f9c9856fad65dad1d6c0ae6abad0f0b496c9984ac005315c5cc4220db3

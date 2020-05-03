@@ -1,19 +1,18 @@
 # Template file for 'giac'
 pkgname=giac
-version=1.4.9r45
-revision=1
-wrksrc="${pkgname}-${version/r*}"
+version=1.5.0.87
+revision=2
+wrksrc="giac-${version%.*}"
 build_style=gnu-configure
 makedepends="fltk-devel gmp-devel gsl-devel lapack-devel
  libjpeg-turbo-devel libpng-devel readline-devel"
 depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Free computer algebra system"
-maintainer="cr6git <quark6@protonmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="https://www-fourier.ujf-grenoble.fr/~parisse/giac.html"
-license="GPL-3"
-distfiles="https://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/${pkgname}_${version/r/-}.tar.gz"
-checksum=a83188af1013d149d28929b2008c3bdca0e859e69178948af1af896c7f2eea87
-nocross="depends on blas, blas depends on libgfortran, libgfortran cannot be cross built"
+distfiles="https://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/giac_${version%.*}-${version##*.}.tar.gz"
+checksum=bbd6f0aafe373de3c9ed53d21878224e847359fdd9a7cdf9e9096e7c960f10b4
 
 post_install() {
 	# remove duplicates
@@ -39,10 +38,10 @@ giac-devel_package() {
 
 giac-doc_package() {
 	short_desc+=" - Documentation and Examples"
+	archs=noarch
 	pkg_install() {
 		vmove "usr/share/giac/doc"
 		vmove "usr/share/giac/examples"
 		find ${PKGDESTDIR} -name "Makefile*" -delete
 	}
 }
-

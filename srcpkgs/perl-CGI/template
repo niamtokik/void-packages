@@ -1,17 +1,17 @@
-# Template build file for 'perl-CGI'.
+# Template file for 'perl-CGI'
 pkgname=perl-CGI
-version=4.38
+version=4.47
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
 hostmakedepends="perl"
-makedepends="${hostmakedepends}"
+makedepends="$hostmakedepends"
+depends="$hostmakedepends"
 checkdepends="perl-Test-Deep perl-HTML-Parser perl-Test-Warn"
-depends="${hostmakedepends}"
 short_desc="Handle Common Gateway Interface requests and responses"
 maintainer="newbluemoon <blaumolch@mailbox.org>"
-homepage="http://search.cpan.org/dist/CGI/"
-license="Artistic-2.0, GPL-1"
-distfiles="${CPAN_SITE}/CGI/${pkgname/perl-/}-$version.tar.gz"
-checksum=8c58f4a529bb92a914b22b7e64c5e31185c9854a4070a6dfad44fe5cc248e7d4
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/CGI"
+distfiles="${CPAN_SITE}/CGI/${pkgname/perl-/}-${version}.tar.gz"
+checksum=d9fbef33c503b250af25e792b95ef19ff40ea40da226f0d666b1548d21f52ca9

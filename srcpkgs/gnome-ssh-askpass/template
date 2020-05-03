@@ -1,16 +1,16 @@
 # Template file for 'gnome-ssh-askpass'
 pkgname=gnome-ssh-askpass
-version=7.6p1
+version=8.2p1
 revision=1
 wrksrc="openssh-${version}"
 hostmakedepends="pkg-config"
 makedepends="gtk+-devel"
 short_desc="GTK SSH passphrase grabber (from OpenSSH)"
-maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
-license="BSD"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="BSD-3-Clause, BSD-2-Clause"
 homepage="http://www.openssh.org"
-distfiles="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz"
-checksum=a323caeeddfe145baaa0db16e98d784b1fbc7dd436a6bf1f479dfd5cd1d21723
+distfiles="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${version}.tar.gz"
+checksum=43925151e6cf6cee1450190c0e9af4dc36b41c12737619edff8bcebdff64e671
 
 alternatives="
  ssh-askpass:/usr/libexec/ssh-askpass:/usr/bin/gnome-ssh-askpass

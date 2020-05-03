@@ -1,24 +1,29 @@
 # Template file for 'weechat'
 pkgname=weechat
-version=2.0.1
+version=2.8
 revision=2
-lib32disabled=yes
 build_style=cmake
-configure_args="-DENABLE_MAN=ON -DENABLE_ENCHANT=ON -DPYTHON_EXECUTABLE=/usr/bin/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so"
-hostmakedepends="pkg-config python-devel libgcrypt-devel tcl-devel asciidoc"
-makedepends="tcl-devel enchant-devel libgcrypt-devel gnutls-devel
- python-devel ruby-devel lua-devel libcurl-devel perl"
+configure_args="-DENABLE_MAN=ON -DENABLE_ENCHANT=ON -DENABLE_PERL=ON
+ -DENABLE_LUA=ON -DENABLE_RUBY=ON -DENABLE_SPELL=ON
+ -DENABLE_GUILE=OFF -DENABLE_PHP=OFF -DENABLE_JAVASCRIPT=OFF
+ -DPYTHON_EXECUTABLE=/usr/bin/python3
+ -DPYTHON_LIBRARY=${XBPS_CROSS_BASE}/usr/lib/libpython3.so"
+hostmakedepends="ruby-asciidoctor libgcrypt-devel pkg-config python3 tcl-devel"
+makedepends="enchant-devel gnutls-devel libcurl-devel lua-devel ncurses-devel
+ perl python3-devel ruby-devel tcl-devel"
 depends="ca-certificates"
 short_desc="Fast, light and extensible IRC client"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-3"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-3.0-or-later"
 homepage="https://www.weechat.org"
-distfiles="${homepage}/files/src/$pkgname-$version.tar.bz2"
-checksum=425f3268fc9cb2a70610554380f1d5711bb8471178ef97159ec85918bea77b4b
+changelog="https://raw.githubusercontent.com/weechat/weechat/master/ChangeLog.adoc"
+distfiles="https://www.weechat.org/files/src/weechat-${version}.tar.xz"
+checksum=553ea295edad3b03cf88e6029c21e7bde32ff1cc026d35386ba9da3e56a6018c
+lib32disabled=yes
 
 subpackages="weechat-aspell weechat-devel weechat-ruby weechat-python weechat-tcl weechat-lua weechat-perl"
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	_perlpath="${XBPS_CROSS_BASE}/usr/lib/perl5/core_perl/CORE"
 	configure_args+=" -DPERL_FOUND=1
 	 -DPERL_EXECUTABLE=0
@@ -28,16 +33,12 @@ if [ -n "$CROSS_BUILD" ]; then
 	 -DPERL_LFLAGS=-L$_perlpath"
 fi
 
-post_extract() {
-	sed -i '/pkg_search_module/s/ruby-2.2/ruby-2.9 ruby-2.8 ruby-2.7 ruby-2.6 ruby-2.5 ruby-2.4 ruby-2.3 &/' cmake/FindRuby.cmake
-}
-
 weechat-aspell_package() {
 	lib32disabled=yes
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - aspell/enchant plugin"
 	pkg_install() {
-		vmove usr/lib/weechat/plugins/aspell.so
+		vmove usr/lib/weechat/plugins/spell.so
 	}
 }
 weechat-devel_package() {

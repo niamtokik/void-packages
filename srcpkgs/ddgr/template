@@ -1,13 +1,13 @@
 # Template file for 'ddgr'
 pkgname=ddgr
-version=1.2
+version=1.8.1
 revision=1
-noarch=yes
+archs=noarch
 build_style=gnu-makefile
 depends="python3-requests"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="DuckDuckGo from the terminal"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="https://github.com/jarun/ddgr"
-license="GPL-3"
 distfiles="https://github.com/jarun/ddgr/archive/v${version}.tar.gz"
-checksum=a9828b8863949dc93dd574a15b6779d9390b6f5e277e35c157064d7c06423758
+checksum=d223a3543866e44e4fb05df487bd3eb23d80debc95f116493ed5aad0d091149e

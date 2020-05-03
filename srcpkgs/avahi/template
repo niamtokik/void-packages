@@ -1,20 +1,20 @@
 # Template file for 'avahi'
 pkgname=avahi
 version=0.7
-revision=3
+revision=9
 build_style=gnu-configure
 configure_args="--disable-qt3 --disable-qt4 --disable-mono --disable-monodoc
  --disable-doxygen-doc --enable-compat-libdns_sd --enable-compat-howl
  --with-xml=expat --with-avahi-user=avahi --with-avahi-group=avahi
  --with-avahi-priv-access-group=network --with-autoipd-user=avahi
  --with-autoipd-group=avahi --with-distro=none --disable-xmltoman
- --disable-static ssp_cv_lib=no --enable-python --disable-pygtk
+ --disable-static ssp_cv_lib=no --enable-python
  --disable-glib --disable-python-dbus --disable-gobject --disable-gtk
  --disable-gtk3 --disable-dbm --disable-introspection --sbindir=/usr/bin
  --disable-pygobject"
 short_desc="Multicast DNS Service Discovery"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
 homepage="https://github.com/lathiat/avahi"
 distfiles="${homepage}/releases/download/v${version}/avahi-${version}.tar.gz"
 checksum=57a99b5dfe7fdae794e3d1ee7a62973a368e91e414bd0dfa5d84434de5b14804
@@ -42,8 +42,6 @@ post_extract() {
 }
 post_install() {
 	rm -rf ${DESTDIR}/usr/lib/python*
-	# Enable 'disallow_other_stacks' option by default.
-	sed -e 's,\#\(disallow-other-stacks\).*,\1=yes,' -i ${DESTDIR}/etc/avahi/avahi-daemon.conf
 	# Set 'enable-dbus=warn' option by default to not require dbus.
 	sed -e 's,\#\(enable-dbus\).*,\1=warn,' -i ${DESTDIR}/etc/avahi/avahi-daemon.conf
 	vsv avahi-daemon

@@ -1,17 +1,16 @@
 # Template file for 'posh'
 pkgname=posh
-version=0.13.1
-revision=1
-wrksrc="$pkgname"
+version=0.13.2
+revision=2
 build_style=gnu-configure
-register_shell="/bin/posh"
 hostmakedepends="automake"
 short_desc="Policy-compliant Ordinary SHell"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
 license="GPL-2"
 homepage="https://packages.debian.org/sid/posh"
 distfiles="${DEBIAN_SITE}/main/p/${pkgname}/${pkgname}_${version}.tar.xz"
-checksum=98c66554a2b439c5968e5bdc2cc10d4b3bd664a8bd78ed5de432828280d2c419
+checksum=e40af79f454b5447cf49ab59fe48274856763430c4515b9bc55b9e7787fac51c
+register_shell="/usr/bin/posh"
 
 pre_configure() {
 	autoreconf -fi

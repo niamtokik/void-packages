@@ -1,24 +1,32 @@
 # Template file for 'kubernetes'
 pkgname=kubernetes
-version=1.9.3
+version=1.18.2
 revision=1
+archs="x86_64* ppc64le*"
 build_style=go
-nocross=yes
-only_for_archs="x86_64 x86_64-musl"
-hostmakedepends="rsync git git-perl go-bindata"
+go_import_path="github.com/kubernetes/kubernetes"
+hostmakedepends="rsync git go-bindata which"
+depends="kubectl"
 short_desc="Container Cluster Manager for Docker"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache-2.0"
-go_import_path="github.com/kubernetes/kubernetes"
 homepage="http://kubernetes.io"
 distfiles="https://$go_import_path/archive/v$version.tar.gz"
-checksum=47e6043a880deb18340385c6c3f2482a5f4433769e2441a75e5892594d585cdd
+checksum=9b561d0dbb511b1eb8471b43e389527e151f3548e54111eee0c1d8b6fefabf88
+nocross=yes
 system_accounts="kube"
 make_dirs="/var/lib/kubelet 0755 kube kube"
 conf_files="/etc/kubernetes/*"
 
 do_build() {
 	make
+	hack/generate-docs.sh
+	find "_output/local/bin/linux/" -type f -executable | grep "kubectl" | egrep -v "gen|test" | while read line
+	do
+		$line completion bash > completion.bash
+		$line completion zsh > completion.zsh
+		break
+	done
 }
 
 do_install() {
@@ -39,6 +47,14 @@ do_install() {
 	vsv kubelet
 	vsv kube-scheduler
 	vsv kube-proxy
+}
 
-	vlicense LICENSE
+kubectl_package() {
+	short_desc="Controls the Kubernetes cluster manager"
+	pkg_install() {
+		vmove usr/bin/kubectl
+		vmove usr/share/man/man1/kubectl*
+		vinstall completion.bash 644 usr/share/bash-completion/completions kubectl
+		vinstall completion.zsh 644 usr/share/kubectl
+	}
 }

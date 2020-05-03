@@ -1,7 +1,8 @@
 # Template file for 'gdm'
 pkgname=gdm
-version=3.26.1
+version=3.34.1
 revision=1
+build_helper="gir"
 build_style=gnu-configure
 configure_args="$(vopt_enable gir introspection)
  --disable-schemas-compile --disable-static --with-default-pam-config=arch
@@ -9,11 +10,19 @@ configure_args="$(vopt_enable gir introspection)
  --with-screenshot-dir=/var/lib/gdm/greeter --sbindir=/usr/bin --without-plymouth
  --with-xauth-dir=/run/gdm --with-pid-file=/run/gdm/gdm.pid
  --disable-systemd-journal --with-initial-vt=7 --enable-wayland-support"
-hostmakedepends="automake libtool pkg-config itstool intltool gnome-doc-utils
- $(vopt_if gir gobject-introspection)"
-makedepends="glib-devel iso-codes gettext-devel
- pam-devel nss-devel accountsservice-devel gtk+3-devel upower-devel
- libSM-devel libcanberra-devel dconf elogind-devel"
+hostmakedepends="dconf gettext itstool pkg-config"
+makedepends="accountsservice-devel elogind-devel gettext-devel glib-devel
+ iso-codes libSM-devel libcanberra-devel nss-devel pam-devel upower-devel"
+depends="gnome-settings-daemon gnome-shell xorg-server xorg-server-xwayland
+ xrdb"
+checkdepends="check-devel"
+short_desc="GNOME Display Manager"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://wiki.gnome.org/Projects/GDM"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=e85df657aa8d9361af4fb122014d8f123a93bfe45a7662fba2b373d839dbd8d3
+
 conf_files="
 	/etc/gdm/custom.conf
 	/etc/pam.d/gdm-autologin
@@ -25,36 +34,19 @@ conf_files="
 # Create the 'gdm' system user/group.
 system_accounts="gdm"
 gdm_homedir="/var/lib/gdm"
-depends="iso-codes xrdb xorg-server xorg-server-xwayland hicolor-icon-theme
- dconf>=0.20 gnome-settings-daemon>=3.14 gnome-shell>=3.14"
-short_desc="GNOME Display Manager"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-homepage="http://www.gnome.org"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=2bfaa3664281461261e1e38be5b961cfa15da7284edbe416440b9cfc8f9504d6
 
 # Package build options
 build_options="gir"
-# Disable gir for cross builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default+=" gir"
+build_options_default="gir"
+
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" glib-devel pam-devel"
 fi
 
-pre_configure() {
-	# elogind does not provide sd-daemon.h. It does provide all
-	# used symbols though.
-	sed -i "/#include <.*sd-daemon.h>/d" $(find . -name '*.[ch]')
-
-	AUTOPOINT='intltoolize --automake -c' NOCONFIGURE=1 autoreconf -fi
-}
 post_install() {
 	vinstall $FILESDIR/Xsession 755 etc/gdm
 
-	sed -i "s/pam_systemd\.so/pam_elogind.so/" $DESTDIR/etc/pam.d/*
-
-	# Disable Wayland by default.
-	sed -i "s/#WaylandEnable=.*/WaylandEnable=false/" $DESTDIR/etc/gdm/custom.conf
+	vsed -i "s/pam_systemd\.so/pam_elogind.so/" $DESTDIR/etc/pam.d/*
 
 	# runit service
 	vsv gdm
@@ -66,6 +58,7 @@ libgdm_package() {
 		vmove "usr/lib/*.so.*"
 	}
 }
+
 gdm-devel_package() {
 	depends="libgdm>=${version}_${revision}"
 	short_desc+=" - development files"

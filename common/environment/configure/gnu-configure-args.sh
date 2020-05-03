@@ -70,7 +70,7 @@ case "$XBPS_TARGET_MACHINE" in
 		. ${_AUTOCONFCACHEDIR}/mips-linux
 		;;
 
-	mipshf*)	
+	mipshf*)
 		. ${_AUTOCONFCACHEDIR}/endian-big
 		. ${_AUTOCONFCACHEDIR}/mips-common
 		. ${_AUTOCONFCACHEDIR}/mips-linux
@@ -85,6 +85,34 @@ case "$XBPS_TARGET_MACHINE" in
 	x86_64*)
 		. ${_AUTOCONFCACHEDIR}/endian-little
 		. ${_AUTOCONFCACHEDIR}/x86_64-linux
+		;;
+
+	ppc64le*)
+		. ${_AUTOCONFCACHEDIR}/endian-little
+		. ${_AUTOCONFCACHEDIR}/powerpc-common
+		. ${_AUTOCONFCACHEDIR}/powerpc-linux
+		. ${_AUTOCONFCACHEDIR}/powerpc64-linux
+		;;
+
+	ppc64*)
+		. ${_AUTOCONFCACHEDIR}/endian-big
+		. ${_AUTOCONFCACHEDIR}/powerpc-common
+		. ${_AUTOCONFCACHEDIR}/powerpc-linux
+		. ${_AUTOCONFCACHEDIR}/powerpc64-linux
+		;;
+
+	ppcle*)
+		. ${_AUTOCONFCACHEDIR}/endian-little
+		. ${_AUTOCONFCACHEDIR}/powerpc-common
+		. ${_AUTOCONFCACHEDIR}/powerpc-linux
+		. ${_AUTOCONFCACHEDIR}/powerpc32-linux
+		;;
+
+	ppc*)
+		. ${_AUTOCONFCACHEDIR}/endian-big
+		. ${_AUTOCONFCACHEDIR}/powerpc-common
+		. ${_AUTOCONFCACHEDIR}/powerpc-linux
+		. ${_AUTOCONFCACHEDIR}/powerpc32-linux
 		;;
 
 	*) ;;

@@ -1,9 +1,9 @@
-# Template file for 'OpenCL-CLHPP'
+# Template file for 'opencl-clhpp'
 pkgname=opencl-clhpp
 version=2.0.10
 revision=1
-wrksrc=OpenCL-CLHPP-${version}
-noarch="yes"
+wrksrc="OpenCL-CLHPP-${version}"
+archs=noarch
 hostmakedepends="python"
 short_desc="OpenCL Host API C++ bindings (cl.hpp and cl2.hpp)"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
@@ -13,7 +13,7 @@ distfiles="https://github.com/KhronosGroup/OpenCL-CLHPP/archive/v2.0.10.tar.gz"
 checksum=fa27456295c3fa534ce824eb0314190a8b3ebd3ba4d93a0b1270fc65bf378f2b
 
 do_build() {
-	python gen_cl_hpp.py -i input_cl.hpp -o cl.hpp
+	python2 gen_cl_hpp.py -i input_cl.hpp -o cl.hpp
 }
 
 do_install() {

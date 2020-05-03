@@ -1,30 +1,27 @@
-# Template build file for 'libxml2'.
+# Template file for 'libxml2'
+#
+# Please keep this in sync with "srcpkgs/libxml2-python"
+#
 pkgname=libxml2
-version=2.9.7
-revision=1
+version=2.9.10
+revision=2
 build_style=gnu-configure
-configure_args="--disable-static --with-threads --with-history --with-icu"
-hostmakedepends="automake libtool gettext-devel pkg-config python-devel"
-makedepends="zlib-devel ncurses-devel readline-devel liblzma-devel
- icu-devel python-devel"
+configure_args="--disable-static --with-threads --with-history --with-icu
+ --without-python"
+hostmakedepends="automake libtool gettext-devel pkg-config"
+makedepends="zlib-devel ncurses-devel readline-devel liblzma-devel icu-devel"
 short_desc="Library providing XML and HTML support"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://www.xmlsoft.org/"
+maintainer="Enno Boland <gottox@voidlinux.org>"
 license="MIT"
-distfiles="http://xmlsoft.org/sources/$pkgname-$version.tar.gz"
-checksum=f63c5e7d30362ed28b38bfa1ac6313f9a80230720b7fb6c80575eeab3ff5900c
-
-LDFLAGS="-lz -llzma -lpthread"
+homepage="http://www.xmlsoft.org/"
+distfiles="http://xmlsoft.org/sources/${pkgname}-${version}.tar.gz"
+checksum=aafee193ffb8fe0c82d4afef6ef91972cbaf5feea100edc2f262750611b4be1f
 
 pre_configure() {
 	autoreconf -fi
 	sed '/PROGRAMS =/s,$(noinst_PROGRAMS),,' -i Makefile.in
 }
-pre_build() {
-	if [ "$CROSS_BUILD" ]; then
-		sed "s|/usr/\(include/python2.7\)|$XBPS_CROSS_BASE/\1|g" -i python/Makefile
-	fi
-}
+
 post_install() {
 	vlicense COPYING
 }
@@ -44,13 +41,5 @@ libxml2-devel_package() {
 		vmove "usr/share/man/man1/xml2-config*"
 		vmove usr/share/man/man3
 		vmove "usr/lib/*.so"
-	}
-}
-libxml2-python_package() {
-	lib32disabled=yes
-	short_desc+=" - python extension"
-	pkg_install() {
-		vmove "usr/lib/python*"
-		vmove usr/share/doc/${sourcepkg}-python-${version}
 	}
 }

@@ -1,19 +1,19 @@
 # Template file for 'tbb'
 pkgname=tbb
-version=2018.2
+version=2020.U1
 revision=1
+archs="i686* x86_64* armv7l* aarch64* ppc*"
 # version rewrite: 2017_U7 (upstream) => 2017.7 (xbps)
-_ver=${version/./_U}
+_ver=${version/./_}
 wrksrc="${pkgname}-${_ver}"
 build_style=gnu-makefile
+hostmakedepends="cmake"
 short_desc="Intel Threading Building Blocks"
 maintainer="Andrea Brancaleoni <abc@pompel.me>"
 license="Apache-2.0"
-homepage="http://www.threadingbuildingblocks.org"
-distfiles="https://github.com/01org/tbb/archive/${_ver}.tar.gz"
-checksum=78bb9bae474736d213342f01fe1a6d00c6939d5c75b367e2e43e7bf29a6d8eca
-
-only_for_archs="i686-musl x86_64-musl armv7l-musl aarch64-musl i686 x86_64 armv7l aarch64"
+homepage="https://www.threadingbuildingblocks.org"
+distfiles="https://github.com/intel/tbb/archive/${_ver}.tar.gz"
+checksum=72cffaeac3b50b117c4e2279f9162308d35873b3e744aff5a088beff6f65c9af
 
 case "$XBPS_TARGET_MACHINE" in
 	armv7l*)
@@ -21,6 +21,12 @@ case "$XBPS_TARGET_MACHINE" in
 		;;
 	aarch64*)
 		make_build_args="arch=arm64"
+		;;
+	ppc64*)
+		make_build_args="arch=ppc64"
+		;;
+	ppc*)
+		make_build_args="arch=ppc"
 		;;
 esac
 
@@ -30,12 +36,10 @@ post_extract() {
 
 	# alternative might be:
 	# https://git.alpinelinux.org/cgit/aports/tree/testing/libtbb/glibc-struct-mallinfo.patch
-	case "$XBPS_TARGET_MACHINE" in
-		*-musl)
-			sed -e "s@#define MALLOC_UNIXLIKE_OVERLOAD_ENABLED __linux__@@" \
-			  -i src/tbbmalloc/proxy.h
-		;;
-	esac
+	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+		vsed -e "s@#define MALLOC_UNIXLIKE_OVERLOAD_ENABLED __linux__@@" \
+		  -i src/tbbmalloc/proxy.h
+	fi
 }
 
 do_install() {
@@ -43,6 +47,13 @@ do_install() {
 	vcopy build/linux_*/*.so* usr/lib
 	vmkdir usr/include/tbb
 	vcopy include/tbb/* usr/include/tbb
+
+	cmake \
+		-DINSTALL_DIR=$DESTDIR/usr/lib/cmake/TBB \
+		-DSYSTEM_NAME=Linux \
+		-DLIB_REL_PATH=../.. \
+		-DINC_REL_PATH=../../../include \
+		-P cmake/tbb_config_installer.cmake
 }
 
 tbb-devel_package() {
@@ -51,5 +62,6 @@ tbb-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove "usr/lib/*.so"
+		vmove usr/lib/cmake
 	}
 }

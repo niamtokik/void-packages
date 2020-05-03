@@ -1,13 +1,18 @@
 # Template file for 'cpio'
 pkgname=cpio
-version=2.12
+version=2.13
 revision=1
 build_style=gnu-configure
-checkdepends="bash" # required for symlink-long test
 configure_args="--with-rmt=/usr/bin/rmt"
+hostmakedepends="automake gettext-devel tar"
+checkdepends="bash"
 short_desc="GNU copy-in/out (cpio) with remote magnetic tape (rmt) support"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Anthony Iliopoulos <ailiop@altatus.com>"
+license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/cpio/"
-license="GPL-3"
-distfiles="${GNU_SITE}/$pkgname/$pkgname-$version.tar.bz2"
-checksum=70998c5816ace8407c8b101c9ba1ffd3ebbecba1f5031046893307580ec1296e
+distfiles="${GNU_SITE}/cpio/cpio-${version}.tar.bz2"
+checksum=eab5bdc5ae1df285c59f2a4f140a98fc33678a0bf61bdba67d9436ae26b46f6d
+
+pre_configure() {
+	autoreconf -if
+}

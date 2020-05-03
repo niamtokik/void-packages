@@ -1,19 +1,18 @@
 # Template file for 'nitrokey-app'
 pkgname=nitrokey-app
-version=0.3.2
+version=1.4
 revision=1
+wrksrc="nitrokey-app-v${version}"
 build_style=cmake
 hostmakedepends="pkg-config"
-makedepends="qt5-devel libusb-devel"
+makedepends="bash-completion cppcodec libnitrokey-devel qt5-devel qt5-tools-devel qt5-svg-devel"
 short_desc="Management application for Nitrokey tokens"
-maintainer="Renato Aguiar <contact@renatoaguiar.org>"
-license="GPL-3, Apache-2.0"
+maintainer="Renato Aguiar <renato@renatoaguiar.net>"
+license="GPL-3.0-only"
 homepage="https://github.com/Nitrokey/nitrokey-app"
-distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=15fc4669d85546d3582db74df3972142844386789692ce05b08ce428329ba9e9
+distfiles="https://github.com/Nitrokey/nitrokey-app/releases/download/v${version}/nitrokey-app-v${version}.tar.gz"
+checksum=4ad838be2ab523ecac087f2969a86f91dbeb0837015b087a42b07f7ef0ce18a2
 
-post_extract() {
-	sed -i CMakeLists.txt \
-	    -e 's|/etc/udev/rules.d|/usr/lib/udev/rules.d|g' \
-	    -e 's|/etc/bash_completion.d|/usr/share/bash-completion/completions|g'
-}
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" qt5-host-tools qt5-qmake"
+fi

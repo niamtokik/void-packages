@@ -1,21 +1,18 @@
 # Template file for 'kdeclarative'
 pkgname=kdeclarative
-version=5.42.0
+version=5.69.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
-hostmakedepends="extra-cmake-modules pkg-config"
+hostmakedepends="kcoreaddons extra-cmake-modules pkg-config
+ gettext qt5-host-tools qt5-qmake python3 kconfig"
 makedepends="kio-devel kpackage-devel libepoxy-devel"
 short_desc="KDE Integration of QML and KDE work spaces"
-maintainer="Denis Revin <denis.revin@gmail.com>"
-license="LGPL-2"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdeclarative"
-distfiles="http://download.kde.org/stable/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=4228dc8e4b89ab015535e88b3faf8a050acf0fdd11fcf7f62142bc6dbc24c0f0
-
-if [ -n "$CROSS_BUILD" ]; then
-	hostmakedepends+=" qt5-host-tools qt5-qmake python kconfig"
-fi
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=916618a660f9ddc319019bf63576d7a67fdf62669ef178a87a95dbd311ff6f38
 
 kdeclarative-devel_package() {
 	short_desc+=" - development"
@@ -24,6 +21,6 @@ kdeclarative-devel_package() {
 		vmove usr/include
 		vmove usr/lib/qt5/mkspecs
 		vmove usr/lib/cmake
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
 	}
 }

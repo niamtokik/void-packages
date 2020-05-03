@@ -1,8 +1,8 @@
 # Template file for 'menulibre'
 pkgname=menulibre
-version=2.1.4
-revision=1
-noarch=yes
+version=2.2.1
+revision=2
+archs=noarch
 build_style=python3-module
 pycompile_module="menulibre menulibre_lib"
 hostmakedepends="python3-distutils-extra intltool"
@@ -11,6 +11,6 @@ depends="gnome-menus gobject-introspection gsettings-desktop-schemas gtk+3
 short_desc="Advanced menu editor"
 maintainer="Styrsven <sven.a.jonsson@bahnhof.se>"
 license="GPL-3"
-homepage="https://smdavis.us/projects/menulibre/"
+homepage="https://bluesabre.org/projects/menulibre/"
 distfiles="https://launchpad.net/$pkgname/${version%.*}/$version/+download/$pkgname-$version.tar.gz"
-checksum=36a6350019e45fbd1219c19a9afce29281e806993d4911b45b371dac50064284
+checksum=5b3ef8e6073d584f6accf282fa1eb649185ee42eb22fab70231491c7377d7e8f

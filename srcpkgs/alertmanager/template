@@ -1,6 +1,6 @@
 # Template file for 'alertmanager'
 pkgname=alertmanager
-version=0.14.0
+version=0.20.0
 revision=1
 build_style=go
 go_import_path="github.com/prometheus/alertmanager"
@@ -9,13 +9,13 @@ go_ldflags="-X ${go_import_path}/version.Version=${version}
  -X ${go_import_path}/version.Revision=${version}
  -X ${go_import_path}/version.Branch=${version}
  -X ${go_import_path}/version.BuildUser=VoidLinux"
-short_desc="Handles alerts sent by client applications such as the Prometheus server"
+short_desc="Handles alerts sent by client applications ie. Prometheus server"
 conf_files="/etc/alertmanager.yml"
-maintainer="Toyam Cox <Vaelatern@voidlinux.eu>"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/prometheus/alertmanager"
 distfiles="https://github.com/prometheus/alertmanager/archive/v${version}.tar.gz"
-checksum=f25bd1dad2eb3e050f1208650571195194b0c2362c488a7ad5ca60f40ca866ac
+checksum=4789ef95b09ba86a66a2923c3535d1bfe30a566390770784c52052c7c83ee1bc
 
 system_accounts="_alertmanager"
 make_dirs="/var/lib/alertmanager 700 _alertmanager _alertmanager"

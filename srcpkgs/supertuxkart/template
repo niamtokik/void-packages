@@ -1,25 +1,26 @@
 # Template file for 'supertuxkart'
 pkgname=supertuxkart
-version=0.9.3
-revision=1
-only_for_archs="i686 i686-musl x86_64 x86_64-musl"
+version=1.1
+revision=2
+archs="i686* x86_64* ppc64* aarch64*"
+wrksrc="${pkgname}-${version}-src"
 build_style=cmake
 hostmakedepends="pkg-config"
 makedepends="libgomp-devel libjpeg-turbo-devel libpng-devel
  libbluetooth-devel glu-devel libvorbis-devel libXrandr-devel
  libopenal-devel fribidi-devel libcurl-devel freetype-devel
- libopenglrecorder-devel"
+ libopenglrecorder-devel wayland-devel harfbuzz-devel"
 depends="desktop-file-utils hicolor-icon-theme supertuxkart-data"
 short_desc="Kart racing game featuring Tux and his friends"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
 homepage="http://supertuxkart.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-src.tar.xz"
-checksum=d8014e7106ba84f98b5ec5f146249dcffc284fc4083f8f237ff420b9e2219cb0
+checksum=e9b02b0b11ab68aacaec38306903feffe59a501224805cd3645cebf10e880ae8
 
 supertuxkart-data_package() {
 	short_desc+=" - data files"
-	noarch=yes
+	archs=noarch
 	pkg_install() {
 		vmove usr/share/supertuxkart
 	}

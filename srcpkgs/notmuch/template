@@ -1,46 +1,58 @@
 # Template file for 'notmuch'
 pkgname=notmuch
-version=0.26
-revision=1
-hostmakedepends="python-devel python-setuptools pkg-config perl python-Sphinx"
-makedepends="xapian-core-devel gmime-devel talloc-devel bash-completion"
+version=0.29.3
+revision=4
+hostmakedepends="perl pkg-config python-devel python3-Sphinx python3-devel texinfo"
+makedepends="bash-completion gmime3-devel talloc-devel xapian-core-devel"
 short_desc="Thread-based email index, search, and tagging"
 maintainer="Jan S. <jan.schreib@gmail.com>"
-license="GPL-3"
-homepage="http://notmuchmail.org"
-distfiles="http://http.debian.net/debian/pool/main/n/notmuch/notmuch_${version}.orig.tar.gz"
-checksum=d3e894ed2ad9d721a442663f07a6f2a241dc98be7cc4af681f16edf88e0d76df
+license="GPL-3.0-or-later"
+homepage="https://notmuchmail.org"
+distfiles="https://notmuchmail.org/releases/notmuch-${version}.tar.xz"
+checksum=d5f704b9a72395e43303de9b1f4d8e14dd27bf3646fdbb374bb3dbb7d150dc35
 
-subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python"
-case "$XBPS_TARGET_MACHINE" in
-	i686*|x86_64*)
-		makedepends+=" emacs"
-		subpackages+=" notmuch-emacs"
-		_args="--emacslispdir=/usr/share/emacs/site-lisp/notmuch
-			--emacsetcdir=/usr/share/emacs/site-lisp/notmuch"
-		;;
-	*) _args="--without-emacs";;
-esac
+subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python notmuch-python3"
+patch_args=-Np1
+
+if [ ! "$CROSS_BUILD" ]; then
+	hostmakedepends+=" desktop-file-utils"
+	makedepends+=" ruby-devel emacs"
+	subpackages+=" notmuch-ruby notmuch-emacs"
+	_args="--emacslispdir=/usr/share/emacs/site-lisp/notmuch
+		--emacsetcdir=/usr/share/emacs/site-lisp/notmuch"
+else
+	_args="--without-emacs"
+fi
 
 do_configure() {
-	# fool the endianess test
-	sed -i 's|\(util_byte_order\)=.*|\1=1234|' configure
 	./configure --prefix=/usr \
 		--bashcompletiondir=/usr/share/bash-completion/completions \
 		--zshcompletiondir=/usr/share/zsh/site-functions ${_args}
 }
+
 do_build() {
 	make ${makejobs} V=1
 	make -C contrib/notmuch-mutt
-	make -C bindings
 	cd bindings/python
-	python setup.py build --build-base=build-2
+	python2 setup.py build --build-base=build-2
+	python3 setup.py build --build-base=build-3
 }
+
 do_install() {
 	make DESTDIR=${DESTDIR} install
-	cd bindings/python
+	pushd bindings/python
 	python2 setup.py build --build-base=build-2 \
 		install --prefix=/usr --root=${DESTDIR}
+	python3 setup.py build --build-base=build-3 \
+		install --prefix=/usr --root=${DESTDIR}
+	popd
+	if [ ! "$CROSS_BUILD" ]; then
+		make DESTDIR=${DESTDIR} -C bindings/ruby install
+	fi
+}
+
+post_install() {
+	rm -f ${DESTDIR}/usr/share/applications/mimeinfo.cache
 }
 
 libnotmuch_package() {
@@ -49,6 +61,7 @@ libnotmuch_package() {
 		vmove usr/lib/*.so.*
 	}
 }
+
 libnotmuch-devel_package() {
 	short_desc+=" - development files"
 	depends="libnotmuch-${version}_${revision}"
@@ -57,16 +70,22 @@ libnotmuch-devel_package() {
 		vmove usr/lib/*.so
 	}
 }
+
 notmuch-emacs_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - Emacs interface"
 	depends="${sourcepkg}-${version}_${revision} virtual?emacs"
 	pkg_install() {
+		vmove usr/bin/notmuch-emacs-mua
+		vmove usr/share/applications
 		vmove usr/share/emacs/site-lisp
+		vmove usr/share/info/notmuch-emacs*
+		vmove usr/share/man/man1/notmuch-emacs*
 	}
 }
+
 notmuch-mutt_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - Mutt interface"
 	depends="${sourcepkg}-${version}_${revision} perl-Mail-Box perl-MailTools
 	 perl-String-ShellQuote perl-Term-ReadLine-Gnu perl-File-Which"
@@ -75,11 +94,31 @@ notmuch-mutt_package() {
 		vman contrib/notmuch-mutt/notmuch-mutt.1
 	}
 }
+
 notmuch-python_package() {
-	depends="libnotmuch-devel>=${version}_${revision}"
+	archs=noarch
+	depends="libnotmuch>=${version}_${revision}"
 	short_desc+=" - Python2 bindings"
 	pycompile_module="notmuch"
 	pkg_install() {
 		vmove ${py2_sitelib}
+	}
+}
+
+notmuch-python3_package() {
+	archs=noarch
+	depends="libnotmuch>=${version}_${revision}"
+	short_desc+=" - Python3 bindings"
+	pycompile_module="notmuch"
+	pkg_install() {
+		vmove ${py3_sitelib}
+	}
+}
+
+notmuch-ruby_package() {
+	depends="libnotmuch>=${version}_${revision} ruby"
+	short_desc+=" - Ruby bindings"
+	pkg_install() {
+		vmove usr/lib/ruby
 	}
 }

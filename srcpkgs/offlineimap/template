@@ -1,18 +1,19 @@
 # Template file for 'offlineimap'
 pkgname=offlineimap
-version=7.1.5
+version=7.3.2
 revision=1
-noarch=yes
+archs=noarch
 build_style=python2-module
-hostmakedepends="python-six asciidoc"
-depends="python-six"
 pycompile_module="offlineimap"
+hostmakedepends="python-six python-rfc6555 asciidoc"
+depends="python-six python-rfc6555"
 short_desc="Powerful IMAP/Maildir synchronization and reader support"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Peter Bui <pbui@github.bx612.space>"
+license="GPL-2.0-or-later"
 homepage="http://offlineimap.org/"
-license="GPL-2"
+changelog="https://raw.githubusercontent.com/OfflineIMAP/offlineimap/master/Changelog.md"
 distfiles="https://github.com/OfflineIMAP/offlineimap/archive/v${version}.tar.gz"
-checksum=8e28e786a00768e8a97d9f049406744829212cffb69903ffbb15faa1479d43e1
+checksum=d47b564858c3e9fc7726ef58c9a4ee518d2958c5de3dcad6cd78b7cfe0a6bdef
 
 post_install() {
 	make -C docs man

@@ -1,18 +1,18 @@
 # Template file for 'tcllib'
 pkgname=tcllib
-version=1.18
+version=1.20
 revision=1
-noarch=yes
-wrksrc="tcllib-tcllib_${version/./_}"
+archs=noarch
+wrksrc="tcllib-tcllib-${version/./-}"
 build_style=gnu-configure
 hostmakedepends="pkg-config tcl"
 depends="tcl"
 short_desc="Set of pure-Tcl extensions"
 maintainer="Farhad Shahbazi <grauwolf@geekosphere.org>"
-license="BSD"
+license="TCL"
 homepage="http://core.tcl.tk/tcllib/"
-distfiles="https://github.com/tcltk/${pkgname}/archive/${pkgname}_${version/./_}.tar.gz"
-checksum=1c831474ed84fec349234a96bd7d855a74245bb305bfc2c9270bfde95c357b4f
+distfiles="https://github.com/tcltk/${pkgname}/archive/${pkgname}-${version/./-}.tar.gz"
+checksum=e56892698903e0cc902a75a0eb9324845efcd3257c41e09edec25a6ab1654cf3
 
 post_install() {
 	vlicense ./license.terms LICENSE

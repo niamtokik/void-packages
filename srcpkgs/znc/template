@@ -1,17 +1,24 @@
 # Template file for 'znc'
 pkgname=znc
-version=1.6.5
-revision=6
+version=1.8.0
+revision=1
 build_style=gnu-configure
-configure_args="--enable-python --enable-perl --enable-tcl --enable-cyrus"
-hostmakedepends="pkg-config perl"
-makedepends="libressl-devel python3-devel tcl-devel libsasl-devel icu-devel zlib-devel perl"
-short_desc="An advanced IRC Bouncer"
-maintainer="Duncaen <duncaen@voidlinux.eu>"
+configure_args="
+ --enable-python
+ --enable-perl
+ --enable-tcl
+ --enable-cyrus
+ --with-tcl=$XBPS_CROSS_BASE/usr/lib"
+hostmakedepends="pkg-config perl tar"
+makedepends="libressl-devel python3-devel tcl-devel libsasl-devel
+ icu-devel zlib-devel perl"
+short_desc="Advanced IRC Bouncer"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="Apache-2.0"
-homepage="http://znc.in/"
-distfiles="http://znc.in/releases/$pkgname-$version.tar.gz"
-checksum=2f0225d49c53a01f8d94feea4619a6fe92857792bb3401a4eb1edd65f0342aca
+homepage="https://znc.in/"
+changelog="https://github.com/znc/znc/raw/master/ChangeLog.md"
+distfiles="https://znc.in/releases/${pkgname}-${version}.tar.gz"
+checksum=94fdb227c1afa3abff468e0b7b1309120ad99d6aa64c4fd35bef02928171bd54
 
 system_accounts="znc"
 znc_homedir="/var/lib/znc"
@@ -33,7 +40,7 @@ post_install() {
 
 znc-python3_package() {
 	depends="znc>=${version}_${revision}"
-	pycompile_version="$py3_ver"
+	python_version=3
 	pycompile_dirs="/usr/lib/znc/modpython"
 	short_desc+=" - python3 plugin"
 	pkg_install() {
@@ -41,6 +48,7 @@ znc-python3_package() {
 		vmove usr/lib/znc/modpython.so
 	}
 }
+
 znc-perl_package() {
 	depends="znc>=${version}_${revision}"
 	short_desc+=" - perl plugin"
@@ -50,6 +58,7 @@ znc-perl_package() {
 		vmove usr/lib/znc/perleval.pm
 	}
 }
+
 znc-tcl_package() {
 	depends="znc>=${version}_${revision}"
 	short_desc+=" - tcl plugin"
@@ -58,6 +67,7 @@ znc-tcl_package() {
 		vmove usr/lib/znc/modtcl.so
 	}
 }
+
 znc-devel_package() {
 	depends="znc>=${version}_${revision}"
 	short_desc+=" - development files"

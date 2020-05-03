@@ -1,21 +1,25 @@
 # Template file for 'ponyc'
 pkgname=ponyc
-version=0.20.0
+version=0.33.2
 revision=1
-only_for_archs="x86_64"
+archs="x86_64"
 build_style=gnu-makefile
-hostmakedepends="llvm3.9"
-makedepends="zlib-devel ncurses-devel libatomic-devel"
+hostmakedepends="llvm9 which"
+makedepends="zlib-devel ncurses-devel libatomic-devel libxml2-devel"
+depends="libatomic-devel"
 short_desc="OO, actor-model, capabilities-secure, high-performance language"
-maintainer="bougyman <bougyman@voidlinux.eu>"
-license="2-clause-BSD"
-homepage="http://ponylang.org/"
+maintainer="Brian Mitchell <brian@strmpnk.co>"
+license="BSD-2-Clause"
+homepage="https://ponylang.org/"
 distfiles="https://github.com/ponylang/ponyc/archive/${version}.tar.gz"
-checksum=f2be4b11714113eb506e1fcd4b7fdb6f6f84abc73291156a34b4e76abcb77866
+checksum=41ba573f16b4aecbcc39ec6d5b794185bf50e570b4a8f2cceef0a276e7fb50a3
 
 do_build() {
-	make config=release destdir=/usr/lib/pony/${version} prefix=/usr
+	vsed -e 's/-Werror //' -i Makefile
+
+	make config=release default_pic=true
 }
+
 do_install() {
 	make config=release destdir=${DESTDIR}/usr/lib/pony/${version} prefix=${DESTDIR}/usr install
 	rm ${DESTDIR}/usr/bin/ponyc ${DESTDIR}/usr/lib/libponyrt.a \

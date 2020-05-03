@@ -1,15 +1,18 @@
-# Template build file for 'libuv'
+# Template file for 'libuv'
 pkgname=libuv
-version=1.19.1
+version=1.35.0
 revision=1
-short_desc="Multi-platform support library with a focus on asynchronous I/O"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
-license="BSD/ISC"
-build_style="gnu-configure"
+build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
-homepage="http://libuv.org/"
-distfiles="https://github.com/libuv/libuv/archive/v$version.tar.gz"
-checksum=8d96a6230af4f9f33d6ec021b599e157279a2af72ed38cf4a8c25e6d58d952ef
+short_desc="Multi-platform support library with a focus on asynchronous I/O"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="MIT, CC-BY-SA-4.0"
+homepage="https://libuv.org/"
+changelog="https://raw.githubusercontent.com/libuv/libuv/v1.x/ChangeLog"
+distfiles="https://github.com/libuv/libuv/archive/v${version}.tar.gz"
+checksum=ff84a26c79559e511f087aa67925c3b4e0f0aac60cd8039d4d38b292f208ff58
+
+LDFLAGS="-pthread"
 
 pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
@@ -25,7 +28,7 @@ libuv-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 	}
 }

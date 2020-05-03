@@ -1,21 +1,41 @@
-# Template build file for 'noto-fonts-ttf'.
+# Template file for 'noto-fonts-ttf'
 pkgname=noto-fonts-ttf
-version=20170307
-revision=2
-noarch="yes"
-_githash=60aa0da2ee84b11e78725b4577edc2e80b009d56
+version=20190926
+revision=1
+archs=noarch
+_githash=0fa1dfabd6e3746bb7463399e2813f60d3f1b256
 wrksrc="noto-fonts-${_githash}"
 depends="font-util"
-font_dirs="/usr/share/fonts/noto"
 short_desc="Google Noto TTF Fonts"
-maintainer="Peter Bui <pnutzh4x0r@gmail.com>"
+maintainer="Peter Bui <pbui@github.bx612.space>"
 license="OFL-1.1"
 homepage="https://www.google.com/get/noto/"
-distfiles="https://github.com/googlei18n/noto-fonts/archive/${_githash}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=093a82887c9574f33f999aa9bdcd26e6a59ec0603612c2c0b6723994f3fb82ca
-conflicts="google-fonts-ttf>=0"
+distfiles="https://codeload.github.com/googlefonts/noto-fonts/tar.gz/${_githash}>${pkgname}-${version}.tar.gz"
+checksum=6ca2938b99e4316c6eabdab498f577efb979c4f2aeaf5a3a357ab4e3dcc2c2a5
+font_dirs="/usr/share/fonts/noto"
 
 do_install() {
-	vmkdir usr/share/fonts/noto
-	install -m644 hinted/Noto*.ttf ${DESTDIR}/usr/share/fonts/noto
+	install -Dm644 hinted/Noto*/* -t ${DESTDIR}/usr/share/fonts/noto
+	install -Dm644 unhinted/Noto*/* -t ${DESTDIR}/usr/share/fonts/noto
+	vlicense LICENSE
+}
+
+noto-fonts-ttf-extra_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - additional variants"
+	pkg_install() {
+		vmove usr/share/fonts/noto/Noto*-ExtraCondensed*.ttf
+		vmove usr/share/fonts/noto/Noto*-Condensed*.ttf
+		vmove usr/share/fonts/noto/Noto*-SemiCondensed*.ttf
+
+		vmove usr/share/fonts/noto/Noto*-Thin*.ttf
+		vmove usr/share/fonts/noto/Noto*-ExtraLight*.ttf
+		vmove usr/share/fonts/noto/Noto*-Light*.ttf
+		# keep *-Regular*
+		vmove usr/share/fonts/noto/Noto*-Medium*.ttf
+		vmove usr/share/fonts/noto/Noto*-SemiBold*.ttf
+		# keep *-Bold*
+		vmove usr/share/fonts/noto/Noto*-ExtraBold*.ttf
+		vmove usr/share/fonts/noto/Noto*-Black*.ttf
+	}
 }

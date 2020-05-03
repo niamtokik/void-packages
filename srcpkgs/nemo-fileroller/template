@@ -1,0 +1,19 @@
+# Template file for 'nemo-fileroller'
+pkgname=nemo-fileroller
+version=4.4.0
+revision=1
+wrksrc="nemo-extensions-${version}"
+build_wrksrc=nemo-fileroller
+build_style=gnu-configure
+hostmakedepends="automake libtool pkg-config"
+makedepends="nemo-devel libglib-devel"
+short_desc="Extensions for the Nemo file manager"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/linuxmint/nemo-extensions"
+distfiles="https://github.com/linuxmint/nemo-extensions/archive/${version}.tar.gz"
+checksum=97b4f8614ec403fa550cc9af7adf6518cd11fd8377cb535f3eecb88239588dd7
+
+pre_configure() {
+	autoreconf -fi
+}

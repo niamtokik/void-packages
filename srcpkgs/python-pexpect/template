@@ -1,19 +1,26 @@
 # Template file for 'python-pexpect'
 pkgname=python-pexpect
-version=4.3.1
-revision=1
-noarch=yes
-wrksrc="${pkgname/python-}-${version}"
+version=4.7.0
+revision=2
+archs=noarch
+wrksrc="pexpect-${version}"
 build_style=python-module
+pycompile_module="pexpect"
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python-ptyprocess"
-pycompile_module="pexpect"
+checkdepends="python3-pytest python3-ptyprocess mdocml"
 short_desc="Python2 module for spawning child applications and controlling them"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://pexpect.readthedocs.io/"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="ISC"
+homepage="https://pexpect.readthedocs.io/"
 distfiles="${PYPI_SITE}/p/pexpect/pexpect-${version}.tar.gz"
-checksum=8e287b171dbaf249d0b06b5f2e88cb7e694651d2d0b8c15bccb83170d3c55575
+checksum=9e2c1fd0e6ee3a49b28f95d4b33bc389c89b20af6a1255906e90ff1262ce62eb
+
+do_check() {
+	# the mdcocml is for test
+	# REPLWrapTestCase.test_pager_as_cat
+	python3 -m pytest
+}
 
 post_install() {
 	# drop asyncio stuff from python2
@@ -23,7 +30,7 @@ post_install() {
 }
 
 python3-pexpect_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3-ptyprocess"
 	pycompile_module="pexpect"
 	short_desc="${short_desc/Python2/Python3}"

@@ -1,16 +1,18 @@
 # Template file for 's6-portable-utils'
 pkgname=s6-portable-utils
-version=2.2.1.1
+version=2.2.2.2
 revision=1
-build_style=gnu-configure
+build_style=configure
+configure_args="--prefix=/usr --libdir=/usr/lib --includedir=/usr/include
+ --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps
+ --with-lib=${XBPS_CROSS_BASE}/usr/lib"
 makedepends="skalibs-devel"
-configure_args="--libdir=/usr/lib --includedir=/usr/include --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps --with-lib=${XBPS_CROSS_BASE}/usr/lib"
 short_desc="Tiny portable generic utilities (s6-cat, s6-chmod, etc.)"
-maintainer="<opsaaspo@yandex.ru>"
+maintainer="mobinmob <mobinmob@disroot.org>"
 license="ISC"
-homepage="http://skarnet.org/software/${pkgname}/"
-distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=6ae239d2c458a81c92b5d616129e443874f925bf3da02589913a1a3b708c4531
+homepage="https://skarnet.org/software/${pkgname}/"
+distfiles="https://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=63df4ad24c126fd0f0006e90fd3135ff204eaa4f95a7c9e51ec91a82cf5074cc
 
 post_install() {
 	vlicense COPYING
@@ -19,7 +21,7 @@ post_install() {
 }
 
 s6-portable-utils-doc_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - documentation"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {

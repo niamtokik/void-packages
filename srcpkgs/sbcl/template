@@ -1,17 +1,19 @@
 # Template file for 'sbcl'
 pkgname=sbcl
-version=1.4.4
+version=2.0.4
 revision=1
-only_for_archs="i686 x86_64 x86_64-musl armv7l aarch64"
+archs="i686 x86_64* armv7l aarch64"
+
 hostmakedepends="iana-etc"
 makedepends="zlib-devel"
 conf_files="/etc/sbclrc"
 short_desc="Steel Bank Common Lisp"
 maintainer="Leah Neukirchen <leah@vuxu.org>"
-license="custom"
+license="custom:BSD+public_domain"
 homepage="http://www.sbcl.org/"
+changelog="http://www.sbcl.org/news.html"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-source.tar.bz2"
-checksum=ca1168b91b2260fbe021b2dc726fe9572d281cbca66b85e0ee7e9f8dd12adbcc
+checksum=122b4641766be8fde87ea4464cf706ddc161a1c05f48dbebf2cdcd80318982d1
 nocross=yes
 nopie=yes
 
@@ -19,7 +21,7 @@ _bootstrap_lisp="bash ../sbcl-*-linux/run-sbcl.sh --no-sysinit --no-userinit --d
 case "$XBPS_TARGET_MACHINE" in
 x86_64)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}-x86-64-linux-binary.tar.bz2"
-	checksum+=" 4df510fd843b2000579019c3d729421d49c5ef44e93369d25880dce7e2d08f31"
+	checksum+=" e984e46c0e6de11962a35768d2ff8bd41083dfe69459b6e585e9698aca123d65"
 	;;
 i686)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.4.3-x86-linux-binary.tar.bz2"
@@ -29,7 +31,7 @@ arm*)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.2.14-armhf-linux-binary.tar.bz2"
 	checksum+=" a5fbf1d596a909a7719bc4a958f00e8537bf399fa051f83736baee950b21e56a"
 	;;
-aarch64*)
+aarch64)
 	distfiles+=" ${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-1.3.9-arm64-linux-binary.tar.bz2"
 	checksum+=" 494829f8e3ea7eb1c308b343cc390daf94a6215030a5f2b9ee0cded67511e918"
 	;;
@@ -45,7 +47,6 @@ do_build() {
 	bash make.sh \
 		"$_bootstrap_lisp" \
 		--without-sb-test --with-sb-core-compression --prefix=/usr
-	make -C doc/manual info
 }
 
 do_install() {
@@ -55,7 +56,7 @@ do_install() {
 }
 
 sbcl-source_package() {
-	noarch=yes
+	archs="noarch"
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc+=" -- source files"
 	pkg_install() {

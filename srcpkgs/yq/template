@@ -1,20 +1,24 @@
 # Template file for 'yq'
 pkgname=yq
-version=2.3.6
-revision=1
-noarch=yes
+version=2.10.0
+revision=2
+archs=noarch
 build_style=python3-module
 hostmakedepends="python3-setuptools"
 makedepends="python3-yaml"
-checkdepends="jq"
-depends="python3 python3-yaml jq"
+depends="python3-setuptools python3-xmltodict python3-yaml python3-toml python3-argcomplete"
+checkdepends="jq python3-xmltodict python3-toml"
 short_desc="Command-line YAML processor written in Python that wraps around jq"
-maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="Apache-2.0"
 homepage="https://github.com/kislyuk/yq"
 distfiles="${PYPI_SITE}/y/yq/yq-${version}.tar.gz"
-checksum=795f79b39e45c26396db73f14c2ab42ae172be6bed95e19b30483f2d34fc425b
+checksum=abaf2c0728f1c38dee852e976b0a6def5ab660d67430ee5af76b7a37072eba46
 
 do_check() {
 	python3 test/test.py
+}
+
+post_install() {
+	mv "${DESTDIR}/usr/bin/xq" "${DESTDIR}/usr/bin/yq-xq"
 }

@@ -1,8 +1,9 @@
 # Template file for 'GConf'
 pkgname=GConf
 version=3.2.6
-revision=7
+revision=9
 build_style=gnu-configure
+build_helper="gir"
 configure_args="--without-openldap --enable-gtk --enable-defaults-service
  --disable-orbit --enable-gsettings-backend --disable-static --disable-gtk-doc-html
  $(vopt_enable gir introspection)"
@@ -11,34 +12,24 @@ hostmakedepends="automake libtool pkg-config gettext-devel intltool gtk-doc
  glib-devel gobject-introspection"
 makedepends="gtk+3-devel dbus-glib-devel polkit-devel libxml2-devel"
 depends="dconf"
-short_desc="A process-transparent configuration system"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://projects.gnome.org/gconf"
+short_desc="Process-transparent configuration system"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2"
+homepage="http://projects.gnome.org/gconf"
 distfiles="${GNOME_SITE}/GConf/3.2/GConf-${version}.tar.xz"
 checksum=1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c
+python_version=2 #unverified
+make_dirs="/usr/share/gconf/schemas 0755 root root
+ /etc/gconf/gconf.xml.defaults 0755 root root
+ /etc/gconf/gconf.xml.mandatory 0755 root root
+ /etc/gconf/gconf.xml.system 0755 root root"
 
 # Package build options
 build_options="gir"
-
-# Disable gir for cross builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default="gir"
-fi
+build_options_default="gir"
 
 pre_configure() {
 	autoreconf -if
-}
-
-post_install() {
-	# Create GCONF_SCHEMAS_DIR
-	vmkdir usr/share/gconf/schemas
-	touch -f ${DESTDIR}/usr/share/gconf/schemas/.empty_on_purpose
-	# Create required sysconfdir dirs.
-	for d in defaults mandatory system; do
-		vmkdir etc/gconf/gconf.xml.${d}
-		touch -f ${DESTDIR}/etc/gconf/gconf.xml.${d}/.empty_on_purpose
-	done
 }
 
 GConf-devel_package() {

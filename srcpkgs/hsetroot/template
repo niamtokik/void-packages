@@ -1,17 +1,18 @@
-# Template build file for 'hsetroot'.
+# Template file for 'hsetroot'
 pkgname=hsetroot
-version=1.0.2
-revision=7
-build_style=gnu-configure
+version=1.0.5
+revision=1
+build_style=gnu-makefile
+make_use_env=yes
 hostmakedepends="automake libtool pkg-config"
-makedepends="libX11-devel imlib2-devel"
-short_desc="A tool which changes X server wallpapers"
-maintainer='Juan RP <xtraeme@voidlinux.eu>'
-license="GPL-2"
-homepage="http://www.thegraveyard.org/hsetroot.php"
-distfiles="ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/hsetroot-${version}.tar.gz"
-checksum=d6712d330b31122c077bfc712ec4e213abe1fe71ab24b9150ae2774ca3154fd7
+makedepends="libX11-devel imlib2-devel libXinerama-devel"
+short_desc="Tool which changes X server wallpapers"
+maintainer="Felipe Nogueira <contato.fnog@gmail.com>"
+license="GPL-2.0-only"
+homepage="https://github.com/himdel/hsetroot"
+distfiles="https://github.com/himdel/hsetroot/archive/${version}.tar.gz"
+checksum="cff5f83b85a21e0c5c8c8eecbd552090bb75d8ac59e27b0bae48046f9cb5a44a"
 
-pre_configure() {
-	autoreconf -if
+pre_build() {
+	vsed -i 's|install -st $(PREFIX)/bin/|install -Dt $(DESTDIR)$(PREFIX)/bin/|' Makefile
 }

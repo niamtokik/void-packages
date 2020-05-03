@@ -1,6 +1,6 @@
 # Template file for 'python-zope.interface'
 pkgname=python-zope.interface
-version=4.4.3
+version=4.7.1
 revision=1
 wrksrc="${pkgname#*-}-${version}"
 build_style=python-module
@@ -9,11 +9,11 @@ hostmakedepends="python-setuptools python3-setuptools"
 makedepends="python-devel python3-devel"
 depends="python-setuptools"
 short_desc="Zope interfaces for Python2"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://github.com/zopefoundation/zope.interface"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
 license="ZPL-2.1"
+homepage="https://github.com/zopefoundation/zope.interface"
 distfiles="${PYPI_SITE}/z/zope.interface/zope.interface-${version}.tar.gz"
-checksum=d6d26d5dfbfd60c65152938fcb82f949e8dada37c041f72916fef6621ba5c5ce
+checksum=4bb937e998be9d5e345f486693e477ba79e4344674484001a0b646be1d530487
 
 post_install() {
 	# zope.interface provides the zope namespace

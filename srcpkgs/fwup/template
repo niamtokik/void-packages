@@ -1,31 +1,29 @@
 # Template file for 'fwup'
 pkgname=fwup
-version=1.0.0
+version=1.6.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="automake libtool pkg-config"
 makedepends="libarchive-devel libsodium-devel confuse-devel"
 checkdepends="mtools unzip zip dosfstools"
 short_desc="Configurable embedded Linux firmware update creator and runner"
-maintainer="Duncaen <duncaen@voidlinux.eu>"
+maintainer="Duncaen <duncaen@voidlinux.org>"
 license="Apache-2.0"
-#changelog="https://raw.githubusercontent.com/fhunleth/fwup/master/CHANGELOG.md"
+changelog="https://github.com/fhunleth/fwup/raw/master/CHANGELOG.md"
 homepage="https://github.com/fhunleth/fwup"
 distfiles="https://github.com/fhunleth/fwup/archive/v${version}.tar.gz"
-checksum=7ee1c24e9bea934b426fa8c19e1aa716d630ed7241942edaeabba7c10b48f6bd
+checksum=56373e2efa15e3494cf75d09b738c07b409a6d7be00829d64c108f86db9bb438
 
 if [ -z "$CROSS_BUILD" ]; then
 	hostmakedepends+=" help2man"
 fi
 
 pre_configure() {
-	NOCONFIGURE=1 autoreconf -fi
+	autoreconf -fi
 }
 
-do_check() {
+pre_check() {
 	# mtools.conf requires manual configuration for usage, but not for out tests
 	# so we just remove the unrecognized keyword
-	sed -i '/SAMPLE FILE/d' /etc/mtools.conf
-
-	make check
+	vsed -i '/SAMPLE FILE/d' /etc/mtools.conf
 }

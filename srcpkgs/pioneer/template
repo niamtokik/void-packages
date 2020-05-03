@@ -1,34 +1,40 @@
 # Template file for 'pioneer'
 pkgname=pioneer
-version=20171001
+version=20200203
 revision=1
-build_style=gnu-configure
+build_style=cmake
+configure_args="-DPIONEER_DATA_DIR=/usr/share/pioneer
+ -DUSE_SYSTEM_LIBLUA=ON -DUSE_SYSTEM_LIBGLEW=ON"
 hostmakedepends="automake pkg-config"
 makedepends="freetype-devel libassimp-devel libsigc++-devel
- libvorbis-devel SDL2_image-devel"
-depends="desktop-file-utils hicolor-icon-theme libtxc_dxtn"
-maintainer="cr6git <quark6@protonmail.com>"
+ libvorbis-devel SDL2_image-devel glew-devel lua52-devel"
+depends="pioneer-data>=${version}_${revision}"
 short_desc="Space adventure game set in our galaxy at the turn of the 31st century"
+maintainer="John <johnz@posteo.net>"
+license="GPL-3.0-or-later"
 homepage="https://pioneerspacesim.net"
-license="GPL-3"
 distfiles="https://github.com/pioneerspacesim/pioneer/archive/${version}.tar.gz"
-checksum=154118bd3dac2f9b8ea43a837bcb967abcc8c3a8ee5ab61d35183bae85e8b0db
+checksum=3055d63c1bd3377c3794eee830a8adbd650b178bad9e927531e38cb5d5838694
 
-pre_configure() {
-	export PIONEER_DATA_DIR=/usr/share/pioneer
-	./bootstrap
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends+=" pioneer-modelcompiler"
+fi
+
+if [ "$XBPS_TARGET_ENDIAN" = "be" ]; then
+	broken="Not yet implemented"
+fi
+
+pioneer-modelcompiler_package() {
+	short_desc+=" -modelcompiler"
+	pkg_install() {
+		vmove usr/bin/modelcompiler
+	}
 }
 
-post_install() {
-	vinstall ${FILESDIR}/pioneer.desktop 644 usr/share/applications
-
-	for icon in application-icon/pngs/*
-	do
-		if [[ $icon =~ pioneer-([0-9]+x[0-9]+).png ]]; then
-			vinstall $icon 644 usr/share/icons/hicolor/${BASH_REMATCH[1]}/apps pioneer.png
-		fi
-	done
-
-	vinstall application-icon/badge-enlarged-text.svg 644 usr/share/icons/hicolor/scalable/apps pioneer.svg
+pioneer-data_package() {
+	short_desc+=" - data"
+	archs=noarch
+	pkg_install() {
+		vmove usr/share/pioneer
+	}
 }
-

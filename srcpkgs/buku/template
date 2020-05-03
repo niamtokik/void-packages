@@ -1,27 +1,17 @@
 # Template file for 'buku'
 pkgname=buku
-version=3.6
+version=4.3
 revision=1
-wrksrc=Buku-${version}
-noarch=yes
-python_version="3"
-checkdepends="python3-pytest python3-BeautifulSoup4 python3-requests python3-cryptography
- python3-hypothesis"
-depends="python3 python3-requests"
-short_desc="A cmdline bookmark management utility"
+archs=noarch
+depends="python3-urllib3 python3-BeautifulSoup4 python3-cryptography python3-html5lib"
+short_desc="Cmdline bookmark management utility"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="GPL-3"
+license="GPL-3.0-or-later"
 homepage="https://github.com/jarun/Buku"
 distfiles="https://github.com/jarun/Buku/archive/v${version}.tar.gz"
-checksum=6126dbf820a18af69b0bd24eb86a04a71d4904ba84dc174b98c1050fae8f9fad
-
-do_check() {
-	# bukuDb requires unpackaged python-pytest-capturelog
-	# https://pypi.python.org/pypi/pytest-capturelog for the interested
-	pytest3 --ignore=tests/test_bukuDb.py
-}
+checksum=4c91cb0ac83164153c65705f46af29aaede78a2ed48d836cd2269b0fc71fed7a
 
 do_install() {
-	vbin buku.py buku
+	vbin buku
 	vman buku.1
 }

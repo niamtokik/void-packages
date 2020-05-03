@@ -8,8 +8,11 @@ generic_wrapper() {
 	[ ! -x ${XBPS_CROSS_BASE}/usr/bin/${wrapper} ] && return 0
 	[ -x ${XBPS_WRAPPERDIR}/${wrapper} ] && return 0
 
-	echo "#!/bin/sh" >> ${XBPS_WRAPPERDIR}/${wrapper}
-	echo "exec ${XBPS_CROSS_BASE}/usr/bin/${wrapper} --prefix=${XBPS_CROSS_BASE}/usr \"\$@\"" >> ${XBPS_WRAPPERDIR}/${wrapper}
+	cat >>${XBPS_WRAPPERDIR}/${wrapper}<<_EOF
+#!/bin/sh
+exec ${XBPS_CROSS_BASE}/usr/bin/${wrapper} --prefix=${XBPS_CROSS_BASE}/usr "\$@"
+_EOF
+
 	chmod 755 ${XBPS_WRAPPERDIR}/${wrapper}
 }
 
@@ -47,6 +50,20 @@ generic_wrapper3() {
 	chmod 755 ${XBPS_WRAPPERDIR}/${wrapper}
 }
 
+apr_apu_wrapper() {
+	local wrapper="$1"
+
+	[ ! -x ${XBPS_CROSS_BASE}/usr/bin/${wrapper} ] && return 0
+	[ -x ${XBPS_WRAPPERDIR}/${wrapper} ] && return 0
+
+	cat >>${XBPS_WRAPPERDIR}/${wrapper}<<_EOF
+#!/bin/sh
+${XBPS_CROSS_BASE}/usr/bin/${wrapper} "\$@" | sed -e "s,/usr/,${XBPS_CROSS_BASE}/usr/,g"
+exit \$?
+_EOF
+	chmod 755 ${XBPS_WRAPPERDIR}/${wrapper}
+}
+
 python_wrapper() {
 	local wrapper="$1" version="$2"
 
@@ -78,13 +95,45 @@ _EOF
 	ln -sf ${XBPS_CROSS_TRIPLET}-pkg-config ${XBPS_WRAPPERDIR}/pkg-config
 }
 
+vapigen_wrapper() {
+	if [ ! -x /usr/bin/vapigen ]; then
+		return 0
+	fi
+	[ -x ${XBPS_WRAPPERDIR}/vapigen ] && return 0
+	cat >>${XBPS_WRAPPERDIR}/vapigen<<_EOF
+#!/bin/sh
+exec /usr/bin/vapigen \\
+	 --vapidir=${XBPS_CROSS_BASE}/usr/share/vala/vapi \\
+	 --vapidir=${XBPS_CROSS_BASE}/usr/share/vala-0.42/vapi \\
+	 --girdir=${XBPS_CROSS_BASE}/usr/share/gir-1.0 "\$@"
+_EOF
+	chmod 755 ${XBPS_WRAPPERDIR}/vapigen
+	ln -sf vapigen ${XBPS_WRAPPERDIR}/vapigen-0.42
+}
+
+valac_wrapper() {
+	if [ ! -x /usr/bin/valac ]; then
+		return 0
+	fi
+	[ -x ${XBPS_WRAPPERDIR}/valac ] && return 0
+	cat >>${XBPS_WRAPPERDIR}/valac<<_EOF
+#!/bin/sh
+exec /usr/bin/valac \\
+	 --vapidir=${XBPS_CROSS_BASE}/usr/share/vala/vapi \\
+	 --vapidir=${XBPS_CROSS_BASE}/usr/share/vala-0.42/vapi \\
+	 --girdir=${XBPS_CROSS_BASE}/usr/share/gir-1.0 "\$@"
+_EOF
+	chmod 755 ${XBPS_WRAPPERDIR}/valac
+	ln -sf valac ${XBPS_WRAPPERDIR}/valac-0.42
+}
+
 install_wrappers() {
 	local fname
 
 	for f in ${XBPS_COMMONDIR}/wrappers/*.sh; do
 		fname=${f##*/}
 		fname=${fname%.sh}
-		install -m0755 ${f} ${XBPS_WRAPPERDIR}/${fname}
+		install -p -m0755 ${f} ${XBPS_WRAPPERDIR}/${fname}
 	done
 }
 
@@ -120,6 +169,8 @@ hook() {
 
 	install_cross_wrappers
 	pkgconfig_wrapper
+	vapigen_wrapper
+	valac_wrapper
 	generic_wrapper icu-config
 	generic_wrapper libgcrypt-config
 	generic_wrapper freetype-config
@@ -132,12 +183,14 @@ hook() {
 	generic_wrapper net-snmp-config
 	generic_wrapper wx-config
 	generic_wrapper wx-config-3.0
+	generic_wrapper wx-config-gtk3
 	generic_wrapper2 curl-config
 	generic_wrapper2 gpg-error-config
 	generic_wrapper2 libassuan-config
 	generic_wrapper2 mysql_config
 	generic_wrapper2 taglib-config
 	generic_wrapper2 nspr-config
+	generic_wrapper2 gdal-config
 	generic_wrapper3 libpng-config
 	generic_wrapper3 xmlrpc-c-config
 	generic_wrapper3 krb5-config
@@ -153,5 +206,7 @@ hook() {
 	generic_wrapper3 libetpan-config
 	generic_wrapper3 giblib-config
 	python_wrapper python-config 2.7
-	python_wrapper python3.4-config 3.4m
+	python_wrapper python3-config 3.8
+	apr_apu_wrapper apr-1-config
+	apr_apu_wrapper apu-1-config
 }

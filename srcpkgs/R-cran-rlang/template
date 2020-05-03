@@ -1,10 +1,10 @@
 # Template file for 'R-cran-rlang'
 pkgname=R-cran-rlang
-version=0.1.6
+version=0.4.5
 revision=1
 build_style=R-cran
 short_desc="Functions for Base Types and Core R and 'Tidyverse' Features"
 maintainer="Florian Wagner <florian@wagner-flo.net>"
-license="GPL-3"
-homepage="http://rlang.tidyverse.org/"
-checksum=772273e4f82ec33ffd28bf87bc44abbde2a6fb4b00e5723068ec5464b556c2f4
+license="GPL-3.0-or-later"
+homepage="https://rlang.r-lib.org/"
+checksum=cd1fac76f1a6ac26e07cc11dd08c55947fe152e4703daf8c94e3a650721b10a8

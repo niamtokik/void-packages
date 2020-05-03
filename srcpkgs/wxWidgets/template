@@ -1,31 +1,44 @@
 # Template file for 'wxWidgets'
 pkgname=wxWidgets
-version=3.0.3.1
-revision=3
-build_style=gnu-configure
+version=3.0.5
+revision=1
 configure_args="--enable-unicode --with-opengl --with-sdl --with-libmspack
- --with-libnotify"
+ --with-libnotify --enable-mediactrl --with-gtk=2 --disable-webview"
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="gtk+-devel libjpeg-turbo-devel tiff-devel libSM-devel libnotify-devel
+ libXinerama-devel libmspack-devel SDL2-devel glu-devel
+ gstreamer1-devel gst-plugins-base1-devel"
+depends="wxWidgets-common>=${version}"
 short_desc="The wxWidgets GUI toolkit library (version 3)"
 maintainer="Martin Riese <grauehaare@gmx.de>"
 license="wxWindows"
 homepage="https://www.wxwidgets.org/"
-hostmakedepends="pkg-config"
-makedepends="gtk+-devel libjpeg-turbo-devel tiff-devel libSM-devel libnotify-devel
- libXinerama-devel libmspack-devel SDL-devel glu-devel webkitgtk2-devel"
 distfiles="https://github.com/wxWidgets/wxWidgets/releases/download/v${version}/wxWidgets-${version}.tar.bz2"
-checksum=3164ad6bc5f61c48d2185b39065ddbe44283eb834a5f62beb13f1d0923e366e4
+checksum=8aacd56b462f42fb6e33b4d8f5d40be5abc3d3b41348ea968aa515cc8285d813
+
+post_install() {
+	# remove files that are already in wxWidgets-common
+	rm -f ${DESTDIR}/usr/lib/libwx_baseu*
+	rm -rf ${DESTDIR}/usr/bin/wxrc*
+	rm -rf ${DESTDIR}/usr/share
+	find ${DESTDIR}/usr/include -type f -not -name tabartgtk.h \
+		-not -name fontdlgg.h -not -name notifmsg.h -exec rm -f {} \;
+	for f in "" generic gtk; do
+		rm ${DESTDIR}/usr/include/wx-3.0/wx/$f/notifmsg.h
+	done
+}
 
 wxWidgets-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
+	depends="${sourcepkg}>=${version}_${revision} ${sourcepkg}-common-devel>=${version}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove "usr/lib/*.so"
-		vmove usr/share
 		vmove usr/bin
+		vmove "usr/lib/*.so"
 		vmove usr/lib/wx
+
 		ln -sf wx-config-3.0 ${PKGDESTDIR}/usr/bin/wx-config
-		ln -sf wxrc-3.0 ${PKGDESTDIR}/usr/bin/wxrc
 
 		# remove all occurrences of $XBPS_CROSS_TRIPLET
 		# wx-config:

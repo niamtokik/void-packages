@@ -1,48 +1,46 @@
-# Template build file for 'gtk+3'.
+# Template file for 'gtk+3'
 pkgname=gtk+3
-version=3.22.26
+version=3.24.20
 revision=1
 wrksrc="gtk+-${version}"
 build_style=gnu-configure
+build_helper="gir"
+#XXX broken configure script: Can't use vopt_enable cloudproviders, configure
+#checks for libcloudproviders when we pass '--disable-cloudproviders' to it!
 configure_args="--disable-schemas-compile
  $(vopt_enable broadway broadway-backend) $(vopt_enable colord)
  $(vopt_enable cups) $(vopt_enable gir introspection)
- $(vopt_enable wayland wayland-backend) $(vopt_enable x11 x11-backend)"
-short_desc="The GTK+ toolkit (v3)"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="https://www.gtk.org/"
-license="LGPL-2.1"
-distfiles="${GNOME_SITE}/gtk+/${version%.*}/gtk+-${version}.tar.xz"
-checksum=61eef0d320e541976e2dfe445729f12b5ade53050ee9de6184235cb60cd4b967
-
-hostmakedepends="automake gettext-devel libtool pkg-config
- glib-devel gtk-doc gobject-introspection gtk-update-icon-cache
- $(vopt_if wayland 'wayland-devel wayland-protocols')"
-makedepends="libglib-devel atk-devel at-spi2-atk-devel libepoxy-devel
- libpng-devel fontconfig-devel cairo-devel pango-devel gdk-pixbuf-devel
- $(vopt_if colord colord-devel) $(vopt_if cups cups-devel)
- $(vopt_if wayland 'libxkbcommon-devel wayland-devel wayland-protocols libwayland-egl MesaLib-devel')
- $(vopt_if x11 'libXcursor-devel libXdamage-devel libXext-devel libXinerama-devel libXi-devel libXrandr-devel libXcomposite-devel')"
-depends="gtk-update-icon-cache shared-mime-info $(vopt_if x11 dbus-x11)"
-triggers="gtk3-immodules"
+ $(vopt_enable wayland wayland-backend) $(vopt_enable x11 x11-backend)
+ $(vopt_if cloudproviders '--enable-cloudproviders')"
 conf_files="/etc/gtk-3.0/im-multipress.conf"
+hostmakedepends="gettext-devel glib-devel gtk-doc gtk-update-icon-cache perl
+ pkg-config $(vopt_if wayland 'wayland-devel wayland-protocols')"
+makedepends="at-spi2-atk-devel gdk-pixbuf-devel libepoxy-devel pango-devel
+ iso-codes $(vopt_if colord 'colord-devel') $(vopt_if cups 'cups-devel')
+ $(vopt_if wayland 'libxkbcommon-devel wayland-devel wayland-protocols MesaLib-devel')
+ $(vopt_if x11 'libXcursor-devel libXdamage-devel libXext-devel libXinerama-devel libXi-devel libXrandr-devel libXcomposite-devel')
+ $(vopt_if cloudproviders 'libcloudproviders-devel')"
+depends="gtk-update-icon-cache shared-mime-info $(vopt_if x11 'dbus-x11')"
+short_desc="GTK+ toolkit (v3)"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://www.gtk.org/"
+distfiles="${GNOME_SITE}/gtk+/${version%.*}/gtk+-${version}.tar.xz"
+checksum=2dac69f716e8d04ba7a95091589e2baaec95dcace932cb15839163db479b1df3
 
 # Package build options
-build_options="broadway colord cups gir wayland x11"
+build_options="broadway colord cups gir cloudproviders wayland x11"
 desc_option_broadway="Enable support for the HTML5 Broadway backend"
+desc_option_cloudproviders="Enable integration with cloudproviders, such as Nextcloud"
 
-# Enable all options by default.
-build_options_default="colord cups broadway wayland x11"
+# Enable all options (other than cloudproviders) by default.
+build_options_default="colord cups gir broadway wayland x11"
 
-# Enable gir only for native builds.
-if [ -z "$CROSS_BUILD" ]; then
-	build_options_default+=" gir"
-fi
-
-pre_configure() {
-	sed -i 's,pkg-config,/usr/bin/pkg-config,' autogen.sh
-	NOCONFIGURE=1 ./autogen.sh
+do_check() {
+	# Requires xserver running
+	:
 }
+
 post_install() {
 	rm -f ${DESTDIR}/usr/bin/gtk-update-icon-cache
 	rm -f ${DESTDIR}/usr/share/man/man1/gtk-update-icon-cache.1
@@ -62,6 +60,7 @@ gtk+3-devel_package() {
 		vmove usr/share/aclocal
 	}
 }
+
 gtk+3-demo_package() {
 	short_desc+=" - demonstration application"
 	pkg_install() {

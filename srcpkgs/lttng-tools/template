@@ -1,18 +1,18 @@
-# template file for 'lttng-tools'
+# Template file for 'lttng-tools'
 pkgname=lttng-tools
-version=2.10.1
+version=2.12.0
 revision=1
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="popt-devel libxml2-devel libuuid-devel liburcu-devel lttng-ust-devel
- babeltrace-devel lttng-modules-dkms"
-system_groups="tracing"
-short_desc="A set of tools to control LTTng tracing"
+makedepends="libxml2-devel lttng-modules-dkms lttng-ust-devel popt-devel
+ libuuid-devel"
+short_desc="Set of tools to control LTTng tracing"
 maintainer="Alexander Egorenkov <egorenar-dev@posteo.net>"
-license="LGPL-2.1"
-homepage="http://lttng.org"
+license="LGPL-2.1-only, GPL-2.0-only"
+homepage="https://lttng.org"
 distfiles="${homepage}/files/${pkgname}/${pkgname}-${version}.tar.bz2"
-checksum=20bc4b7ad297c0181f20f8cf3ba2967ded76d5628a05b8c7817d39a928edaa00
+checksum=405661d27617dc79a42712174a051a45c7ca12d167576c0d93f2de708ed29445
+system_groups="tracing"
 
 lttng-tools-devel_package() {
 	short_desc+=" - development files"
@@ -20,7 +20,8 @@ lttng-tools-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove usr/lib/*.so
-		vmove usr/lib/*.a
+		vmove usr/share/man/man3
+		vmove "usr/lib/*.so"
+		vmove "usr/lib/*.a"
 	}
 }

@@ -1,16 +1,17 @@
 # Template file for 'virglrenderer'
 pkgname=virglrenderer
-version=0.6.0
+version=0.8.1
 revision=1
-build_style=gnu-configure
+wrksrc="${pkgname}-${pkgname}-${version}"
+build_style=meson
 hostmakedepends="pkg-config"
 makedepends="libepoxy-devel MesaLib-devel"
-short_desc="virgl GL renderer library"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+short_desc="Virgl GL renderer library"
+maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
-homepage="https://virgil3d.github.io/"
-distfiles="${FREEDESKTOP_SITE}/virgl/${pkgname}-${version}.tar.bz2"
-checksum=a549e351e0eb2ad1df471386ddcf85f522e7202808d1616ee9ff894209066e1a
+homepage="https://gitlab.freedesktop.org/virgl/virglrenderer"
+distfiles="https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/virglrenderer-${version}/virglrenderer-virglrenderer-${version}.tar.gz"
+checksum=51c34b1c16721d785b1fd551ebefad9ac3523450c5bcbc01f2d1032b33014146
 
 post_install() {
 	vlicense COPYING

@@ -1,20 +1,34 @@
 # Template file for 'giada'
 pkgname=giada
-version=0.14.4
+version=0.16.2.2
 revision=1
 build_style=gnu-configure
 configure_args="--target=linux"
 hostmakedepends="automake"
-makedepends="fltk-devel jack-devel jansson-devel libsamplerate-devel
- libsndfile-devel libXpm-devel pulseaudio-devel rtmidi-devel"
+makedepends="fltk-devel jack-devel libsamplerate-devel
+ libsndfile-devel libXpm-devel pulseaudio-devel rtmidi-devel libXcursor-devel
+ json-c++"
 short_desc="Loop machine, audio tool for DJs, live performers and musicians"
-maintainer="Duncaen <duncaen@voidlinux.eu>"
-license="GPL-3"
+maintainer="Duncaen <duncaen@voidlinux.org>"
+license="GPL-3.0-only"
 homepage="https://www.giadamusic.com/"
 distfiles="https://github.com/monocasual/giada/archive/v${version}.tar.gz"
-checksum=dc6ded4fe230c3dbcaafaae3258ff3a41a355ad19af6f95834e5159dd095070b
+checksum=0e6eac3ee5ef81177b3c7d1befe21c2ed1cb5efb448ae1d7d20701365ea27b4c
 
-CPPFLAGS="-Wno-error=cpp -Wno-error=format-truncation"
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+fi
+
+post_extract() {
+	if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+		vsed -e 's/\($(ldAdd)\)/\1 -latomic/g' -i Makefile.am
+	fi
+	vsed -e 's;deps/json/single_include/\(nlohmann/json.hpp\);\1;' -i \
+		src/core/init.cpp \
+		src/core/midiMapConf.cpp \
+		src/core/conf.cpp \
+		src/core/patch.cpp
+}
 
 pre_configure() {
 	autoreconf -fi

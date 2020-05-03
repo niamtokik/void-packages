@@ -1,21 +1,18 @@
 # Template file for 'libixion'
 pkgname=libixion
-version=0.13.0
-revision=1
+version=0.15.0
+revision=2
 build_style=gnu-configure
 hostmakedepends="pkg-config python3"
-makedepends="boost-devel mdds python3-devel"
+makedepends="boost-devel mdds python3-devel spdlog"
 short_desc="General purpose formula parser and interpreter"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="MPL-2.0"
 homepage="https://gitlab.com/ixion/ixion/"
 distfiles="http://kohei.us/files/ixion/src/${pkgname}-${version}.tar.xz"
-checksum=5ae360c52ba2d17c4abf5ae21fa947f75925459e085acef5972395f77333c7e5
+checksum=b1f60af61be875e3bfa7ad18203a6c8ccdeb9922a531e196029fc42fbfa0b9e6
 replaces="libixion11>=0"
 
-post_extract() {
-	sed -i '/^LDFLAGS=/d' configure
-}
 libixion-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"

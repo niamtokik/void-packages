@@ -1,27 +1,28 @@
 # Template file for 'smtube'
 pkgname=smtube
-version=18.1.0
+version=20.1.0
 revision=1
+build_wrksrc=src
 build_style=qmake
 make_build_args="
  DATA_PATH=\\\"/usr/share/smtube\\\"
  TRANSLATION_PATH=\\\"/usr/share/smtube/translations\\\"
  DOC_PATH=\\\"/usr/share/doc/smtube\\\""
-build_wrksrc=src
-hostmakedepends="qt5-host-tools qt5-script-devel qt5-tools-devel qt5-webkit-devel"
-makedepends="zlib-devel qt5-script-devel qt5-tools-devel qt5-webkit-devel"
-depends="hicolor-icon-theme desktop-file-utils"
+hostmakedepends="qt5-script-devel qt5-tools-devel qt5-webkit-devel"
+makedepends="qt5-script-devel qt5-tools-devel qt5-webkit-devel"
+depends="desktop-file-utils hicolor-icon-theme"
 short_desc="A small youtube browser"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="http://www.smtube.org/"
-distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.bz2"
-checksum=a1a970af6c4833c65ecad4c468574b903f601372e9eabf5e5daeb398135a82eb
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
+checksum=bf1d4119fe8beac3faacc9bb208114f2ceb99ccb0b331a7286013403a67fa703
 
 post_build() {
 	lrelease smtube.pro
 }
+
 do_install() {
 	cd "${wrksrc}"
-	make install PREFIX=/usr DESTDIR=${DESTDIR}
+	make install PREFIX=/usr DESTDIR="${DESTDIR}"
 }

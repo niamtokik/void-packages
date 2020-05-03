@@ -1,13 +1,13 @@
 # Template file for 'gnome-klotski'
 pkgname=gnome-klotski
-version=3.22.2
+version=3.36.2
 revision=1
-build_style=gnu-configure
-hostmakedepends="glib intltool itstool pkg-config"
+build_style=meson
+hostmakedepends="gettext glib-devel itstool pkg-config vala"
 makedepends="librsvg-devel libgnome-games-support-devel"
 short_desc="GNOME puzzle game where you move blocks"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/Klotski"
 distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=90a85057a99f588003d2553f715a206e7a2e8ef52e808ae4250be600a6370d9a
+checksum=7c86e79a30a329c14f6b59a6f74a1999f3a1ac69a73ce74e46690b06d3b9eef0

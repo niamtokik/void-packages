@@ -1,22 +1,21 @@
 # Template file for 'opera'
 pkgname=opera
-version=51.0.2830.26
+version=68.0.3618.56
 revision=1
-only_for_archs="x86_64"
-repository="nonfree"
-nostrip=yes
-hostmakedepends="freetype-devel"
+archs="x86_64"
 depends="ffmpeg desktop-file-utils hicolor-icon-theme"
 short_desc="Fast, secure, easy to use browser"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
-license="Proprietary"
+license="custom:Proprietary"
 homepage="https://www.opera.com/computer"
-distfiles="https://get.geo.opera.com/pub/opera/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
-checksum=67e221f7b5bb2074036fd9e334f58628c174a611a06997c360e68667a31b3e8f
+distfiles="http://get.geo.opera.com/pub/opera/desktop/${version}/linux/${pkgname}-stable_${version}_amd64.deb"
+checksum=e193281f5b6cabad7ae46b8dcae426c993e057b78d2204aef6f99be48e4d2822
+repository="nonfree"
+nostrip=yes
 
 do_extract() {
 	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-stable_${version}_amd64.deb
-	tar xf data.tar.xz --exclude=./usr/share/{lintian,menu}
+	bsdtar xf data.tar.xz --exclude=./usr/share/{lintian,menu}
 }
 
 do_install() {
@@ -30,8 +29,6 @@ do_install() {
 	rm -rf usr/share/doc
 
 	vcopy usr/share /usr
-
-	ln -sf /usr/lib/libfreetype.so.6 ${DESTDIR}/usr/lib/opera/libfreetype.so.6
 
 	# suid opera_sandbox
 	chmod 4755 ${DESTDIR}/usr/lib/opera/opera_sandbox

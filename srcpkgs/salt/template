@@ -1,26 +1,53 @@
 # Template file for 'salt'
 pkgname=salt
-version=2017.7.3
+version=3000.2
 revision=1
+archs=noarch
 build_style=python2-module
-noarch=yes
 pycompile_module="salt"
-conf_files="/etc/salt/*"
-hostmakedepends="python-devel"
-makedepends="python-devel"
-depends="python-yaml python-Jinja2 python-requests python-pyzmq python-crypto
- python-M2Crypto python-tornado python-msgpack dmidecode pciutils"
-#changelog="https://docs.saltstack.com/en/latest/topics/releases/${version}.html"
+hostmakedepends="python-devel python-setuptools"
+depends="python-yaml python-Jinja2 python-requests python-pyzmq
+ python-M2Crypto python-tornado python-msgpack dmidecode pciutils
+ python-psutil"
 short_desc="Remote execution system, and configuration manager"
-maintainer="Toyam Cox <Vaelatern@gmail.com>"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="Apache-2.0"
 homepage="http://saltstack.org/"
-distfiles="$PYPI_SITE/s/salt/salt-${version}.tar.gz"
-checksum=3d4e1aefe4fa1e53bf132e84961cf46cef3e5d654f4231a2f2e30e786ab7dc07
+changelog="https://docs.saltstack.com/en/latest/topics/releases/${version}.html"
+distfiles="${PYPI_SITE}/s/salt/salt-${version}.tar.gz"
+checksum=0e33429d094a6109dfed955c4b1c638baee9641eca2f7609bbc4adad21c620d9
+conf_files="
+ /etc/salt/cloud.providers.d/digitalocean.conf
+ /etc/salt/cloud.providers.d/vsphere.conf
+ /etc/salt/cloud.providers.d/linode.conf
+ /etc/salt/cloud.providers.d/parallels.conf
+ /etc/salt/cloud.providers.d/ibmsce.conf
+ /etc/salt/cloud.providers.d/tencent.conf
+ /etc/salt/cloud.providers.d/ec2.conf
+ /etc/salt/cloud.providers.d/saltify.conf
+ /etc/salt/cloud.providers.d/joyent.conf
+ /etc/salt/cloud.providers.d/gogrid.conf
+ /etc/salt/cloud.providers.d/proxmox.conf
+ /etc/salt/cloud.providers.d/scaleway.conf
+ /etc/salt/cloud.maps.d/cloud.map
+ /etc/salt/cloud.maps.d/saltify.map
+ /etc/salt/minion
+ /etc/salt/cloud
+ /etc/salt/roster
+ /etc/salt/proxy
+ /etc/salt/suse/master
+ /etc/salt/master
+ /etc/salt/cloud.profiles.d/EC2-us-west-1.profiles
+ /etc/salt/cloud.profiles.d/EC2-us-east-1.profiles
+ /etc/salt/cloud.profiles.d/EC2-us-west-2.profiles
+ /etc/salt/cloud.profiles.d/saltify.conf
+ /etc/salt/cloud.profiles.d/tencentcloud-guangzhou-s1sm1.profiles
+ /etc/salt/cloud.profiles
+ /etc/salt/cloud.providers"
 
 post_install() {
-	vmkdir /etc/salt 0750
-	vcopy conf/* /etc/salt/
+	vmkdir etc/salt 0750
+	vcopy conf/* etc/salt
 	vsv salt-api
 	vsv salt-master
 	vsv salt-minion

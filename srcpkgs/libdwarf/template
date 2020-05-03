@@ -1,50 +1,43 @@
-# Template build file for 'libdwarf'
+# Template file for 'libdwarf'
 pkgname=libdwarf
-version=20180129
+version=20200114
 revision=1
 build_style=gnu-configure
-configure_args="--prefix=/usr --enable-shared"
+configure_args="--enable-shared --enable-dwarfgen"
+makedepends="elfutils-devel"
 short_desc="DWARF Debugging Information Format Library"
 maintainer="John Regan <john@jrjrtech.com>"
-license="GPL-2, LGPL-2.1"
-makedepends="elfutils-devel"
-homepage="http://www.prevanders.net/dwarf.html"
-distfiles="http://prevanders.net/${pkgname}-${version}.tar.gz"
-checksum=8bd91b57064b0c14ade5a009d3a1ce819f1b6ec0e189fc876eb8f42a8720d8a6
-wrksrc="dwarf-${version}"
-build_wrksrc="libdwarf"
+license="LGPL-2.1-only"
+homepage="https://www.prevanders.net/dwarf.html"
+distfiles="https://prevanders.net/${pkgname}-${version}.tar.gz"
+checksum=cffd8d600ca3181a5194324c38d50f94deb197249b2dea92d18969a7eadd2c34
 
-if [ -n "$CROSS_BUILD" ]; then
-	make_cmd="make HOSTCC=cc HOSTCFLAGS=-I./ HOSTLDFLAGS="
-
-	pre_build() {
-		# Makefile doesn’t use $HOSTLDFLAGS when using $HOSTCC
-		sed -i -e 's|\$(HOSTCC) \$(HOSTCFLAGS) \$(LDFLAGS)|\$(HOSTCC) \$(HOSTCFLAGS) \$(HOSTLDFLAGS)|' Makefile
-	}
+if [ "$CROSS_BUILD" ]; then
+	hostmakedepends="elfutils-devel"
 fi
 
-do_install() {
-	install -dm755 $DESTDIR/usr/lib
-	install -m644 libdwarf.so $DESTDIR/usr/lib/
+post_install() {
+	rm -rf ${PKGDESTDIR}/usr/share/libdwarf/libdwarf-devel
+	mkdir ${DESTDIR}/usr/include/libdwarf
+	mv ${DESTDIR}/usr/include/*.h ${DESTDIR}/usr/include/libdwarf
 }
 
 libdwarf-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
-		install -dm755 $PKGDESTDIR/usr/lib
-		install -m644 libdwarf.a $PKGDESTDIR/usr/lib
-
-		install -dm755 $PKGDESTDIR/usr/include/libdwarf
-		install -m644 libdwarf.h $PKGDESTDIR/usr/include/libdwarf/
-		install -m644 dwarf.h $PKGDESTDIR/usr/include/libdwarf/
+		vmove "usr/include/libdwarf"
+		vmove "usr/lib/*.so"
+		vmove "usr/lib/*.a"
 	}
 }
 
 libdwarf-doc_package() {
+	archs=noarch
 	short_desc+=" - documentation"
 	pkg_install() {
-		install -dm755 $PKGDESTDIR/usr/share/doc/${pkgname}
-		install -m644 README NEWS *.pdf $PKGDESTDIR/usr/share/doc/${pkgname}
+		for i in README NEWS libdwarf/*.pdf ; do
+			vdoc $i
+		done
 	}
 }

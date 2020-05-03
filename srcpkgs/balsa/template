@@ -1,18 +1,17 @@
-# Template file for 'balsa'.
+# Template file for 'balsa'
 pkgname=balsa
-version=2.5.3
-revision=3
+version=2.5.10
+revision=1
 build_style=gnu-configure
-configure_args="--without-nm --without-gtkspell --without-gnome --with-ssl
- --with-libsecret --with-gpgme --with-sqlite --with-html-widget=webkit"
-hostmakedepends="pkg-config intltool automake gettext-devel"
-makedepends="
- iso-codes libressl-devel sqlite-devel enchant-devel libnotify-devel libesmtp-devel
- gtk+3-devel gmime-devel webkitgtk-devel pcre-devel gpgme-devel libsecret-devel"
-depends="hicolor-icon-theme desktop-file-utils"
-short_desc="An email client for GNOME"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-homepage="http://pawsa.fedorapeople.org/balsa/"
-license="GPL-2"
-distfiles="http://pawsa.fedorapeople.org/balsa/balsa-${version}.tar.bz2"
-checksum=b896ea6b16b31725e0d81ba4eac398b39ad5c33f2337a260448d2feac7e55396
+configure_args="--without-gnome --with-libsecret --with-gpgme --with-sqlite
+ --with-html-widget=webkit2"
+hostmakedepends="automake gettext-devel intltool pkg-config"
+makedepends="enchant-devel gmime-devel gnutls-devel gpgme-devel iso-codes
+ libesmtp-devel libnotify-devel libsecret-devel webkit2gtk-devel libical-devel"
+depends="desktop-file-utils hicolor-icon-theme"
+short_desc="Email client for GNOME"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://pawsa.fedorapeople.org/balsa/"
+distfiles="https://pawsa.fedorapeople.org/balsa/balsa-${version}.tar.bz2"
+checksum=e6b1aa22c7751794203f513294f437f67009a7717a2cc75fda02e2f61c6fe47d

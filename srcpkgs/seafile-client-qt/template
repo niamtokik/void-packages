@@ -1,35 +1,31 @@
 # Template file for 'seafile-client-qt'
 pkgname=seafile-client-qt
-version=6.1.4
-revision=2
+version=7.0.7
+revision=1
 _sourcename="seafile-client"
 wrksrc="${_sourcename}-${version}"
 build_style=cmake
-configure_args="-DUSE_QT5=ON $(vopt_if shibboleth -DBUILD_SHIBBOLETH_SUPPORT=ON)"
+configure_args="$(vopt_if shibboleth -DBUILD_SHIBBOLETH_SUPPORT=ON)"
 hostmakedepends="pkg-config"
-makedepends="sqlite-devel jansson-devel ccnet-devel libsearpc-devel
-	libressl-devel seafile-libclient-devel libevent-devel libuuid-devel
-	qt5-devel qt5-tools-devel desktop-file-utils
-	$(vopt_if shibboleth 'qt5-webengine-devel qt5-declarative-devel qt5-webchannel-devel qt5-location-devel')"
-
+makedepends="qt5-tools-devel seafile-libclient-devel sqlite-devel libevent-devel
+ $(vopt_if shibboleth 'qt5-webkit-devel')"
 short_desc="Cloud storage system - Qt graphical client"
 maintainer="yopito <pierre.bourgin@free.fr>"
-license="ASL-2"
-homepage="https://github.com/haiwen/${_sourcename}"
-distfiles="https://github.com/haiwen/${_sourcename}/archive/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=fa2433c8925502b563fdd7d93ec5751e4f8e1949b56bf427f2253b86e8c33321
+license="Apache-2.0"
+homepage="https://seafile.com"
+distfiles="https://github.com/haiwen/seafile-client/archive/v${version}.tar.gz"
+checksum=49a97a1e7c55ff29237ff5b700cde8035b56a56c9176d7d7fc426357f4abab78
 
 build_options="shibboleth"
 desc_option_shibboleth="Build with Shibboleth support"
 build_options_default="shibboleth"
 
 case "$XBPS_TARGET_MACHINE" in
-	*-musl)	# Add musl-fts implementation
-		makedepends+=" musl-fts-devel"
-		;;
+	*-musl)	# need fts implementation
+		makedepends+=" musl-fts-devel" ;;
 esac
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-qmake qt5-host-tools qt5-tools"
 fi
 
@@ -45,5 +41,5 @@ pre_configure() {
 }
 
 post_install() {
-	vdoc "README.md"
+	vdoc README.md
 }

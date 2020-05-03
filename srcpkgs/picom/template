@@ -1,0 +1,28 @@
+# Template file for 'picom'
+pkgname=picom
+version=8
+revision=2
+build_style=meson
+configure_args="-Dwith_docs=true"
+hostmakedepends="pkg-config asciidoc"
+makedepends="MesaLib-devel dbus-devel libconfig-devel libev-devel pcre-devel
+ pixman-devel xcb-util-image-devel xcb-util-renderutil-devel
+ libxdg-basedir-devel uthash"
+depends="desktop-file-utils"
+short_desc="Lightweight compositor for X11 (previously a compton fork)"
+maintainer="Frank Steinborn <steinex@nognu.de>"
+license="MIT, MPL-2.0"
+homepage="https://github.com/yshui/picom/"
+distfiles="https://github.com/yshui/picom/archive/v${version}.tar.gz"
+checksum=f839a3c058ca90f463eae3973a9381cf2fe93be7d0e58db1c28ea72acd10480f
+
+post_install() {
+	vlicense LICENSES/MIT
+	vsconf picom.sample.conf
+}
+
+compton_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	build_style=meta
+	short_desc+=" (transitional dummy package)"
+}

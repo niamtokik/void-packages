@@ -1,32 +1,28 @@
 # Template file for 'skalibs'
 pkgname=skalibs
-version=2.6.3.1
+version=2.9.2.1
 revision=1
 _sysdepspkg=skaware-void-sysdeps
-build_style=gnu-configure
-configure_args="--libdir=/usr/lib --enable-static --enable-shared --enable-clock
- --enable-monotonic --enable-force-devr --datadir=/usr/share/$pkgname"
+build_style=configure
+configure_args="--libdir=/usr/lib --enable-static --enable-shared
+ --enable-force-devr
+ --datadir=/usr/share/$pkgname --libdir=/usr/lib
+ --bindir=/usr/bin --dynlibdir=/usr/lib
+ --with-sysdep-devurandom=yes"
 short_desc="General purpose libraries for building software from skarnet.org"
-maintainer="bougyman <bougyman@voidlinux.eu>"
+maintainer="bougyman <bougyman@voidlinux.org>"
 license="ISC"
-homepage="http://skarnet.org/software/skalibs/"
-distfiles="http://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=8508ca00d4e2355e9ec0ec7f4808e98b349999d6732d2f123ac53b4df5260c81
-
-CFLAGS="-D_DEFAULT_SOURCE"
-
-if [ "$CROSS_BUILD" ]; then
-	distfiles+=" https://github.com/CMB/${_sysdepspkg}/archive/${version}.tar.gz"
-	checksum+=" b8763ec2e6867a5639ce7aa2bb7c0f5d5ccc7455a26a6d98f71b2b7d94ce9dae"
-	configure_args+=" --with-sysdeps=../${_sysdepspkg}-${version}/${XBPS_CROSS_TRIPLET}"
-fi
+homepage="https://skarnet.org/software/skalibs/"
+changelog="https://skarnet.org/software/skalibs/upgrade.html"
+distfiles="https://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=250b99b53dd413172db944b31c1b930aa145ac79fe6c5d7e6869ef804228c539
 
 post_install() {
 	vlicense COPYING LICENSE
 }
 
 skalibs-doc_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - documentation"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
@@ -34,13 +30,14 @@ skalibs-doc_package() {
 		vcopy "doc/*" usr/share/doc/skalibs
 	}
 }
+
 skalibs-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/skalibs/sysdeps
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
 	}
 }

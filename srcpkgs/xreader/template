@@ -1,28 +1,32 @@
-# Template file for 'xreader'.
+# Template file for 'xreader'
 pkgname=xreader
-version=1.6.1
-revision=1
-build_style=gnu-configure
-configure_script="./autogen.sh"
-configure_args="--disable-caja
-		--disable-nemo
-		--disable-introspection
-		--disable-thumbnailer"
-hostmakedepends="automake pkg-config mate-common yelp-tools"
-makedepends="djvulibre-devel libgxps-devel libsecret-devel
- libspectre-devel libSM-devel poppler-glib-devel webkit2gtk-devel"
+version=2.4.0
+revision=2
+build_style=meson
+build_helper="gir"
+configure_args="-Dintrospection=$(vopt_if gir true false) -Dthumbnailer=false"
+hostmakedepends="mate-common mathjax"
+makedepends="djvulibre-devel libSM-devel libgnomekbd-devel libgxps-devel libsecret-devel
+ libspectre-devel libxkbfile-devel poppler-glib-devel webkit2gtk-devel xapps-devel
+ $(vopt_if gir 'gobject-introspection') gdk-pixbuf-devel"
 depends="desktop-file-utils hicolor-icon-theme"
-maintainer="cr6git <quark6@protonmail.com>"
 short_desc="Document viewer capable of displaying formats like PDF and Postscript"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://github.com/linuxmint/xreader"
-license="GPL-2"
 distfiles="https://github.com/linuxmint/xreader/archive/${version}.tar.gz"
-checksum=32e7f51800aacb47951e45f64e0e1120b3411abe73a3a65c1479c9d54fb564b6
+checksum=d6c550434a89016f16780b146d102d6fda2eaa2a3005a5f22f8df7f188844d14
+
+build_options="gir"
+build_options_default="gir"
 
 libxreader_package() {
 	short_desc+=" - shared library"
 	pkg_install() {
 		vmove "usr/lib/*.so.*"
+		if [ "$build_option_gir" ]; then
+			vmove usr/lib/girepository-1.0
+		fi
 	}
 }
 
@@ -32,8 +36,9 @@ libxreader-devel_package() {
 	pkg_install() {
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
 	}
 }
-

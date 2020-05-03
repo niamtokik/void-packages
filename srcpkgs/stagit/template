@@ -1,6 +1,6 @@
 # Template file for 'stagit'
 pkgname=stagit
-version=0.7.2
+version=0.9.3
 revision=1
 build_style=gnu-makefile
 make_install_args="MANPREFIX=/usr/share/man"
@@ -8,9 +8,9 @@ makedepends="libgit2-devel"
 short_desc="Static git page generator"
 maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="MIT"
-homepage="http://git.2f30.org/stagit"
-distfiles="http://dl.2f30.org/releases/${pkgname}-${version}.tar.gz"
-checksum=25facb7ce384f1d2f06c536753e2754b38037b482c6a546196ebebf4c34b7ad4
+homepage="https://codemadness.org/git/stagit/log.html"
+distfiles="https://codemadness.org/releases/stagit/${pkgname}-${version}.tar.gz"
+checksum=db89b41c6d3803b2562d56fee0d939360fc887902f17aaf27dff774df0402da3
 LDFLAGS="-lgit2"
 
 post_install() {

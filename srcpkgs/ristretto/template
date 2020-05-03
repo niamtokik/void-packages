@@ -1,14 +1,14 @@
 # Template file for 'ristretto'
 pkgname=ristretto
-version=0.8.2
-revision=2
+version=0.10.0
+revision=1
 build_style=gnu-configure
-hostmakedepends="pkg-config intltool"
-makedepends="libexif-devel dbus-glib-devel libxfce4ui-devel exo-devel file-devel"
-depends="hicolor-icon-theme desktop-file-utils"
+hostmakedepends="intltool pkg-config"
+makedepends="exo-devel file-devel libexif-devel"
+depends="desktop-file-utils hicolor-icon-theme"
 short_desc="Picture-viewer for the Xfce desktop environment"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
-homepage="http://docs.xfce.org/apps/ristretto/start"
-distfiles="http://archive.xfce.org/src/apps/$pkgname/${version%.*}/$pkgname-$version.tar.bz2"
-checksum=f8f3b77ca6fc77ddf8cff1bb52e5c5802c462663f72f324393b3a0360f6901b8
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://docs.xfce.org/apps/ristretto/start"
+distfiles="https://archive.xfce.org/src/apps/${pkgname}/${version%.*}/${pkgname}-${version}.tar.bz2"
+checksum=16225dd74245eb6e0f82b9c72c6112f161bb8d8b11f3fc77277b7bc3432d4769

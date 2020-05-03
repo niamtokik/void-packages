@@ -1,14 +1,13 @@
 # Template file for 'lxqt-about'
 pkgname=lxqt-about
-version=0.12.0
+version=0.15.0
 revision=1
 build_style=cmake
-configure_args="-DPULL_TRANSLATIONS=0"
-hostmakedepends="qt5-host-tools qt5-devel qt5-tools-devel"
+hostmakedepends="lxqt-build-tools qt5-qmake qt5-host-tools"
 makedepends="qt5-tools-devel liblxqt-devel"
 short_desc="LXQt about application"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="LGPL-2.1"
-homepage="http://lxqt.org/"
-distfiles="https://github.com/lxde/lxqt-about/releases/download/${version}/lxqt-about-${version}.tar.xz"
-checksum=1c92815ec69a79a8000f9847d4074b405fdb46dbfadb405dc7ce0ce12e6be7a1
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://lxqt.org/"
+distfiles="https://github.com/lxqt/lxqt-about/releases/download/${version}/lxqt-about-${version}.tar.xz"
+checksum=50d7156b5d8691ced72e85312b54da1e94503824b177c5e16ce8fae977f8445c

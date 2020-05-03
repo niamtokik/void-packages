@@ -1,27 +1,24 @@
 # Template file for 'master-pdf-editor'
 pkgname=master-pdf-editor
-version=4.3.61
+version=5.4.38
 revision=1
-only_for_archs="x86_64"
-repository="nonfree"
-build_style=fetch
-nostrip="yes"
+archs="x86_64"
+wrksrc="master-pdf-editor-5"
+depends="desktop-file-utils"
 short_desc="Multifunctional PDF Editor"
 maintainer="Giuseppe Fierro <gspe@ae-design.ws>"
-license="Proprietary"
-homepage="https://code-industry.net/masterpdfeditor"
-distfiles="http://get.code-industry.net/public/${pkgname}-${version}_qt5.amd64.deb"
-checksum=b78b4fa7630a9faf79a36a2a5e808969b83a47a92936779d77aba682d05e1121
-
-do_extract() {
-	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-${version}_qt5.amd64.deb data.tar.xz
-	tar xf data.tar.xz
-}
+license="custom:Proprietary"
+homepage="https://code-industry.net/free-pdf-editor/"
+distfiles="https://code-industry.net/public/${pkgname}-${version}-qt5.amd64.tar.gz"
+checksum=985512bfa82d820fa473d93d88318cdfb7513efab1f15c9ff31b57d21ef22d3a
+nostrip=yes
+repository=nonfree
 
 do_install() {
-	vlicense opt/master-pdf-editor-4/license.txt
-	rm opt/master-pdf-editor-4/license.txt
+	vlicense license.txt
+	vinstall masterpdfeditor5.desktop 644 usr/share/applications
+	rm {license.txt,masterpdfeditor5.desktop}
 
-	vcopy opt/ /opt
-	vcopy usr/share /usr
+	vmkdir opt/master-pdf-editor-5
+	vcopy * opt/master-pdf-editor-5
 }

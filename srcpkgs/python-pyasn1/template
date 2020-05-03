@@ -1,31 +1,30 @@
 # Template file for 'python-pyasn1'
 pkgname=python-pyasn1
-version=0.4.2
+version=0.4.8
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="pyasn1-${version}"
 build_style=python-module
 hostmakedepends="python-setuptools python3-setuptools"
 depends="python"
-pycompile_module="pyasn1"
 short_desc="ASN.1 library for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
+license="BSD-2-Clause"
 homepage="https://github.com/etingof/pyasn1"
-license="2-clause-BSD"
+changelog="https://raw.githubusercontent.com/etingof/pyasn1/master/CHANGES.rst"
 distfiles="${PYPI_SITE}/p/pyasn1/pyasn1-${version}.tar.gz"
-checksum=d258b0a71994f7770599835249cece1caef3c70def868c4915e6e5ca49b67d15
+checksum=aef77c9fb94a3ac588e87841208bdec464471d9871bd5050a287cc9a475cd0ba
 
 post_install() {
-	vlicense LICENSE.rst LICENSE
+	vlicense LICENSE.rst
 }
 
 python3-pyasn1_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3"
-	pycompile_module="pyasn1"
 	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
 		vmove usr/lib/python3*
-		vlicense LICENSE.rst LICENSE
+		vlicense LICENSE.rst
 	}
 }

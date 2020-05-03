@@ -1,23 +1,29 @@
 # Template file for 'lxd'
 pkgname=lxd
-version=2.21
-revision=2
+version=4.0.0
+revision=1
 build_style=go
-go_import_path="github.com/lxc/lxd"
-go_package="${go_import_path}/lxd ${go_import_path}/lxc"
-hostmakedepends="git bzr pkg-config"
-makedepends="lxc-devel acl-devel"
-depends="lxc liblxc acl acl-progs rsync squashfs-tools xz dnsmasq iptables"
-short_desc="LXD is a next generation system container manager"
-maintainer="iaroki <iaroki@protonmail.com>"
+go_import_path=github.com/lxc/lxd
+go_build_tags=libsqlite3
+go_package="${go_import_path}/lxd ${go_import_path}/lxc
+ ${go_import_path}/lxd-p2c ${go_import_path}/fuidshift"
+hostmakedepends="pkg-config git"
+makedepends="lxc-devel acl-devel dqlite-devel eudev-libudev-devel"
+depends="lxc acl acl-progs rsync squashfs-tools xz dnsmasq iptables"
+short_desc="Next generation system container manager"
+maintainer="Cameron Nemo <cnemo@tutanota.com>"
 license="Apache-2.0"
 homepage="https://linuxcontainers.org/lxd"
-distfiles="https://github.com/lxc/lxd/releases/download/lxd-${version}/lxd-${version}.tar.gz"
-checksum=649540bc9581ac07ebe88aa999284a33a7d9444dbf679f880c0eac4c087c1fad
+distfiles="https://linuxcontainers.org/downloads/lxd/lxd-${version}.tar.gz"
+checksum=cbe2ba49bb40c4497ac76b45f6a4993ea432e41f18d4a3d2b3ef69afcc6d7e02
 system_groups="lxd"
 
+_libdir="/usr/lib/sqlite-replication"
+LDFLAGS="-L${XBPS_CROSS_BASE}${_libdir} -Wl,-R${_libdir}"
+# whitelist libcap LDFLAGS (see: https://github.com/lxc/lxd/issues/6727)
+export CGO_LDFLAGS_ALLOW='-Wl,-wrap,pthread_create'
+
 post_install() {
-	vinstall config/bash/lxd-client 644 /usr/share/bash-completion/completions lxd
-	vlicense COPYING LICENSE
+	vinstall scripts/bash/lxd-client 644 /usr/share/bash-completion/completions lxd
 	vsv lxd
 }

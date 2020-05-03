@@ -1,14 +1,14 @@
 # Template file for 'gnome-system-monitor'
 pkgname=gnome-system-monitor
-version=3.26.0
+version=3.36.0
 revision=1
-build_style=gnu-configure
-configure_args="--disable-schemas-compile --disable-systemd"
-hostmakedepends="which pkg-config intltool itstool glib-devel gnome-doc-utils"
+build_style=meson
+configure_args="-Dsystemd=false"
+hostmakedepends="pkg-config intltool itstool glib-devel gnome-doc-utils polkit"
 makedepends="gtkmm-devel librsvg-devel libgtop-devel"
 short_desc="Process viewer and system resource monitor for GNOME"
-maintainer="Enno Boland <gottox@voidlinux.eu>"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
 homepage="https://wiki.gnome.org/Apps/SystemMonitor"
-license="GPL-2"
-distfiles="${GNOME_SITE}/$pkgname/${version%.*}/$pkgname-$version.tar.xz"
-checksum=f848a8c2ca5e164cf09d3a205dd49e4e4bf4b60d43b0969c10443eb519d0e6b3
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=40a70b9ffb537ed31a6c7f8aaab89a460802494fe02516e40f9b2270b89237be
