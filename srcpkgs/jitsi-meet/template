@@ -1,0 +1,24 @@
+# Template file for 'jitsi-meet'
+pkgname=jitsi-meet
+version=4548
+revision=1
+archs=noarch
+hostmakedepends="nodejs make"
+depends="nodejs"
+short_desc="jitsi"
+maintainer="Mathieu Kerjouan"
+license="Apache-2.0"
+homepage="https://www.jitsi.org"
+distfiles="https://github.com/jitsi/jitsi-meet/archive/stable/jitsi-meet_${version}.zip"
+checksum=6c6a9e460c10994191c9ab8fbf64b19b51db645b95daadfc1449c8e8a884baca
+wrksrc=jitsi-meet
+
+do_build() {
+	npm install
+	npm run lint
+	make
+}
+
+do_install() {
+	echo wip
+}

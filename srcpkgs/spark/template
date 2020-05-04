@@ -1,0 +1,35 @@
+# Template file for 'spark'
+
+pkgname="spark"
+version="2.1.0"
+revision=1
+build_style=gnu-configure
+short_desc="Lightning-fast cluster computing"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://spark.apache.org/"
+distfiles="http://apache.mirrors.ovh.net/ftp.apache.org/dist/${pkgname}/${pkgname}-${version}/${pkgname}-${version}.tgz"
+checksum="8904a7c8be23006cfe2341409ec54b0c53caa0f8baf5f06efc0721f1e0113b38"
+hostmakedepends="openjdk openjdk-jre apache-maven-bin bash curl"
+# depends="scala"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	./build/mvn -DskipTests clean package
+}
+
+do_install () {
+	vmkdir usr/bin
+	for b in beeline find-spark-home pyspark \
+		 spark-class spark-shell spark-sql \
+		 spark-submit sparkR
+	do
+		vcopy bin/${b} usr/bin
+	done
+
+	vmkdir etc/spark
+	vcopy conf/* etc/spark
+}

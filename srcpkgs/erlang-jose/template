@@ -1,0 +1,15 @@
+# Template file for 'erlang-jose'
+
+pkgname="erlang-jose"
+version="1.8.1"
+revision=1
+build_style=erlang-rebar3
+short_desc="JSON Object Signing and Encryption (JOSE) for Erlang and Elixir"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/potatosalad/erlang-jose"
+distfiles="https://github.com/potatosalad/${pkgname}/archive/${version}.tar.gz"
+checksum="089c37be43b153e8d8c295b72c6071040fb6837d6feb2e398d65d8658b493de6"
+hostmakedepends="erlang rebar3 git"
+depends="erlang>=16 erlang-base64url"
+

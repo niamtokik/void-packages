@@ -1,0 +1,10 @@
+chef:
+  website: http://chef.io/
+  manual:
+  repository:
+    git:
+      official: https://github.com/chef/chef
+  package:
+    freebsd:
+    openbsd:
+    netbsd:

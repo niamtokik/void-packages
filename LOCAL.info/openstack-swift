@@ -1,0 +1,5 @@
+openstack-swift:
+  website: http://openstack.org/ 
+  repository:
+    git:
+      official: https://github.com/openstack/swift

@@ -1,0 +1,28 @@
+# Template build file for 'corosync'.
+pkgname="corosync"
+version="2.4.2"
+revision=1
+build_style="configure"
+short_desc="The Corosync Cluster Engine"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://corosync.github.io/"
+distfiles="http://build.clusterlabs.org/${pkgname}/releases/${pkgname}-${version}.tar.gz"
+checksum="f26e3011309fe4bcce94b1dc20ea8c462f19483a73f3ca62f13b925d011a4ba9"
+hostmakedepends="autoconf automake pkg-config libtool nss-devel libqb"
+configure_args="--prefix=/usr --sbindir=/usr/bin --with-check=yes"
+shlib_provides="libsam.so.4 libvotequorum.so.8 libquorum.so.5 libcpg.so.4
+	libcfg.so.6 libcorosync_common.so.4 libcmap.so.4 
+	libtotem_pg.so.5"
+alternatives="corosync:/usr/bin/corosync:/usr/bin/corosync2
+	corosync:/usr/bin/corosync-cmapctl:/usr/bin/corosync2-cmapctl
+	corosync:/usr/bin/corosync-blackbox:/usr/bin/corosync2-blackbox
+	corosync:/usr/bin/corosync-cpgtool:/usr/bin/corosync2-cpgtool
+	corosync:/usr/bin/corosync-notifyd:/usr/bin/corosync2-notifyd
+	corosync:/usr/bin/corosync-cfgtool:/usr/bin/corosync2-cfgtool
+	corosync:/usr/bin/corosync-keygen:/usr/bin/corosync2-keygen
+	corosync:/usr/bin/corosync-quorumtool:/usr/bin/corosync2-quorumtool"
+
+pre_configure() {
+	sh autogen.sh
+}

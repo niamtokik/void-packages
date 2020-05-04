@@ -1,0 +1,16 @@
+# Template file for 'erlang-edown'
+
+pkgname="erlang-edown"
+version="0.4"
+revision=1
+build_style=erlang-rebar2
+short_desc=" EDoc extension for generating Github-flavored Markdown "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="https://github.com/esl/edown"
+distfiles="https://github.com/esl/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="363b39d9393da5f0d5a395f7b1f3202d0b7875ef9838ef13ae1711634e8889db"
+wrksrc=${pkgname#erlang-}-${version}
+hostmakedepends="erlang make"
+depends="erlang>=16"
+broken="error"

@@ -1,0 +1,17 @@
+# Template file for 'erlang-gun'
+
+pkgname="erlang-gun"
+version="1.0.0"
+revision=1
+build_style=erlang-mk
+short_desc="HTTP/1.1, HTTP/2 and Websocket client for Erlang/OTP."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="ISC"
+homepage="https://github.com/ninenines/gun"
+distfiles="https://github.com/ninenines/${pkgname#erlang-}/archive/master.tar.gz"
+checksum="6e50cb406f17b31f1ef12dfd26b90a98afbeb11f551b17a9f5158674df44a926"
+hostmakedepends="erlang make perl git"
+depends="erlang-cowlib erlang-ranch"
+wrksrc=${pkgname#erlang-}-master
+
+

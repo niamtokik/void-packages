@@ -1,0 +1,16 @@
+cassandra:
+  website: https://cassandra.apache.org/ 
+  manual: https://cassandra.apache.org/doc/latest/
+  language: java
+  repository:
+    git: 
+      official: http://git-wip-us.apache.org/repos/asf/cassandra.git
+      github: https://github.com/apache/cassandra
+  binary:
+    official:
+    mirrors:
+      - http://apache.mirrors.ovh.net/ftp.apache.org/dist/cassandra/
+  package:
+    freebsd: https://www.freshports.org/databases/cassandra2
+    netbsd: http://pkgsrc.se/databases/apache-cassandra2
+

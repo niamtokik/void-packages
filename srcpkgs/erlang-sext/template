@@ -1,0 +1,16 @@
+# Template file for 'erlang-sext'
+
+pkgname="erlang-sext"
+version="1.4.0"
+revision=1
+build_style=erlang-rebar2
+short_desc="Sortable Erlang Term Serialization"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/uwiger/sext"
+distfiles="https://github.com/uwiger/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="a0e55aa5414332a3a290933e5dcf824fc31cb9444075e0d52b73f0a832851d51"
+hostmakedepends="erlang make curl git"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+broken="git error"

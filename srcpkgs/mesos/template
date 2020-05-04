@@ -1,0 +1,19 @@
+# Template build file for 'mesos'.
+pkgname=mesos
+version=1.1.0
+revision=1
+build_style=gnu-configure
+configure_args=""
+short_desc="Apache Mesos is a cluster manager."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+homepage="https://mesos.apache.org/"
+license="GPL-3"
+distfiles="http://www.apache.org/dist/mesos/${version}/mesos-${version}.tar.gz"
+checksum="0f6d591eff78483e07bee93aed4553c69064f7870b216817a0085def3569b2c1"
+hostmakedepends="openjdk openjdk-jre zlib-devel apr-devel libcurl-devel
+		 apache-maven-bin cyrus-sasl-modules libsasl-devel
+		 subversion-devel python python-devel"
+depends="openjdk openjdk-jre zlib-devel apr-devel libcurl-devel
+	 apache-maven-bin cyrus-sasl-modules libsasl-devel
+	 subversion-devel python>=2.6 python-devel>=2.6"
+

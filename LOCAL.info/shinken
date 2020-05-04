@@ -1,0 +1,6 @@
+shinken:
+  website: http://www.shinken-monitoring.org/
+  manual:
+  repository:
+    git:
+      official: https://github.com/naparuba/shinken

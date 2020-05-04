@@ -1,0 +1,15 @@
+# Template file for 'erlang-quickrand'
+
+pkgname="erlang-quickrand"
+version="1.6.0"
+revision=1
+build_style=erlang-rebar3
+short_desc="Quick Erlang Random Number Generation"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/okeuday/quickrand"
+distfiles="https://github.com/okeuday/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="67a4a652be79e35094edb65cdac7bc6e273de3ae5f11652938d405d34d881281"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

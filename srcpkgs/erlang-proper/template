@@ -1,0 +1,15 @@
+# Template file for 'erlang-proper'
+
+pkgname="erlang-proper"
+version="1.2"
+revision=1
+build_style=erlang-rebar3
+short_desc="PropEr: a QuickCheck-inspired property-based testing tool for Erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/manopapad/proper/"
+distfiles="https://github.com/manopapad/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="ec5e1087652640dfc33db82e53130b73e4ad9193dafc8662cda0fccf8a7a7f0e"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

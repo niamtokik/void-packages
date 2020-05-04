@@ -1,0 +1,15 @@
+# Template file for 'erlang-jsx'
+
+pkgname="erlang-jsx"
+version="2.8.2"
+revision=1
+build_style=erlang-rebar3
+short_desc="An erlang application for consuming, producing and manipulating json"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/talentdeficit/jsx"
+distfiles="https://github.com/talentdeficit/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="d2f9581569da3612bc82d44810ae07e03501821d7d37adff8234b8ebe6943293"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

@@ -1,0 +1,35 @@
+# Template build file for 'kafka'.
+
+pkgname="kafka"
+version="0.10.1.1"
+revision=1
+build_style=gnu-configure
+short_desc="Distributed streaming platform."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://kafka.apache.org/"
+distfiles="http://apache.mirrors.ovh.net/ftp.apache.org/dist/${pkgname}/${version}/${pkgname}-${version}-src.tgz"
+checksum="fa281b8899a39e7f6d67880d0f0c885a258d0807d252a3d54ef244968d97f3d0"
+hostmakedepends="gradle openjdk openjdk-jre"
+wrksrc=${pkgname}-${version}-src
+
+do_configure() {
+	gradle
+}
+
+do_build() {
+	_make_jar
+	_make_doc
+}
+
+_make_jar() {
+	./gradlew jar
+}
+
+_make_doc() {
+	./gradlew javadoc
+}
+
+_make_test() {
+	./gradlew test
+}

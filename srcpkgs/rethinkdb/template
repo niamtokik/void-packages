@@ -1,0 +1,12 @@
+# Template build file for 'rethinkdb'.
+
+pkgname="rethinkdb"
+version="2.3.5"
+revision=1
+build_style=gnu-configure
+short_desc="The open-source database for the realtime web."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://www.rethinkdb.com/"
+distfiles="https://github.com/rethinkdb/${pkgname}/archive/v${version}.tar.gz"
+checksum="2bd97303c127885cb7a424a2f1fc3eab62a1afb0b7e5503653d988150151d320"

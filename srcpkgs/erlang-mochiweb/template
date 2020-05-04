@@ -1,0 +1,19 @@
+# Template file for 'erlang-mochiweb'
+
+pkgname="erlang-mochiweb"
+version="2.16.0"
+revision=1
+build_style=erlang-rebar2
+short_desc="MochiWeb is an Erlang library for building lightweight HTTP servers."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license=MIT""
+homepage="https://github.com/mochi/mochiweb"
+distfiles="https://github.com/mochi/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="3754c5db8a16edc59f7b585715ecfa5225ffb07ab01ca13aa3757f6b38ae0cf1"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_build() {
+	make
+}

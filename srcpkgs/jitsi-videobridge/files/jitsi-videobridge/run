@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ -r conf ] && . ./conf
+exec /usr/share/jitsi-videobridge/jvb.sh \
+	--host=${XMPP_HOST} \
+	--domain=${XMPP_DOMAIN} \
+	--port=${XMPP_PORT} \
+	--secret=${XMPP_SECRET} \
+	${VIDEOBRIDGE_OPTS} 

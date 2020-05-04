@@ -1,0 +1,20 @@
+# sets the hostname of the XMPP server
+XMPP_HOST=localhost
+
+# sets the XMPP domain 
+XMPP_DOMAIN=localhost
+
+# sets the port of the XMPP server (default: 5275)
+XMPP_PORT=5275
+
+# sets the shared secret used to authenticate to the XMPP server
+XMPP_SECRET=""
+
+# sets the sub-domain used to bind JVB XMPP component
+XMPP_SUBDOMAIN="jitsi-videobridge"
+
+# APIS where APIS is a comma separated list of APIs to enable
+XMPP_APIS="xmpp"
+
+# other
+VIDEOBRIDGE_OPTS="--subdomain=${XMPP_SUBDOMAIN} --apis=${XMPP_APIS}"

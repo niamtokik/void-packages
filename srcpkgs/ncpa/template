@@ -1,0 +1,12 @@
+# Template file for 'ncpa'
+
+pkgname="ncpa"
+version="2.0.2"
+revision=1
+build_style=gnu-configure
+short_desc="Nagios Cross Platform Agent"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://www.nagios.org"
+distfiles="https://github.com/NagiosEnterprises/${pkgname}/archive/v${version}.tar.gz"
+checksum="804145f5b4096e2aa64e1021028e58be85cce4c6b4803a733fa71f29045c6bd9"

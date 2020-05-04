@@ -1,0 +1,7 @@
+riak:
+  website: http://basho.com/products/
+  repository:
+    git:
+      official: https://github.com/basho/riak
+
+# require erlang R16/R17

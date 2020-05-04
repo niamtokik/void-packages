@@ -1,0 +1,18 @@
+# Template file for 'graylog2-server'
+
+pkgname="graylog2-server"
+version="2.2.0"
+revision=1
+build_style=gnu-configure
+short_desc="open-source log manager"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3.0"
+homepage="https://www.graylog.org/"
+distfiles="https://github.com/Graylog2/${pkgname}/archive/2.2.0.tar.gz"
+checksum="9dffbac1298b4278181b7de317e4b656f35a0786aed8d2a046407961a5740dd9"
+hostmakedepends="openjdk openjdk-jre"
+depends="openjdk openjdk-jre"
+
+do_build() {
+	mvn compile
+}

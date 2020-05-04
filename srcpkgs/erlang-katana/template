@@ -1,0 +1,16 @@
+# Template file for 'erlang-katana'
+
+pkgname="erlang-katana"
+version="0.1"
+_commit="909e4eb6c4a8f7d404ca13ae0c4dba1cc25786ea"
+revision=1
+build_style=erlang-rebar2
+short_desc="erlang grab bag of useful functions."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="MIT"
+homepage="https://github.com/unbalancedparentheses/erlang-katana"
+distfiles="https://github.com/unbalancedparentheses/${pkgname}/archive/${_commit}.tar.gz"
+checksum="7c6849f2b055a1067e2b21d0e61a2186bfe8ade897e1a82819b985c4afb9070e"
+hostmakedepends="erlang make curl"
+depends="erlang>=16"
+wrksrc=${pkgname}-${_commit}

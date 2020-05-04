@@ -1,0 +1,24 @@
+# Template build file for 'hadoop'.
+
+pkgname="hadoop"
+version=2.7.3
+revision=1
+build_style=gnu-configure
+configure_args=""
+short_desc="Distributed processing of large data sets across clusters."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+homepage="https://hadoop.apache.org/"
+license="GPL-3"
+distfiles="http://apache.trisect.eu/hadoop/common/hadoop-${version}/hadoop-${version}-src.tar.gz"
+checksum=227785dc6e3e6ef8cfd64393b305d09078a209703c9c01910a1bddcf86be3054
+wrksrc=${pkgname}-${version}-src
+hostmakedepends="openjdk openjdk-jre apache-maven-bin 
+                 protobuf-devel cmake zlib-devel fuse-devel"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	mvn compile
+}

@@ -1,0 +1,15 @@
+# Template file for 'erlang-meck'
+
+pkgname="erlang-meck"
+version="0.8.4"
+revision=1
+build_style=erlang-rebar2
+short_desc="A mocking library for Erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/eproxus/meck/"
+distfiles="https://github.com/eproxus/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="b4f951841c69a75a735ea4aea682899f19f254467c749df596f90757e51104b6"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

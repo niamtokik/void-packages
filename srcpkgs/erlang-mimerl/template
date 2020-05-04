@@ -1,0 +1,15 @@
+# Template file for 'erlang-mimerl'
+
+pkgname="erlang-mimerl"
+version="1.1.1"
+revision=1
+build_style=erlang-rebar3
+short_desc="library to handle mimetypes"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/benoitc/mimerl/tree/1.1.1"
+distfiles="https://github.com/benoitc/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="36b21bf63354d571657b7fa84bb6d4f20ec1dbcecd01e44fcefc1c213954a76b"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

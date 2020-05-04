@@ -1,0 +1,15 @@
+# Template file for 'erlang-cowboy_swagger'
+
+pkgname="erlang-cowboy_swagger"
+version="1.2.2"
+revision=1
+build_style=erlang-rebar3
+short_desc="Swagger integration for Cowboy"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/inaka/cowboy_swagger"
+distfiles="https://github.com/inaka/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="17b6e9ea1ee46690db800c1d468940d8fee72a44b5ab930b9576933e10777dee"
+hostmakedepends="erlang rebar3"
+wrksrc=${pkgname#erlang-}-${version}
+

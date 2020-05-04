@@ -1,0 +1,12 @@
+# Template file for 'metasploit-framework'
+
+pkgname="metasploit-framework"
+version="4.13.19"
+revision=1
+build_style=gnu-configure
+short_desc="Metasploit Framework"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="http://metasploit.com/"
+distfiles="https://github.com/rapid7/${pkgname}/archive/${version}.tar.gz"
+checksum="95a0faa44cabff6dea380667f090969988e7dbe0a6a147ecca4be95e42152f9b"

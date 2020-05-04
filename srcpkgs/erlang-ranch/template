@@ -1,0 +1,24 @@
+# Template file for 'erlang-ranch'
+
+pkgname="erlang-ranch"
+version="1.3.2"
+revision=1
+build_style=erlang-mk
+short_desc="Socket acceptor pool for TCP protocols."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ninenines/ranch"
+distfiles="https://github.com/ninenines/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="b76c164e092373f91e9bfb6d7afef8ca0cfc00175adc4f26b59ef2d02ba2643a"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_build() {
+	# this release (1.3.2) seems buggy.
+	# need to clean first and manually build app
+	make clean
+	make ranch.d
+	make ebin/ranch.app
+	make app
+}

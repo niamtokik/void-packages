@@ -1,0 +1,6 @@
+hadoop:
+  website: http://hadoop.apache.org/
+  manual:
+  repository:
+    git:
+      official:  https://github.com/apache/hadoop

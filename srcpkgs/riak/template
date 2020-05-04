@@ -1,0 +1,18 @@
+# Template build file for 'riak'.
+pkgname="riak"
+version="2.1.1"
+revision=1
+build_style=""
+short_desc="Riak is a decentralized datastore from Basho Technologies"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://basho.com/products/"
+distfiles="http://s3.amazonaws.com/downloads.basho.com/${pkgname}/${version%.*}/${version}/riak-${version}.tar.gz"
+checksum="b5414e7bab650862c26fbbad382b81d47135ce55eafd02fdac027d3bff90a5ae"
+hostmakedepends="erlang<=17"
+makedepends="erlang<=17"
+depends="erlang<=17"
+
+do_install() {
+	:
+}

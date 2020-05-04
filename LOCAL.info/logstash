@@ -1,0 +1,5 @@
+logstash:
+  website: http://www.elastic.co/products/logstash
+  repository:
+    git:
+      official: https://github.com/elastic/logstash

@@ -1,0 +1,15 @@
+# Template file for 'erlang-eper'
+
+pkgname="erlang-eper"
+version="0.97.6"
+revision=1
+build_style=erlang-rebar2
+short_desc="Erlang performance and debugging tool"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/massemanet/eper"
+distfiles="https://github.com/massemanet/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="efa35dea6350b564a28a426ccfd34b9194e5905fe43dc5632c9c451015f3773b"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

@@ -1,0 +1,21 @@
+# Template build file for 'sheepdog'.
+pkgname="sheepdog"
+version="1.0.1"
+revision=1
+build_style=gnu-configure
+short_desc="
+Distributed Storage System for QEMU"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="http://sheepdog.github.io/sheepdog/"
+distfiles="https://github.com/sheepdog/${pkgname}/archive/v${version}.tar.gz"
+checksum="0c4f454d6185617f67e6ebe60c6735f481ea46460c84e2132a1c47090cf8b857"
+hostmakedepends="autoconf automake libtool pkg-config yasm liburcu-devel
+                 fuse-devel corosync"
+shlib_requires="libcpg.so.4 libcfg.so.6"
+configure_args="--prefix=/usr --sbindir=/usr/bin --with-check=yes"
+shlib_provides="libsheepdog.so"
+
+pre_configure() {
+	sh autogen.sh
+}

@@ -1,0 +1,16 @@
+# Template file for 'erlang-base64url'
+
+pkgname="erlang-base64url"
+version="1.0"
+revision=1
+build_style=erlang-rebar2
+short_desc="URL safe base64-compatible codec"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/dvv/base64url"
+distfiles="https://github.com/dvv/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="73d15d618741e59b5ba260e2478f566c6bb30b01c23340157204e78d228a2c7e"
+hostmakedepends="erlang make curl"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+

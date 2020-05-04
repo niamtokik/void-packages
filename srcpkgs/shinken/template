@@ -1,0 +1,16 @@
+# Template file for 'shinken'
+
+pkgname="shinken"
+version="2.4.3"
+revision=1
+build_style=python2-module
+short_desc="Flexible and scalable monitoring framework"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL"
+homepage="http://www.shinken-monitoring.org/"
+distfiles="https://github.com/naparuba/${pkgname}/archive/${version}.tar.gz"
+checksum="393f28c6887bcbacab597f78903e961fbc8ed63a62d486e4783f3bfe50c51400"
+hostmakedepends="python python-setuptools"
+depends="python python-curl python-CherryPy"
+system_groups="shinken"
+system_accounts="shinken"

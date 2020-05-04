@@ -1,0 +1,19 @@
+# Template file for 'erlang-cowlib'
+
+pkgname="erlang-cowlib"
+version="1.0.2"
+revision=1
+build_style=erlang-mk
+short_desc="Support library for manipulating Web protocols."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ninenines/cowlib"
+distfiles="https://github.com/ninenines/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="fa4cf937668408e5a6ad16eda7c935b85100280b70d46037fe29e35af046114e"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_build() {
+	make all ERLC_OPTS=+debug_info
+}

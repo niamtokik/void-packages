@@ -1,0 +1,5 @@
+graylog:
+  website: https://www.graylog.org/
+  manual: http://docs.graylog.org/en/2.2/
+  package:
+    freebsd: https://www.freshports.org/sysutils/graylog/

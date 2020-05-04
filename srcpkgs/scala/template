@@ -1,0 +1,27 @@
+# Template build file for 'scala'.
+
+pkgname="scala"
+version="2.12.1"
+revision=1
+build_style=gnu-configure
+short_desc="Functional and objec-oriented language."
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://www.scala-lang.org"
+distfiles="https://github.com/scala/${pkgname}/archive/v${version}.tar.gz"
+checksum="edff94803a632139c132d23b103e0482317d3ecf1c745721501365b28eb02c90"
+hostmakedepends="openjdk openjdk-jre curl"
+
+_sbt="https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt"
+
+do_configure() {
+	curl -s ${_sbt} > sbt && chmod 0755 sbt
+}
+
+do_build() {
+	./sbt compile
+}
+
+do_install() {
+	:
+}

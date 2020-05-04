@@ -1,0 +1,18 @@
+# Template file for 'erlang-uuid'
+
+pkgname="erlang-uuid"
+version="0.5.0"
+revision=1
+build_style=erlang-rebar2
+short_desc="Erlang UUID"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL-3"
+homepage="https://github.com/avtobiff/erlang-uuid"
+distfiles="https://github.com/avtobiff/${pkgname}/archive/v${version}.tar.gz"
+checksum="5a6e8dc684d830f301841e8b97f686932f47b91ee187b23bde7572f43d986a4e"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+
+do_build() {
+	make build
+}

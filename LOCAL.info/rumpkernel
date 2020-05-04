@@ -1,0 +1,7 @@
+rumpkernel:
+  website: http://rumpkernel.org/
+  repository:
+    git:
+      official:  https://github.com/rumpkernel
+
+# error during build test with stack protector

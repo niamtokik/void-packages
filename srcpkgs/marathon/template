@@ -1,0 +1,28 @@
+# Template file for 'marathon'
+
+pkgname="marathon"
+version="1.4.0"
+revision=1
+build_style=java-sbt
+short_desc="Deploy and manage containers on top of Apache Mesos at scale"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/mesosphere/marathon"
+distfiles="https://github.com/mesosphere/${pkgname}/archive/v${version}.tar.gz"
+checksum="09a91acdeb038a2baf803226ef9dd93b530d23c895faff15aba7cb932d07139f"
+hostmakedepends="openjdk openjdk-jre mesos curl"
+depends="mesos docker"
+
+do_build() {
+	./sbt
+	./sbt compile
+}
+
+do_install() {
+	# sbt build files in 'target' directory
+	# vmkdir usr/lib/scala
+	# vcopy target/scala-*/classes usr/lib/scala
+	# vbin bin/marathon
+	# vbin bin/start marathin-start
+	:
+}

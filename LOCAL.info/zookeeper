@@ -1,0 +1,13 @@
+zookeeper:
+  website: http://zookeeper.apache.org/
+  manual: https://zookeeper.apache.org/doc/trunk
+  language: java
+  repository:
+    git:
+      github: https://github.com/apache/zookeeper
+  package:
+    freebsd: https://www.freshports.org/devel/zookeeper/
+    netbsd: http://pkgsrc.se/devel/zookeeper
+    gentoo: https://packages.gentoo.org/packages/sys-cluster/zookeeper-bin
+    debian: https://packages.debian.org/sid/zookeeper
+    

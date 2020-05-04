@@ -1,0 +1,7 @@
+spark:
+  website: https://spark.apache.org/
+  repository:
+    git:
+      official: https://github.com/apache/spark 
+  package:
+    freebsd: https://www.freshports.org/devel/spark/

@@ -1,0 +1,12 @@
+# Template build file for 'openswan'.
+
+pkgname="openswan"
+version="3.0.14"
+revision=1
+build_style=gnu-configure
+short_desc="Openswan is an IPsec implementation for Linux"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="GPL"
+homepage="https://www.openswan.org/"
+distfiles="https://github.com/xelerance/Openswan/archive/v${version}.tar.gz"
+checksum="d3498b9f5b4c6f79e7efabf67a75b4a6cae034bb65d1b0830269043f525f0f72"

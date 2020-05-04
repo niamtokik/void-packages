@@ -1,0 +1,20 @@
+# Template file for 'erlang-ibrowse'
+
+pkgname="erlang-ibrowse"
+version="4.4.0"
+revision=1
+build_style=erlang-rebar2
+short_desc="Erlang HTTP client"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/cmullaparthi/ibrowse"
+distfiles="https://github.com/cmullaparthi/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="cb0be3ae5ca070cf7af4ebc316036b2355be33073adbc31c21fc5c1924b588dc"
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_build() {
+	make
+}
+

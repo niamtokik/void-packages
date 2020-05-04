@@ -1,0 +1,14 @@
+# Template file for 'go-gdm'
+pkgname=go-gox
+version=0.4.0
+revision=1
+build_style=go
+hostmakedepends="git"
+short_desc="ok"
+maintainer="ok"
+license="ok"
+go_import_path="github.com/mitchellh/gox"
+homepage="https://${go_import_path}"
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum="2df7439e9901877685ff4e6377de863c3c2ec4cde43d0ca631ff65d1b64774ad"
+wrksrc="gox-${version}"

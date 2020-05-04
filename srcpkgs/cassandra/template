@@ -1,0 +1,22 @@
+# Template file for 'cassandra'
+
+pkgname="cassandra"
+version="3.0.11"
+revision=1
+build_style=gnu-configure
+short_desc=" Manage massive amounts of data, fast, without losing sleep "
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://cassandra.apache.org/"
+distfiles="https://github.com/apache/${pkgname}/archive/${pkgname}-${version}.tar.gz"
+checksum="471fc2f4aa722affccf459b43a03baeca2022541c050ca00aaa18be5ffba71d8"
+wrksrc="${pkgname}-cassandra-${version}"
+hostmakedepends="openjdk apache-ant"
+
+do_configure() {
+	       :
+}
+
+do_build() {
+	   ant
+}

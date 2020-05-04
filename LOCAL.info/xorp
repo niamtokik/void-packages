@@ -1,0 +1,8 @@
+xorp:
+  website: http://www.xorp.org/
+  repository:
+    git:
+      official: https://github.com/greearb/xorp.ct
+  package:
+    freebsd: https://www.freshports.org/net/xorp/
+    netbsd: http://pkgsrc.se/net/xorp

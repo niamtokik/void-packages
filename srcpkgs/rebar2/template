@@ -1,0 +1,23 @@
+# Template file for 'rebar2'
+
+pkgname="rebar2"
+version="2.6.4"
+revision=1
+build_style=erlang-emake
+short_desc="Deprecated Erlang build tool"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/rebar/rebar"
+distfiles="https://github.com/rebar/${pkgname#2}/blob/${version}.tar.gz"
+checksum=""
+hostmakedepends="erlang make"
+depends="erlang>=16"
+wrksrc="${pkgname#2}-${version}"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	make all
+}

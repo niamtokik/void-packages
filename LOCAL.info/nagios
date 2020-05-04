@@ -1,0 +1,5 @@
+nagios:
+  website: https://www.nagios.org
+  repository:
+    git:
+      official: https://github.com/NagiosEnterprises/nagioscore

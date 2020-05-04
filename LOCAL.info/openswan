@@ -1,0 +1,5 @@
+openswan:
+  website: https://www.openswan.org/
+  repository:
+    git:
+      official: https://github.com/xelerance/Openswan

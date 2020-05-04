@@ -1,0 +1,22 @@
+# Template file for 'zinc'
+
+pkgname="zinc"
+version="0.3.13"
+revision=1
+build_style=gnu-configure
+short_desc="sbt's scala incremental compiler"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/typesafehub/zinc/tree/v0.3.13"
+distfiles="https://github.com/typesafehub/${pkgname}/archive/v${version}.tar.gz"
+checksum="80d841a91ac8fbde6562422cf3837259113ab1b5eb53a98c87d24f69a7d363c5"
+hostmakedepends="sbt scala"
+broken="need sbt"
+
+do_configure() {
+	:
+}
+
+do_build() {
+	sbt
+}

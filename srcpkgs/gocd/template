@@ -1,0 +1,13 @@
+# Template file for 'gocd'
+
+pkgname="gocd"
+version="17.1.0"
+revision=1
+build_style=gnu-configure
+short_desc="Continuous Delivery server"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/gocd/gocd"
+distfiles="https://github.com/gocd/${pkgname}/archive/${version}.tar.gz"
+checksum="55c4c93cdb964c5616cd62206cf371547e16397519962fcedaefd8ab466de03e"
+hostmakedepends="openjdk openjdk-jre ruby"

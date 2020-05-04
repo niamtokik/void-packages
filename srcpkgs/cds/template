@@ -1,0 +1,36 @@
+# Template file for 'cds'
+
+pkgname="cds"
+version="0.26.0"
+revision=1
+build_style=go
+short_desc="Continuous Delivery Service (Engine / SDK / CLI)"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/ovh/cds"
+distfiles="https://github.com/ovh/${pkgname}/archive/${version}.tar.gz"
+checksum="8416db8a5b92da150a2f0bbb256ba0b65369aaab0ad02a09de8f9caaea0e9646"
+hostmakedepends="git glide"
+go_store=$(echo ${homepage} |sed -Ee "s;^(http|https)://;;")
+
+do_configure() {
+	mkdir -p ${GOPATH}/src/${go_store%/*}
+	ln -s ${wrksrc} ${GOPATH}/src/${go_store}
+}
+
+# do_build() {
+# 	go install ${go_store}
+# 	go get github.com/kardianos/govendor
+# 	go install github.com/kardianos/govendor
+# 	cd ${GOPATH}/src
+# 	${GOPATH}/bin/govendor install +external +local
+# }
+
+do_install() {
+	vinstall ${GOPATH}/bin/cds 555 usr/bin
+	vinstall ${GOPATH}/bin/worker 555 usr/bin cds-worker
+	vinstall ${GOPATH}/bin/api 555 usr/bin cds-api
+	vinstall ${GOPATH}/bin/caller 555 usr/bin/cds-caller
+	# vdoc "doc/*"
+}
+

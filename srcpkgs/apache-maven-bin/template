@@ -1,15 +1,15 @@
 # Template file for 'apache-maven-bin'
 pkgname=apache-maven-bin
-version=3.3.9
-revision=2
-wrksrc=apache-maven-3.3.9
+version=3.5.4
+revision=1
+wrksrc=apache-maven-3.5.4
 depends="virtual?java-environment which"
 short_desc="A tool for building and managing Java-based projects"
 maintainer="Spencer H <spencernh77@gmail.com>"
 license="Apache-2.0"
 homepage="https://maven.apache.org"
 distfiles="https://www-us.apache.org/dist/maven/maven-3/${version}/binaries/apache-maven-${version}-bin.tar.gz>apache-maven-${version}.tar.gz"
-checksum=6e3e9c949ab4695a204f74038717aa7b2689b1be94875899ac1b3fe42800ff82
+checksum="ce50b1c91364cb77efe3776f756a6d92b76d9038b0a0782f7d53acf1e997a14d"
 
 do_install() {
 	vmkdir opt/apache-maven

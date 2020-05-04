@@ -1,0 +1,15 @@
+# Template file for 'erlang-sut'
+
+pkgname="erlang-sut"
+version="0.1"
+revision=1
+build_style=erlang-rebar3
+short_desc="Six (IPv6 in IPv4) Userlspace Tunnel"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="BSD"
+homepage="https://github.com/msantos/sut"
+distfiles="https://github.com/msantos/${pkgname#erlang-}/archive/master.tar.gz"
+checksum="d0bf20262cff63fb73e7b36a4939eee9d5ff5b30d18fe9f19a8336f3c3abe6b5"
+hostmakedepends="erlang rebar3 git erlang-procket"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-master

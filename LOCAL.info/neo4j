@@ -1,0 +1,5 @@
+neo4j:
+  website: https://neo4j.com/open-source/
+  repository:
+    git:
+      official: https://github.com/neo4j/neo4j

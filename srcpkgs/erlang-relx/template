@@ -1,0 +1,15 @@
+# Template file for 'erlang-relx'
+
+pkgname="erlang-relx"
+version="3.22.2"
+revision=1
+build_style=erlang-rebar3
+short_desc="Sane, simple release creation for Erlang"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/erlware/relx"
+distfiles="https://github.com/erlware/${pkgname#erlang-}/archive/v${version}.tar.gz"
+checksum="497c5ebf17f3463a27aa77cdcaab55a066ea72c4a9e95e4fbd899c9f4c2ab27f"
+hostmakedepends="erlang rebar3"
+depends="erlang>=16"
+wrksrc=${pkgname#erlang-}-${version}

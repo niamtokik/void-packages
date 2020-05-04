@@ -1,0 +1,23 @@
+# Template file for 'erlang-eini'
+
+pkgname="erlang-eini"
+version="1.2.1"
+revision=1
+build_style=erlang-rebar2
+short_desc="An Erlang INI parser"
+maintainer="Mathieu Kerjouan <void@steepath.eu>"
+license="Apache-2.0"
+homepage="https://github.com/accense/eini/"
+distfiles="https://github.com/accense/${pkgname#erlang-}/archive/${version}.tar.gz"
+checksum="b46f5b1055ae23533782f09eb35731172c5cc0355d9dd0a07a7d380ccea3c4e9"
+hostmakedepends="erlang make erlang-covertool erlang-proper git"
+depends="erlang>=16 erlang-covertool erlang-proper"
+wrksrc=${pkgname#erlang-}-${version}
+
+do_configure() {
+	make deps
+}
+
+do_build() {
+	make compile
+}
