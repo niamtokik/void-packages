@@ -26,13 +26,11 @@ __Please don't use it! Its not production ready (yet)!!!__
 | jitsi             |   |   |   |   |   |   |         |
 | jitsi-sctp        |   |   |   |   |   |   |         |
 | jigasi            |   |   |   |   |   |   |         |
-| jibri             |   |   |   |   |   |   |         |
+| jibri             | X | X | X | X | X | X | 8.0     |
 | jitsi-rtp         |   |   |   |   |   |   |         |
 | jitsi-srtp        |   |   |   |   |   |   |         |
 | jitsi-hammer      |   |   |   |   |   |   |         |
 | smack             |   |   |   |   |   |   |         |
-
-
 
 ### P0 
 
