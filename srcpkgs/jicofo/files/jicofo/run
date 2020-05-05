@@ -1,0 +1,12 @@
+#!/bin/sh
+
+[ -f conf ] && . ./conf
+exec /usr/share/jicofo/jicofo.sh \
+	--host=${XMPP_HOST} \
+	--domain=${XMPP_DOMAIN} \
+	--port=${XMPP_PORT} \
+	--secret=${XMPP_SECRET} \
+	--user_name=${XMPP_USER_NAME} \
+	--user_domain=${XMPP_USER_DOMAIN} \
+	--user_password=${XMPP_USER_PASSWORD} \
+	${JICOFO_OPTS}

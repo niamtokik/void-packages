@@ -1,3 +1,43 @@
-# template file for 'jicofo'
+# Template file for 'jicofo'
+pkgname=jicofo
+version=4548
+revision=1
+archs=noarch
+hostmakedepends="openjdk8-jre openjdk8 apache-maven>=3.5.0 unzip"
+depends="openjdk8-jre"
+short_desc="jicofo"
+maintainer="Mathieu Kerjouan"
+license="Apache-2.0"
+homepage="https://www.jitsi.org"
+distfiles="https://github.com/jitsi/jicofo/archive/stable/jitsi-meet_${version}.zip"
+checksum=347724ae962d4d8d1792e8b0d1d5d3d719bc2e30fff68485d4f038a1fc5993a9
+wrksrc="jicofo-stable-jitsi-meet_${version}"
+conf_files="/etc/sv/jicofo/conf"
 
-homepage="https://github.com/jitsi/jicofo"
+do_build() {
+	export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre
+	mvn -B package --file pom.xml
+}
+
+post_build() {
+	unzip target/jicofo-1.1-SNAPSHOT-archive.zip
+}
+
+do_install() {
+	vmkdir usr/share/jicofo
+	vcopy jicofo-1.1-SNAPSHOT/jicofo.jar usr/share/jicofo
+	vcopy jicofo-1.1-SNAPSHOT/jicofo.sh usr/share/jicofo
+	vcopy jicofo-1.1-SNAPSHOT/lib/logging.properties usr/share/jicofo
+
+	vmkdir usr/share/jicofo/logrotate.d
+	vcopy resources/config/jicofo-logrotate.d usr/share/jicofo/logrotate.d/jicofo
+
+	vmkdir etc/jitsi/jicofo
+
+	vman debian/manpage.1 jicofo.1
+	vcopy jicofo-1.1-SNAPSHOT/lib usr/share/jicofo
+
+	vcopy doc usr/share/jicofo/
+
+	vsv jicofo
+}
