@@ -25,7 +25,7 @@ __Please don't use it! Its not production ready (yet)!!!__
 | prosody-jitsi     |   |   |   |   |   |   |         |
 | jitsi             |   |   |   |   |   |   |         |
 | jitsi-sctp        |   |   |   |   |   |   |         |
-| jigasi            |   |   |   |   |   |   |         |
+| jigasi            | X | X | X |   |   |   | 1.1     |
 | jibri             | X | X | X | X | X | X | 8.0     |
 | jitsi-rtp         |   |   |   |   |   |   |         |
 | jitsi-srtp        |   |   |   |   |   |   |         |
