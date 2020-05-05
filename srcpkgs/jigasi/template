@@ -2,7 +2,7 @@
 pkgname=jigasi
 version=1.1
 revision=1
-archs=noarch
+archs=x86_64
 hostmakedepends="openjdk8-jre openjdk8 apache-maven>=3.5.0 unzip"
 depends="openjdk8-jre"
 short_desc="jigasi"
@@ -20,16 +20,18 @@ do_build() {
 }
 
 post_build() {
-	echo test
-	# unzip target/jitsi-videobridge-2.1-SNAPSHOT-archive.zip
+	unzip target/jigasi-linux-x64-${version}-SNAPSHOT.zip
 }
 
 do_install() {
 	vmkdir usr/share/jigasi
-	vcopy jigasi.jar usr/share/jigasi
-	vcopy jigasi.sh usr/share/jigasi
-	vcopy graceful_shutdown.sh usr/share/jigasi
-	vcopy collect-dump-logs.sh usr/share/jigasi
+	vcopy jigasi-linux-x64-${version}-SNAPSHOT/lib usr/share/jigasi
+	vcopy jigasi-linux-x64-${version}-SNAPSHOT/jigasi.sh usr/share/jigasi
+	vcopy jigasi-linux-x64-${version}-SNAPSHOT/graceful_shutdown.sh usr/share/jigasi
+	vcopy jigasi-linux-x64-${version}-SNAPSHOT/jigasi-${version}-SNAPSHOT.jar usr/share/jigasi/jigasi.jar
+	vcopy jigasi-linux-x64-${version}-SNAPSHOT/jigasi-${version}-SNAPSHOT-native-linux-64.jar usr/share/jigasi/jigasi-native.jar
+	vcopy script/collect-dump-logs.sh usr/share/jigasi
+	vcopy sript/example_handle_transcript_directory.sh usr/share/jigasi
 
 	vmkdir etc/jitsi/jigasi
 	vcopy lib/logging.properties etc/jitsi/jigasi
