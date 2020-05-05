@@ -1,3 +1,45 @@
 # template file for 'jibri'
 
 homepage="https://github.com/jitsi/jibri"
+pkgname=jibri
+version=8.0
+revision=1
+archs=noarch
+hostmakedepends="openjdk8-jre openjdk8 apache-maven>=3.5.0 unzip"
+depends="openjdk8-jre chromium ffmpeg curl alsa-utils icewm xdotool xf86-video-dummy"
+short_desc="jibri"
+maintainer="Mathieu Kerjouan"
+license="Apache-2.0"
+distfiles="https://github.com/jitsi/jibri/archive/v${version}.zip"
+checksum=931e7832b18eee16cb425d70518c9575ab28da94c73c3d1f1648741081354f30
+wrksrc="jibri-${version}"
+# conf_files="/etc/sv/jitsi-videobridge/conf"
+
+do_build() {
+	export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre
+	mvn -B package --file pom.xml
+}
+
+do_install() {
+	vmkdir usr/share/jibri
+	vcopy target/jibri-8.0-SNAPSHOT-jar-with-dependencies.jar usr/share/jibri/jibri.jar
+	vcopy resources/debian-package/opt/jitsi/jibri/launch.sh usr/share/jibri
+	vcopy resources/debian-package/opt/jitsi/jibri/graceful_shutdown.sh usr/share/jibri
+	vcopy resources/debian-package/opt/jitsi/jibri/shutdown.sh usr/share/jibri
+	vcopy resources/debian-package/opt/jitsi/jibri/collect-dump-logs.sh usr/share/jibri
+
+	vmkdir usr/share/jibri/alsa
+	vcopy resources/debian-package/etc/jitsi/jibri/asoundrc usr/share/jibri/alsa
+
+	vmkdir usr/share/jibri/icewm
+	vcopy resources/debian-package/etc/jitsi/jibri/icewm.preferences usr/share/jibri/icewm
+
+	vmkdir usr/share/jibri/xorg
+	vcopy resources/debian-package/etc/jitsi/jibri/xorg-video-dummy.conf usr/share/jibri/xorg
+
+	vmkdir etc/jitsi/jibri
+	vcopy lib/logging.properties etc/jitsi/jibri
+	vcopy resources/debian-package/etc/jitsi/jibri/config.json etc/jitsi/jibri
+
+	vsv jibri
+}
