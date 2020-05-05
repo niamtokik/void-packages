@@ -15,6 +15,25 @@ __Please don't use it! Its not production ready (yet)!!!__
  * I ⇒ install   → install package 
  * T ⇒ test      → functional test on installed package
 
+### Video Conference
+
+| Name              | F | C | B | P | I | T | version | Notes |
+|-------------------|---|---|---|---|---|---|---------|-------|
+| jitsi-videobridge | X | X | X | X | X | X | 4548    | 
+| jicofo            | X | X | X | X | X | X | 4548    |
+| jitsi-meet        |   |   |   |   |   |   |         |
+| prosody-jitsi     |   |   |   |   |   |   |         |
+| jitsi             |   |   |   |   |   |   |         |
+| jitsi-sctp        |   |   |   |   |   |   |         |
+| jigasi            |   |   |   |   |   |   |         |
+| jibri             |   |   |   |   |   |   |         |
+| jitsi-rtp         |   |   |   |   |   |   |         |
+| jitsi-srtp        |   |   |   |   |   |   |         |
+| jitsi-hammer      |   |   |   |   |   |   |         |
+| smack             |   |   |   |   |   |   |         |
+
+
+
 ### P0 
 
 | Name             | F | C | B | P | I | T | version | Notes |
